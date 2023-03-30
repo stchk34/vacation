@@ -1,0 +1,90 @@
+@mixin form-btn {
+  color: #fff;
+  background: $blue;
+  height: 38px;
+  padding: 10px 20px;
+  transition: all .3s;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  outline: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    background-color: #02338d;
+  }
+}
+
+@mixin form-input {
+  margin: 3px 0 0;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 300;
+  color: #222;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  box-shadow: none;
+  outline: 0;
+  appearance: none;
+  transition: all .3s;
+  background-color: #fff;
+  &:active {
+    border: 1px solid #424141;
+  }
+  &:focus {
+    outline: none;
+    border: 1px solid #023CA7;
+  }
+}
+
+@mixin pager {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+  font-size: 16px;
+  li {
+    margin: 0 10px;
+    width: 35px;
+    height: 35px;
+    transition: all .3s ease-in-out;
+    color: #1b419b;
+    cursor: pointer;
+    text-align: center;
+
+    &.active {
+      padding-top: 6px;
+    }
+
+    a {
+      display: block;
+      width: 35px;
+      height: 35px;
+      padding-top: 6px;
+    }
+
+    a:visited {
+      color: #1b419b;
+    }
+
+    &.active {
+      color: white;
+      font-weight: 500;
+      background-color: #1b419b;
+    }
+
+    &:hover {
+      background-color: #1b419b;
+
+      a {
+        color: white;
+      }
+
+      a:focus {
+        color: white;
+      }
+    }
+  }
+}
