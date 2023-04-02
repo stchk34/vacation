@@ -58,6 +58,7 @@
         "drupal/rules_token": "^2.0",
         "drupal/rules_user_fields": "^2.0",
         "drupal/scheduler": "^1.5",
+        "drupal/simple_cron": "^1.0",
         "drupal/smart_date": "^3.7",
         "drupal/smtp": "^1.2",
         "drupal/user_redirect": "^2.0",
