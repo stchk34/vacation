@@ -58,9 +58,9 @@
         "drupal/rules_token": "^2.0",
         "drupal/rules_user_fields": "^2.0",
         "drupal/scheduler": "^1.5",
-        "drupal/simple_cron": "^1.0",
         "drupal/smart_date": "^3.7",
         "drupal/smtp": "^1.2",
+        "drupal/ultimate_cron": "^2.0@alpha",
         "drupal/user_redirect": "^2.0",
         "drupal/vercf": "^1.0",
         "drupal/views_add_button": "^1.8",
@@ -96,6 +96,9 @@
           },
           "drupal/views_cm_current_state": {
               "Add current state": "https://www.drupal.org/files/issues/2022-02-01/add-current-moderation-filter-3158762-6.patch"
+          },
+           "drupal/rules": {
+              "Entity integrity check": "https://www.drupal.org/files/issues/2021-01-29/3059402-22.entity_integrity_check.patch"
           }
         },
         "installer-paths": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f4d7fe806b95ba0f022f6d05b2b2b90",
+    "content-hash": "52e6161249d30ab0f0249969f9bdd62a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1385,67 +1385,6 @@
             },
             "abandoned": "roave/better-reflection",
             "time": "2022-05-31T18:46:25+00:00"
-        },
-        {
-            "name": "dragonmantank/cron-expression",
-            "version": "v3.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "782ca5968ab8b954773518e9e49a6f892a34b2a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/782ca5968ab8b954773518e9e49a6f892a34b2a8",
-                "reference": "782ca5968ab8b954773518e9e49a6f892a34b2a8",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "webmozart/assert": "^1.0"
-            },
-            "replace": {
-                "mtdowling/cron-expression": "^1.0"
-            },
-            "require-dev": {
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-webmozart-assert": "^1.0",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Cron\\": "src/Cron/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Tankersley",
-                    "email": "chris@ctankersley.com",
-                    "homepage": "https://github.com/dragonmantank"
-                }
-            ],
-            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
-            "keywords": [
-                "cron",
-                "schedule"
-            ],
-            "support": {
-                "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/dragonmantank",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-09-10T18:51:20+00:00"
         },
         {
             "name": "drupal/access_by_ref",
@@ -4608,68 +4547,6 @@
             }
         },
         {
-            "name": "drupal/simple_cron",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/simple_cron.git",
-                "reference": "1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simple_cron-1.0.0.zip",
-                "reference": "1.0.0",
-                "shasum": "d2a10a19294a66380c10f474844dc02141bd9b76"
-            },
-            "require": {
-                "dragonmantank/cron-expression": "^3.1.0",
-                "drupal/core": "^8.9 || ^9",
-                "php": ">=7.2.0"
-            },
-            "conflict": {
-                "drupal/ultimate_cron": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0",
-                    "datestamp": "1622731626",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Edvinas Baranauskas",
-                    "homepage": "https://www.drupal.org/user/3276924",
-                    "email": "edvinas.baranauskas958822@gmail.com"
-                }
-            ],
-            "description": "Simple cron module for simple cron implementation and administration",
-            "homepage": "https://www.drupal.org/project/simple_cron",
-            "keywords": [
-                "Cron",
-                "Drupal",
-                "Simple cron",
-                "simple_cron"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/simple_cron",
-                "issues": "https://www.drupal.org/project/issues/simple_cron"
-            }
-        },
-        {
             "name": "drupal/smart_date",
             "version": "3.7.2",
             "source": {
@@ -4933,6 +4810,75 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/typed_data",
                 "issues": "https://www.drupal.org/project/issues/typed_data"
+            }
+        },
+        {
+            "name": "drupal/ultimate_cron",
+            "version": "2.0.0-alpha6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ultimate_cron.git",
+                "reference": "8.x-2.0-alpha6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ultimate_cron-8.x-2.0-alpha6.zip",
+                "reference": "8.x-2.0-alpha6",
+                "shasum": "42ab6df8e94a9b3772876a378062534552a32826"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0-alpha6",
+                    "datestamp": "1666471448",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "arnested",
+                    "homepage": "https://www.drupal.org/user/245635"
+                },
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "Dane Powell",
+                    "homepage": "https://www.drupal.org/user/339326"
+                },
+                {
+                    "name": "gielfeldt",
+                    "homepage": "https://www.drupal.org/user/366993"
+                },
+                {
+                    "name": "miro_dietiker",
+                    "homepage": "https://www.drupal.org/user/227761"
+                },
+                {
+                    "name": "Primsi",
+                    "homepage": "https://www.drupal.org/user/282629"
+                }
+            ],
+            "description": "Ultimate cron",
+            "homepage": "https://www.drupal.org/project/ultimate_cron",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ultimate_cron"
             }
         },
         {
@@ -10335,6 +10281,7 @@
         "drupal/masquerade": 5,
         "drupal/quicktabs": 15,
         "drupal/rules": 15,
+        "drupal/ultimate_cron": 15,
         "drupal/workflow_buttons": 10
     },
     "prefer-stable": true,
