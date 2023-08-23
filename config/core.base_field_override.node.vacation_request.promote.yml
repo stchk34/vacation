@@ -1,0 +1,22 @@
+uuid: a15ecd91-8c6c-45d3-9c92-801cc177b8a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vacation_request
+id: node.vacation_request.promote
+field_name: promote
+entity_type: node
+bundle: vacation_request
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

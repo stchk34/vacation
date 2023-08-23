@@ -1,0 +1,12 @@
+uuid: 1f933213-d912-4944-9229-e831e9b388ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.request_state
+id: request_state_approved
+label: Approved
+module: workflow
+wid: request_state
+weight: -8
+sysid: 0

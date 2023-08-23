@@ -1,0 +1,12 @@
+uuid: 801df186-a676-4074-844b-6721db9ca68f
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.dummy_action
+id: dummy_action_creation
+label: Creation
+module: workflow
+wid: dummy_action
+weight: -50
+sysid: 1

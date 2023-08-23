@@ -1,0 +1,21 @@
+uuid: 3ba421aa-82ec-4881-ac31-0b4709b4a507
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_start_date
+    - node.type.certificate
+id: node.certificate.field_start_date
+field_name: field_start_date
+entity_type: node
+bundle: certificate
+label: 'Date of receiving'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 1680071382
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

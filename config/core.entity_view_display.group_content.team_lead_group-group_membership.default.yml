@@ -1,0 +1,23 @@
+uuid: dae851b4-e836-4809-9e60-87d3650e6627
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.team_lead_group-group_membership.group_roles
+    - group.content_type.team_lead_group-group_membership
+id: group_content.team_lead_group-group_membership.default
+targetEntityType: group_content
+bundle: team_lead_group-group_membership
+mode: default
+content:
+  group_roles:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: -4
+    region: content
+hidden:
+  entity_id: true
+  uid: true

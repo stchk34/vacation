@@ -1,0 +1,21 @@
+uuid: 11006ee7-5aae-44d3-8099-2faec4e0adae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type_vacations
+    - node.type.vacation_request
+  module:
+    - options
+id: node.vacation_request.field_type_vacations
+field_name: field_type_vacations
+entity_type: node
+bundle: vacation_request
+label: 'Type vacation'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

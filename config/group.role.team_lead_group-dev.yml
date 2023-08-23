@@ -1,0 +1,14 @@
+uuid: 6bc4e1cd-f7bb-48c5-8eb0-3710700a2721
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-dev
+label: Dev
+weight: 0
+internal: false
+audience: member
+group_type: team_lead_group
+permissions_ui: true
+permissions: {  }

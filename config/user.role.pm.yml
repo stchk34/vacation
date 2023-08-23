@@ -1,0 +1,17 @@
+uuid: 677513b8-3d5b-4de6-85fb-08e082803c9f
+langcode: en
+status: true
+dependencies:
+  module:
+    - administerusersbyrole
+    - content_moderation
+    - workflow
+id: pm
+label: PM
+weight: -5
+is_admin: null
+permissions:
+  - 'access users overview'
+  - 'create request_state workflow_transition'
+  - 'view any unpublished content'
+  - 'view users by role'

@@ -1,0 +1,14 @@
+uuid: d1935f6f-289f-4542-bdf2-7e025f59fa68
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-anonymous
+label: Anonymous
+weight: -102
+internal: true
+audience: anonymous
+group_type: team_lead_group
+permissions_ui: true
+permissions: {  }

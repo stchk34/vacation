@@ -1,0 +1,20 @@
+uuid: 340e4872-ebc8-4580-b85b-12deb0198ca0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_duration_of_the_not_paid_v
+field_name: field_duration_of_the_not_paid_v
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

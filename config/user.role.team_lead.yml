@@ -1,0 +1,44 @@
+uuid: c1f6e308-9e44-4ce4-a296-a4ad54d20aff
+langcode: en
+status: true
+dependencies:
+  module:
+    - actions_permissions
+    - administerusersbyrole
+    - field_ui
+    - group
+    - rules_link_field
+    - workflow
+id: team_lead
+label: 'Team Lead'
+weight: -8
+is_admin: null
+permissions:
+  - 'access group overview'
+  - 'access users overview'
+  - 'administer account settings'
+  - 'administer group'
+  - 'administer group display'
+  - 'administer group fields'
+  - 'administer group_content display'
+  - 'administer group_content fields'
+  - 'administer permissions'
+  - 'administer user fields'
+  - 'administer user form display'
+  - 'administer users'
+  - 'cancel account'
+  - 'cancel users by role'
+  - 'create request_state workflow_transition'
+  - 'create team_lead_group group'
+  - 'create users'
+  - 'edit users by role'
+  - 'execute entity:publish_action group'
+  - 'execute rules that react on rules link clicked event'
+  - 'execute user_add_role_action user'
+  - 'execute user_block_user_action user'
+  - 'execute vbo_cancel_user_action user'
+  - 'execute workflow_node_given_state_action node'
+  - 'execute workflow_node_next_state_action node'
+  - 'role-assign users by role'
+  - 'view user email addresses'
+  - 'view users by role'

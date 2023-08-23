@@ -1,0 +1,33 @@
+uuid: 4c73254f-1d30-4e60-a9b3-e9153992342f
+langcode: en
+status: true
+dependencies:
+  module:
+    - masquerade
+    - system
+    - user
+  theme:
+    - olivero
+id: masquerade
+theme: olivero
+region: content_above
+weight: -9
+provider: null
+plugin: masquerade
+settings:
+  id: masquerade
+  label: Masquerade
+  label_display: visible
+  provider: masquerade
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator
+  request_path:
+    id: request_path
+    negate: false
+    pages: /admin/1

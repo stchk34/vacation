@@ -1,0 +1,23 @@
+uuid: 8b6032cc-92cb-4d94-9885-6abd548a0f4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_days
+    - node.type.transaction
+id: node.transaction.field_days
+field_name: field_days
+entity_type: node
+bundle: transaction
+label: Days
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

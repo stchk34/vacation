@@ -1,0 +1,23 @@
+uuid: ef267184-e7ab-4f5f-bc2e-459111db0126
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_limit_day
+    - taxonomy.vocabulary.position
+id: taxonomy_term.position.field_limit_day
+field_name: field_limit_day
+entity_type: taxonomy_term
+bundle: position
+label: 'Limit day'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,9 @@
+uuid: 150a5d6f-8702-47e3-8bc1-3c1149ed3441
+langcode: en
+status: true
+dependencies: {  }
+name: node_vacation_request
+label: 'node vacation_request validation'
+entity_type: node
+bundle: vacation_request
+field_validation_rules: {  }

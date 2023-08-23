@@ -1,0 +1,14 @@
+uuid: 07feaed1-735c-4437-a561-9a8c64172f7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-tl
+label: TL
+weight: -1
+internal: false
+audience: member
+group_type: team_lead_group
+permissions_ui: true
+permissions: {  }

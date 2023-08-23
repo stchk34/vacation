@@ -1,0 +1,60 @@
+uuid: 8f6b36b0-5187-45b8-93c7-e75ff9e6167c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.certificate.field_employee
+    - field.field.node.certificate.field_limit_
+    - field.field.node.certificate.field_start_date
+    - field.field.node.certificate.field_use_up
+    - node.type.certificate
+  module:
+    - user
+id: node.certificate.default
+targetEntityType: node
+bundle: certificate
+mode: default
+content:
+  field_employee:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_limit_:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_start_date:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: Europe/Kiev
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_use_up:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: Europe/Kiev
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

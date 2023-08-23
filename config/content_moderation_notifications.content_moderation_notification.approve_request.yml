@@ -1,0 +1,17 @@
+uuid: 4c59b0c0-a12a-4948-b778-3ee48cf035f9
+langcode: en
+status: true
+dependencies: {  }
+id: approve_request
+workflow: approve_request
+transitions:
+  approve_request: approve_request
+roles: {  }
+author: true
+site_mail: true
+emails: ''
+subject: 'The response to your request for a vacation'
+body:
+  value: '<p>Hello, [node:author:account-name]!&nbsp;<br>Your vacation request has been approved. Check out your current quantity day in a user account.</p>'
+  format: basic_html
+label: 'Approve request'

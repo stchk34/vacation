@@ -1,0 +1,12 @@
+uuid: 12fe09ee-cfdd-40a2-9402-dc3cdc254043
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.request_state
+id: request_state_published
+label: Published
+module: workflow
+wid: request_state
+weight: -8
+sysid: 0

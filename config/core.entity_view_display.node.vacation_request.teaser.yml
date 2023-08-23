@@ -1,0 +1,44 @@
+uuid: 0055807e-7bc5-43bb-8ffd-84a3034b5097
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_duration_not_paid_vacation
+    - field.field.node.vacation_request.field_duration_paid_vacation
+    - field.field.node.vacation_request.field_employee_sender
+    - field.field.node.vacation_request.field_reason_vacation
+    - field.field.node.vacation_request.field_status_request
+    - field.field.node.vacation_request.field_type_vacations
+    - node.type.vacation_request
+  module:
+    - user
+id: node.vacation_request.teaser
+targetEntityType: node
+bundle: vacation_request
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  workflow_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_approver: true
+  field_duration_not_paid_vacation: true
+  field_duration_paid_vacation: true
+  field_employee_sender: true
+  field_reason_vacation: true
+  field_status_request: true
+  field_type_vacations: true

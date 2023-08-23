@@ -1,0 +1,22 @@
+uuid: 56914eb2-4c24-4d87-b505-5c10d3a91928
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_approved
+    - workflow.state.request_state_creation
+id: request_state_creation_approved
+label: null
+module: workflow
+from_sid: request_state_creation
+to_sid: request_state_approved
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  administrator: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

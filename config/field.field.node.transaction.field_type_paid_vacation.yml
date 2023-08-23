@@ -1,0 +1,21 @@
+uuid: 7aa52d9d-25e4-4e4a-b2f2-fe085b104664
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type_paid_vacation
+    - node.type.transaction
+  module:
+    - options
+id: node.transaction.field_type_paid_vacation
+field_name: field_type_paid_vacation
+entity_type: node
+bundle: transaction
+label: 'Type paid vacation'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

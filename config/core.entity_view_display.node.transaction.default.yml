@@ -1,0 +1,66 @@
+uuid: f8cb6062-3e22-449b-a731-d6df8ad9a342
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.transaction.field_created_date
+    - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_type_paid_vacation
+    - field.field.node.transaction.field_type_transaction
+    - node.type.transaction
+  module:
+    - datetime
+    - options
+    - user
+id: node.transaction.default
+targetEntityType: node
+bundle: transaction
+mode: default
+content:
+  field_created_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_days:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_owner:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_type_paid_vacation:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_type_transaction:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

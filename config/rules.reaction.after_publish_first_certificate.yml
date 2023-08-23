@@ -1,0 +1,199 @@
+uuid: 7e19ecc4-92ff-4db5-aa80-2411508eb473
+langcode: en
+status: true
+dependencies: {  }
+id: after_publish_first_certificate
+label: 'After publish first certificate'
+events:
+  -
+    event_name: scheduler_has_published_this_node_event
+description: ''
+tags: {  }
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: b854523c-3301-4b56-ab7b-b62cbe435c5a
+  weight: 0
+  conditions:
+    id: rules_and
+    uuid: 8ef23da0-9954-4683-8472-c42db155872b
+    weight: 0
+    conditions:
+      -
+        id: rules_condition
+        uuid: 8b95eb53-8b5e-4330-9039-e98ed3f9812d
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: node
+          bundle: certificate
+        context_mapping:
+          entity: node
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: ac4ab71b-99a6-401d-99c1-4189e618b019
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: user
+          bundle: user
+        context_mapping:
+          entity: node.field_employee.entity
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: ad9f8882-ba40-40a9-9aa9-9c419821a023
+        weight: 0
+        condition_id: rules_data_comparison
+        negate: false
+        context_values:
+          operation: '=='
+          value: 'On'
+        context_mapping:
+          data: node.status.value
+        context_processors:
+          operation:
+            rules_tokens: {  }
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+  actions:
+    id: rules_action_set
+    uuid: 6f1afb97-3046-46eb-bec6-c19741cc968d
+    weight: 0
+    actions:
+      -
+        id: rules_action
+        uuid: 5c36bb83-49b3-4c0f-be7c-3c2f79f3e36b
+        weight: -50
+        action_id: 'rules_entity_create:node'
+        context_values:
+          type: certificate
+          title: Certificate
+        context_mapping: {  }
+        context_processors:
+          type:
+            rules_tokens: {  }
+          title:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 7d605a45-f19c-402d-970c-04ce2cf85e2f
+        weight: -49
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.uid.entity
+          value: node.uid.entity
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: d997084f-d6f8-49df-aa69-959238693890
+        weight: -48
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.field_employee
+          value: node.field_employee.entity
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: afff91cb-16d3-4f0a-88d2-7ef566959240
+        weight: -47
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{node.field_employee.entity.field_limit_of_weekends_per_year.value}}'
+          operator: /
+          input_2: '2'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 16bd19b7-5159-4fb7-b560-d9ab13092901
+        weight: -46
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.field_limit_
+          value: result
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 3c8e8ed5-08d0-40ef-8175-ac6838d4385c
+        weight: -45
+        action_id: rules_entity_save
+        context_values:
+          immediate: '0'
+        context_mapping:
+          entity: node_created
+        context_processors:
+          immediate:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 9f3c68b9-9f60-47f9-9ccf-ccd6bd851e34
+        weight: -44
+        action_id: rules_variable_add
+        context_values:
+          type: integer
+        context_mapping:
+          value: node.field_employee.entity.field_balance_a_vacations_day.value
+        context_processors:
+          type:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: a637d935-6dd3-4e1c-b980-120a464c1a9f
+        weight: -43
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{variable_added}}'
+          operator: +
+          input_2: '{{node.field_limit_.value}}'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping:
+          result: result_adittion
+      -
+        id: rules_action
+        uuid: 159c0abd-6dfc-47ee-ac2d-62a734002e95
+        weight: -42
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.field_employee.entity.field_balance_a_vacations_day
+          value: result_adittion
+        context_processors: {  }
+        provides_mapping: {  }

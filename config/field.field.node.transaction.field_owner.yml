@@ -1,0 +1,29 @@
+uuid: fad5dd58-245a-4481-836c-31d744c8970f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_owner
+    - node.type.transaction
+id: node.transaction.field_owner
+field_name: field_owner
+entity_type: node
+bundle: transaction
+label: Owner
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: true
+field_type: entity_reference

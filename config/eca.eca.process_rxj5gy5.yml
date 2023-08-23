@@ -1,0 +1,54 @@
+uuid: 4df967fe-4cb4-4e4c-94a6-8f7832d7c160
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.certificate
+  module:
+    - eca_base
+    - eca_content
+id: process_rxj5gy5
+modeller: bpmn_io
+label: 'Create transaction type earned'
+version: ''
+weight: null
+events:
+  Event_0su2qup:
+    plugin: 'content_entity:update'
+    label: 'UPD certificate'
+    configuration:
+      type: 'node certificate'
+    successors:
+      -
+        id: Activity_04l2sb8
+        condition: ''
+conditions:
+  Flow_0yt2j6r:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: ''
+      right: ''
+      operator: equal
+      type: value
+gateways: {  }
+actions:
+  Activity_04l2sb8:
+    plugin: eca_token_load_entity
+    label: 'load publish certificate'
+    configuration:
+      token_name: publish_certificate
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0z7c8td
+        condition: Flow_0yt2j6r

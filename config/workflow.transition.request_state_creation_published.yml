@@ -1,0 +1,22 @@
+uuid: e064f210-ca4f-4114-bb06-5a6f026e8fc1
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_creation
+    - workflow.state.request_state_published
+id: request_state_creation_published
+label: null
+module: workflow
+from_sid: request_state_creation
+to_sid: request_state_published
+roles:
+  workflow_author: workflow_author
+  ceo: '0'
+  administrator: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

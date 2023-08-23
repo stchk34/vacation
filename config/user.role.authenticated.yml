@@ -1,0 +1,44 @@
+uuid: 67550c25-86c8-48ee-8295-372376d6776c
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - node.type.vacation_request
+  module:
+    - actions_permissions
+    - comment
+    - contact
+    - content_moderation
+    - filter
+    - media
+    - node
+    - search
+    - shortcut
+    - system
+    - workflow
+_core:
+  default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
+id: authenticated
+label: 'Authenticated user'
+weight: -4
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'access user profiles'
+  - 'create request_state workflow_transition'
+  - 'create vacation_request content'
+  - 'execute entity:publish_action node'
+  - 'execute workflow_node_given_state_action node'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'use approve_request transition publish'
+  - 'use text format basic_html'
+  - 'view any unpublished content'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view user email addresses'

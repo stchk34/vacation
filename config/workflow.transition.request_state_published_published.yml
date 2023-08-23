@@ -1,0 +1,12 @@
+uuid: 50c27056-eb9e-4c19-8699-c29e544042a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_published
+id: request_state_published_published
+label: null
+module: workflow
+from_sid: request_state_published
+to_sid: request_state_published
+roles: {  }

@@ -1,0 +1,172 @@
+uuid: 007789fd-b451-414f-a415-40ba037283ee
+langcode: en
+status: false
+dependencies: {  }
+id: subtracting_days_in_the_certificate
+label: 'Subtracting days in the certificate'
+events:
+  -
+    event_name: 'rules_entity_insert:node--vacation_request'
+description: ''
+tags: {  }
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: 383e0e1f-1d88-4bff-b676-2538502af3be
+  weight: 0
+  conditions:
+    id: rules_and
+    uuid: a3b84d3d-9baf-4c37-a4ca-809739e3350c
+    weight: 0
+    conditions:
+      -
+        id: rules_condition
+        uuid: 3995e82b-2e59-448b-ab32-d93e45b8d4ad
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: node
+          bundle: vacation_request
+        context_mapping:
+          entity: node
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: ef656c9d-7897-446e-9937-c961435c1fe0
+        weight: 0
+        condition_id: rules_data_comparison
+        negate: false
+        context_values:
+          operation: '=='
+          value: 'Paid vacation'
+        context_mapping:
+          data: node.field_type_vacation.entity.name.value
+        context_processors:
+          operation:
+            rules_tokens: {  }
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: 3c8b0a32-076c-41a3-a8e2-4e7567a7ab7a
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: user
+          bundle: user
+        context_mapping:
+          entity: node.uid.entity
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+  actions:
+    id: rules_action_set
+    uuid: 1bd60e41-daad-4c25-9030-e023b9cb5367
+    weight: 0
+    actions:
+      -
+        id: rules_action
+        uuid: 6b398b8b-0774-4b4b-97a4-225d59568e64
+        weight: 0
+        action_id: rules_data_convert
+        context_values:
+          target_type: integer
+          rounding_behavior: ''
+        context_mapping:
+          value: node.field_date_.duration
+        context_processors:
+          target_type:
+            rules_tokens: {  }
+          rounding_behavior:
+            rules_tokens: {  }
+        provides_mapping:
+          conversion_result: conversion_result_duration
+      -
+        id: rules_action
+        uuid: 69ba6bdd-7c43-4bac-a34f-94dcb627e858
+        weight: 0
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{conversion_result_duration}}'
+          operator: /
+          input_2: '1440'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping:
+          result: result_duration_in_day
+      -
+        id: rules_action
+        uuid: 625e9aa6-7b67-4cbb-97e8-5f34bc98b606
+        weight: 0
+        action_id: rules_data_convert
+        context_values:
+          target_type: integer
+          rounding_behavior: ''
+        context_mapping:
+          value: result_duration_in_day
+        context_processors:
+          target_type:
+            rules_tokens: {  }
+          rounding_behavior:
+            rules_tokens: {  }
+        provides_mapping:
+          conversion_result: conversion_result_in_day
+      -
+        id: rules_action
+        uuid: 5b7eac0b-6fee-496c-98ec-ad817ed5cdd3
+        weight: 0
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{node.uid.entity.field_balance_a_vacations_day.value}}'
+          operator: '-'
+          input_2: '{{conversion_result_in_day}}'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 484fc54c-89d3-4a28-bf94-99adb000fa22
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.uid.entity.field_balance_a_vacations_day
+          value: result
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 1c6f4dea-9c7b-42c5-9034-65d15937ca6a
+        weight: 0
+        action_id: rules_entity_save
+        context_values:
+          immediate: '1'
+        context_mapping:
+          entity: node.uid.entity
+        context_processors:
+          immediate:
+            rules_tokens: {  }
+        provides_mapping: {  }

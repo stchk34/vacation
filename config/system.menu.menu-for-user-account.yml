@@ -1,0 +1,8 @@
+uuid: 772a6064-48f9-48dd-93ff-940263f51b7b
+langcode: en
+status: true
+dependencies: {  }
+id: menu-for-user-account
+label: 'Menu for user account'
+description: ''
+locked: false

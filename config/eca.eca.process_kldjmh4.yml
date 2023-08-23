@@ -1,0 +1,13 @@
+uuid: 3bd11fc8-1c0a-40cd-8243-7c6b4b456fee
+langcode: en
+status: true
+dependencies: {  }
+id: process_kldjmh4
+modeller: bpmn_io
+label: 'Duration vacation days'
+version: ''
+weight: null
+events: {  }
+conditions: {  }
+gateways: {  }
+actions: {  }

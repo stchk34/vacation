@@ -1,0 +1,156 @@
+uuid: bcf9dd43-be55-49a8-ac81-dc72b07b3311
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_nb2wioh
+id: process_nb2wioh
+label: 'Send email to approver'
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_nB2WiOH" name="Send email to approver" isExecutable="true">
+      <bpmn2:startEvent id="Event_0rehnfy" name="Create request" camunda:modelerTemplate="org.drupal.event.content_entity:insert">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="content_entity:insert" />
+          </camunda:properties>
+          <camunda:field name="type">
+            <camunda:string>node vacation_request</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_05ecgq8</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_1atmuuj" name="load request" camunda:modelerTemplate="org.drupal.action.eca_token_load_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_token_load_entity" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>request</camunda:string>
+          </camunda:field>
+          <camunda:field name="from">
+            <camunda:string>current</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_type">
+            <camunda:string>node</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="revision_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="langcode">
+            <camunda:string>_interface</camunda:string>
+          </camunda:field>
+          <camunda:field name="latest_revision">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="unchanged">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="properties">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string></camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_05ecgq8</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_19rqoiy</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_05ecgq8" sourceRef="Event_0rehnfy" targetRef="Activity_1atmuuj" />
+      <bpmn2:task id="Activity_1hof36w" name="load approver" camunda:modelerTemplate="org.drupal.action.eca_token_load_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_token_load_entity" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>request_sender</camunda:string>
+          </camunda:field>
+          <camunda:field name="from">
+            <camunda:string>id</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_type">
+            <camunda:string>user</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_id">
+            <camunda:string>[request:field_employee_sender:entity:nid]</camunda:string>
+          </camunda:field>
+          <camunda:field name="revision_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="langcode">
+            <camunda:string>_interface</camunda:string>
+          </camunda:field>
+          <camunda:field name="latest_revision">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="unchanged">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="properties">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="object" />
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_19rqoiy</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0jz152j</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_19rqoiy" sourceRef="Activity_1atmuuj" targetRef="Activity_1hof36w" />
+      <bpmn2:task id="Activity_0av8e1x" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>[request:field_employee_sender:entity:nid]</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0jz152j</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0jz152j" sourceRef="Activity_1hof36w" targetRef="Activity_0av8e1x" />
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-d6ef6af2-312d-4409-b5cf-01dc2815cb43">
+      <bpmndi:BPMNPlane id="sid-daef4572-15f1-4ac0-b3c0-d9238a882312" bpmnElement="Process_nB2WiOH">
+        <bpmndi:BPMNShape id="Event_0rehnfy_di" bpmnElement="Event_0rehnfy">
+          <dc:Bounds x="172" y="152" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="154" y="195" width="73" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1atmuuj_di" bpmnElement="Activity_1atmuuj">
+          <dc:Bounds x="260" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1hof36w_di" bpmnElement="Activity_1hof36w">
+          <dc:Bounds x="450" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0av8e1x_di" bpmnElement="Activity_0av8e1x">
+          <dc:Bounds x="260" y="290" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_05ecgq8_di" bpmnElement="Flow_05ecgq8">
+          <di:waypoint x="208" y="170" />
+          <di:waypoint x="260" y="170" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_19rqoiy_di" bpmnElement="Flow_19rqoiy">
+          <di:waypoint x="360" y="170" />
+          <di:waypoint x="450" y="170" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0jz152j_di" bpmnElement="Flow_0jz152j">
+          <di:waypoint x="500" y="210" />
+          <di:waypoint x="500" y="300" />
+          <di:waypoint x="360" y="300" />
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

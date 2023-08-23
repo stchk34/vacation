@@ -1,0 +1,14 @@
+uuid: 47591b26-0e5e-42c1-81ce-253031802d48
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: team_lead_group
+permissions_ui: true
+permissions: {  }

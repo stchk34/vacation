@@ -1,0 +1,20 @@
+uuid: 48acf9ef-370e-4e92-ae83-bcf6c7aa8e99
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - user
+id: user.field_teams
+field_name: field_teams
+entity_type: user
+type: entity_reference
+settings:
+  target_type: group
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

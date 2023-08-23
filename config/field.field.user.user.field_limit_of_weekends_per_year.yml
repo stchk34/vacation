@@ -1,0 +1,25 @@
+uuid: 0d668481-1273-42e1-ba44-c76f282ce5f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_limit_of_weekends_per_year
+  module:
+    - field_token_value
+    - user
+id: user.user.field_limit_of_weekends_per_year
+field_name: field_limit_of_weekends_per_year
+entity_type: user
+bundle: user
+label: 'Limit of weekends per year'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings:
+  field_value: '[user:field_position:entity:field_limit_day]'
+  remove_empty: 1
+field_type: field_token_value

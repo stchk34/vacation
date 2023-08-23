@@ -1,0 +1,29 @@
+uuid: dca943e2-c36a-41b1-a7ca-68824df52dd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.menu-for-user-account
+  module:
+    - system
+  theme:
+    - olivero
+id: menuforuseraccount
+theme: olivero
+region: highlighted
+weight: -2
+provider: null
+plugin: 'system_menu_block:menu-for-user-account'
+settings:
+  id: 'system_menu_block:menu-for-user-account'
+  label: 'Menu for user account'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/list-current-certificates\r\n/list-of-a-vacation-request\r\n/list-my-request\r\n/my-team"

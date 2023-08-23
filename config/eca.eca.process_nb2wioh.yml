@@ -1,0 +1,71 @@
+uuid: e66882ab-93dc-4250-b95a-8e71e34c351d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vacation_request.field_employee_sender
+    - field.storage.node.field_employee_sender
+    - node.type.vacation_request
+  module:
+    - eca_content
+id: process_nb2wioh
+modeller: bpmn_io
+label: 'Send email to approver'
+version: ''
+weight: null
+events:
+  Event_0rehnfy:
+    plugin: 'content_entity:insert'
+    label: 'Create request'
+    configuration:
+      type: 'node vacation_request'
+    successors:
+      -
+        id: Activity_1atmuuj
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  Activity_1atmuuj:
+    plugin: eca_token_load_entity
+    label: 'load request'
+    configuration:
+      token_name: request
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_1hof36w
+        condition: ''
+  Activity_1hof36w:
+    plugin: eca_token_load_entity
+    label: 'load approver'
+    configuration:
+      token_name: request_sender
+      from: id
+      entity_type: user
+      entity_id: '[request:field_employee_sender:entity:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0av8e1x
+        condition: ''
+  Activity_0av8e1x:
+    plugin: action_message_action
+    label: Activity_0av8e1x
+    configuration:
+      replace_tokens: false
+      message: '[request:field_employee_sender:entity:nid]'
+    successors: {  }

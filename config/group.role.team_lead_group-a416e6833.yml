@@ -1,0 +1,17 @@
+uuid: 5b551cdf-f0e8-4fce-9637-bc90e3877ef1
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+  enforced:
+    config:
+      - user.role.administrator
+id: team_lead_group-a416e6833
+label: Administrator
+weight: -9
+internal: true
+audience: outsider
+group_type: team_lead_group
+permissions_ui: false
+permissions: {  }

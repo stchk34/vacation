@@ -1,0 +1,122 @@
+uuid: ab324a2b-57a6-4325-8d2a-d8f05facd2de
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_rxj5gy5
+id: process_rxj5gy5
+label: 'Create transaction type earned'
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_rXj5Gy5" name="Create transaction type earned" isExecutable="true">
+      <bpmn2:startEvent id="Event_0su2qup" name="UPD certificate" camunda:modelerTemplate="org.drupal.event.content_entity:update">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="content_entity:update" />
+          </camunda:properties>
+          <camunda:field name="type">
+            <camunda:string>node certificate</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_0tvhrya</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_04l2sb8" name="load publish certificate" camunda:modelerTemplate="org.drupal.action.eca_token_load_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_token_load_entity" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>publish_certificate</camunda:string>
+          </camunda:field>
+          <camunda:field name="from">
+            <camunda:string>current</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_type">
+            <camunda:string>_none</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="revision_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="langcode">
+            <camunda:string>_interface</camunda:string>
+          </camunda:field>
+          <camunda:field name="latest_revision">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="unchanged">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="properties">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string></camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0tvhrya</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0yt2j6r</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0tvhrya" sourceRef="Event_0su2qup" targetRef="Activity_04l2sb8" />
+      <bpmn2:task id="Activity_0z7c8td">
+        <bpmn2:incoming>Flow_0yt2j6r</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0yt2j6r" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_04l2sb8" targetRef="Activity_0z7c8td">
+        <bpmn2:extensionElements>
+          <camunda:field name="left">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-5843deab-53a5-4877-986e-1c33b6d7608a">
+      <bpmndi:BPMNPlane id="sid-7d96913f-1d1a-4e5c-a2f4-6592df0cd797" bpmnElement="Process_rXj5Gy5">
+        <bpmndi:BPMNShape id="Event_0su2qup_di" bpmnElement="Event_0su2qup">
+          <dc:Bounds x="182" y="292" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="164" y="335" width="74" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_04l2sb8_di" bpmnElement="Activity_04l2sb8">
+          <dc:Bounds x="270" y="270" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0z7c8td_di" bpmnElement="Activity_0z7c8td">
+          <dc:Bounds x="430" y="270" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_0tvhrya_di" bpmnElement="Flow_0tvhrya">
+          <di:waypoint x="218" y="310" />
+          <di:waypoint x="270" y="310" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0yt2j6r_di" bpmnElement="Flow_0yt2j6r">
+          <di:waypoint x="370" y="310" />
+          <di:waypoint x="430" y="310" />
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

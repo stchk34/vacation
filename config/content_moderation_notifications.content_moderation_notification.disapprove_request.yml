@@ -1,0 +1,17 @@
+uuid: d9ffbe30-b193-40d8-b11a-603e7c4ed93c
+langcode: en
+status: true
+dependencies: {  }
+id: disapprove_request
+workflow: approve_request
+transitions:
+  disapprove_request: disapprove_request
+roles: {  }
+author: true
+site_mail: true
+emails: ''
+subject: 'The response to your request for a vacation'
+body:
+  value: '<p>Hello, [node:author:account-name]!&nbsp;<br>Sorry, your vacation request has been disapproved.</p>'
+  format: basic_html
+label: 'Disapprove request'

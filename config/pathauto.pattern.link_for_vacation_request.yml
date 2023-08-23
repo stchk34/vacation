@@ -1,0 +1,22 @@
+uuid: c4792517-d5db-472c-8bde-fce7c98bfb6a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: link_for_vacation_request
+label: 'Link for vacation request'
+type: 'canonical_entities:node'
+pattern: '[node:content-type]/[node:title]/[node:field_type_vacation]'
+selection_criteria:
+  c8e02125-bc4e-46e8-b377-05bb0bf1c478:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: c8e02125-bc4e-46e8-b377-05bb0bf1c478
+    context_mapping:
+      node: node
+    bundles:
+      vacation_request: vacation_request
+selection_logic: and
+weight: -5
+relationships: {  }

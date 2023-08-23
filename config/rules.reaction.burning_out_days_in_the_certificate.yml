@@ -1,0 +1,102 @@
+uuid: 4ecfc692-b4a6-48f5-8753-8cd8be686ea0
+langcode: en
+status: true
+dependencies: {  }
+id: burning_out_days_in_the_certificate
+label: 'Burning out days in the certificate'
+events:
+  -
+    event_name: scheduler_has_unpublished_this_node_event
+description: ''
+tags: {  }
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: e731b6d3-4d81-47cc-a72f-b6e7ffc11e92
+  weight: 0
+  conditions:
+    id: rules_and
+    uuid: ae72c964-b76f-4265-96a2-713964c685dc
+    weight: 0
+    conditions:
+      -
+        id: rules_condition
+        uuid: 35afec8e-9da1-4dc3-b674-323a6d59e970
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: node
+          bundle: certificate
+        context_mapping:
+          entity: node
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: 5e7d0a69-6986-4bc0-96c0-602bab9da5de
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: user
+          bundle: user
+        context_mapping:
+          entity: node.field_employee.entity
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+  actions:
+    id: rules_action_set
+    uuid: 912173cd-3a28-4f65-8051-639989f11b97
+    weight: 0
+    actions:
+      -
+        id: rules_action
+        uuid: 311f1221-cc75-431f-96f7-d081e9502f31
+        weight: -49
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{node.field_limit_.value}}'
+          operator: '*'
+          input_2: '0'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: c7d966ae-187c-4045-93fb-37f3960e784a
+        weight: -48
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.field_limit_.value
+          value: result
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 87947d80-a386-4126-a93d-ab5636ad33e9
+        weight: 0
+        action_id: rules_entity_save
+        context_values:
+          immediate: '1'
+        context_mapping:
+          entity: node.field_employee.entity
+        context_processors:
+          immediate:
+            rules_tokens: {  }
+        provides_mapping: {  }

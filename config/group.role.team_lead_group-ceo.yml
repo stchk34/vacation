@@ -1,0 +1,23 @@
+uuid: 67726f40-f5ba-4a23-a369-14db731a0756
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-ceo
+label: CEO
+weight: -2
+internal: false
+audience: member
+group_type: team_lead_group
+permissions_ui: true
+permissions:
+  - 'access content overview'
+  - 'administer group'
+  - 'administer members'
+  - 'create group_membership entity'
+  - 'delete any group_membership entity'
+  - 'delete group'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_membership entity'

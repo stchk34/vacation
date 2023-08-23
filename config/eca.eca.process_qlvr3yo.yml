@@ -1,0 +1,307 @@
+uuid: cecf46ca-9f63-460a-b64d-cb45ee25de8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.transaction.field_created_date
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_type_paid_vacation
+    - field.field.node.transaction.field_type_transaction
+    - field.storage.node.field_created_date
+    - field.storage.node.field_owner
+    - field.storage.node.field_type_paid_vacation
+    - field.storage.node.field_type_transaction
+    - node.type.transaction
+    - node.type.vacation_request
+  module:
+    - eca_base
+    - eca_content
+    - eca_user
+    - node
+id: process_qlvr3yo
+modeller: bpmn_io
+label: 'Create transaction type spent'
+version: ''
+weight: null
+events:
+  Event_1hke6hk:
+    plugin: 'content_entity:update'
+    label: 'upd request'
+    configuration:
+      type: 'node vacation_request'
+    successors:
+      -
+        id: Activity_0mbz1by
+        condition: ''
+conditions:
+  Flow_1wcqm5q:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_status_request:value]'
+      right: request_state_approved
+      operator: equal
+      type: value
+  Flow_1bllzfn:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_status_request:value]'
+      right: request_state_disapproved
+      operator: equal
+      type: value
+gateways:
+  Gateway_0okut2l:
+    type: 0
+    successors:
+      -
+        id: Activity_0g7rzjw
+        condition: ''
+      -
+        id: Activity_1jfzka7
+        condition: ''
+  Gateway_00ul7ai:
+    type: 0
+    successors:
+      -
+        id: Gateway_0okut2l
+        condition: Flow_1wcqm5q
+      -
+        id: Activity_1ozf1jb
+        condition: Flow_1bllzfn
+actions:
+  Activity_177hcd7:
+    plugin: eca_token_load_entity
+    label: 'load request'
+    configuration:
+      token_name: upd_request
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Gateway_00ul7ai
+        condition: ''
+  Activity_0g7rzjw:
+    plugin: eca_new_entity
+    label: 'Transaction paid vacation'
+    configuration:
+      token_name: paid_vacation_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Transaction to [upd_request:title]'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_0k0dwho
+        condition: ''
+  Activity_1jfzka7:
+    plugin: eca_new_entity
+    label: 'Transaction not paid vacation'
+    configuration:
+      token_name: not_paid_vacation_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Transaction to [upd_request:title]'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_0tn1w01
+        condition: ''
+  Activity_1ozf1jb:
+    plugin: 'entity:unpublish_action:node'
+    label: 'Unpublish request'
+    configuration:
+      object: '[upd_request]'
+    successors: {  }
+  Activity_0mbz1by:
+    plugin: eca_switch_account
+    label: 'switch user'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_177hcd7
+        condition: ''
+  Activity_0k0dwho:
+    plugin: eca_set_field_value
+    label: 'set field "owner"'
+    configuration:
+      field_name: field_owner
+      field_value: '[upd_request:uid:entity]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0f5uwfc
+        condition: ''
+  Activity_0xbg5sc:
+    plugin: eca_save_entity
+    label: 'save entity'
+    configuration:
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0weurz0
+        condition: ''
+  Activity_0weurz0:
+    plugin: action_message_action
+    label: 'display message'
+    configuration:
+      replace_tokens: false
+      message: 'Succesful create transaction'
+    successors: {  }
+  Activity_0f5uwfc:
+    plugin: eca_set_field_value
+    label: 'set field "created date"'
+    configuration:
+      field_name: field_created_date
+      field_value: '[current-date:raw]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0kxn1tx
+        condition: ''
+  Activity_0kxn1tx:
+    plugin: eca_set_field_value
+    label: 'set field " Spent type"'
+    configuration:
+      field_name: field_type_transaction
+      field_value: Spent
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0chm6wy
+        condition: ''
+  Activity_0chm6wy:
+    plugin: eca_set_field_value
+    label: 'set field "Days"'
+    configuration:
+      field_name: ''
+      field_value: ''
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: ''
+    successors:
+      -
+        id: Activity_0uqbkq6
+        condition: ''
+  Activity_0uqbkq6:
+    plugin: eca_set_field_value
+    label: 'set field "paid or not paid vacation"'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: Paid
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0xbg5sc
+        condition: ''
+  Activity_0tn1w01:
+    plugin: eca_set_field_value
+    label: 'set field "owner"'
+    configuration:
+      field_name: field_owner
+      field_value: '[upd_request:uid:entity]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_06f1otb
+        condition: ''
+  Activity_06f1otb:
+    plugin: eca_set_field_value
+    label: 'set field "Created date"'
+    configuration:
+      field_name: field_created_date
+      field_value: '[current-date:raw]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0k7cn0r
+        condition: ''
+  Activity_0k7cn0r:
+    plugin: eca_set_field_value
+    label: 'Set field "Spent type"'
+    configuration:
+      field_name: field_type_transaction
+      field_value: Spent
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_112wdwo
+        condition: ''
+  Activity_112wdwo:
+    plugin: eca_set_field_value
+    label: 'set field "Days"'
+    configuration:
+      field_name: ''
+      field_value: ''
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_1ocw2lm
+        condition: ''
+  Activity_0apff12:
+    plugin: eca_save_entity
+    label: 'Save entity'
+    configuration:
+      object: '[paid_vacation_transaction]'
+    successors: {  }
+  Activity_1ocw2lm:
+    plugin: eca_set_field_value
+    label: 'Set field "Paid or not paid vacation"'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: Paid
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0apff12
+        condition: ''

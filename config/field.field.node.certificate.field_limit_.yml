@@ -1,0 +1,23 @@
+uuid: 777cd17e-8604-4bd3-859c-c0601366c0ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_limit_
+    - node.type.certificate
+id: node.certificate.field_limit_
+field_name: field_limit_
+entity_type: node
+bundle: certificate
+label: 'Limit vacation days'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

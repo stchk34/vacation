@@ -1,0 +1,22 @@
+uuid: e429c32a-a0dd-436a-b21f-483d6623a46c
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - vacation
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: vacation_help
+theme: vacation
+region: header
+weight: -4
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

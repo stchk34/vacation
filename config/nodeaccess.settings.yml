@@ -1,0 +1,225 @@
+_core:
+  default_config_hash: Zno4MMkbreZeJZgnY0DXCPksXkuYye3MyIFlVuh-xLc
+grants:
+  view: 1
+  edit: 1
+  delete: 1
+priority: 0
+preserve: 1
+article:
+  anonymous:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  author:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+certificate:
+  ceo:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: '1'
+    grant_delete: '1'
+    grant_update: 0
+  team_lead:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  author:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+page:
+  anonymous:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  author:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+vacation_request:
+  ceo:
+    grant_view: '1'
+    grant_update: '1'
+    grant_delete: 0
+  administrator:
+    grant_view: '1'
+    grant_update: '1'
+    grant_delete: '1'
+  team_lead:
+    grant_view: '1'
+    grant_update: '1'
+    grant_delete: 0
+  author:
+    grant_view: '1'
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+role_alias:
+  ceo:
+    alias: CEO
+    weight: '0'
+    name: CEO
+    allow: 0
+  administrator:
+    alias: Administrator
+    weight: '0'
+    name: Administrator
+    allow: 0
+  team_lead:
+    alias: 'Team Lead'
+    weight: '0'
+    name: 'Team Lead'
+    allow: 0
+  dev:
+    alias: Dev
+    weight: '0'
+    name: Dev
+    allow: 0
+  anonymous:
+    alias: 'Anonymous user'
+    weight: '0'
+    name: 'Anonymous user'
+    allow: 0
+  authenticated:
+    alias: 'Authenticated user'
+    weight: '0'
+    name: 'Authenticated user'
+    allow: 0
+  pm:
+    alias: PM
+    weight: '0'
+    name: PM
+    allow: 0
+  content_editor:
+    alias: 'Content editor'
+    name: 'Content editor'
+    weight: 0
+    allow: 0
+role_map:
+  ceo: 1
+  administrator: 2
+  team_lead: 3
+  dev: 4
+  anonymous: 5
+  authenticated: 6
+  pm: 8
+  content_editor: 9
+allowed_types:
+  article: 0
+  certificate: 0
+  page: 0
+  vacation_request: 0
+  transaction: 0
+transaction:
+  anonymous:
+    grant_view: 1
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: 1
+    grant_update: 0
+    grant_delete: 0
+  author:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0

@@ -1,0 +1,14 @@
+uuid: 793b9da3-04a9-4c7b-a93a-d3715c7f3497
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.pm
+  module:
+    - user
+id: user_add_role_action.pm
+label: 'Add the PM role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: pm

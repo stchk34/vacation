@@ -1,0 +1,30 @@
+uuid: f0ca439d-287d-4df6-9961-0f230e0c14dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_teams
+    - group.type.team_lead_group
+  module:
+    - user
+id: user.user.field_teams
+field_name: field_teams
+entity_type: user
+bundle: user
+label: Teams
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings:
+    target_bundles:
+      team_lead_group: team_lead_group
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

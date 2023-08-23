@@ -1,0 +1,12 @@
+uuid: 9501bc57-1f9b-4662-b7ca-d7f4d538de7f
+langcode: en
+status: true
+dependencies: {  }
+id: team_lead_group
+label: 'Team Lead group'
+description: ''
+new_revision: true
+creator_membership: true
+creator_wizard: true
+creator_roles:
+  - team_lead_group-ceo

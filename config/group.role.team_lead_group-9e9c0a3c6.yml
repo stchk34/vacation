@@ -1,0 +1,17 @@
+uuid: 00441abf-6c92-4bf7-93b5-423a846b6b21
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+  enforced:
+    config:
+      - user.role.team_lead
+id: team_lead_group-9e9c0a3c6
+label: 'Team Lead'
+weight: -8
+internal: true
+audience: outsider
+group_type: team_lead_group
+permissions_ui: false
+permissions: {  }

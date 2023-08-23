@@ -1,0 +1,17 @@
+uuid: 1276825c-af6c-4488-a050-bf816051c2b1
+langcode: en
+status: true
+dependencies: {  }
+id: create_request
+workflow: approve_request
+transitions:
+  publish_a_request: publish_a_request
+roles: {  }
+author: true
+site_mail: false
+emails: ''
+subject: '[node:field_employee_sender] created a new vacation request'
+body:
+  value: '<p>Hello, [node:author:field_my_team_lead:entity]! A [node:field_employee_sender] has created a new vacation request. View yours "List of a vacation request"</p>'
+  format: basic_html
+label: 'Create request'

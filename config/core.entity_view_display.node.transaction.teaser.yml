@@ -1,0 +1,30 @@
+uuid: 72b28d3b-b5e7-4cec-a101-12b42d7c8322
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.transaction.field_created_date
+    - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_type_paid_vacation
+    - field.field.node.transaction.field_type_transaction
+    - node.type.transaction
+  module:
+    - user
+id: node.transaction.teaser
+targetEntityType: node
+bundle: transaction
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_created_date: true
+  field_days: true
+  field_owner: true
+  field_type_paid_vacation: true
+  field_type_transaction: true

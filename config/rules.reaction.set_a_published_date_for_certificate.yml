@@ -1,0 +1,173 @@
+uuid: 9381ef72-f9b5-4a03-a406-b7829d35705b
+langcode: en
+status: true
+dependencies: {  }
+id: set_a_published_date_for_certificate
+label: 'Set a published date for certificate'
+events:
+  -
+    event_name: 'rules_entity_insert:node--certificate'
+description: ''
+tags: {  }
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: b947b4b9-7e58-4714-a1ad-46f85c007f9f
+  weight: 0
+  conditions:
+    id: rules_and
+    uuid: 2f1f0f8e-58ae-45cd-bc41-880cf91c2f46
+    weight: 0
+    conditions:
+      -
+        id: rules_condition
+        uuid: 22cd46d3-31b7-4fa6-9cdf-d8bef1799f80
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: node
+          bundle: certificate
+        context_mapping:
+          entity: node
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
+  actions:
+    id: rules_action_set
+    uuid: 68450ce6-0328-4d57-8ca2-62a6cdd37471
+    weight: 0
+    actions:
+      -
+        id: rules_action
+        uuid: 7c8a5dc8-d2cb-40f3-b999-1e71c0efe34a
+        weight: 0
+        action_id: rules_variable_add
+        context_values:
+          type: 'entity:node:certificate'
+        context_mapping:
+          value: node
+        context_processors:
+          type:
+            rules_tokens: {  }
+        provides_mapping:
+          variable_added: certificate
+      -
+        id: rules_action
+        uuid: a6f2397e-fe06-456d-8ee9-228b6e586937
+        weight: 0
+        action_id: rules_variable_add
+        context_values:
+          type: timestamp
+          value: '{{node.created.value}}'
+        context_mapping: {  }
+        context_processors:
+          type:
+            rules_tokens: {  }
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 16036027-7807-4ab2-9908-8c2676c90437
+        weight: 0
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{variable_added}}'
+          operator: +
+          input_2: '300'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 28aa9c2e-172c-4afe-a025-6741e9aa6955
+        weight: 0
+        action_id: scheduler_set_publishing_date_action
+        context_values:
+          date: '{{result}}'
+        context_mapping:
+          node: node
+        context_processors:
+          date:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 01a2482b-ae98-47ab-a0d8-2cf3612683ba
+        weight: 0
+        action_id: rules_variable_add
+        context_values:
+          type: timestamp
+          value: '{{node.publish_on.value}}'
+        context_mapping: {  }
+        context_processors:
+          type:
+            rules_tokens: {  }
+          value:
+            rules_tokens: {  }
+        provides_mapping:
+          variable_added: time_publish_node
+      -
+        id: rules_action
+        uuid: 7f9ac7f0-331f-437b-ab6d-b17d36f66d6a
+        weight: 0
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{time_publish_node}}'
+          operator: +
+          input_2: '600'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping:
+          result: result_unpublish
+      -
+        id: rules_action
+        uuid: ae25103d-e472-45a0-a3cc-4493a3f075cd
+        weight: 0
+        action_id: scheduler_set_unpublishing_date_action
+        context_values:
+          date: '{{result_unpublish}}'
+        context_mapping:
+          node: node
+        context_processors:
+          date:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: ecd763e6-092b-44cf-b6b2-2f1780d0b378
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.field_start_date
+          value: node.publish_on.value
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 862287ba-b00d-4287-8ed6-f7a865793038
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.field_use_up
+          value: node.unpublish_on.value
+        context_processors: {  }
+        provides_mapping: {  }

@@ -1,0 +1,12 @@
+uuid: 3bc2965d-b07b-4b1e-b767-580ea10d3356
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.request_state
+id: request_state_disapproved
+label: Disapproved
+module: workflow
+wid: request_state
+weight: -8
+sysid: 0

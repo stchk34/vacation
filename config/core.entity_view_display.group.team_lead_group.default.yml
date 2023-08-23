@@ -1,0 +1,23 @@
+uuid: b8039339-689d-46ce-abd6-607aac04c63c
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: group.team_lead_group.default
+targetEntityType: group
+bundle: team_lead_group
+mode: default
+content:
+  label:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  changed: true
+  created: true
+  uid: true

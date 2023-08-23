@@ -1,0 +1,21 @@
+uuid: bce79e5b-1a81-4753-a192-0e332a8b90b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_use_up
+    - node.type.certificate
+id: node.certificate.field_use_up
+field_name: field_use_up
+entity_type: node
+bundle: certificate
+label: 'Use up'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 1680071416
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

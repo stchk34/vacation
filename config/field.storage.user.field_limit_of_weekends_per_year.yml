@@ -1,0 +1,19 @@
+uuid: 2794b820-6058-480c-9b74-980685b1cbf5
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_token_value
+    - user
+id: user.field_limit_of_weekends_per_year
+field_name: field_limit_of_weekends_per_year
+entity_type: user
+type: field_token_value
+settings: {  }
+module: field_token_value
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

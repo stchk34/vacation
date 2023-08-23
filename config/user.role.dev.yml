@@ -1,0 +1,16 @@
+uuid: d9322a3f-f330-4053-ab6c-00bdac0ae4b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - administerusersbyrole
+    - workflow
+id: dev
+label: Dev
+weight: -7
+is_admin: null
+permissions:
+  - 'access users overview'
+  - 'create request_state workflow_transition'
+  - 'view user email addresses'
+  - 'view users by role'

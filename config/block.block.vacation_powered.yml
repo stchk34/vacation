@@ -1,0 +1,22 @@
+uuid: 29158066-147c-4dcf-882e-8b34d16544ce
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - vacation
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: vacation_powered
+theme: vacation
+region: header
+weight: -3
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

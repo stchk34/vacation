@@ -1,0 +1,17 @@
+uuid: ead726cc-cb3f-4535-ae54-89b27c16aa07
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+  module:
+    - user
+id: team_lead_group-group_membership
+label: 'Team Lead group: Group membership'
+description: 'Adds users to groups as members.'
+group_type: team_lead_group
+content_plugin: group_membership
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  use_creation_wizard: false

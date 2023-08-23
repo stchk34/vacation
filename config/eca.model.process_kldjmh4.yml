@@ -1,0 +1,20 @@
+uuid: f7db152f-db08-4c54-aba2-4b933009a6c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_kldjmh4
+id: process_kldjmh4
+label: 'Duration vacation days'
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_kldJmh4" name="Duration vacation days" isExecutable="true" />
+    <bpmndi:BPMNDiagram id="sid-ff71f313-d1c5-4584-a868-9551e51cbfdc">
+      <bpmndi:BPMNPlane id="sid-99524e41-9ee1-4b61-986d-085617a75517" bpmnElement="Process_kldJmh4" />
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

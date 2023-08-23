@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: en
+uuid: 41735dea-5dda-4486-aff8-81c8cd205977
+name: 'My vacation system'
+mail: sandratkachukk@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /user
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: ''

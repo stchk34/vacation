@@ -1,0 +1,14 @@
+uuid: a5caac98-ddbb-44a4-ae33-c0cc7307d313
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+id: team_lead_group-pm
+label: PM
+weight: 1
+internal: false
+audience: member
+group_type: team_lead_group
+permissions_ui: true
+permissions: {  }
