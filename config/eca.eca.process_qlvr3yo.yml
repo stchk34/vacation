@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.transaction.field_created_date
+    - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_type_transaction
-    - field.storage.node.field_created_date
+    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
+    - field.storage.node.field_days
+    - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_owner
     - field.storage.node.field_type_paid_vacation
     - field.storage.node.field_type_transaction
@@ -57,7 +59,7 @@ gateways:
     type: 0
     successors:
       -
-        id: Activity_0g7rzjw
+        id: Gateway_0idb1ar
         condition: ''
       -
         id: Activity_1jfzka7
@@ -69,8 +71,23 @@ gateways:
         id: Gateway_0okut2l
         condition: Flow_1wcqm5q
       -
-        id: Activity_1ozf1jb
+        id: Gateway_1w2mr9d
         condition: Flow_1bllzfn
+  Gateway_1w2mr9d:
+    type: 0
+    successors:
+      -
+        id: Activity_09nmk46
+        condition: ''
+      -
+        id: Activity_1ozf1jb
+        condition: ''
+  Gateway_0idb1ar:
+    type: 0
+    successors:
+      -
+        id: Activity_0g7rzjw
+        condition: ''
 actions:
   Activity_177hcd7:
     plugin: eca_token_load_entity
@@ -146,39 +163,14 @@ actions:
       object: '[paid_vacation_transaction]'
     successors:
       -
-        id: Activity_0f5uwfc
+        id: Activity_0kxn1tx
         condition: ''
   Activity_0xbg5sc:
     plugin: eca_save_entity
     label: 'save entity'
     configuration:
       object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_0weurz0
-        condition: ''
-  Activity_0weurz0:
-    plugin: action_message_action
-    label: 'display message'
-    configuration:
-      replace_tokens: false
-      message: 'Succesful create transaction'
     successors: {  }
-  Activity_0f5uwfc:
-    plugin: eca_set_field_value
-    label: 'set field "created date"'
-    configuration:
-      field_name: field_created_date
-      field_value: '[current-date:raw]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_0kxn1tx
-        condition: ''
   Activity_0kxn1tx:
     plugin: eca_set_field_value
     label: 'set field " Spent type"'
@@ -190,21 +182,6 @@ actions:
       trim: false
       save_entity: true
       object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_0chm6wy
-        condition: ''
-  Activity_0chm6wy:
-    plugin: eca_set_field_value
-    label: 'set field "Days"'
-    configuration:
-      field_name: ''
-      field_value: ''
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: ''
     successors:
       -
         id: Activity_0uqbkq6
@@ -222,7 +199,7 @@ actions:
       object: '[paid_vacation_transaction]'
     successors:
       -
-        id: Activity_0xbg5sc
+        id: Activity_18cket8
         condition: ''
   Activity_0tn1w01:
     plugin: eca_set_field_value
@@ -230,21 +207,6 @@ actions:
     configuration:
       field_name: field_owner
       field_value: '[upd_request:uid:entity]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_06f1otb
-        condition: ''
-  Activity_06f1otb:
-    plugin: eca_set_field_value
-    label: 'set field "Created date"'
-    configuration:
-      field_name: field_created_date
-      field_value: '[current-date:raw]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -260,21 +222,6 @@ actions:
     configuration:
       field_name: field_type_transaction
       field_value: Spent
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_112wdwo
-        condition: ''
-  Activity_112wdwo:
-    plugin: eca_set_field_value
-    label: 'set field "Days"'
-    configuration:
-      field_name: ''
-      field_value: ''
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -304,4 +251,28 @@ actions:
     successors:
       -
         id: Activity_0apff12
+        condition: ''
+  Activity_09nmk46:
+    plugin: action_send_email_action
+    label: 'send email'
+    configuration:
+      replace_tokens: false
+      recipient: ''
+      subject: 'Your vacation request disapproved!'
+      message: (9999999999
+    successors: {  }
+  Activity_18cket8:
+    plugin: eca_set_field_value
+    label: 'set field Days'
+    configuration:
+      field_name: field_days
+      field_value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0xbg5sc
         condition: ''

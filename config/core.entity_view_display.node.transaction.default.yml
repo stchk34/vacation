@@ -20,7 +20,7 @@ mode: default
 content:
   field_created_date:
     type: datetime_default
-    label: above
+    label: inline
     settings:
       timezone_override: ''
       format_type: medium
@@ -29,7 +29,7 @@ content:
     region: content
   field_days:
     type: number_integer
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -38,7 +38,7 @@ content:
     region: content
   field_owner:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -46,14 +46,14 @@ content:
     region: content
   field_type_paid_vacation:
     type: list_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 107
     region: content
   field_type_transaction:
     type: list_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 106

@@ -1,6 +1,6 @@
 uuid: 2f1082db-5dd3-47e6-be0b-4a1377bc3e89
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.storage.user.field_position

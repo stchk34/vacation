@@ -54,16 +54,3 @@ expression:
           value:
             rules_tokens: {  }
         provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: 87947d80-a386-4126-a93d-ab5636ad33e9
-        weight: -49
-        action_id: rules_entity_save
-        context_values:
-          immediate: '1'
-        context_mapping:
-          entity: node.field_employee.entity
-        context_processors:
-          immediate:
-            rules_tokens: {  }
-        provides_mapping: {  }

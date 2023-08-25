@@ -1,0 +1,19 @@
+uuid: 53c89a93-a61b-455b-a461-4e118ce00259
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - smart_date
+id: node.field_duration_example
+field_name: field_duration_example
+entity_type: node
+type: smartdate
+settings: {  }
+module: smart_date
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
