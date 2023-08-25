@@ -29,6 +29,7 @@ permissions:
   - 'cancel account'
   - 'cancel users by role'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'create team_lead_group group'
   - 'create users'
   - 'edit users by role'

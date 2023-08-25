@@ -1,0 +1,22 @@
+uuid: ed27310d-f5aa-436c-89bb-0e7e5f396f68
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_current_state_certificate
+    - node.type.certificate
+  module:
+    - workflow
+id: node.certificate.field_current_state_certificate
+field_name: field_current_state_certificate
+entity_type: node
+bundle: certificate
+label: 'Current state certificate'
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: workflow

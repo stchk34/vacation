@@ -1,0 +1,12 @@
+uuid: fd116644-e9e1-4ea1-8b62-3e48ca1a3529
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_disabled
+id: state_certificate_disabled_disabled
+label: null
+module: workflow
+from_sid: state_certificate_disabled
+to_sid: state_certificate_disabled
+roles: {  }

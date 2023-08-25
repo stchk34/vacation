@@ -17,6 +17,9 @@ settings:
     -
       value: '2'
       label: Spent
+    -
+      value: '3'
+      label: 'Spent when burning day'
   allowed_values_function: ''
 module: options
 locked: false

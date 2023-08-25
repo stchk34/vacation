@@ -1,4 +1,4 @@
-uuid: 5744f9e6-2b2a-43ed-ba7e-65cad6d13166
+uuid: 25683768-bead-4c5f-bfe4-45103bf7ce40
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_duration_not_paid_vacation
     - node.type.vacation_request
   module:
-    - datetime_range
+    - smart_date
 id: node.vacation_request.field_duration_not_paid_vacation
 field_name: field_duration_not_paid_vacation
 entity_type: node
@@ -17,10 +17,12 @@ required: false
 translatable: false
 default_value:
   -
-    default_date_type: now
-    default_date: now
-    default_end_date_type: ''
-    default_end_date: ''
+    default_duration: 60
+    default_duration_increments: "30\r\n60|1 hour\r\n90\r\n120|2 hours\r\ncustom"
+    default_date_type: ''
+    default_date: ''
+    min: ''
+    max: ''
 default_value_callback: ''
 settings: {  }
-field_type: daterange
+field_type: smartdate

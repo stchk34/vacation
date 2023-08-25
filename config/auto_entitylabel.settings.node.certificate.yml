@@ -1,5 +1,5 @@
 status: 1
-pattern: 'Certificate to [node:field_employee]'
+pattern: 'Certificate for [node:field_employee]'
 escape: false
 preserve_titles: false
 save: false

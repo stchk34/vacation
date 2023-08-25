@@ -99,8 +99,21 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: ba4dd445-3ac4-4ed9-9659-c8b14701c8d2
+        uuid: 033e7c80-34e2-46ff-a301-dbcc4d3301a2
         weight: -46
+        action_id: rules_data_set
+        context_values:
+          value: state_certificate_creation
+        context_mapping:
+          data: node_created.field_current_state_certificate.value
+        context_processors:
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: ba4dd445-3ac4-4ed9-9659-c8b14701c8d2
+        weight: -45
         action_id: rules_data_set
         context_values: {  }
         context_mapping:
@@ -110,8 +123,21 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
+        uuid: 5c32bbff-56dd-4345-8414-77a7190dc5e1
+        weight: -44
+        action_id: rules_data_set
+        context_values:
+          value: '0'
+        context_mapping:
+          data: node_created.field_limit_.value
+        context_processors:
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
         uuid: ff5d52f3-92c0-40cf-8314-94dbff790406
-        weight: -45
+        weight: -43
         action_id: rules_entity_save
         context_values:
           immediate: '0'

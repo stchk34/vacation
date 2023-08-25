@@ -143,8 +143,21 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: 3c8e8ed5-08d0-40ef-8175-ac6838d4385c
+        uuid: 2f529e52-0d8b-4586-a637-5ddc0903fd2b
         weight: -45
+        action_id: rules_data_set
+        context_values:
+          value: state_certificate_creation
+        context_mapping:
+          data: node_created.field_current_state_certificate.value
+        context_processors:
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 3c8e8ed5-08d0-40ef-8175-ac6838d4385c
+        weight: -44
         action_id: rules_entity_save
         context_values:
           immediate: '0'
@@ -157,7 +170,7 @@ expression:
       -
         id: rules_action
         uuid: 9f3c68b9-9f60-47f9-9ccf-ccd6bd851e34
-        weight: -44
+        weight: -43
         action_id: rules_variable_add
         context_values:
           type: integer
@@ -170,7 +183,7 @@ expression:
       -
         id: rules_action
         uuid: a637d935-6dd3-4e1c-b980-120a464c1a9f
-        weight: -43
+        weight: -42
         action_id: rules_data_calculate_value
         context_values:
           input_1: '{{variable_added}}'
@@ -188,12 +201,14 @@ expression:
           result: result_adittion
       -
         id: rules_action
-        uuid: 159c0abd-6dfc-47ee-ac2d-62a734002e95
-        weight: -42
+        uuid: ce6c65ce-ba7b-4e78-86ca-25a7fd988de2
+        weight: -40
         action_id: rules_data_set
-        context_values: {  }
+        context_values:
+          value: state_certificate_publish
         context_mapping:
-          data: node.field_employee.entity.field_balance_a_vacations_day
-          value: result_adittion
-        context_processors: {  }
+          data: node.field_current_state_certificate.value
+        context_processors:
+          value:
+            rules_tokens: {  }
         provides_mapping: {  }

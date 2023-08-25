@@ -1,0 +1,12 @@
+uuid: 9bd56ac5-eddb-4f30-86c4-bfddb6442f13
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_publish
+id: state_certificate_publish_publish
+label: null
+module: workflow
+from_sid: state_certificate_publish
+to_sid: state_certificate_publish
+roles: {  }

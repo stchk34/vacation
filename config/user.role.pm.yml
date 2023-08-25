@@ -13,5 +13,6 @@ is_admin: null
 permissions:
   - 'access users overview'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'view any unpublished content'
   - 'view users by role'

@@ -23,6 +23,7 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'search content'
   - 'use text format restricted_html'
   - 'view media'

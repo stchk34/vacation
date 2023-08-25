@@ -1,0 +1,12 @@
+uuid: 5791239a-b500-4019-82be-f4dda7913eae
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_certificate
+id: state_certificate_creation
+label: Creation
+module: workflow
+wid: state_certificate
+weight: -11
+sysid: 1

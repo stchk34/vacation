@@ -109,3 +109,77 @@ request_state_approved:
     grant_view: 0
     grant_update: 0
     grant_delete: 0
+state_certificate_publish:
+  workflow_author:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+state_certificate_disabled:
+  workflow_author:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  authenticated:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0

@@ -6,7 +6,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_duration_not_paid_vacation
-    - field.field.node.vacation_request.field_duration_paid_vacation
+    - field.field.node.vacation_request.field_duration_notpaid_in_hours
+    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
     - field.field.node.vacation_request.field_status_request
@@ -37,7 +38,8 @@ content:
 hidden:
   field_approver: true
   field_duration_not_paid_vacation: true
-  field_duration_paid_vacation: true
+  field_duration_notpaid_in_hours: true
+  field_duration_of_the_paid_vacat: true
   field_employee_sender: true
   field_reason_vacation: true
   field_status_request: true

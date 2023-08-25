@@ -1,0 +1,12 @@
+uuid: c3c621c8-782d-4a57-87ab-f36e38ee8802
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_certificate
+id: state_certificate_disabled
+label: Disabled
+module: workflow
+wid: state_certificate
+weight: -8
+sysid: 0

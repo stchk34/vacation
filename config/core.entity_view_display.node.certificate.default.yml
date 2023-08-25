@@ -3,18 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.certificate.field_start_date
     - field.field.node.certificate.field_use_up
     - node.type.certificate
   module:
+    - options
     - user
 id: node.certificate.default
 targetEntityType: node
 bundle: certificate
 mode: default
 content:
+  field_current_state_certificate:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_employee:
     type: entity_reference_label
     label: inline

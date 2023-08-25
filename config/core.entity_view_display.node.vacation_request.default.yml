@@ -5,17 +5,17 @@ dependencies:
   config:
     - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_duration_not_paid_vacation
-    - field.field.node.vacation_request.field_duration_paid_vacation
+    - field.field.node.vacation_request.field_duration_notpaid_in_hours
+    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
     - field.field.node.vacation_request.field_status_request
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
   module:
-    - date_all_day
-    - datetime_range
     - layout_builder
     - options
+    - smart_date
     - user
 third_party_settings:
   layout_builder:
@@ -40,25 +40,36 @@ content:
     weight: 4
     region: content
   field_duration_not_paid_vacation:
-    type: daterange_default
+    type: smartdate_default
     label: above
     settings:
       timezone_override: ''
       format_type: medium
-      separator: '-'
+      format: default
+      force_chronological: false
+      add_classes: false
+      time_wrapper: true
+      localize: false
     third_party_settings: {  }
-    weight: 6
+    weight: 11
     region: content
-  field_duration_paid_vacation:
-    type: daterange_all_day_default
+  field_duration_notpaid_in_hours:
+    type: number_integer
     label: above
     settings:
-      timezone_override: ''
-      format_type: date_all_day
-      separator: '-'
-      date_only_format: date_all_day
+      thousand_separator: ''
+      prefix_suffix: true
     third_party_settings: {  }
-    weight: 7
+    weight: 13
+    region: content
+  field_duration_of_the_paid_vacat:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_employee_sender:
     type: entity_reference_label

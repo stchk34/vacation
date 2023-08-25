@@ -5,15 +5,15 @@ dependencies:
   config:
     - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_duration_not_paid_vacation
-    - field.field.node.vacation_request.field_duration_paid_vacation
+    - field.field.node.vacation_request.field_duration_notpaid_in_hours
+    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
     - field.field.node.vacation_request.field_status_request
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
   module:
-    - conditional_fields
-    - datetime_range
+    - smart_date
     - workflow
 id: node.vacation_request.default
 targetEntityType: node
@@ -31,37 +31,36 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_duration_not_paid_vacation:
-    type: daterange_default
-    weight: 2
+    type: smartdate_inline
+    weight: 26
     region: content
-    settings: {  }
+    settings:
+      modal: false
+      default_duration: 60
+      default_duration_increments: |-
+        30
+        60|1 hour
+        90
+        120|2 hours
+        custom
+      show_extra: false
+      hide_date: true
+      separator: to
     third_party_settings: {  }
-  field_duration_paid_vacation:
-    type: daterange_default
-    weight: 3
+  field_duration_notpaid_in_hours:
+    type: number
+    weight: 28
     region: content
-    settings: {  }
-    third_party_settings:
-      conditional_fields:
-        e948ea3f-62de-4b83-bc8a-b99d67553d88:
-          entity_type: node
-          bundle: vacation_request
-          dependee: field_type_vacations
-          settings:
-            state: visible
-            reset: true
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: '1'
-            effect: show
-            effect_options: {  }
-            selector: ''
-            regex: '2'
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_duration_of_the_paid_vacat:
+    type: number
+    weight: 27
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_reason_vacation:
     type: string_textfield
     weight: 5

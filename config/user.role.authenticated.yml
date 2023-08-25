@@ -30,6 +30,7 @@ permissions:
   - 'access site-wide contact form'
   - 'access user profiles'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'create vacation_request content'
   - 'execute entity:publish_action node'
   - 'execute workflow_node_given_state_action node'

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.certificate.field_start_date
@@ -22,6 +23,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_current_state_certificate: true
   field_employee: true
   field_limit_: true
   field_start_date: true

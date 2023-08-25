@@ -36,23 +36,6 @@ expression:
           bundle:
             rules_tokens: {  }
         provides_mapping: {  }
-      -
-        id: rules_condition
-        uuid: 5e7d0a69-6986-4bc0-96c0-602bab9da5de
-        weight: 0
-        condition_id: rules_entity_is_of_bundle
-        negate: false
-        context_values:
-          type: user
-          bundle: user
-        context_mapping:
-          entity: node.field_employee.entity
-        context_processors:
-          type:
-            rules_tokens: {  }
-          bundle:
-            rules_tokens: {  }
-        provides_mapping: {  }
   actions:
     id: rules_action_set
     uuid: 912173cd-3a28-4f65-8051-639989f11b97
@@ -60,37 +43,21 @@ expression:
     actions:
       -
         id: rules_action
-        uuid: 311f1221-cc75-431f-96f7-d081e9502f31
-        weight: -49
-        action_id: rules_data_calculate_value
-        context_values:
-          input_1: '{{node.field_limit_.value}}'
-          operator: '*'
-          input_2: '0'
-        context_mapping: {  }
-        context_processors:
-          input_1:
-            rules_tokens: {  }
-          operator:
-            rules_tokens: {  }
-          input_2:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: c7d966ae-187c-4045-93fb-37f3960e784a
-        weight: -48
+        uuid: 56bf64d6-3689-4e94-9e7a-ffc7dcc6aab5
+        weight: -50
         action_id: rules_data_set
-        context_values: {  }
+        context_values:
+          value: state_certificate_disabled
         context_mapping:
-          data: node.field_limit_.value
-          value: result
-        context_processors: {  }
+          data: node.field_current_state_certificate.value
+        context_processors:
+          value:
+            rules_tokens: {  }
         provides_mapping: {  }
       -
         id: rules_action
         uuid: 87947d80-a386-4126-a93d-ab5636ad33e9
-        weight: 0
+        weight: -49
         action_id: rules_entity_save
         context_values:
           immediate: '1'

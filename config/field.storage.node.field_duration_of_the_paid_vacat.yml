@@ -1,0 +1,20 @@
+uuid: ac6a8ebf-3008-41b5-b877-05b62a6a356b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_duration_of_the_paid_vacat
+field_name: field_duration_of_the_paid_vacat
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

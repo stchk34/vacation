@@ -203,7 +203,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: ''
     successors:
       -

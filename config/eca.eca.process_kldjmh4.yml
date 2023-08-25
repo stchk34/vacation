@@ -1,13 +1,144 @@
 uuid: 3bd11fc8-1c0a-40cd-8243-7c6b4b456fee
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - field.field.node.vacation_request.field_duration_not_paid_vacation
+    - field.field.node.vacation_request.field_duration_notpaid_in_hours
+    - field.storage.node.field_duration_not_paid_vacation
+    - field.storage.node.field_duration_notpaid_in_hours
+    - node.type.vacation_request
+  module:
+    - eca_base
+    - eca_content
+    - eca_tamper
+    - eca_user
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days'
 version: ''
 weight: null
-events: {  }
-conditions: {  }
-gateways: {  }
-actions: {  }
+events:
+  Event_1r3ba0r:
+    plugin: 'content_entity:insert'
+    label: 'create vacation request'
+    configuration:
+      type: 'node vacation_request'
+    successors:
+      -
+        id: Activity_0c3pcf2
+        condition: ''
+conditions:
+  Flow_1ye5jrv:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[new_request:field_type_vacations]'
+      right: 'Paid vacation'
+      operator: equal
+      type: value
+  Flow_0ztdybm:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[new_request:field_type_vacations]'
+      right: 'Not paid'
+      operator: equal
+      type: value
+gateways:
+  Gateway_0l452un:
+    type: 0
+    successors:
+      -
+        id: Activity_17cjcqu
+        condition: Flow_1ye5jrv
+      -
+        id: Activity_0g2xxt5
+        condition: Flow_0ztdybm
+actions:
+  Activity_0c3pcf2:
+    plugin: eca_token_load_entity
+    label: 'load request'
+    configuration:
+      token_name: new_request
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0c4vplg
+        condition: ''
+  Activity_0c4vplg:
+    plugin: eca_switch_account
+    label: 'switch user'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Gateway_0l452un
+        condition: ''
+  Activity_0jp8j4q:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: '[duration_timestamp]'
+    successors: {  }
+  Activity_0g2xxt5:
+    plugin: 'eca_tamper:math'
+    label: subtraction
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[new_request:field_duration_not_paid_vacation:value]'
+      eca_data: '[new_request:field_duration_not_paid_vacation:end_value]'
+      eca_token_name: duration_timestamp
+    successors:
+      -
+        id: Activity_0jp8j4q
+        condition: ''
+      -
+        id: Activity_0qj364f
+        condition: ''
+  Activity_0qj364f:
+    plugin: 'eca_tamper:math'
+    label: Activity_0qj364f
+    configuration:
+      operation: addition
+      flip: false
+      value: '60'
+      eca_data: '[duration_timestamp]'
+      eca_token_name: duration_in_hours
+    successors:
+      -
+        id: Activity_056gn5r
+        condition: ''
+  Activity_056gn5r:
+    plugin: eca_set_field_value
+    label: Activity_056gn5r
+    configuration:
+      field_name: field_duration_notpaid_in_hours
+      field_value: '[duration_in_hours]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_07z4qu3
+        condition: ''
+  Activity_07z4qu3:
+    plugin: eca_save_entity
+    label: 'save entity'
+    configuration:
+      object: '[new_request]'
+    successors: {  }

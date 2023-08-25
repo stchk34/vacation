@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.certificate.field_start_date
@@ -11,7 +12,7 @@ dependencies:
   module:
     - path
     - scheduler
-    - workflow_buttons
+    - workflow
 id: node.certificate.default
 targetEntityType: node
 bundle: certificate
@@ -20,6 +21,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_current_state_certificate:
+    type: workflow_default
+    weight: 132
     region: content
     settings: {  }
     third_party_settings: {  }

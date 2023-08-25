@@ -1,0 +1,22 @@
+uuid: c13635bd-7ca6-4214-a6e9-d7cfe8f351ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_disabled
+    - workflow.state.state_certificate_publish
+id: state_certificate_publish_disabled
+label: null
+module: workflow
+from_sid: state_certificate_publish
+to_sid: state_certificate_disabled
+roles:
+  workflow_author: workflow_author
+  administrator: administrator
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

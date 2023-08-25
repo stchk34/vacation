@@ -12,5 +12,6 @@ is_admin: null
 permissions:
   - 'access users overview'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'view user email addresses'
   - 'view users by role'

@@ -1,0 +1,22 @@
+uuid: 57ce89b6-1e25-418d-b92a-1d667c95d1bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - workflow
+id: node.field_current_state_certificate
+field_name: field_current_state_certificate
+entity_type: node
+type: workflow
+settings:
+  workflow_type: state_certificate
+  allowed_values: {  }
+  allowed_values_function: ''
+module: workflow
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

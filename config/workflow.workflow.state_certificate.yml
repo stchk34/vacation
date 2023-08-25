@@ -1,0 +1,16 @@
+uuid: fcd340b5-7aea-4044-92b2-d285048bea69
+langcode: en
+status: true
+dependencies: {  }
+id: state_certificate
+label: 'state certificate'
+module: workflow
+options:
+  name_as_title: 0
+  fieldset: 0
+  options: radios
+  schedule_enable: true
+  schedule_timezone: 1
+  always_update_entity: 0
+  comment_log_node: 1
+  watchdog_log: 1

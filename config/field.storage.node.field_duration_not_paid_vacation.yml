@@ -1,17 +1,16 @@
-uuid: be8fb586-6c63-4855-8ffd-7bcaf92bb703
+uuid: 503dd59e-c631-4b48-8f1c-0559ffc7df63
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime_range
     - node
+    - smart_date
 id: node.field_duration_not_paid_vacation
 field_name: field_duration_not_paid_vacation
 entity_type: node
-type: daterange
-settings:
-  datetime_type: datetime
-module: datetime_range
+type: smartdate
+settings: {  }
+module: smart_date
 locked: false
 cardinality: 1
 translatable: true
