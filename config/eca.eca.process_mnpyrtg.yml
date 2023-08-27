@@ -9,20 +9,17 @@ dependencies:
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_transaction
-    - field.field.user.user.field_balance_a_vacations_day
     - field.storage.node.field_created_date
     - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
     - field.storage.node.field_owner
     - field.storage.node.field_type_transaction
-    - field.storage.user.field_balance_a_vacations_day
     - node.type.certificate
     - node.type.transaction
   module:
     - eca_base
     - eca_content
-    - eca_tamper
     - eca_user
 id: process_mnpyrtg
 modeller: bpmn_io
@@ -37,7 +34,7 @@ events:
       type: 'node certificate'
     successors:
       -
-        id: Activity_1r7hxy3
+        id: Activity_0qykfe1
         condition: ''
 conditions:
   Flow_0q7wfwp:
@@ -63,20 +60,11 @@ gateways:
     type: 0
     successors:
       -
-        id: Gateway_1azopek
+        id: Activity_1jtw2xe
         condition: Flow_0q7wfwp
       -
         id: Activity_1dgp9uc
         condition: Flow_0glrjsd
-  Gateway_1azopek:
-    type: 0
-    successors:
-      -
-        id: Activity_1jtw2xe
-        condition: ''
-      -
-        id: Activity_1f9up1u
-        condition: ''
 actions:
   Activity_1r7hxy3:
     plugin: eca_switch_account
@@ -85,7 +73,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Activity_0qykfe1
+        id: Gateway_097ljag
         condition: ''
   Activity_1jtw2xe:
     plugin: eca_new_entity
@@ -117,7 +105,7 @@ actions:
       object: ''
     successors:
       -
-        id: Gateway_097ljag
+        id: Activity_1r7hxy3
         condition: ''
   Activity_00m7r91:
     plugin: eca_save_entity
@@ -169,9 +157,6 @@ actions:
     successors:
       -
         id: Activity_00m7r91
-        condition: ''
-      -
-        id: Activity_04gzyb3
         condition: ''
   Activity_1dgp9uc:
     plugin: eca_new_entity
@@ -237,74 +222,4 @@ actions:
     label: 'save transaction'
     configuration:
       object: '[burning_day_transaction]'
-    successors: {  }
-  Activity_1f9up1u:
-    plugin: eca_token_load_entity_ref
-    label: 'user employee'
-    configuration:
-      field_name_entity_ref: field_employee
-      token_name: upd_certificate_employee
-      from: current
-      entity_type: user
-      entity_id: ''
-      revision_id: ''
-      properties: ''
-      langcode: _interface
-      latest_revision: false
-      unchanged: false
-      object: ''
-    successors:
-      -
-        id: Activity_03iiuoc
-        condition: ''
-  Activity_04gzyb3:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: '[upd_certificate:field_limit_:value]'
-    successors: {  }
-  Activity_03iiuoc:
-    plugin: 'eca_tamper:math'
-    label: 'actual balance'
-    configuration:
-      operation: addition
-      flip: false
-      value: '[upd_certificate:field_limit_:value]'
-      eca_data: '[upd_certificate:field_employee:entity:field_balance_a_vacations_day]'
-      eca_token_name: actual_balance
-    successors:
-      -
-        id: Activity_1vnqaez
-        condition: ''
-      -
-        id: Activity_0xr2inw
-        condition: ''
-  Activity_1vnqaez:
-    plugin: eca_set_field_value
-    label: 'set field'
-    configuration:
-      field_name: field_balance_a_vacations_day
-      field_value: '[actual_balance]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[upd_certificate_employee]'
-    successors:
-      -
-        id: Activity_0jwv0hb
-        condition: ''
-  Activity_0jwv0hb:
-    plugin: eca_save_entity
-    label: 'save user'
-    configuration:
-      object: '[upd_certificate_employee]'
-    successors: {  }
-  Activity_0xr2inw:
-    plugin: action_message_action
-    label: Activity_0xr2inw
-    configuration:
-      replace_tokens: false
-      message: '[upd_certificate:field_employee:entity:field_balance_a_vacations_day]'
     successors: {  }

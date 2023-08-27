@@ -1,0 +1,122 @@
+uuid: ec43510f-704a-4a49-b9e4-e5b4afcda807
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.certificate.field_current_state_certificate
+    - field.field.node.certificate.field_employee
+    - field.field.node.certificate.field_limit_
+    - field.field.user.user.field_limit_of_weekends_per_year
+    - field.storage.node.field_current_state_certificate
+    - field.storage.node.field_employee
+    - field.storage.node.field_limit_
+    - field.storage.user.field_limit_of_weekends_per_year
+    - node.type.certificate
+  module:
+    - eca_content
+    - eca_tamper
+    - eca_user
+id: process_iym6hcj
+modeller: bpmn_io
+label: noname
+version: ''
+weight: null
+events:
+  Event_1xsf37l:
+    plugin: 'content_entity:insert'
+    label: 'create certificate'
+    configuration:
+      type: 'node certificate'
+    successors:
+      -
+        id: Activity_0pcknko
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  Activity_0pcknko:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0lcxfxj
+        condition: ''
+  Activity_0lcxfxj:
+    plugin: eca_token_load_entity
+    label: 'load certificate'
+    configuration:
+      token_name: certificate
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_1yhjqnj
+        condition: ''
+  Activity_1yhjqnj:
+    plugin: eca_set_field_value
+    label: 'set field State'
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_creation
+      method: 'set:empty'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: certificate
+    successors:
+      -
+        id: Activity_1uhkhq9
+        condition: ''
+  Activity_0zwkaq2:
+    plugin: 'eca_tamper:math'
+    label: 'calculate limit days'
+    configuration:
+      operation: division
+      flip: false
+      value: '2'
+      eca_data: '[employee:field_limit_of_weekends_per_year:value]'
+      eca_token_name: limit_certificate
+    successors:
+      -
+        id: Activity_06h4tck
+        condition: ''
+  Activity_1uhkhq9:
+    plugin: eca_token_load_entity_ref
+    label: 'load employee certificate'
+    configuration:
+      field_name_entity_ref: field_employee
+      token_name: employee
+      from: current
+      entity_type: user
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0zwkaq2
+        condition: ''
+  Activity_06h4tck:
+    plugin: eca_set_field_value
+    label: 'set field limit'
+    configuration:
+      field_name: field_limit_
+      field_value: '[limit_certificate]'
+      method: 'set:empty'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: ''
+    successors: {  }

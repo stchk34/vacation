@@ -69,62 +69,8 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: 2dee41e8-5802-48c2-bafd-2293848c1014
-        weight: -48
-        action_id: rules_data_calculate_value
-        context_values:
-          input_1: '{{user.field_limit_of_weekends_per_year.value}}'
-          operator: /
-          input_2: '2'
-        context_mapping: {  }
-        context_processors:
-          input_1:
-            rules_tokens: {  }
-          operator:
-            rules_tokens: {  }
-          input_2:
-            rules_tokens: {  }
-        provides_mapping:
-          result: number_of_vacation
-      -
-        id: rules_action
-        uuid: 438faa1e-b38d-4686-8379-addbd271410f
-        weight: -47
-        action_id: rules_data_set
-        context_values: {  }
-        context_mapping:
-          data: node_created.field_limit_
-          value: number_of_vacation
-        context_processors: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: 033e7c80-34e2-46ff-a301-dbcc4d3301a2
-        weight: -46
-        action_id: rules_data_set
-        context_values:
-          value: state_certificate_creation
-        context_mapping:
-          data: node_created.field_current_state_certificate.value
-        context_processors:
-          value:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: ba4dd445-3ac4-4ed9-9659-c8b14701c8d2
-        weight: -45
-        action_id: rules_data_set
-        context_values: {  }
-        context_mapping:
-          data: user.field_my_team_lead
-          value: user.field_teams.entity.uid.entity
-        context_processors: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
         uuid: ff5d52f3-92c0-40cf-8314-94dbff790406
-        weight: -43
+        weight: -48
         action_id: rules_entity_save
         context_values:
           immediate: '0'
@@ -133,4 +79,15 @@ expression:
         context_processors:
           immediate:
             rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: ba4dd445-3ac4-4ed9-9659-c8b14701c8d2
+        weight: -47
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: user.field_my_team_lead
+          value: user.field_teams.entity.uid.entity
+        context_processors: {  }
         provides_mapping: {  }

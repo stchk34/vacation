@@ -505,10 +505,6 @@ modeldata: |
         <bpmndi:BPMNShape id="Gateway_00ul7ai_di" bpmnElement="Gateway_00ul7ai" isMarkerVisible="true">
           <dc:Bounds x="295" y="385" width="50" height="50" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1ozf1jb_di" bpmnElement="Activity_1ozf1jb">
-          <dc:Bounds x="540" y="450" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0mbz1by_di" bpmnElement="Activity_0mbz1by">
           <dc:Bounds x="-100" y="370" width="100" height="80" />
           <bpmndi:BPMNLabel />
@@ -544,10 +540,6 @@ modeldata: |
         <bpmndi:BPMNShape id="Activity_033g9m3_di" bpmnElement="Activity_1ocw2lm">
           <dc:Bounds x="980" y="200" width="100" height="80" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_09nmk46_di" bpmnElement="Activity_09nmk46">
-          <dc:Bounds x="540" y="330" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_1w2mr9d_di" bpmnElement="Gateway_1w2mr9d" isMarkerVisible="true">
           <dc:Bounds x="405" y="465" width="50" height="50" />
         </bpmndi:BPMNShape>
@@ -557,6 +549,14 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_0idb1ar_di" bpmnElement="Gateway_0idb1ar" isMarkerVisible="true">
           <dc:Bounds x="565" y="35" width="50" height="50" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1ozf1jb_di" bpmnElement="Activity_1ozf1jb">
+          <dc:Bounds x="540" y="520" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_09nmk46_di" bpmnElement="Activity_09nmk46">
+          <dc:Bounds x="540" y="370" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_02s982z_di" bpmnElement="Flow_02s982z">
           <di:waypoint x="0" y="410" />
@@ -632,12 +632,13 @@ modeldata: |
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0kfp370_di" bpmnElement="Flow_0kfp370">
           <di:waypoint x="430" y="465" />
-          <di:waypoint x="430" y="370" />
-          <di:waypoint x="540" y="370" />
+          <di:waypoint x="430" y="410" />
+          <di:waypoint x="540" y="410" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1uwdaom_di" bpmnElement="Flow_1uwdaom">
-          <di:waypoint x="455" y="490" />
-          <di:waypoint x="540" y="490" />
+          <di:waypoint x="430" y="515" />
+          <di:waypoint x="430" y="560" />
+          <di:waypoint x="540" y="560" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1e5u9sd_di" bpmnElement="Flow_1e5u9sd">
           <di:waypoint x="1230" y="60" />

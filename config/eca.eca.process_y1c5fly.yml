@@ -3,12 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.storage.node.field_days
     - field.storage.node.field_owner
     - node.type.transaction
   module:
     - eca_base
     - eca_content
+    - eca_tamper
     - eca_user
 id: process_y1c5fly
 modeller: bpmn_io
@@ -91,7 +94,10 @@ actions:
       latest_revision: false
       unchanged: false
       object: ''
-    successors: {  }
+    successors:
+      -
+        id: Activity_1ojtzlu
+        condition: ''
   Activity_1brxwjf:
     plugin: eca_token_load_entity_ref
     label: 'onwer burning day transaction'
@@ -141,4 +147,57 @@ actions:
       latest_revision: false
       unchanged: false
       object: ''
+    successors:
+      -
+        id: Activity_1g4t94f
+        condition: ''
+  Activity_1g4t94f:
+    plugin: 'eca_tamper:math'
+    label: 'Balance user after vacation request'
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[new_transaction:field_days:value]'
+      eca_data: '[owner_transaction_spent:field_balance_a_vacations_day:value]'
+      eca_token_name: balance_after_request
+    successors:
+      -
+        id: Activity_1lkc2ag
+        condition: ''
+  Activity_1lkc2ag:
+    plugin: eca_set_field_value
+    label: 'Set field balance user'
+    configuration:
+      field_name: field_balance_a_vacations_day
+      field_value: '[balance_after_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[owner_transaction_spent]'
+    successors: {  }
+  Activity_1ojtzlu:
+    plugin: 'eca_tamper:math'
+    label: 'Balance user after publish certificate'
+    configuration:
+      operation: addition
+      flip: false
+      value: '[new_transaction:field_days:value]'
+      eca_data: '[owner_earned_transaction:field_balance_a_vacations_day:value]'
+      eca_token_name: balance_after_publish_certificate
+    successors:
+      -
+        id: Activity_1xupkh9
+        condition: ''
+  Activity_1xupkh9:
+    plugin: eca_set_field_value
+    label: 'set field balance user'
+    configuration:
+      field_name: field_balance_a_vacations_day
+      field_value: '[balance_after_publish_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: owner_earned_transaction
     successors: {  }

@@ -92,21 +92,8 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: ce6c65ce-ba7b-4e78-86ca-25a7fd988de2
-        weight: -49
-        action_id: rules_data_set
-        context_values:
-          value: state_certificate_publish
-        context_mapping:
-          data: node.field_current_state_certificate.value
-        context_processors:
-          value:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
         uuid: 7d605a45-f19c-402d-970c-04ce2cf85e2f
-        weight: -48
+        weight: -49
         action_id: rules_data_set
         context_values: {  }
         context_mapping:
@@ -117,7 +104,7 @@ expression:
       -
         id: rules_action
         uuid: d997084f-d6f8-49df-aa69-959238693890
-        weight: -47
+        weight: -48
         action_id: rules_data_set
         context_values: {  }
         context_mapping:
@@ -127,50 +114,8 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: afff91cb-16d3-4f0a-88d2-7ef566959240
-        weight: -46
-        action_id: rules_data_calculate_value
-        context_values:
-          input_1: '{{node.field_employee.entity.field_limit_of_weekends_per_year.value}}'
-          operator: /
-          input_2: '2'
-        context_mapping: {  }
-        context_processors:
-          input_1:
-            rules_tokens: {  }
-          operator:
-            rules_tokens: {  }
-          input_2:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: 16bd19b7-5159-4fb7-b560-d9ab13092901
-        weight: -45
-        action_id: rules_data_set
-        context_values: {  }
-        context_mapping:
-          data: node_created.field_limit_
-          value: result
-        context_processors: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
-        uuid: 2f529e52-0d8b-4586-a637-5ddc0903fd2b
-        weight: -44
-        action_id: rules_data_set
-        context_values:
-          value: state_certificate_creation
-        context_mapping:
-          data: node_created.field_current_state_certificate.value
-        context_processors:
-          value:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
         uuid: 3c8e8ed5-08d0-40ef-8175-ac6838d4385c
-        weight: -43
+        weight: -47
         action_id: rules_entity_save
         context_values:
           immediate: '0'
@@ -178,5 +123,18 @@ expression:
           entity: node_created
         context_processors:
           immediate:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: ce6c65ce-ba7b-4e78-86ca-25a7fd988de2
+        weight: -46
+        action_id: rules_data_set
+        context_values:
+          value: state_certificate_publish
+        context_mapping:
+          data: node.field_current_state_certificate.value
+        context_processors:
+          value:
             rules_tokens: {  }
         provides_mapping: {  }

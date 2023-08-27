@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: burning_out_days_in_the_certificate
-label: 'Burning out days in the certificate'
+label: 'Set state -> disabled in certificate'
 events:
   -
     event_name: scheduler_has_unpublished_this_node_event
