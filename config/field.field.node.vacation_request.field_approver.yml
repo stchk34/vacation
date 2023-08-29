@@ -9,7 +9,7 @@ id: node.vacation_request.field_approver
 field_name: field_approver
 entity_type: node
 bundle: vacation_request
-label: Approver
+label: Approvers
 description: ''
 required: false
 translatable: false

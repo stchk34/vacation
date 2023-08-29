@@ -33,7 +33,7 @@ events:
       type: 'node vacation_request'
     successors:
       -
-        id: Activity_0mbz1by
+        id: Activity_177hcd7
         condition: ''
 conditions:
   Flow_1wcqm5q:
@@ -105,7 +105,7 @@ actions:
       object: ''
     successors:
       -
-        id: Gateway_00ul7ai
+        id: Activity_0mbz1by
         condition: ''
   Activity_0g7rzjw:
     plugin: eca_new_entity
@@ -148,7 +148,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Activity_177hcd7
+        id: Gateway_00ul7ai
         condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.transaction.field_created_date
@@ -10,6 +11,7 @@ dependencies:
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_transaction
     - field.storage.node.field_created_date
+    - field.storage.node.field_current_state_certificate
     - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
@@ -60,11 +62,17 @@ gateways:
     type: 0
     successors:
       -
-        id: Activity_1jtw2xe
+        id: Gateway_1dw2o85
         condition: Flow_0q7wfwp
       -
         id: Activity_1dgp9uc
         condition: Flow_0glrjsd
+  Gateway_1dw2o85:
+    type: 0
+    successors:
+      -
+        id: Activity_1jtw2xe
+        condition: ''
 actions:
   Activity_1r7hxy3:
     plugin: eca_switch_account
@@ -100,12 +108,15 @@ actions:
       revision_id: ''
       properties: ''
       langcode: _interface
-      latest_revision: false
+      latest_revision: true
       unchanged: false
       object: ''
     successors:
       -
         id: Activity_1r7hxy3
+        condition: ''
+      -
+        id: Activity_1h1e98h
         condition: ''
   Activity_00m7r91:
     plugin: eca_save_entity
@@ -222,4 +233,11 @@ actions:
     label: 'save transaction'
     configuration:
       object: '[burning_day_transaction]'
+    successors: {  }
+  Activity_1h1e98h:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: '[upd_certificate:field_current_state_certificate:value]'
     successors: {  }
