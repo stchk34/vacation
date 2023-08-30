@@ -1,5 +1,5 @@
 status: 1
-pattern: 'Vacation request from [node:field_employee_sender] to [node:field_employee_sender:entity:field_my_team_lead]'
+pattern: "Vacation request from \t[node:field_employee_sender:entity]"
 escape: false
 preserve_titles: false
 save: false

@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_created_date
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_type_transaction
+    - field.field.node.transaction.field_vacat
     - node.type.transaction
   module:
     - datetime
@@ -23,6 +25,16 @@ content:
     weight: 2
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_certificate:
+    type: entity_reference_autocomplete
+    weight: 13
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_created_date:
     type: datetime_default
@@ -47,11 +59,27 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_type_transaction:
+  field_type_paid_vacation:
     type: options_select
     weight: 12
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_type_transaction:
+    type: options_select
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_vacat:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   moderation_state:
     type: workflow_buttons
@@ -117,5 +145,4 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden:
-  field_type_paid_vacation: true
+hidden: {  }

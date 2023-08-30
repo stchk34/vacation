@@ -13,7 +13,7 @@ request_state_published:
     grant_delete: true
   team_lead:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   pm:
     grant_view: true
@@ -42,7 +42,7 @@ request_state_disapproved:
     grant_delete: 0
   ceo:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   administrator:
     grant_view: true
@@ -50,11 +50,11 @@ request_state_disapproved:
     grant_delete: true
   team_lead:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   pm:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   dev:
     grant_view: 0
@@ -79,7 +79,7 @@ request_state_approved:
     grant_delete: 0
   ceo:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   administrator:
     grant_view: true
@@ -87,11 +87,11 @@ request_state_approved:
     grant_delete: true
   team_lead:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   pm:
     grant_view: true
-    grant_update: 0
+    grant_update: true
     grant_delete: 0
   dev:
     grant_view: 0

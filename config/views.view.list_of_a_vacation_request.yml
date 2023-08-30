@@ -5,15 +5,17 @@ dependencies:
   config:
     - field.storage.node.field_employee_sender
     - field.storage.node.field_status_request
+    - field.storage.node.field_type_vacations
     - node.type.vacation_request
     - user.role.administrator
     - user.role.ceo
+    - user.role.pm
     - user.role.team_lead
   module:
     - better_exposed_filters
     - node
+    - options
     - user
-    - views_cm_current_state
     - workflow
 id: list_of_a_vacation_request
 label: 'List of a vacation request'
@@ -226,6 +228,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_type_vacations:
+          id: field_type_vacations
+          table: node__field_type_vacations
+          field: field_type_vacations
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Type
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_status_request:
           id: field_status_request
           table: node__field_status_request
@@ -351,6 +415,7 @@ display:
             ceo: ceo
             administrator: administrator
             team_lead: team_lead
+            pm: pm
       cache:
         type: tag
         options: {  }
@@ -386,11 +451,11 @@ display:
           exposed: false
           granularity: second
       arguments:
-        field_my_team_lead_target_id:
-          id: field_my_team_lead_target_id
-          table: user__field_my_team_lead
-          field: field_my_team_lead_target_id
-          relationship: uid
+        field_approver_target_id:
+          id: field_approver_target_id
+          table: node__field_approver
+          field: field_approver_target_id
+          relationship: none
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -421,54 +486,6 @@ display:
           break_phrase: false
           not: false
       filters:
-        combine:
-          id: combine
-          table: views
-          field: combine
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: combine
-          operator: word
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: combine_op
-            label: Sender
-            description: ''
-            use_operator: false
-            operator: combine_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: combine
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              ceo: '0'
-              administrator: '0'
-              team_lead: '0'
-              dev: '0'
-              content_editor: '0'
-              pm: '0'
-              anonymous: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          fields:
-            field_employee_sender: field_employee_sender
         type:
           id: type
           table: node_field_data
@@ -482,61 +499,6 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
-        current_state_views_filter:
-          id: current_state_views_filter
-          table: node_field_data
-          field: current_state_views_filter
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: current_state_views_filter
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: current_state_views_filter_op
-            label: 'Current state'
-            description: null
-            use_operator: false
-            operator: current_state_views_filter_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: current_state_views_filter
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: true
-          group_info:
-            label: 'Current state'
-            description: ''
-            identifier: current_state_views_filter
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: '1'
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: Published
-                operator: in
-                value:
-                  approve_request-published: approve_request-published
-              2:
-                title: Disapproved
-                operator: in
-                value:
-                  approve_request-draft: approve_request-draft
-              3:
-                title: Approved
-                operator: in
-                value:
-                  approve_request-approve: approve_request-approve
       filter_groups:
         operator: AND
         groups:
@@ -640,7 +602,7 @@ display:
       tags:
         - 'config:field.storage.node.field_employee_sender'
         - 'config:field.storage.node.field_status_request'
-        - 'config:workflow_list'
+        - 'config:field.storage.node.field_type_vacations'
   page_1:
     id: page_1
     display_title: Page
@@ -663,4 +625,4 @@ display:
       tags:
         - 'config:field.storage.node.field_employee_sender'
         - 'config:field.storage.node.field_status_request'
-        - 'config:workflow_list'
+        - 'config:field.storage.node.field_type_vacations'

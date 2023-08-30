@@ -78,7 +78,7 @@ expression:
         context_values:
           input_1: '{{variable_added}}'
           operator: +
-          input_2: '500'
+          input_2: '300'
         context_mapping: {  }
         context_processors:
           input_1:
@@ -125,7 +125,7 @@ expression:
         context_values:
           input_1: '{{time_publish_node}}'
           operator: +
-          input_2: '1000'
+          input_2: '500'
         context_mapping: {  }
         context_processors:
           input_1:

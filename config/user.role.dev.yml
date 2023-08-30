@@ -10,6 +10,8 @@ label: Dev
 weight: -7
 is_admin: null
 permissions:
+  - 'access own request_state workflow_transion overview'
+  - 'access own state_certificate workflow_transion overview'
   - 'access users overview'
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'

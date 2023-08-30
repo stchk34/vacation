@@ -105,7 +105,7 @@ content:
     region: content
   field_status_request:
     type: workflow_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 9

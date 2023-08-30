@@ -1,7 +1,12 @@
 uuid: 772a6064-48f9-48dd-93ff-940263f51b7b
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - menu_trail_by_path
+third_party_settings:
+  menu_trail_by_path:
+    trail_source: ''
 id: menu-for-user-account
 label: 'Menu for user account'
 description: ''

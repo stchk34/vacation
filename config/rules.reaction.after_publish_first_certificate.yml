@@ -138,3 +138,33 @@ expression:
           value:
             rules_tokens: {  }
         provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 8f8b9cf9-5829-42d7-b7c6-526f84e459c0
+        weight: 0
+        action_id: rules_data_calculate_value
+        context_values:
+          input_1: '{{node.field_employee.entity.field_balance_a_vacations_day.value}}'
+          operator: +
+          input_2: '{{node.field_limit_.value}}'
+        context_mapping: {  }
+        context_processors:
+          input_1:
+            rules_tokens: {  }
+          operator:
+            rules_tokens: {  }
+          input_2:
+            rules_tokens: {  }
+        provides_mapping:
+          result: balance_after_publish_certificate
+      -
+        id: rules_action
+        uuid: 69d1bbe5-432b-4f64-b9e7-4dc57fd0a6c1
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node.field_employee.entity.field_balance_a_vacations_day.value
+          value: balance_after_publish_certificate
+        context_processors: {  }
+        provides_mapping: {  }

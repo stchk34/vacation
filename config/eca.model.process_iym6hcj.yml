@@ -5,7 +5,7 @@ dependencies:
   config:
     - eca.eca.process_iym6hcj
 id: process_iym6hcj
-label: noname
+label: 'Set field in certificate'
 tags:
   - untagged
 documentation: ''
@@ -13,7 +13,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_iym6hCj" isExecutable="true">
+    <bpmn2:process id="Process_iym6hCj" name="Set field in certificate" isExecutable="true">
       <bpmn2:startEvent id="Event_1xsf37l" name="create certificate" camunda:modelerTemplate="org.drupal.event.content_entity:insert">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -75,40 +75,9 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0wynzyn</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_0t51rh0</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_00ry08o</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0wynzyn" sourceRef="Activity_0pcknko" targetRef="Activity_0lcxfxj" />
-      <bpmn2:task id="Activity_1yhjqnj" name="set field State" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_set_field_value" />
-          </camunda:properties>
-          <camunda:field name="method">
-            <camunda:string>set:empty</camunda:string>
-          </camunda:field>
-          <camunda:field name="strip_tags">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="trim">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_name">
-            <camunda:string>field_current_state_certificate</camunda:string>
-          </camunda:field>
-          <camunda:field name="save_entity">
-            <camunda:string>yes</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_value">
-            <camunda:string>state_certificate_creation</camunda:string>
-          </camunda:field>
-          <camunda:field name="object">
-            <camunda:string>certificate</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_0t51rh0</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_0k85ezz</bpmn2:outgoing>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_0t51rh0" sourceRef="Activity_0lcxfxj" targetRef="Activity_1yhjqnj" />
       <bpmn2:task id="Activity_0zwkaq2" name="calculate limit days" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -172,10 +141,9 @@ modeldata: |
             <camunda:string></camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_0k85ezz</bpmn2:incoming>
+        <bpmn2:incoming>Flow_00ry08o</bpmn2:incoming>
         <bpmn2:outgoing>Flow_17sg06l</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_0k85ezz" sourceRef="Activity_1yhjqnj" targetRef="Activity_1uhkhq9" />
       <bpmn2:sequenceFlow id="Flow_17sg06l" sourceRef="Activity_1uhkhq9" targetRef="Activity_0zwkaq2" />
       <bpmn2:task id="Activity_06h4tck" name="set field limit" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
@@ -205,8 +173,40 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0mmt79v</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0fjq2b3</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0mmt79v" sourceRef="Activity_0zwkaq2" targetRef="Activity_06h4tck" />
+      <bpmn2:sequenceFlow id="Flow_00ry08o" sourceRef="Activity_0lcxfxj" targetRef="Activity_1uhkhq9" />
+      <bpmn2:task id="Activity_0js6v72" name="set field state" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_current_state_certificate</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>state_certificate_creation</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[certificate]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0fjq2b3</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0fjq2b3" sourceRef="Activity_06h4tck" targetRef="Activity_0js6v72" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-16312dbf-70b1-483c-892e-4cffd5c212d1">
       <bpmndi:BPMNPlane id="sid-17ff9a7d-bf01-4581-bb02-5c77f57ed102" bpmnElement="Process_iym6hCj">
@@ -224,20 +224,20 @@ modeldata: |
           <dc:Bounds x="510" y="130" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1yhjqnj_di" bpmnElement="Activity_1yhjqnj">
-          <dc:Bounds x="660" y="130" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0zwkaq2_di" bpmnElement="Activity_0zwkaq2">
-          <dc:Bounds x="980" y="130" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1uhkhq9_di" bpmnElement="Activity_1uhkhq9">
           <dc:Bounds x="810" y="130" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1uhkhq9_di" bpmnElement="Activity_1uhkhq9">
+          <dc:Bounds x="660" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_06h4tck_di" bpmnElement="Activity_06h4tck">
-          <dc:Bounds x="1150" y="130" width="100" height="80" />
+          <dc:Bounds x="970" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0js6v72_di" bpmnElement="Activity_0js6v72">
+          <dc:Bounds x="1130" y="130" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_162s99w_di" bpmnElement="Flow_162s99w">
@@ -248,21 +248,21 @@ modeldata: |
           <di:waypoint x="450" y="170" />
           <di:waypoint x="510" y="170" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0t51rh0_di" bpmnElement="Flow_0t51rh0">
-          <di:waypoint x="610" y="170" />
-          <di:waypoint x="660" y="170" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0k85ezz_di" bpmnElement="Flow_0k85ezz">
+        <bpmndi:BPMNEdge id="Flow_17sg06l_di" bpmnElement="Flow_17sg06l">
           <di:waypoint x="760" y="170" />
           <di:waypoint x="810" y="170" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_17sg06l_di" bpmnElement="Flow_17sg06l">
-          <di:waypoint x="910" y="170" />
-          <di:waypoint x="980" y="170" />
-        </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0mmt79v_di" bpmnElement="Flow_0mmt79v">
-          <di:waypoint x="1080" y="170" />
-          <di:waypoint x="1150" y="170" />
+          <di:waypoint x="910" y="170" />
+          <di:waypoint x="970" y="170" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_00ry08o_di" bpmnElement="Flow_00ry08o">
+          <di:waypoint x="610" y="170" />
+          <di:waypoint x="660" y="170" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0fjq2b3_di" bpmnElement="Flow_0fjq2b3">
+          <di:waypoint x="1070" y="170" />
+          <di:waypoint x="1130" y="170" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

@@ -16,13 +16,14 @@ dependencies:
   module:
     - conditional_fields
     - smart_date
+    - workflow
 id: node.vacation_request.default
 targetEntityType: node
 bundle: vacation_request
 mode: default
 content:
   field_approver:
-    type: options_select
+    type: options_buttons
     weight: 6
     region: content
     settings: {  }
@@ -107,6 +108,12 @@ content:
       placeholder: ''
     third_party_settings:
       conditional_fields: {  }
+  field_status_request:
+    type: workflow_default
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_type_vacations:
     type: options_buttons
     weight: 1
@@ -145,7 +152,6 @@ hidden:
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true
   field_employee_sender: true
-  field_status_request: true
   path: true
   promote: true
   publish_on: true

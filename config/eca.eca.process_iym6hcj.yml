@@ -18,7 +18,7 @@ dependencies:
     - eca_user
 id: process_iym6hcj
 modeller: bpmn_io
-label: noname
+label: 'Set field in certificate'
 version: ''
 weight: null
 events:
@@ -57,21 +57,6 @@ actions:
       latest_revision: false
       unchanged: false
       object: ''
-    successors:
-      -
-        id: Activity_1yhjqnj
-        condition: ''
-  Activity_1yhjqnj:
-    plugin: eca_set_field_value
-    label: 'set field State'
-    configuration:
-      field_name: field_current_state_certificate
-      field_value: state_certificate_creation
-      method: 'set:empty'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: certificate
     successors:
       -
         id: Activity_1uhkhq9
@@ -119,4 +104,19 @@ actions:
       trim: false
       save_entity: true
       object: ''
+    successors:
+      -
+        id: Activity_0js6v72
+        condition: ''
+  Activity_0js6v72:
+    plugin: eca_set_field_value
+    label: 'set field state'
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_creation
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[certificate]'
     successors: {  }

@@ -1,0 +1,29 @@
+uuid: 207f7748-c865-40b9-895b-40843e820775
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vacat
+    - node.type.transaction
+    - node.type.vacation_request
+id: node.transaction.field_vacat
+field_name: field_vacat
+entity_type: node
+bundle: transaction
+label: 'Vacation request'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vacation_request: vacation_request
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

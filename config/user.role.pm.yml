@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - actions_permissions
     - administerusersbyrole
     - content_moderation
     - workflow
@@ -11,8 +12,11 @@ label: PM
 weight: -5
 is_admin: null
 permissions:
+  - 'access own request_state workflow_transion overview'
+  - 'access own state_certificate workflow_transion overview'
   - 'access users overview'
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'
+  - 'execute workflow_node_next_state_action node'
   - 'view any unpublished content'
   - 'view users by role'

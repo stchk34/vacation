@@ -15,6 +15,8 @@ weight: -10
 is_admin: null
 permissions:
   - 'access group overview'
+  - 'access own request_state workflow_transion overview'
+  - 'access own state_certificate workflow_transion overview'
   - 'access users overview'
   - 'administer account settings'
   - 'administer group'

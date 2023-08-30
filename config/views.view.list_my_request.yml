@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_approver
     - field.storage.node.field_status_request
+    - field.storage.node.field_type_vacations
     - node.type.vacation_request
     - user.role.administrator
     - user.role.dev
@@ -13,6 +13,7 @@ dependencies:
   module:
     - better_exposed_filters
     - node
+    - options
     - user
     - views_cm_current_state
     - workflow
@@ -97,15 +98,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_approver:
-          id: field_approver
-          table: node__field_approver
-          field: field_approver
+        field_type_vacations:
+          id: field_type_vacations
+          table: node__field_type_vacations
+          field: field_type_vacations
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Approver
+          label: Type
           exclude: false
           alter:
             alter_text: false
@@ -146,11 +147,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -595,8 +595,8 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_approver'
         - 'config:field.storage.node.field_status_request'
+        - 'config:field.storage.node.field_type_vacations'
         - 'config:workflow_list'
   page_1:
     id: page_1
@@ -618,6 +618,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_approver'
         - 'config:field.storage.node.field_status_request'
+        - 'config:field.storage.node.field_type_vacations'
         - 'config:workflow_list'

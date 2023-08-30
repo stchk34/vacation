@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_created_date
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_transaction
+    - field.storage.node.field_certificate
     - field.storage.node.field_created_date
-    - field.storage.node.field_current_state_certificate
     - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
@@ -36,7 +36,7 @@ events:
       type: 'node certificate'
     successors:
       -
-        id: Activity_0qykfe1
+        id: Activity_1r7hxy3
         condition: ''
 conditions:
   Flow_0q7wfwp:
@@ -57,22 +57,25 @@ conditions:
       right: state_certificate_disabled
       operator: equal
       type: value
+  Flow_1qc0hhv:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[upd_certificate:field_current_state_certificate:value]'
+      right: '[original_certificate:field_current_state_certificate:value]'
+      operator: equal
+      type: value
+      negate: true
 gateways:
   Gateway_097ljag:
     type: 0
     successors:
       -
-        id: Gateway_1dw2o85
+        id: Activity_1jtw2xe
         condition: Flow_0q7wfwp
       -
         id: Activity_1dgp9uc
         condition: Flow_0glrjsd
-  Gateway_1dw2o85:
-    type: 0
-    successors:
-      -
-        id: Activity_1jtw2xe
-        condition: ''
 actions:
   Activity_1r7hxy3:
     plugin: eca_switch_account
@@ -81,7 +84,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Gateway_097ljag
+        id: Activity_1vihx41
         condition: ''
   Activity_1jtw2xe:
     plugin: eca_new_entity
@@ -95,7 +98,7 @@ actions:
       owner: '1'
     successors:
       -
-        id: Activity_05tsizx
+        id: Activity_0ukhhm1
         condition: ''
   Activity_0qykfe1:
     plugin: eca_token_load_entity
@@ -113,11 +116,8 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_1r7hxy3
-        condition: ''
-      -
-        id: Activity_1h1e98h
-        condition: ''
+        id: Gateway_097ljag
+        condition: Flow_1qc0hhv
   Activity_00m7r91:
     plugin: eca_save_entity
     label: 'Save transaction'
@@ -196,7 +196,7 @@ actions:
       object: '[burning_day_transaction]'
     successors:
       -
-        id: Activity_1lo8wgt
+        id: Activity_1u7cn83
         condition: ''
   Activity_1lo8wgt:
     plugin: eca_set_field_value
@@ -234,10 +234,51 @@ actions:
     configuration:
       object: '[burning_day_transaction]'
     successors: {  }
-  Activity_1h1e98h:
-    plugin: action_message_action
-    label: message
+  Activity_0ukhhm1:
+    plugin: eca_set_field_value
+    label: 'set field "Certificate"'
     configuration:
-      replace_tokens: false
-      message: '[upd_certificate:field_current_state_certificate:value]'
-    successors: {  }
+      field_name: field_certificate
+      field_value: '[upd_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_05tsizx
+        condition: ''
+  Activity_1u7cn83:
+    plugin: eca_set_field_value
+    label: 'set field Certificate'
+    configuration:
+      field_name: field_certificate
+      field_value: '[upd_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[burning_day_transaction]'
+    successors:
+      -
+        id: Activity_1lo8wgt
+        condition: ''
+  Activity_1vihx41:
+    plugin: eca_token_load_entity
+    label: 'load original certificate'
+    configuration:
+      token_name: original_certificate
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: true
+      object: ''
+    successors:
+      -
+        id: Activity_0qykfe1
+        condition: ''

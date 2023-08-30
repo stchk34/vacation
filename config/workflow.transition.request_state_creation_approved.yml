@@ -11,9 +11,9 @@ module: workflow
 from_sid: request_state_creation
 to_sid: request_state_approved
 roles:
+  administrator: administrator
   workflow_author: '0'
   ceo: '0'
-  administrator: '0'
   team_lead: '0'
   dev: '0'
   pm: '0'

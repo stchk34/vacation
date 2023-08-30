@@ -19,7 +19,7 @@ mode: default
 content:
   field_current_state_certificate:
     type: list_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 5
