@@ -5,29 +5,7 @@ dependencies:
   config:
     - node.type.page
   module:
-    - layout_builder
     - user
-third_party_settings:
-  layout_builder:
-    enabled: true
-    allow_custom: true
-    sections:
-      -
-        layout_id: layout_onecol
-        layout_settings:
-          label: ''
-        components:
-          7df90188-f4f2-4abf-a4ef-0762a9746d5f:
-            uuid: 7df90188-f4f2-4abf-a4ef-0762a9746d5f
-            region: content
-            configuration:
-              id: 'extra_field_block:node:page:links'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-            weight: 0
-            additional: {  }
-        third_party_settings: {  }
 _core:
   default_config_hash: M_Y8L5tfmhx7DR143E05YyZSpvgil6VFvqcfBWykalg
 id: node.page.default

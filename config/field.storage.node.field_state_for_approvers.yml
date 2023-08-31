@@ -1,0 +1,22 @@
+uuid: 86080e02-4b60-408b-a7dc-d3c9e412e09a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - workflow
+id: node.field_state_for_approvers
+field_name: field_state_for_approvers
+entity_type: node
+type: workflow
+settings:
+  workflow_type: state_for_approvers
+  allowed_values: {  }
+  allowed_values_function: ''
+module: workflow
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

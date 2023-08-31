@@ -1,0 +1,8 @@
+uuid: ed8c656d-5fa4-46b4-a81e-318e6329d448
+langcode: en
+status: true
+dependencies: {  }
+id: vacation_date
+label: 'Vacation date'
+locked: false
+pattern: '[d.m.o] (H:i)'

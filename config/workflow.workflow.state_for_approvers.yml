@@ -1,0 +1,16 @@
+uuid: cd485c46-3917-46b4-93d9-14842ae14023
+langcode: en
+status: true
+dependencies: {  }
+id: state_for_approvers
+label: state_for_approvers
+module: workflow
+options:
+  name_as_title: 1
+  fieldset: 0
+  options: buttons
+  schedule_enable: false
+  schedule_timezone: 0
+  always_update_entity: 0
+  comment_log_node: 0
+  watchdog_log: 1

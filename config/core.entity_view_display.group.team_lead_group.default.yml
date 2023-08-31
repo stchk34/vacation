@@ -3,12 +3,21 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.group.team_lead_group.field_tm
     - group.type.team_lead_group
 id: group.team_lead_group.default
 targetEntityType: group
 bundle: team_lead_group
 mode: default
 content:
+  field_tm:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   label:
     type: string
     label: hidden

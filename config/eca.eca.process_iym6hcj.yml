@@ -47,7 +47,7 @@ actions:
     plugin: eca_token_load_entity
     label: 'load certificate'
     configuration:
-      token_name: certificate
+      token_name: c
       from: current
       entity_type: node
       entity_id: ''

@@ -1,0 +1,12 @@
+uuid: 1094885d-844c-482c-9473-1c9a074a4ad6
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_for_approvers
+id: state_for_approvers_creation
+label: Creation
+module: workflow
+wid: state_for_approvers
+weight: -11
+sysid: 1

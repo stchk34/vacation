@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.group.team_lead_group.field_tm
     - group.type.team_lead_group
   module:
     - path
@@ -11,6 +12,16 @@ targetEntityType: group
 bundle: team_lead_group
 mode: default
 content:
+  field_tm:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   label:
     type: string_textfield
     weight: 0

@@ -23,7 +23,6 @@
         "drupal/auto_entitylabel": "^3.0",
         "drupal/better_exposed_filters": "^6.0",
         "drupal/bootstrap_barrio": "^5.5",
-        "drupal/bootstrap_layout_builder": "^2.1",
         "drupal/bpmn_io": "^1.1",
         "drupal/condition_field": "^2.0",
         "drupal/conditional_fields": "^4.0@alpha",
@@ -52,6 +51,7 @@
         "drupal/jquery_ui_tabs": "^2.0",
         "drupal/mailsystem": "^4.4",
         "drupal/masquerade": "^2.0@RC",
+        "drupal/media_library_form_element": "^2.0",
         "drupal/menu_item_role_access": "^2.1",
         "drupal/menu_trail_by_path": "^2.0",
         "drupal/modal_page": "^5.0",
@@ -102,9 +102,6 @@
         "patches": {
           "drupal/group": {
               "Add user to group": "https://www.drupal.org/files/issues/2020-08-30/group-manage-users-2949408-43.patch"
-          },
-          "drupal/views_cm_current_state": {
-              "Add current state": "https://www.drupal.org/files/issues/2022-02-01/add-current-moderation-filter-3158762-6.patch"
           },
            "drupal/rules": {
               "Entity integrity check": "https://www.drupal.org/files/issues/2021-01-29/3059402-22.entity_integrity_check.patch"

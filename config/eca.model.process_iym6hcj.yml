@@ -44,7 +44,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_token_load_entity" />
           </camunda:properties>
           <camunda:field name="token_name">
-            <camunda:string>certificate</camunda:string>
+            <camunda:string>c</camunda:string>
           </camunda:field>
           <camunda:field name="from">
             <camunda:string>current</camunda:string>

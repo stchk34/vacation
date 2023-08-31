@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_employee_sender
-    - field.storage.node.field_status_request
+    - field.storage.node.field_state_for_approvers
     - field.storage.node.field_type_vacations
     - node.type.vacation_request
     - user.role.administrator
@@ -290,15 +290,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_status_request:
-          id: field_status_request
-          table: node__field_status_request
-          field: field_status_request
+        field_state_for_approvers:
+          id: field_state_for_approvers
+          table: node__field_state_for_approvers
+          field: field_state_for_approvers
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Status
+          label: Operation
           exclude: false
           alter:
             alter_text: false
@@ -601,7 +601,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_employee_sender'
-        - 'config:field.storage.node.field_status_request'
+        - 'config:field.storage.node.field_state_for_approvers'
         - 'config:field.storage.node.field_type_vacations'
   page_1:
     id: page_1
@@ -624,5 +624,5 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_employee_sender'
-        - 'config:field.storage.node.field_status_request'
+        - 'config:field.storage.node.field_state_for_approvers'
         - 'config:field.storage.node.field_type_vacations'

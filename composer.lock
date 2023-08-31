@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a0a2781c08ba310b55d4167eb9776ec",
+    "content-hash": "6689e8763e6f54129b51ff14f970bc6c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1878,117 +1878,6 @@
             }
         },
         {
-            "name": "drupal/bootstrap_layout_builder",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/bootstrap_layout_builder.git",
-                "reference": "2.1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/bootstrap_layout_builder-2.1.1.zip",
-                "reference": "2.1.1",
-                "shasum": "5b7e18fa8553328b259dff6e8db88ef4fa66dcb7"
-            },
-            "require": {
-                "drupal/bootstrap_styles": "^1.1",
-                "drupal/core": "^9.3 || ^10"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.1.1",
-                    "datestamp": "1673978910",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Amira Dowidar",
-                    "homepage": "https://www.drupal.org/user/3092603"
-                },
-                {
-                    "name": "mahmoud-zayed",
-                    "homepage": "https://www.drupal.org/user/2947001"
-                }
-            ],
-            "description": "Add Bootstrap Grid support to Layout Builder module.",
-            "homepage": "https://www.drupal.org/project/bootstrap_layout_builder",
-            "keywords": [
-                "Bootstrap",
-                "Drupal",
-                "Grid",
-                "Layout Builder"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/bootstrap_layout_builder"
-            }
-        },
-        {
-            "name": "drupal/bootstrap_styles",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/bootstrap_styles.git",
-                "reference": "1.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/bootstrap_styles-1.1.0.zip",
-                "reference": "1.1.0",
-                "shasum": "e064cc4a74678f2d88f01400b6152645f0b9d8d2"
-            },
-            "require": {
-                "drupal/core": "^9.3 || ^10",
-                "drupal/media_library_form_element": "^2.0",
-                "drupal/media_library_theme_reset": "^1.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.1.0",
-                    "datestamp": "1673698874",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Amira Dowidar",
-                    "homepage": "https://www.drupal.org/user/3092603"
-                },
-                {
-                    "name": "mahmoud-zayed",
-                    "homepage": "https://www.drupal.org/user/2947001"
-                }
-            ],
-            "description": "Add a plugins builder and a collection of reusable plugins to the Layout Builder module.",
-            "homepage": "https://www.drupal.org/project/bootstrap_styles",
-            "keywords": [
-                "Bootstrap",
-                "Drupal",
-                "Grid",
-                "Layout Builder"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/bootstrap_styles"
-            }
-        },
-        {
             "name": "drupal/bpmn_io",
             "version": "1.1.3",
             "source": {
@@ -3620,7 +3509,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.5",
-                    "datestamp": "1660746007",
+                    "datestamp": "1685706327",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4283,78 +4172,6 @@
             }
         },
         {
-            "name": "drupal/media_library_theme_reset",
-            "version": "1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/media_library_theme_reset.git",
-                "reference": "8.x-1.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_library_theme_reset-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "d0e26fb6a0e4b59ff3410bd3f3781165cc27b935"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9 || ^10"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1670618180",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "gravelpot",
-                    "homepage": "https://www.drupal.org/user/748208"
-                },
-                {
-                    "name": "Jeff Cardwell",
-                    "homepage": "https://www.drupal.org/user/2913129"
-                },
-                {
-                    "name": "lreynaga",
-                    "homepage": "https://www.drupal.org/user/3400232"
-                },
-                {
-                    "name": "mark_fullmer",
-                    "homepage": "https://www.drupal.org/user/2612816"
-                },
-                {
-                    "name": "mmarler",
-                    "homepage": "https://www.drupal.org/user/500192"
-                },
-                {
-                    "name": "ricksta",
-                    "homepage": "https://www.drupal.org/user/311042"
-                },
-                {
-                    "name": "texas_tater",
-                    "homepage": "https://www.drupal.org/user/753614"
-                },
-                {
-                    "name": "utexas",
-                    "homepage": "https://www.drupal.org/user/3716409"
-                }
-            ],
-            "description": "Display the Media Library with an administrative theme",
-            "homepage": "https://www.drupal.org/project/media_library_theme_reset",
-            "support": {
-                "source": "https://git.drupalcode.org/project/media_library_theme_reset"
-            }
-        },
-        {
             "name": "drupal/menu_item_role_access",
             "version": "2.1.0",
             "source": {
@@ -4505,7 +4322,7 @@
                     "homepage": "https://www.drupal.org/user/3640109"
                 },
                 {
-                    "name": "RenatoG",
+                    "name": "renatog",
                     "homepage": "https://www.drupal.org/user/3326031"
                 },
                 {
@@ -4818,6 +4635,10 @@
                     "role": "Maintainer"
                 },
                 {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                },
+                {
                     "name": "katbailey",
                     "homepage": "https://www.drupal.org/user/172987"
                 },
@@ -5040,8 +4861,8 @@
                     "version": "2.0.0",
                     "datestamp": "1619523795",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -5134,7 +4955,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.5",
-                    "datestamp": "1673107194",
+                    "datestamp": "1683719323",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6014,26 +5835,26 @@
         },
         {
             "name": "drupal/workflow_buttons",
-            "version": "1.0.0-beta4",
+            "version": "1.0.0-beta5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/workflow_buttons.git",
-                "reference": "8.x-1.0-beta4"
+                "reference": "8.x-1.0-beta5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workflow_buttons-8.x-1.0-beta4.zip",
-                "reference": "8.x-1.0-beta4",
-                "shasum": "d564b269501b3f5d6ffaa9ab43d3f2d45057e5d0"
+                "url": "https://ftp.drupal.org/files/projects/workflow_buttons-8.x-1.0-beta5.zip",
+                "reference": "8.x-1.0-beta5",
+                "shasum": "26dbba614488668254b6d8b460fdbe543091b9ea"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta4",
-                    "datestamp": "1623112116",
+                    "version": "8.x-1.0-beta5",
+                    "datestamp": "1690930877",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -6058,13 +5879,15 @@
                     "homepage": "https://www.drupal.org/user/64383"
                 }
             ],
-            "description": "Provide workflow buttons for content moderation instead of a select dropdown of states.",
+            "description": "Provide workflow buttons for content moderation instead of a select dropdown of states.  Button labels are taken from the transition names.",
             "homepage": "https://www.drupal.org/project/workflow_buttons",
             "keywords": [
+                "buttons",
                 "content",
                 "content moderation",
                 "drupal",
                 "editor",
+                "form",
                 "workflow"
             ],
             "support": {

@@ -50,24 +50,6 @@ conditions:
       right: request_state_approved
       operator: equal
       type: value
-  Flow_0pbsmlk:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[upd_request:field_type_vacations:value]'
-      right: '1'
-      operator: equal
-      type: value
-  Flow_0unrqok:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[upd_request:field_type_vacations:value]'
-      right: '2'
-      operator: equal
-      type: value
   Flow_1bllzfn:
     plugin: eca_scalar
     configuration:
@@ -77,16 +59,34 @@ conditions:
       right: request_state_disapproved
       operator: equal
       type: value
+  Flow_1g0buwi:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: "[upd_request:\tfield_type_vacations:value]"
+      right: '2'
+      operator: equal
+      type: value
+  Flow_13rdgl5:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: "[upd_request:\tfield_type_vacations:value]"
+      right: '1'
+      operator: equal
+      type: value
 gateways:
   Gateway_0okut2l:
     type: 0
     successors:
       -
-        id: Gateway_0idb1ar
-        condition: Flow_0pbsmlk
-      -
         id: Gateway_11r85mq
-        condition: Flow_0unrqok
+        condition: Flow_1g0buwi
+      -
+        id: Gateway_0idb1ar
+        condition: Flow_13rdgl5
   Gateway_00ul7ai:
     type: 0
     successors:
@@ -113,6 +113,9 @@ gateways:
         condition: ''
       -
         id: Activity_0s8462p
+        condition: ''
+      -
+        id: Activity_1laivvx
         condition: ''
   Gateway_11r85mq:
     type: 0
@@ -243,7 +246,7 @@ actions:
       strip_tags: false
       trim: false
       save_entity: true
-      object: '[paid_vacation_transaction]'
+      object: '[not_paid_vacation_transaction]'
     successors:
       -
         id: Activity_0k7cn0r
@@ -258,7 +261,7 @@ actions:
       strip_tags: false
       trim: false
       save_entity: true
-      object: '[paid_vacation_transaction]'
+      object: '[not_paid_vacation_transaction]'
     successors:
       -
         id: Activity_1ocw2lm
@@ -267,7 +270,7 @@ actions:
     plugin: eca_save_entity
     label: 'Save entity'
     configuration:
-      object: '[paid_vacation_transaction]'
+      object: '[not_paid_vacation_transaction]'
     successors: {  }
   Activity_1ocw2lm:
     plugin: eca_set_field_value
@@ -279,7 +282,7 @@ actions:
       strip_tags: false
       trim: false
       save_entity: true
-      object: '[paid_vacation_transaction]'
+      object: '[not_paid_vacation_transaction]'
     successors:
       -
         id: Activity_0apff12
@@ -355,9 +358,6 @@ actions:
       -
         id: Activity_15hsrgz
         condition: ''
-      -
-        id: Activity_1gyqfgt
-        condition: ''
   Activity_15hsrgz:
     plugin: eca_set_field_value
     label: 'set field actual balance'
@@ -379,12 +379,10 @@ actions:
     configuration:
       object: '[sender_request]'
     successors: {  }
-  Activity_1gyqfgt:
+  Activity_1laivvx:
     plugin: action_message_action
-    label: message
+    label: 'message "PAID"'
     configuration:
       replace_tokens: false
-      message: |-
-        [upd_request:field_employee_sender:entity:uid] 
-        LOAD ENTITY SENDER REQUEST
+      message: PAID
     successors: {  }

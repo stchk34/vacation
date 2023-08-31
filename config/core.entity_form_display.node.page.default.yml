@@ -3,12 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.layout_builder__layout
     - node.type.page
   module:
     - path
     - scheduler
-    - workflow_buttons
 _core:
   default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
 id: node.page.default
@@ -86,5 +84,4 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden:
-  layout_builder__layout: true
+hidden: {  }

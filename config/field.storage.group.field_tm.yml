@@ -1,0 +1,20 @@
+uuid: ac1ffa46-6b17-49dd-8bbb-74966178b1e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - user
+id: group.field_tm
+field_name: field_tm
+entity_type: group
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

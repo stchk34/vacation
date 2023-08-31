@@ -17,6 +17,7 @@ permissions:
   - 'access users overview'
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'
+  - 'create state_for_approvers workflow_transition'
   - 'execute workflow_node_next_state_action node'
   - 'view any unpublished content'
   - 'view users by role'

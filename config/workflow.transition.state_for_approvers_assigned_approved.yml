@@ -1,0 +1,22 @@
+uuid: 8d7bd01c-1ee2-446a-8797-9a286343aead
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_approved
+    - workflow.state.state_for_approvers_assigned
+id: state_for_approvers_assigned_approved
+label: ''
+module: workflow
+from_sid: state_for_approvers_assigned
+to_sid: state_for_approvers_approved
+roles:
+  ceo: ceo
+  administrator: administrator
+  team_lead: team_lead
+  pm: pm
+  workflow_author: '0'
+  dev: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

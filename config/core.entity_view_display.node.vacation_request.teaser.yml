@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
+    - field.field.node.vacation_request.field_state_for_approvers
     - field.field.node.vacation_request.field_status_request
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
@@ -44,5 +45,6 @@ hidden:
   field_duration_of_the_paid_vacat: true
   field_employee_sender: true
   field_reason_vacation: true
+  field_state_for_approvers: true
   field_status_request: true
   field_type_vacations: true

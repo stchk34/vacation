@@ -1,0 +1,22 @@
+uuid: a2dfee6d-e944-4ec1-9fd0-c4e1e6d5bc95
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_approved
+    - workflow.state.state_for_approvers_creation
+id: state_for_approvers_creation_approved
+label: null
+module: workflow
+from_sid: state_for_approvers_creation
+to_sid: state_for_approvers_approved
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  administrator: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

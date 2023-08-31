@@ -1,0 +1,18 @@
+uuid: ea1a561a-afa9-4690-a1e3-b453fb0b64d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_for_approvers
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+id: workflow_transition.state_for_approvers.default
+targetEntityType: workflow_transition
+bundle: state_for_approvers
+mode: default
+content: {  }
+hidden: {  }
