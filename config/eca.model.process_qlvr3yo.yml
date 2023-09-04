@@ -241,37 +241,6 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_08eh023</bpmn2:incoming>
       </bpmn2:task>
-      <bpmn2:task id="Activity_0kxn1tx" name="set field &#34; Spent type&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_set_field_value" />
-          </camunda:properties>
-          <camunda:field name="method">
-            <camunda:string>set:clear</camunda:string>
-          </camunda:field>
-          <camunda:field name="strip_tags">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="trim">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_name">
-            <camunda:string>field_type_transaction</camunda:string>
-          </camunda:field>
-          <camunda:field name="save_entity">
-            <camunda:string>yes</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_value">
-            <camunda:string>Spent</camunda:string>
-          </camunda:field>
-          <camunda:field name="object">
-            <camunda:string>[paid_vacation_transaction]</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_0fdduqj</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_00tq1ss</bpmn2:outgoing>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_00tq1ss" sourceRef="Activity_0kxn1tx" targetRef="Activity_0uqbkq6" />
       <bpmn2:task id="Activity_0uqbkq6" name="set field &#34;paid or not paid vacation&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -299,8 +268,8 @@ modeldata: |
             <camunda:string>[paid_vacation_transaction]</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_00tq1ss</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_1e5u9sd</bpmn2:outgoing>
+        <bpmn2:incoming>Flow_0fdduqj</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0cqk7pn</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0tn1w01" name="set field &#34;owner&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
@@ -332,38 +301,7 @@ modeldata: |
         <bpmn2:incoming>Flow_0ze09tw</bpmn2:incoming>
         <bpmn2:outgoing>Flow_04w10ei</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_04w10ei" sourceRef="Activity_0tn1w01" targetRef="Activity_0k7cn0r" />
-      <bpmn2:task id="Activity_0k7cn0r" name="Set field &#34;Spent type&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_set_field_value" />
-          </camunda:properties>
-          <camunda:field name="method">
-            <camunda:string>set:clear</camunda:string>
-          </camunda:field>
-          <camunda:field name="strip_tags">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="trim">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_name">
-            <camunda:string>field_type_transaction</camunda:string>
-          </camunda:field>
-          <camunda:field name="save_entity">
-            <camunda:string>yes</camunda:string>
-          </camunda:field>
-          <camunda:field name="field_value">
-            <camunda:string>Spent</camunda:string>
-          </camunda:field>
-          <camunda:field name="object">
-            <camunda:string>[not_paid_vacation_transaction]</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_04w10ei</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_10ebj4d</bpmn2:outgoing>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_10ebj4d" sourceRef="Activity_0k7cn0r" targetRef="Activity_1ocw2lm" />
+      <bpmn2:sequenceFlow id="Flow_04w10ei" sourceRef="Activity_0tn1w01" targetRef="Activity_1ocw2lm" />
       <bpmn2:task id="Activity_0apff12" name="Save entity" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -373,9 +311,8 @@ modeldata: |
             <camunda:string>[not_paid_vacation_transaction]</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_1qkeo9w</bpmn2:incoming>
+        <bpmn2:incoming>Flow_04975iz</bpmn2:incoming>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1qkeo9w" sourceRef="Activity_1ocw2lm" targetRef="Activity_0apff12" />
       <bpmn2:task id="Activity_1ocw2lm" name="Set field &#34;Paid or not paid vacation&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -403,8 +340,8 @@ modeldata: |
             <camunda:string>[not_paid_vacation_transaction]</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_10ebj4d</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_1qkeo9w</bpmn2:outgoing>
+        <bpmn2:incoming>Flow_04w10ei</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_04975iz</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_09nmk46" name="send email" camunda:modelerTemplate="org.drupal.action.action_send_email_action">
         <bpmn2:extensionElements>
@@ -460,10 +397,9 @@ modeldata: |
             <camunda:string>[paid_vacation_transaction]</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_1e5u9sd</bpmn2:incoming>
+        <bpmn2:incoming>Flow_0cqk7pn</bpmn2:incoming>
         <bpmn2:outgoing>Flow_08eh023</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1e5u9sd" sourceRef="Activity_0uqbkq6" targetRef="Activity_18cket8" />
       <bpmn2:sequenceFlow id="Flow_08eh023" sourceRef="Activity_18cket8" targetRef="Activity_0xbg5sc" />
       <bpmn2:exclusiveGateway id="Gateway_0idb1ar">
         <bpmn2:incoming>Flow_13rdgl5</bpmn2:incoming>
@@ -505,7 +441,7 @@ modeldata: |
         <bpmn2:outgoing>Flow_0fdduqj</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1ktyxhj" sourceRef="Activity_0k0dwho" targetRef="Activity_0u96fty" />
-      <bpmn2:sequenceFlow id="Flow_0fdduqj" sourceRef="Activity_0u96fty" targetRef="Activity_0kxn1tx" />
+      <bpmn2:sequenceFlow id="Flow_0fdduqj" sourceRef="Activity_0u96fty" targetRef="Activity_0uqbkq6" />
       <bpmn2:task id="Activity_1j2dkni" name="load entity user in vacation request" camunda:modelerTemplate="org.drupal.action.eca_token_load_entity_ref">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -687,6 +623,8 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
       </bpmn2:sequenceFlow>
+      <bpmn2:sequenceFlow id="Flow_0cqk7pn" sourceRef="Activity_0uqbkq6" targetRef="Activity_18cket8" />
+      <bpmn2:sequenceFlow id="Flow_04975iz" sourceRef="Activity_1ocw2lm" targetRef="Activity_0apff12" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-8fe252fe-c91d-4c5d-ae6b-5d0ef02003ab">
       <bpmndi:BPMNPlane id="sid-5ad2eb0b-5abd-465b-885f-973b44cd0f56" bpmnElement="Process_qLVr3Yo">
@@ -725,32 +663,16 @@ modeldata: |
           <dc:Bounds x="850" y="20" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0xbg5sc_di" bpmnElement="Activity_0xbg5sc">
-          <dc:Bounds x="1620" y="20" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0kxn1tx_di" bpmnElement="Activity_0kxn1tx">
-          <dc:Bounds x="1150" y="20" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0uqbkq6_di" bpmnElement="Activity_0uqbkq6">
-          <dc:Bounds x="1320" y="20" width="100" height="80" />
+          <dc:Bounds x="1150" y="20" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0tn1w01_di" bpmnElement="Activity_0tn1w01">
           <dc:Bounds x="850" y="130" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0k7cn0r_di" bpmnElement="Activity_0k7cn0r">
-          <dc:Bounds x="1000" y="130" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0apff12_di" bpmnElement="Activity_0apff12">
-          <dc:Bounds x="1320" y="130" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_033g9m3_di" bpmnElement="Activity_1ocw2lm">
-          <dc:Bounds x="1150" y="130" width="100" height="80" />
+          <dc:Bounds x="1000" y="130" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_09nmk46_di" bpmnElement="Activity_09nmk46">
           <dc:Bounds x="540" y="370" width="100" height="80" />
@@ -758,10 +680,6 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_1w2mr9d_di" bpmnElement="Gateway_1w2mr9d" isMarkerVisible="true">
           <dc:Bounds x="405" y="465" width="50" height="50" />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_18cket8_di" bpmnElement="Activity_18cket8">
-          <dc:Bounds x="1480" y="20" width="100" height="80" />
-          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_0idb1ar_di" bpmnElement="Gateway_0idb1ar" isMarkerVisible="true">
           <dc:Bounds x="565" y="35" width="50" height="50" />
@@ -793,6 +711,18 @@ modeldata: |
           <dc:Bounds x="450" y="-170" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0apff12_di" bpmnElement="Activity_0apff12">
+          <dc:Bounds x="1150" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_18cket8_di" bpmnElement="Activity_18cket8">
+          <dc:Bounds x="1310" y="20" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0xbg5sc_di" bpmnElement="Activity_0xbg5sc">
+          <dc:Bounds x="1470" y="20" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1wcqm5q_di" bpmnElement="Flow_1wcqm5q">
           <di:waypoint x="320" y="385" />
           <di:waypoint x="320" y="120" />
@@ -813,21 +743,9 @@ modeldata: |
           <di:waypoint x="790" y="60" />
           <di:waypoint x="850" y="60" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_00tq1ss_di" bpmnElement="Flow_00tq1ss">
-          <di:waypoint x="1250" y="60" />
-          <di:waypoint x="1320" y="60" />
-        </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_04w10ei_di" bpmnElement="Flow_04w10ei">
           <di:waypoint x="950" y="170" />
           <di:waypoint x="1000" y="170" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_10ebj4d_di" bpmnElement="Flow_10ebj4d">
-          <di:waypoint x="1100" y="170" />
-          <di:waypoint x="1150" y="170" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_1qkeo9w_di" bpmnElement="Flow_1qkeo9w">
-          <di:waypoint x="1250" y="170" />
-          <di:waypoint x="1320" y="170" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0kfp370_di" bpmnElement="Flow_0kfp370">
           <di:waypoint x="430" y="465" />
@@ -839,13 +757,9 @@ modeldata: |
           <di:waypoint x="430" y="560" />
           <di:waypoint x="540" y="560" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_1e5u9sd_di" bpmnElement="Flow_1e5u9sd">
-          <di:waypoint x="1420" y="60" />
-          <di:waypoint x="1480" y="60" />
-        </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_08eh023_di" bpmnElement="Flow_08eh023">
-          <di:waypoint x="1580" y="60" />
-          <di:waypoint x="1620" y="60" />
+          <di:waypoint x="1410" y="60" />
+          <di:waypoint x="1470" y="60" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0kszc2y_di" bpmnElement="Flow_0kszc2y">
           <di:waypoint x="615" y="60" />
@@ -919,6 +833,14 @@ modeldata: |
           <bpmndi:BPMNLabel>
             <dc:Bounds x="445" y="29" width="90" height="27" />
           </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0cqk7pn_di" bpmnElement="Flow_0cqk7pn">
+          <di:waypoint x="1250" y="60" />
+          <di:waypoint x="1310" y="60" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_04975iz_di" bpmnElement="Flow_04975iz">
+          <di:waypoint x="1100" y="170" />
+          <di:waypoint x="1150" y="170" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

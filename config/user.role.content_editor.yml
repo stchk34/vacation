@@ -12,3 +12,4 @@ permissions:
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'
   - 'create state_for_approvers workflow_transition'
+  - 'create transaction_type workflow_transition'

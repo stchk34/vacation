@@ -24,7 +24,7 @@ mode: default
 content:
   field_approver:
     type: options_buttons
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -99,33 +99,15 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
-  field_employee_sender:
-    type: options_buttons
-    weight: 17
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_reason_vacation:
     type: string_textfield
-    weight: 5
+    weight: 4
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings:
       conditional_fields: {  }
-  field_state_for_approvers:
-    type: options_buttons
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_status_request:
-    type: options_buttons
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_type_vacations:
     type: options_buttons
     weight: 1
@@ -144,13 +126,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 4
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -163,9 +138,13 @@ hidden:
   created: true
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true
+  field_employee_sender: true
+  field_state_for_approvers: true
+  field_status_request: true
   path: true
   promote: true
   publish_on: true
   status: true
+  sticky: true
   uid: true
   unpublish_on: true

@@ -1,0 +1,12 @@
+uuid: ec1910df-b2c5-473d-acd1-75648837d466
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_earned
+id: transaction_type_earned_earned
+label: null
+module: workflow
+from_sid: transaction_type_earned
+to_sid: transaction_type_earned
+roles: {  }

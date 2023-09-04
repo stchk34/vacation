@@ -1,0 +1,22 @@
+uuid: 055efe7e-d033-454f-946d-a5b66d5d477f
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_spent
+    - workflow.state.transaction_type_spent_when_burning_day
+id: transaction_type_spent_when_burning_day_spent
+label: null
+module: workflow
+from_sid: transaction_type_spent_when_burning_day
+to_sid: transaction_type_spent
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  administrator: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

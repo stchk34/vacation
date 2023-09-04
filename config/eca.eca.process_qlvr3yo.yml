@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_paid_vacation
-    - field.field.node.transaction.field_type_transaction
     - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
@@ -15,7 +14,6 @@ dependencies:
     - field.storage.node.field_employee_sender
     - field.storage.node.field_owner
     - field.storage.node.field_type_paid_vacation
-    - field.storage.node.field_type_transaction
     - field.storage.node.field_vacat
     - node.type.transaction
     - node.type.vacation_request
@@ -29,7 +27,7 @@ id: process_qlvr3yo
 modeller: bpmn_io
 label: 'Create transaction type spent'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1hke6hk:
     plugin: 'content_entity:update'
@@ -206,21 +204,6 @@ actions:
     configuration:
       object: '[paid_vacation_transaction]'
     successors: {  }
-  Activity_0kxn1tx:
-    plugin: eca_set_field_value
-    label: 'set field " Spent type"'
-    configuration:
-      field_name: field_type_transaction
-      field_value: Spent
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_0uqbkq6
-        condition: ''
   Activity_0uqbkq6:
     plugin: eca_set_field_value
     label: 'set field "paid or not paid vacation"'
@@ -242,21 +225,6 @@ actions:
     configuration:
       field_name: field_owner
       field_value: '[upd_request:uid:entity]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[not_paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_0k7cn0r
-        condition: ''
-  Activity_0k7cn0r:
-    plugin: eca_set_field_value
-    label: 'Set field "Spent type"'
-    configuration:
-      field_name: field_type_transaction
-      field_value: Spent
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -324,7 +292,7 @@ actions:
       object: '[paid_vacation_transaction]'
     successors:
       -
-        id: Activity_0kxn1tx
+        id: Activity_0uqbkq6
         condition: ''
   Activity_1j2dkni:
     plugin: eca_token_load_entity_ref

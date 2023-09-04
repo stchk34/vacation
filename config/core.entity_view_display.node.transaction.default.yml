@@ -4,15 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.transaction.field_certificate
-    - field.field.node.transaction.field_created_date
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_type_paid_vacation
-    - field.field.node.transaction.field_type_transaction
     - field.field.node.transaction.field_vacat
     - node.type.transaction
   module:
-    - datetime
     - options
     - user
 id: node.transaction.default
@@ -26,16 +23,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 108
-    region: content
-  field_created_date:
-    type: datetime_default
-    label: inline
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 102
+    weight: 5
     region: content
   field_days:
     type: number_integer
@@ -44,7 +32,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 105
+    weight: 3
     region: content
   field_owner:
     type: entity_reference_label
@@ -52,21 +40,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 2
     region: content
   field_type_paid_vacation:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 107
-    region: content
-  field_type_transaction:
-    type: list_default
-    label: inline
-    settings: {  }
-    third_party_settings: {  }
-    weight: 106
+    weight: 4
     region: content
   field_vacat:
     type: entity_reference_label
@@ -74,11 +55,11 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 109
+    weight: 6
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden: {  }

@@ -3,29 +3,29 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.storage.node.field_approver
     - field.storage.node.field_duration_example
     - field.storage.node.field_duration_not_paid_vacation
     - field.storage.node.field_duration_notpaid_in_hours
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - node.type.vacation_request
-    - views.view.approvers
   module:
     - eca_base
     - eca_content
     - eca_tamper
     - eca_user
-    - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1r3ba0r:
     plugin: 'content_entity:insert'
@@ -51,7 +51,13 @@ gateways:
         id: Activity_1jrx8jo
         condition: ''
       -
-        id: Activity_14iposb
+        id: Activity_0b0rrca
+        condition: ''
+  Gateway_1ja5juc:
+    type: 0
+    successors:
+      -
+        id: Activity_0i5ic5b
         condition: ''
 actions:
   Activity_0c3pcf2:
@@ -187,39 +193,33 @@ actions:
       save_entity: true
       object: '[new_request]'
     successors: {  }
-  Activity_14iposb:
-    plugin: eca_views_query
-    label: 'view approvers'
-    configuration:
-      token_name: list_approvers
-      view_id: approvers
-      display_id: block_1
-      arguments: '[user:uid]'
-    successors:
-      -
-        id: Activity_0atb8zq
-        condition: ''
-  Activity_05x6j2z:
+  Activity_0i5ic5b:
     plugin: action_message_action
     label: message
     configuration:
-      message: '[list_approvers:user:uid]'
-      replace_tokens: true
+      replace_tokens: false
+      message: |-
+        [count_approvers] -> all approvers
+        [new_request:author:uid] -> request sender
     successors: {  }
-  Activity_0atb8zq:
+  Activity_04i9u0s:
     plugin: eca_count
-    label: 'count approvers'
+    label: 'count item in view'
     configuration:
-      token_name: all_approvers
+      token_name: count_approvers
       list_token: list_approvers
     successors:
       -
-        id: Activity_1itpqo0
+        id: Gateway_1ja5juc
         condition: ''
-  Activity_1itpqo0:
-    plugin: action_message_action
-    label: 'display count approvers'
+  Activity_0b0rrca:
+    plugin: eca_get_field_value
+    label: 'get field'
     configuration:
-      message: '[all_approvers]'
-      replace_tokens: true
-    successors: {  }
+      field_name: field_approver
+      token_name: list_approvers
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_04i9u0s
+        condition: ''

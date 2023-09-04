@@ -1,0 +1,12 @@
+uuid: 55141075-ed2d-466c-a9aa-3ad2b2c7628a
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.transaction_type
+id: transaction_type_earned
+label: Earned
+module: workflow
+wid: transaction_type
+weight: -8
+sysid: 0

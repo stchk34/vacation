@@ -1,0 +1,12 @@
+uuid: c55483cf-c1ec-4312-ac26-10e4c737494d
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.transaction_type
+id: transaction_type_spent_when_burning_day
+label: 'Spent when burning day'
+module: workflow
+wid: transaction_type
+weight: -8
+sysid: 0

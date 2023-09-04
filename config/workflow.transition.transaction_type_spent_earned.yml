@@ -1,0 +1,22 @@
+uuid: e8932859-418c-4c03-af23-4eaff4d60e14
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_earned
+    - workflow.state.transaction_type_spent
+id: transaction_type_spent_earned
+label: null
+module: workflow
+from_sid: transaction_type_spent
+to_sid: transaction_type_earned
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  administrator: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

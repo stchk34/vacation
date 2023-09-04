@@ -1,0 +1,12 @@
+uuid: a25f542c-dcd6-4067-a51a-ea97aaa63d09
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.transaction_type
+id: transaction_type_spent
+label: Spent
+module: workflow
+wid: transaction_type
+weight: -8
+sysid: 0

@@ -1,0 +1,12 @@
+uuid: 52951132-582f-4a15-8623-69d49bcef159
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_spent_when_burning_day
+id: transaction_type_spent_when_burning_day_spent_when_burning_day
+label: null
+module: workflow
+from_sid: transaction_type_spent_when_burning_day
+to_sid: transaction_type_spent_when_burning_day
+roles: {  }

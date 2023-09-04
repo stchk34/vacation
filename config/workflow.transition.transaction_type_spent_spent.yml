@@ -1,0 +1,12 @@
+uuid: 4f1cd936-47c8-467e-93c5-89c3e4b650a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_spent
+id: transaction_type_spent_spent
+label: null
+module: workflow
+from_sid: transaction_type_spent
+to_sid: transaction_type_spent
+roles: {  }

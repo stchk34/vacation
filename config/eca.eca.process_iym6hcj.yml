@@ -20,7 +20,7 @@ id: process_iym6hcj
 modeller: bpmn_io
 label: 'Set field in certificate'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1xsf37l:
     plugin: 'content_entity:insert'

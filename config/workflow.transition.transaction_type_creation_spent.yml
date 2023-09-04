@@ -1,0 +1,22 @@
+uuid: 2d5ea9c9-225e-402a-960a-91ee62596e11
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_creation
+    - workflow.state.transaction_type_spent
+id: transaction_type_creation_spent
+label: null
+module: workflow
+from_sid: transaction_type_creation
+to_sid: transaction_type_spent
+roles:
+  workflow_author: workflow_author
+  administrator: administrator
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  authenticated: '0'
+  anonymous: '0'
+  content_editor: '0'

@@ -6,28 +6,29 @@ dependencies:
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.transaction.field_certificate
-    - field.field.node.transaction.field_created_date
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
-    - field.field.node.transaction.field_type_transaction
+    - field.field.user.user.field_balance_a_vacations_day
     - field.storage.node.field_certificate
-    - field.storage.node.field_created_date
     - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
     - field.storage.node.field_owner
-    - field.storage.node.field_type_transaction
+    - field.storage.user.field_balance_a_vacations_day
     - node.type.certificate
     - node.type.transaction
+    - views.view.list_current_certificate
   module:
     - eca_base
     - eca_content
+    - eca_tamper
     - eca_user
+    - eca_views
 id: process_mnpyrtg
 modeller: bpmn_io
 label: 'Create earned transaction after publish certificate'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1quutac:
     plugin: 'content_entity:update'
@@ -37,6 +38,18 @@ events:
     successors:
       -
         id: Activity_1r7hxy3
+        condition: ''
+  Event_0rd397n:
+    plugin: 'content_entity:custom'
+    label: Event_0rd397n
+    configuration:
+      event_id: x1
+    successors:
+      -
+        id: Activity_0urgvod
+        condition: ''
+      -
+        id: Activity_1y8oez9
         condition: ''
 conditions:
   Flow_0q7wfwp:
@@ -66,6 +79,33 @@ conditions:
       operator: equal
       type: value
       negate: true
+  Flow_0r39t83:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: '0'
+      right: ''
+      operator: equal
+      type: numeric
+  Flow_0m313sr:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[number_used_days_per_year]'
+      right: '[burned_certificate:field_limit_:value]'
+      operator: greaterthan
+      type: value
+  Flow_0nmpiry:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[number_used_days_per_year]'
+      right: '[burned_certificate:field_limit_:value]'
+      operator: lessthan
+      type: value
 gateways:
   Gateway_097ljag:
     type: 0
@@ -76,6 +116,30 @@ gateways:
       -
         id: Activity_1dgp9uc
         condition: Flow_0glrjsd
+  Gateway_1votcf4:
+    type: 0
+    successors:
+      -
+        id: Activity_0b9p3dr
+        condition: ''
+      -
+        id: Activity_1ajejn4
+        condition: ''
+  Gateway_1vuijuo:
+    type: 0
+    successors:
+      -
+        id: Activity_0uyxgwr
+        condition: Flow_0r39t83
+  Gateway_0g6vu09:
+    type: 0
+    successors:
+      -
+        id: Activity_0eo0i23
+        condition: Flow_0m313sr
+      -
+        id: Activity_1718kix
+        condition: Flow_0nmpiry
 actions:
   Activity_1r7hxy3:
     plugin: eca_switch_account
@@ -137,21 +201,6 @@ actions:
       object: '[earned_transaction]'
     successors:
       -
-        id: Activity_1bc6wsi
-        condition: ''
-  Activity_1bc6wsi:
-    plugin: eca_set_field_value
-    label: 'set field Earned type'
-    configuration:
-      field_name: field_type_transaction
-      field_value: Earned
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[earned_transaction]'
-    successors:
-      -
         id: Activity_0xgec81
         condition: ''
   Activity_0xgec81:
@@ -192,48 +241,12 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[burning_day_transaction]'
     successors:
       -
         id: Activity_1u7cn83
         condition: ''
-  Activity_1lo8wgt:
-    plugin: eca_set_field_value
-    label: 'set field "Created date"'
-    configuration:
-      field_name: field_created_date
-      field_value: '[current-date:raw]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[burning_day_transaction]'
-    successors:
-      -
-        id: Activity_0qja3c8
-        condition: ''
-  Activity_0qja3c8:
-    plugin: eca_set_field_value
-    label: 'set field "Spent when burning day"'
-    configuration:
-      field_name: field_type_transaction
-      field_value: 'Spent when burning day'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[burning_day_transaction]'
-    successors:
-      -
-        id: Activity_04b5lyp
-        condition: ''
-  Activity_04b5lyp:
-    plugin: eca_save_entity
-    label: 'save transaction'
-    configuration:
-      object: '[burning_day_transaction]'
-    successors: {  }
   Activity_0ukhhm1:
     plugin: eca_set_field_value
     label: 'set field "Certificate"'
@@ -258,11 +271,14 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[burning_day_transaction]'
     successors:
       -
-        id: Activity_1lo8wgt
+        id: Activity_0ky3mee
+        condition: ''
+      -
+        id: Activity_0z5ng9l
         condition: ''
   Activity_1vihx41:
     plugin: eca_token_load_entity
@@ -282,3 +298,195 @@ actions:
       -
         id: Activity_0qykfe1
         condition: ''
+  Activity_0z5ng9l:
+    plugin: eca_trigger_content_entity_custom_event
+    label: TRIGER
+    configuration:
+      event_id: x1
+      tokens: ''
+      object: '[burning_day_transaction]'
+    successors: {  }
+  Activity_0urgvod:
+    plugin: eca_switch_account
+    label: "switch to\_ admin"
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0qxx88b
+        condition: ''
+  Activity_0qxx88b:
+    plugin: eca_token_load_entity
+    label: 'load transaction'
+    configuration:
+      token_name: burning_days_transaction
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Gateway_1votcf4
+        condition: ''
+  Activity_0b9p3dr:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'ура згоряння сертифікатів'
+    successors: {  }
+  Activity_1ajejn4:
+    plugin: eca_token_load_entity
+    label: 'load owner'
+    configuration:
+      token_name: owner
+      from: id
+      entity_type: user
+      entity_id: '[burning_days_transaction:field_owner:entity:uid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[burning_days_transaction]'
+    successors:
+      -
+        id: Activity_0nwhz05
+        condition: ''
+  Activity_0nwhz05:
+    plugin: eca_switch_account
+    label: 'switch to owner'
+    configuration:
+      user_id: '[burning_days_transaction:field_owner:entity:uid]'
+    successors:
+      -
+        id: Activity_1125ixz
+        condition: ''
+  Activity_1125ixz:
+    plugin: eca_views_query
+    label: 'Views "Current Certificate"'
+    configuration:
+      token_name: current_certificates
+      view_id: list_current_certificate
+      display_id: page_1
+      arguments: ''
+    successors:
+      -
+        id: Gateway_1vuijuo
+        condition: ''
+  Activity_0uyxgwr:
+    plugin: eca_token_load_entity
+    label: 'load burned certificate'
+    configuration:
+      token_name: burned_certificate
+      from: id
+      entity_type: node
+      entity_id: '[current_certificates:0:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_02m3tlp
+        condition: ''
+  Activity_02m3tlp:
+    plugin: eca_token_load_entity
+    label: 'load second certificate'
+    configuration:
+      token_name: second_certificate
+      from: current
+      entity_type: node
+      entity_id: '[current_certificates:0:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0pcdiaw
+        condition: ''
+  Activity_0pcdiaw:
+    plugin: 'eca_tamper:math'
+    label: 'second_certificate + burned_certificate'
+    configuration:
+      operation: addition
+      flip: false
+      value: '[burned_certificate:field_limit_:value]'
+      eca_data: '[second_certificate:field_limit_:value]'
+      eca_token_name: start_balance
+    successors:
+      -
+        id: Activity_0b2a3or
+        condition: ''
+  Activity_0b2a3or:
+    plugin: 'eca_tamper:math'
+    label: 'start_balance - actual_balance'
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[owner:field_balance_a_vacations_day:value]'
+      eca_data: '[start_balance]'
+      eca_token_name: number_used_days_per_year
+    successors:
+      -
+        id: Gateway_0g6vu09
+        condition: ''
+  Activity_1718kix:
+    plugin: action_message_action
+    label: Activity_1718kix
+    configuration:
+      replace_tokens: false
+      message: |-
+        Не всі дні в сертифікаті використанні
+        Залишок днів ->[number_used_days_per_year]
+    successors:
+      -
+        id: Activity_082zxud
+        condition: ''
+  Activity_0eo0i23:
+    plugin: action_message_action
+    label: Activity_0eo0i23
+    configuration:
+      replace_tokens: false
+      message: 'Всі дні в  згорівшому сертифікаті завершились'
+    successors:
+      -
+        id: Activity_082zxud
+        condition: ''
+  Activity_082zxud:
+    plugin: eca_list_remove
+    label: 'Drop burned certificate'
+    configuration:
+      value: ''
+      token_name: ''
+      method: first
+      index: ''
+      list_token: burned_certificate
+    successors:
+      -
+        id: Gateway_1vuijuo
+        condition: ''
+  Activity_1y8oez9:
+    plugin: action_message_action
+    label: Activity_1y8oez9
+    configuration:
+      replace_tokens: false
+      message: 'ура кастомний івент'
+    successors: {  }
+  Activity_0ky3mee:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'set field Burning day transaction'
+    successors: {  }
