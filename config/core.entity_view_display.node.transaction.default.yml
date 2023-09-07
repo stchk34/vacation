@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
     - node.type.transaction
@@ -41,6 +42,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_status_transactions:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_type_paid_vacation:
     type: list_default

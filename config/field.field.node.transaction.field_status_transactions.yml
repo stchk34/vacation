@@ -1,0 +1,22 @@
+uuid: eb2b0893-225c-4f8f-a822-8d379294cb44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_status_transactions
+    - node.type.transaction
+  module:
+    - workflow
+id: node.transaction.field_status_transactions
+field_name: field_status_transactions
+entity_type: node
+bundle: transaction
+label: 'Status transactions'
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: workflow

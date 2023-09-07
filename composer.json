@@ -23,6 +23,7 @@
         "drupal/auto_entitylabel": "^3.0",
         "drupal/better_exposed_filters": "^6.0",
         "drupal/bootstrap_barrio": "^5.5",
+        "drupal/bootstrap_styles": "^1.1",
         "drupal/bpmn_io": "^1.1",
         "drupal/condition_field": "^2.0",
         "drupal/conditional_fields": "^4.0@alpha",

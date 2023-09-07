@@ -49,13 +49,13 @@ content:
     third_party_settings: {  }
   field_start_date:
     type: datetime_timestamp
-    weight: 130
+    weight: 133
     region: content
     settings: {  }
     third_party_settings: {  }
   field_use_up:
     type: datetime_timestamp
-    weight: 131
+    weight: 134
     region: content
     settings: {  }
     third_party_settings: {  }

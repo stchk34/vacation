@@ -1,6 +1,6 @@
 uuid: 0073a52f-84fd-4576-a9ff-8e798dd0bc05
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: create_node_certificate_
 label: 'Create node "Certificate"'
@@ -48,7 +48,7 @@ expression:
         action_id: 'rules_entity_create:node'
         context_values:
           type: certificate
-          title: 'Certificate to {{ user }}'
+          title: Certificate
         context_mapping: {  }
         context_processors:
           type:
@@ -73,7 +73,7 @@ expression:
         weight: -48
         action_id: rules_entity_save
         context_values:
-          immediate: '0'
+          immediate: '1'
         context_mapping:
           entity: node_created
         context_processors:

@@ -1,0 +1,22 @@
+uuid: 96442488-e0c3-4c7f-928f-a63bdd3dd911
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - workflow
+id: node.field_status_transactions
+field_name: field_status_transactions
+entity_type: node
+type: workflow
+settings:
+  workflow_type: transaction_type
+  allowed_values: {  }
+  allowed_values_function: ''
+module: workflow
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

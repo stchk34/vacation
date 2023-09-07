@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
     - node.type.transaction
@@ -26,5 +27,6 @@ hidden:
   field_certificate: true
   field_days: true
   field_owner: true
+  field_status_transactions: true
   field_type_paid_vacation: true
   field_vacat: true

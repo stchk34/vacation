@@ -663,12 +663,20 @@ modeldata: |
           <dc:Bounds x="850" y="20" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0xbg5sc_di" bpmnElement="Activity_0xbg5sc">
+          <dc:Bounds x="1470" y="20" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0uqbkq6_di" bpmnElement="Activity_0uqbkq6">
           <dc:Bounds x="1150" y="20" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0tn1w01_di" bpmnElement="Activity_0tn1w01">
           <dc:Bounds x="850" y="130" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0apff12_di" bpmnElement="Activity_0apff12">
+          <dc:Bounds x="1150" y="130" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_033g9m3_di" bpmnElement="Activity_1ocw2lm">
@@ -680,6 +688,10 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_1w2mr9d_di" bpmnElement="Gateway_1w2mr9d" isMarkerVisible="true">
           <dc:Bounds x="405" y="465" width="50" height="50" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_18cket8_di" bpmnElement="Activity_18cket8">
+          <dc:Bounds x="1310" y="20" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_0idb1ar_di" bpmnElement="Gateway_0idb1ar" isMarkerVisible="true">
           <dc:Bounds x="565" y="35" width="50" height="50" />
@@ -709,18 +721,6 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1laivvx_di" bpmnElement="Activity_1laivvx">
           <dc:Bounds x="450" y="-170" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0apff12_di" bpmnElement="Activity_0apff12">
-          <dc:Bounds x="1150" y="130" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_18cket8_di" bpmnElement="Activity_18cket8">
-          <dc:Bounds x="1310" y="20" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_0xbg5sc_di" bpmnElement="Activity_0xbg5sc">
-          <dc:Bounds x="1470" y="20" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1wcqm5q_di" bpmnElement="Flow_1wcqm5q">

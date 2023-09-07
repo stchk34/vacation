@@ -1,6 +1,6 @@
 uuid: 7e19ecc4-92ff-4db5-aa80-2411508eb473
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: after_publish_first_certificate
 label: 'After publish first certificate'
@@ -115,10 +115,10 @@ expression:
       -
         id: rules_action
         uuid: 3c8e8ed5-08d0-40ef-8175-ac6838d4385c
-        weight: -47
+        weight: -46
         action_id: rules_entity_save
         context_values:
-          immediate: '0'
+          immediate: '1'
         context_mapping:
           entity: node_created
         context_processors:
@@ -127,21 +127,8 @@ expression:
         provides_mapping: {  }
       -
         id: rules_action
-        uuid: ce6c65ce-ba7b-4e78-86ca-25a7fd988de2
-        weight: -46
-        action_id: rules_data_set
-        context_values:
-          value: state_certificate_publish
-        context_mapping:
-          data: node.field_current_state_certificate.value
-        context_processors:
-          value:
-            rules_tokens: {  }
-        provides_mapping: {  }
-      -
-        id: rules_action
         uuid: 8f8b9cf9-5829-42d7-b7c6-526f84e459c0
-        weight: 0
+        weight: -45
         action_id: rules_data_calculate_value
         context_values:
           input_1: '{{node.field_employee.entity.field_balance_a_vacations_day.value}}'
@@ -160,11 +147,24 @@ expression:
       -
         id: rules_action
         uuid: 69d1bbe5-432b-4f64-b9e7-4dc57fd0a6c1
-        weight: 0
+        weight: -44
         action_id: rules_data_set
         context_values: {  }
         context_mapping:
           data: node.field_employee.entity.field_balance_a_vacations_day.value
           value: balance_after_publish_certificate
         context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: ffe43fa7-168c-4b37-a9d1-81429ee92076
+        weight: 0
+        action_id: rules_entity_save
+        context_values:
+          immediate: '1'
+        context_mapping:
+          entity: node
+        context_processors:
+          immediate:
+            rules_tokens: {  }
         provides_mapping: {  }

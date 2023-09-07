@@ -45,9 +45,9 @@ content:
     type: timestamp
     label: inline
     settings:
-      date_format: medium
+      date_format: vacation_date
       custom_date_format: ''
-      timezone: Europe/Kiev
+      timezone: ''
     third_party_settings: {  }
     weight: 2
     region: content
@@ -55,9 +55,9 @@ content:
     type: timestamp
     label: inline
     settings:
-      date_format: medium
+      date_format: vacation_date
       custom_date_format: ''
-      timezone: Europe/Kiev
+      timezone: ''
     third_party_settings: {  }
     weight: 3
     region: content

@@ -1,6 +1,6 @@
 uuid: 4ecfc692-b4a6-48f5-8753-8cd8be686ea0
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: burning_out_days_in_the_certificate
 label: 'Set state -> disabled in certificate'
@@ -36,6 +36,23 @@ expression:
           bundle:
             rules_tokens: {  }
         provides_mapping: {  }
+      -
+        id: rules_condition
+        uuid: 9b90e7fd-9fbc-4641-804e-85e8f963125e
+        weight: 0
+        condition_id: rules_entity_is_of_bundle
+        negate: false
+        context_values:
+          type: user
+          bundle: user
+        context_mapping:
+          entity: node.field_employee.entity
+        context_processors:
+          type:
+            rules_tokens: {  }
+          bundle:
+            rules_tokens: {  }
+        provides_mapping: {  }
   actions:
     id: rules_action_set
     uuid: 912173cd-3a28-4f65-8051-639989f11b97
@@ -53,4 +70,65 @@ expression:
         context_processors:
           value:
             rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 3b892d76-708a-45b4-9d95-90845729f3c4
+        weight: 0
+        action_id: 'rules_entity_create:node'
+        context_values:
+          type: transaction
+          title: 'Burning day transactions'
+        context_mapping: {  }
+        context_processors:
+          type:
+            rules_tokens: {  }
+          title:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 20f219b1-36e0-4ae7-8a57-723b71fa0623
+        weight: 0
+        action_id: rules_data_set
+        context_values:
+          value: transaction_type_spent_when_burning_day
+        context_mapping:
+          data: node_created.field_status_transactions
+        context_processors:
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: dcb8ce72-edc2-40f1-8480-f0b1137d7f11
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.uid.entity
+          value: node.uid.entity
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: 1bdf032f-d6f3-4651-b79f-5cebb62642ca
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.field_owner
+          value: node.field_employee.entity
+        context_processors: {  }
+        provides_mapping: {  }
+      -
+        id: rules_action
+        uuid: f54569d4-c1db-4b30-849b-9df33da1a3c8
+        weight: 0
+        action_id: rules_data_set
+        context_values: {  }
+        context_mapping:
+          data: node_created.field_certificate
+          value: node
+        context_processors: {  }
         provides_mapping: {  }

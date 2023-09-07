@@ -13,16 +13,7 @@ modeller: bpmn_io
 label: noname
 version: ''
 weight: -10
-events:
-  Event_11go38z:
-    plugin: 'eca_base:eca_cron'
-    label: Event_11go38z
-    configuration:
-      frequency: '* * * * *'
-    successors:
-      -
-        id: Activity_1ca8osx
-        condition: ''
+events: {  }
 conditions:
   Flow_1ol0x54:
     plugin: eca_count

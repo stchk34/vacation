@@ -6,12 +6,14 @@ dependencies:
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
     - node.type.transaction
   module:
     - path
     - scheduler
+    - workflow
 id: node.transaction.default
 targetEntityType: node
 bundle: transaction
@@ -49,6 +51,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_status_transactions:
+    type: workflow_default
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_type_paid_vacation:
     type: options_select

@@ -1,4 +1,4 @@
-uuid: 87694cab-c292-4ed2-8b5a-26d9a88b4af9
+uuid: 536f7ae0-8e7f-432b-9e38-f547c90f3050
 langcode: en
 status: true
 dependencies:
@@ -10,13 +10,4 @@ label: null
 module: workflow
 from_sid: state_certificate_creation
 to_sid: state_certificate_publish
-roles:
-  workflow_author: workflow_author
-  administrator: administrator
-  ceo: '0'
-  team_lead: '0'
-  dev: '0'
-  pm: '0'
-  authenticated: '0'
-  anonymous: '0'
-  content_editor: '0'
+roles: {  }

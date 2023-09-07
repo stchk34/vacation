@@ -1,4 +1,4 @@
-uuid: f69e44a1-b4be-4943-ae39-0e58322aab0b
+uuid: b324af96-5ae5-49cd-9c1f-c3b465cbd0ed
 langcode: en
 status: true
 dependencies:
@@ -8,5 +8,5 @@ id: transaction_type_creation
 label: Creation
 module: workflow
 wid: transaction_type
-weight: -11
+weight: -50
 sysid: 1

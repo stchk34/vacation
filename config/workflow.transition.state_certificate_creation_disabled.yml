@@ -18,5 +18,4 @@ roles:
   dev: '0'
   pm: '0'
   authenticated: '0'
-  anonymous: '0'
   content_editor: '0'

@@ -1,6 +1,6 @@
 uuid: 345f2493-db15-4c34-aa83-2f7df3d97a8c
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.storage.node.field_days
@@ -8,7 +8,6 @@ dependencies:
   module:
     - better_exposed_filters
     - node
-    - options
     - user
 id: history_transactions
 label: 'History transactions'
