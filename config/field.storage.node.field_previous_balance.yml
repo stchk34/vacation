@@ -1,17 +1,17 @@
-uuid: 99df82a2-5fa9-4f41-8a60-fd5a15cbf50c
+uuid: a47cc6e8-770d-452f-8f71-0f3c7c962fdc
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - node
-id: node.field_start_date
-field_name: field_start_date
+id: node.field_previous_balance
+field_name: field_previous_balance
 entity_type: node
-type: datetime
+type: integer
 settings:
-  datetime_type: date
-module: datetime
+  unsigned: false
+  size: normal
+module: core
 locked: false
 cardinality: 1
 translatable: true

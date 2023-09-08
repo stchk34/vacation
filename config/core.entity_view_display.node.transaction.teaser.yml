@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
@@ -24,9 +26,11 @@ content:
     weight: 100
     region: content
 hidden:
+  field_actual_balance: true
   field_certificate: true
   field_days: true
   field_owner: true
+  field_previous_balance: true
   field_status_transactions: true
   field_type_paid_vacation: true
   field_vacat: true

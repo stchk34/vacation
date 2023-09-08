@@ -4,3 +4,4 @@ roles:
   dev: safe
   pm: safe
   content_editor: unsafe
+  canceled: unsafe

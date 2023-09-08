@@ -1,0 +1,23 @@
+uuid: bcdaaacb-539f-40f6-bd92-d4a770d978bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_previous_balance
+    - node.type.transaction
+id: node.transaction.field_previous_balance
+field_name: field_previous_balance
+entity_type: node
+bundle: transaction
+label: 'Previous balance'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

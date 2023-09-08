@@ -1,10 +1,12 @@
-uuid: e1ac416c-260d-4c4a-8194-96568adca874
+uuid: 5aa02ebe-33c8-4ada-a36a-98222c438286
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_use_up
     - node.type.certificate
+  module:
+    - datetime
 id: node.certificate.field_use_up
 field_name: field_use_up
 entity_type: node
@@ -13,9 +15,7 @@ label: 'Use up'
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    value: 1694008125
+default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: timestamp
+field_type: datetime

@@ -75,6 +75,7 @@
         "drupal/views_add_button": "^1.8",
         "drupal/views_bulk_operations": "^4.2",
         "drupal/views_cm_current_state": "^2.0",
+        "drupal/webform": "^6.1",
         "drupal/workflow": "^1.7",
         "drupal/workflow_buttons": "^1.0@beta",
         "drupal/zurb_foundation": "^9.0@beta",

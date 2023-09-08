@@ -1,0 +1,100 @@
+uuid: bf86e058-3977-46c8-b80d-ceccf0db7145
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_du6e1xb
+id: process_du6e1xb
+label: noname
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_dU6E1xB" isExecutable="true">
+      <bpmn2:startEvent id="Event_033ar12" camunda:modelerTemplate="org.drupal.event.user:cancel">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="user:cancel"/>
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_1bvskyh</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_0rlkspg" name="load user" camunda:modelerTemplate="org.drupal.action.eca_token_load_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_token_load_entity"/>
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>canceled_user</camunda:string>
+          </camunda:field>
+          <camunda:field name="from">
+            <camunda:string>current</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_type">
+            <camunda:string>user</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_id">
+            <camunda:string/>
+          </camunda:field>
+          <camunda:field name="revision_id">
+            <camunda:string/>
+          </camunda:field>
+          <camunda:field name="langcode">
+            <camunda:string>_interface</camunda:string>
+          </camunda:field>
+          <camunda:field name="latest_revision">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="unchanged">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="properties">
+            <camunda:string/>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string/>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1bvskyh</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0emvas8</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1bvskyh" sourceRef="Event_033ar12" targetRef="Activity_0rlkspg"/>
+      <bpmn2:task id="Activity_146r31w" camunda:modelerTemplate="org.drupal.action.eca_preconfigured_action:user_add_role_action.canceled">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_preconfigured_action:user_add_role_action.canceled"/>
+          </camunda:properties>
+          <camunda:field name="object">
+            <camunda:string>[canceled_user]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0emvas8</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0emvas8" sourceRef="Activity_0rlkspg" targetRef="Activity_146r31w"/>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-2ad4f220-6091-4059-8f7f-7534c838f6a6">
+      <bpmndi:BPMNPlane id="sid-9c634b97-1dac-49ce-aaa2-0049e188040f" bpmnElement="Process_dU6E1xB">
+        <bpmndi:BPMNShape id="Event_033ar12_di" bpmnElement="Event_033ar12">
+          <dc:Bounds x="152" y="212" width="36" height="36"/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0rlkspg_di" bpmnElement="Activity_0rlkspg">
+          <dc:Bounds x="240" y="190" width="100" height="80"/>
+          <bpmndi:BPMNLabel/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_146r31w_di" bpmnElement="Activity_146r31w">
+          <dc:Bounds x="400" y="190" width="100" height="80"/>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_1bvskyh_di" bpmnElement="Flow_1bvskyh">
+          <di:waypoint x="188" y="230"/>
+          <di:waypoint x="240" y="230"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0emvas8_di" bpmnElement="Flow_0emvas8">
+          <di:waypoint x="340" y="230"/>
+          <di:waypoint x="400" y="230"/>
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

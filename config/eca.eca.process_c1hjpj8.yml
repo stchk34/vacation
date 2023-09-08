@@ -6,25 +6,14 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
-    - field.field.node.certificate.field_start_date
-    - field.field.node.certificate.field_use_up
-    - field.field.node.transaction.field_certificate
-    - field.field.node.transaction.field_days
-    - field.field.node.transaction.field_owner
-    - field.field.node.transaction.field_status_transactions
+    - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_limit_of_weekends_per_year
-    - field.storage.node.field_certificate
     - field.storage.node.field_current_state_certificate
-    - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
-    - field.storage.node.field_owner
-    - field.storage.node.field_start_date
-    - field.storage.node.field_status_transactions
-    - field.storage.node.field_use_up
+    - field.storage.user.field_balance_a_vacations_day
     - field.storage.user.field_limit_of_weekends_per_year
     - node.type.certificate
-    - node.type.transaction
   module:
     - eca_content
     - eca_queue
@@ -70,16 +59,13 @@ events:
       -
         id: Activity_1xtefdc
         condition: ''
-  Event_1oyyi01:
-    plugin: 'content_entity:custom'
-    label: Event_1oyyi01
+conditions:
+  Flow_1fejom0:
+    plugin: eca_user_role
     configuration:
-      event_id: x1
-    successors:
-      -
-        id: Activity_1ft6l9k
-        condition: ''
-conditions: {  }
+      account: '[new_user]'
+      role: canceled
+      negate: true
 gateways: {  }
 actions:
   Activity_125agee:
@@ -118,7 +104,7 @@ actions:
     successors:
       -
         id: Activity_0d3w2yd
-        condition: ''
+        condition: Flow_1fejom0
   Activity_0d3w2yd:
     plugin: eca_new_entity
     label: 'create node'
@@ -153,7 +139,7 @@ actions:
         id: Activity_1dozkw8
         condition: ''
       -
-        id: Activity_0cj0cv2
+        id: Activity_03tmgwn
         condition: ''
   Activity_1m6ivmb:
     plugin: eca_set_field_value
@@ -213,146 +199,40 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_0c8ov6r
+        id: Activity_1ibvcgd
         condition: ''
-  Activity_0c8ov6r:
-    plugin: eca_set_field_value
-    label: "set field\_ \_Start Date"
-    configuration:
-      field_name: field_start_date
-      field_value: '[new_certificate:created:raw]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[new_certificate]'
-    successors:
-      -
-        id: Activity_0pjw78t
-        condition: ''
-  Activity_0pjw78t:
+  Activity_1ibvcgd:
     plugin: 'eca_tamper:math'
-    label: 'unpublish date value'
+    label: 'math current balance'
     configuration:
       operation: addition
       flip: false
-      value: '240'
-      eca_data: '[new_certificate:created:raw]'
-      eca_token_name: unpublish_value
+      value: '[new_certificate:field_limit_:value]'
+      eca_data: '[new_user:field_balance_a_vacations_day:value]'
+      eca_token_name: current_limit
     successors:
       -
-        id: Activity_188ofn2
+        id: Activity_168o4fy
         condition: ''
-  Activity_188ofn2:
+  Activity_168o4fy:
     plugin: eca_set_field_value
-    label: "set field\_ \_USE UP"
+    label: 'set field balance to user'
     configuration:
-      field_name: field_use_up
-      field_value: '[unpublish_value]'
+      field_name: field_balance_a_vacations_day
+      field_value: '[current_limit]'
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
-      object: '[new_certificate]'
+      save_entity: true
+      object: '[new_user]'
     successors:
       -
         id: Activity_0qkj36z
         condition: ''
-  Activity_0cj0cv2:
-    plugin: eca_trigger_content_entity_custom_event
-    label: TRIGGER
-    configuration:
-      event_id: x1
-      tokens: ''
-      object: '[new_certificate]'
-    successors:
-      -
-        id: Activity_1x79y5v
-        condition: ''
-  Activity_1fzkk6m:
-    plugin: eca_new_entity
-    label: 'create EARNED TRANSACTION'
-    configuration:
-      token_name: earned_transaction
-      type: 'node transaction'
-      langcode: ''
-      label: 'Transaction for [new_certificate:title]'
-      published: true
-      owner: '1'
-    successors:
-      -
-        id: Activity_01mqdh5
-        condition: ''
-  Activity_1ft6l9k:
-    plugin: eca_switch_account
-    label: 'switch to admin'
-    configuration:
-      user_id: '1'
-    successors:
-      -
-        id: Activity_1fzkk6m
-        condition: ''
-  Activity_01mqdh5:
-    plugin: eca_set_field_value
-    label: 'set field Status transaction'
-    configuration:
-      field_name: field_status_transactions
-      field_value: transaction_type_earned
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors:
-      -
-        id: Activity_1qnbmo4
-        condition: ''
-  Activity_1qnbmo4:
-    plugin: eca_set_field_value
-    label: 'set field Owner'
-    configuration:
-      field_name: field_owner
-      field_value: '[new_certificate:field_employee:entity]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors:
-      -
-        id: Activity_1b2r6jl
-        condition: ''
-  Activity_1b2r6jl:
-    plugin: eca_set_field_value
-    label: 'set field Days'
-    configuration:
-      field_name: field_days
-      field_value: '[new_certificate:field_limit_:value]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors:
-      -
-        id: Activity_0so27xc
-        condition: ''
-  Activity_0so27xc:
-    plugin: eca_set_field_value
-    label: 'set field Certificate'
-    configuration:
-      field_name: field_certificate
-      field_value: '[certificate]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors: {  }
-  Activity_1x79y5v:
+  Activity_03tmgwn:
     plugin: action_message_action
-    label: Activity_1x79y5v
+    label: Activity_03tmgwn
     configuration:
       replace_tokens: false
-      message: 'Створено сертифікат'
+      message: '[new_certificate:created]'
     successors: {  }

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.certificate.field_use_up
     - node.type.certificate
   module:
+    - datetime
     - options
     - user
 id: node.certificate.default
@@ -42,24 +43,22 @@ content:
     weight: 4
     region: content
   field_start_date:
-    type: timestamp
-    label: inline
+    type: datetime_default
+    label: above
     settings:
-      date_format: vacation_date
-      custom_date_format: ''
-      timezone: ''
+      timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    weight: 2
+    weight: 6
     region: content
   field_use_up:
-    type: timestamp
-    label: inline
+    type: datetime_default
+    label: above
     settings:
-      date_format: vacation_date
-      custom_date_format: ''
-      timezone: ''
+      timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    weight: 3
+    weight: 7
     region: content
   links:
     settings: {  }

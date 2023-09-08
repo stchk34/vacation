@@ -1,0 +1,14 @@
+uuid: 093abdd6-3fac-49fd-b46b-fe621e01e11b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.canceled
+  module:
+    - user
+id: user_add_role_action.canceled
+label: 'Add the Canceled role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: canceled

@@ -1,0 +1,14 @@
+uuid: b6a42d71-dcd0-4d8f-bf72-0ebc7643eca1
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.canceled
+  module:
+    - user
+id: user_remove_role_action.canceled
+label: 'Remove the Canceled role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: canceled

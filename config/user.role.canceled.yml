@@ -1,0 +1,9 @@
+uuid: d4a91f9c-a934-4b25-9300-5174e5773f34
+langcode: en
+status: true
+dependencies: {  }
+id: canceled
+label: Canceled
+weight: -1
+is_admin: null
+permissions: {  }
