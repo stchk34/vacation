@@ -1,0 +1,160 @@
+uuid: 286d7578-be02-4460-9ae8-c8759e11d5c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.certificate.field_employee
+    - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_certificate
+    - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
+    - field.storage.node.field_certificate
+    - field.storage.node.field_days
+    - field.storage.node.field_employee
+    - field.storage.node.field_limit_
+    - field.storage.node.field_owner
+    - field.storage.node.field_status_transactions
+    - node.type.certificate
+    - node.type.transaction
+  module:
+    - eca_content
+    - eca_user
+id: process_wsz2dg2
+modeller: bpmn_io
+label: 'Create Earned Transaction'
+version: ''
+weight: -10
+events:
+  Event_0he8mjm:
+    plugin: 'content_entity:insert'
+    label: Event_0he8mjm
+    configuration:
+      type: 'node certificate'
+    successors:
+      -
+        id: Activity_1s5b3zs
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  Activity_1nwuz9q:
+    plugin: eca_switch_account
+    label: 'switch user'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1tqqyon
+        condition: ''
+  Activity_1tqqyon:
+    plugin: eca_new_entity
+    label: 'create transaction'
+    configuration:
+      token_name: earned_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Earned transaction "[certificate:title]"'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_0x5vhul
+        condition: ''
+  Activity_0x5vhul:
+    plugin: eca_set_field_value
+    label: 'set field EARNED TYPE'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_earned
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_08h06eb
+        condition: ''
+  Activity_08h06eb:
+    plugin: eca_set_field_value
+    label: 'set field Certificate'
+    configuration:
+      field_name: field_certificate
+      field_value: '[certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_1t7zbik
+        condition: ''
+      -
+        id: Activity_17np994
+        condition: ''
+  Activity_0efx3bo:
+    plugin: eca_save_entity
+    label: 'save transaction'
+    configuration:
+      object: '[earned_transaction]'
+    successors: {  }
+  Activity_1t7zbik:
+    plugin: eca_set_field_value
+    label: 'set field owner'
+    configuration:
+      field_name: field_owner
+      field_value: '[certificate:field_employee:entity:uid]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_06z4v7a
+        condition: ''
+  Activity_06z4v7a:
+    plugin: eca_set_field_value
+    label: 'set field Days'
+    configuration:
+      field_name: field_days
+      field_value: '[certificate:field_limit_:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_0efx3bo
+        condition: ''
+  Activity_1s5b3zs:
+    plugin: eca_token_load_entity
+    label: Activity_1s5b3zs
+    configuration:
+      token_name: certificate
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_1nwuz9q
+        condition: ''
+  Activity_17np994:
+    plugin: action_message_action
+    label: Activity_17np994
+    configuration:
+      replace_tokens: false
+      message: |-
+        owner certificate ->[certificate:field_employee:entity:uid]
+
+        days certificate ->[certificate:field_limit_:value]
+    successors: {  }

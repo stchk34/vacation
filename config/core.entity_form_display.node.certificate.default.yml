@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.certificate.field_use_up
     - node.type.certificate
   module:
-    - datetime
     - path
     - scheduler
     - workflow
@@ -49,13 +48,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_start_date:
-    type: datetime_default
+    type: datetime_timestamp
     weight: 133
     region: content
     settings: {  }
     third_party_settings: {  }
   field_use_up:
-    type: datetime_default
+    type: datetime_timestamp
     weight: 134
     region: content
     settings: {  }

@@ -1,15 +1,17 @@
-uuid: 2ab8b52e-0864-43ac-bf23-446e6c8bc944
+uuid: 95de470a-1926-4b6d-afb3-9c32f7c2d904
 langcode: en
 status: true
 dependencies:
   module:
+    - datetime
     - node
-id: node.field_start_date
-field_name: field_start_date
+id: node.field_custom_date
+field_name: field_custom_date
 entity_type: node
-type: timestamp
-settings: {  }
-module: core
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
 locked: false
 cardinality: 1
 translatable: true

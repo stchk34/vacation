@@ -11,7 +11,7 @@ id: process_du6e1xb
 modeller: bpmn_io
 label: noname
 version: ''
-weight: null
+weight: -10
 events:
   Event_033ar12:
     plugin: 'user:cancel'

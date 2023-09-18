@@ -5,7 +5,6 @@ dependencies:
   module:
     - masquerade
     - system
-    - user
   theme:
     - olivero
 id: masquerade
@@ -20,13 +19,6 @@ settings:
   label_display: visible
   provider: masquerade
 visibility:
-  user_role:
-    id: user_role
-    negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'
-    roles:
-      administrator: administrator
   request_path:
     id: request_path
     negate: false

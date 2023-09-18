@@ -1,0 +1,21 @@
+uuid: 8a03d26c-c0d1-4b60-b808-01a7d0d57128
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_custom_date
+    - node.type.page
+  module:
+    - datetime
+id: node.page.field_custom_date
+field_name: field_custom_date
+entity_type: node
+bundle: page
+label: 'custom date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

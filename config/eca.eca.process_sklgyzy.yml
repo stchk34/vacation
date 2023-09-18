@@ -1,6 +1,6 @@
 uuid: 1f8bc0e3-adae-4955-a21b-89baab2e548d
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.list_approvers

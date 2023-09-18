@@ -1,12 +1,10 @@
-uuid: 9484950a-a0bd-4eaf-ab22-e1c1c6a90fa2
+uuid: c999e86b-5456-4ab9-8b52-98f33ca6d80a
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_start_date
     - node.type.certificate
-  module:
-    - datetime
 id: node.certificate.field_start_date
 field_name: field_start_date
 entity_type: node
@@ -15,7 +13,9 @@ label: 'Start date'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 1695038434
 default_value_callback: ''
 settings: {  }
-field_type: datetime
+field_type: timestamp

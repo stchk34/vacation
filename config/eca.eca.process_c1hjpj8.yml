@@ -6,11 +6,15 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
+    - field.field.node.certificate.field_start_date
+    - field.field.node.certificate.field_use_up
     - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
+    - field.storage.node.field_start_date
+    - field.storage.node.field_use_up
     - field.storage.user.field_balance_a_vacations_day
     - field.storage.user.field_limit_of_weekends_per_year
     - node.type.certificate
@@ -24,7 +28,7 @@ id: process_c1hjpj8
 modeller: bpmn_io
 label: 'Create certificate'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1d1setl:
     plugin: 'content_entity:insert'
@@ -129,18 +133,6 @@ actions:
       task_value: ''
       tokens: 'new_user, new_certificate'
     successors: {  }
-  Activity_0qkj36z:
-    plugin: eca_save_entity
-    label: 'save node'
-    configuration:
-      object: '[new_certificate]'
-    successors:
-      -
-        id: Activity_1dozkw8
-        condition: ''
-      -
-        id: Activity_03tmgwn
-        condition: ''
   Activity_1m6ivmb:
     plugin: eca_set_field_value
     label: |-
@@ -227,12 +219,70 @@ actions:
       object: '[new_user]'
     successors:
       -
-        id: Activity_0qkj36z
+        id: Activity_12h67wd
         condition: ''
-  Activity_03tmgwn:
+  Activity_1oywa5n:
+    plugin: eca_save_entity
+    label: 'save certificate'
+    configuration:
+      object: '[new_certificate]'
+    successors:
+      -
+        id: Activity_1dozkw8
+        condition: ''
+      -
+        id: Activity_0n3ezyg
+        condition: ''
+  Activity_12h67wd:
+    plugin: eca_set_field_value
+    label: 'set field value START DATE'
+    configuration:
+      field_name: field_start_date
+      field_value: '[current-date:raw]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[new_certificate]'
+    successors:
+      -
+        id: Activity_1wamsyj
+        condition: ''
+  Activity_1wamsyj:
+    plugin: 'eca_tamper:math'
+    label: math
+    configuration:
+      operation: addition
+      flip: false
+      value: '240'
+      eca_data: '[current-date:raw]'
+      eca_token_name: end_date_timestamp
+    successors:
+      -
+        id: Activity_0qbuxpf
+        condition: ''
+  Activity_0qbuxpf:
+    plugin: eca_set_field_value
+    label: 'set field END DATE'
+    configuration:
+      field_name: field_use_up
+      field_value: '[end_date_timestamp]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[new_certificate]'
+    successors:
+      -
+        id: Activity_1oywa5n
+        condition: ''
+  Activity_0n3ezyg:
     plugin: action_message_action
-    label: Activity_03tmgwn
+    label: Activity_0n3ezyg
     configuration:
       replace_tokens: false
-      message: '[new_certificate:created]'
+      message: |-
+        [certificate:field_use_up:date:raw] -> Use up timestamp value
+
+        Current date -> [current-date:raw]
     successors: {  }
