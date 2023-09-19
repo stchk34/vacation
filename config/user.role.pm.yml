@@ -12,23 +12,12 @@ label: PM
 weight: -5
 is_admin: null
 permissions:
-  - 'access any request_state workflow_transion overview'
-  - 'access any state_certificate workflow_transion overview'
-  - 'access any state_for_approvers workflow_transion overview'
   - 'access own request_state workflow_transion overview'
   - 'access own state_certificate workflow_transion overview'
-  - 'access own state_for_approvers workflow_transion overview'
-  - 'access request_state workflow_transition form'
-  - 'access state_certificate workflow_transition form'
-  - 'access state_for_approvers workflow_transition form'
   - 'access users overview'
-  - 'bypass request_state workflow_transition access'
-  - 'bypass state_certificate workflow_transition access'
-  - 'bypass state_for_approvers workflow_transition access'
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'
   - 'create state_for_approvers workflow_transition'
-  - 'create transaction_type workflow_transition'
   - 'execute workflow_node_next_state_action node'
   - 'view any unpublished content'
   - 'view users by role'

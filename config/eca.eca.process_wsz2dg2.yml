@@ -91,9 +91,6 @@ actions:
       -
         id: Activity_1t7zbik
         condition: ''
-      -
-        id: Activity_17np994
-        condition: ''
   Activity_0efx3bo:
     plugin: eca_save_entity
     label: 'save transaction'
@@ -148,13 +145,3 @@ actions:
       -
         id: Activity_1nwuz9q
         condition: ''
-  Activity_17np994:
-    plugin: action_message_action
-    label: Activity_17np994
-    configuration:
-      replace_tokens: false
-      message: |-
-        owner certificate ->[certificate:field_employee:entity:uid]
-
-        days certificate ->[certificate:field_limit_:value]
-    successors: {  }

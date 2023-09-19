@@ -219,7 +219,7 @@ actions:
       object: '[new_user]'
     successors:
       -
-        id: Activity_12h67wd
+        id: Activity_08a2ek6
         condition: ''
   Activity_1oywa5n:
     plugin: eca_save_entity
@@ -230,12 +230,9 @@ actions:
       -
         id: Activity_1dozkw8
         condition: ''
-      -
-        id: Activity_0n3ezyg
-        condition: ''
-  Activity_12h67wd:
+  Activity_08a2ek6:
     plugin: eca_set_field_value
-    label: 'set field value START DATE'
+    label: 'set field START DATE'
     configuration:
       field_name: field_start_date
       field_value: '[current-date:raw]'
@@ -246,9 +243,9 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_1wamsyj
+        id: Activity_1u5bj20
         condition: ''
-  Activity_1wamsyj:
+  Activity_1u5bj20:
     plugin: 'eca_tamper:math'
     label: math
     configuration:
@@ -259,11 +256,11 @@ actions:
       eca_token_name: end_date_timestamp
     successors:
       -
-        id: Activity_0qbuxpf
+        id: Activity_0vpnh39
         condition: ''
-  Activity_0qbuxpf:
+  Activity_0vpnh39:
     plugin: eca_set_field_value
-    label: 'set field END DATE'
+    label: "set field\_ \_END DATE"
     configuration:
       field_name: field_use_up
       field_value: '[end_date_timestamp]'
@@ -276,13 +273,3 @@ actions:
       -
         id: Activity_1oywa5n
         condition: ''
-  Activity_0n3ezyg:
-    plugin: action_message_action
-    label: Activity_0n3ezyg
-    configuration:
-      replace_tokens: false
-      message: |-
-        [certificate:field_use_up:date:raw] -> Use up timestamp value
-
-        Current date -> [current-date:raw]
-    successors: {  }

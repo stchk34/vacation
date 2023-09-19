@@ -1,6 +1,6 @@
 uuid: e91962d0-ffc6-4e6c-bc99-f04b396a1611
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.field.node.certificate.field_employee
@@ -25,7 +25,7 @@ weight: null
 events:
   Event_0nncjf3:
     plugin: 'content_entity:update'
-    label: Event_0nncjf3
+    label: 'UPD CERTIFICATE'
     configuration:
       type: 'node certificate'
     successors:
@@ -34,12 +34,12 @@ events:
         condition: ''
   Event_0lrklph:
     plugin: 'content_entity:custom'
-    label: Event_0lrklph
+    label: 'CUSTOM EVENT'
     configuration:
       event_id: x1
     successors:
       -
-        id: Activity_1qwhajv
+        id: Activity_118c826
         condition: ''
 conditions:
   Flow_0ih9kkp:
@@ -155,4 +155,57 @@ actions:
       event_id: x1
       tokens: ''
       object: '[burning_transaction]'
+    successors: {  }
+  Activity_118c826:
+    plugin: eca_token_load_entity
+    label: transaction
+    configuration:
+      token_name: current_transaction
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_1vdp8vd
+        condition: ''
+  Activity_1vdp8vd:
+    plugin: eca_token_load_entity_ref
+    label: Activity_1vdp8vd
+    configuration:
+      field_name_entity_ref: field_owner
+      token_name: owner_transaction
+      from: id
+      entity_type: user
+      entity_id: '[current_transaction:field_owner:entity:uid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[current_transaction]'
+    successors:
+      -
+        id: Activity_18iqi6y
+        condition: ''
+      -
+        id: Activity_01wdmra
+        condition: ''
+  Activity_18iqi6y:
+    plugin: action_message_action
+    label: Activity_18iqi6y
+    configuration:
+      replace_tokens: false
+      message: '#[owner_transaction] -> owner Transaction'
+    successors: {  }
+  Activity_01wdmra:
+    plugin: eca_switch_account
+    label: 'switch to owner'
+    configuration:
+      user_id: '[owner_transaction]'
     successors: {  }

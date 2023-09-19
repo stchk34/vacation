@@ -1,0 +1,253 @@
+uuid: 481cdfcd-3c80-43ed-af99-52ba9a711714
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.certificate.field_employee
+    - field.field.node.certificate.field_limit_
+    - field.field.user.user.field_balance_a_vacations_day
+    - field.storage.node.field_employee
+    - field.storage.node.field_limit_
+    - field.storage.user.field_balance_a_vacations_day
+    - views.view.all_certificate_for_admin
+    - views.view.current_certificate
+  module:
+    - eca_base
+    - eca_content
+    - eca_tamper
+    - eca_user
+    - eca_views
+    - node
+id: process_syiklwv
+modeller: bpmn_io
+label: 'Burn days'
+version: ''
+weight: null
+events:
+  Event_1kg2piw:
+    plugin: 'eca_base:eca_cron'
+    label: CRON
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: Activity_14vqb6m
+        condition: ''
+conditions:
+  Flow_1mhpquu:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[current-date:raw]'
+      right: '[disabled_cert:field_use_up:date:raw]'
+      operator: greaterthan
+      type: value
+  Flow_199mib5:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[result_number]'
+      right: '[first_certificate:field_limit_:value]'
+      operator: lessthan
+      type: value
+  Flow_0w1x6ji:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[result_number]'
+      right: '[first_certificate:field_limit_:value]'
+      operator: greaterthan
+      type: value
+gateways:
+  Gateway_0zoys6a:
+    type: 0
+    successors:
+      -
+        id: Activity_05gbfza
+        condition: ''
+  Gateway_191dxix:
+    type: 0
+    successors:
+      -
+        id: Activity_1vsz3y0
+        condition: Flow_199mib5
+      -
+        id: Activity_1fj42hl
+        condition: Flow_0w1x6ji
+actions:
+  Activity_14vqb6m:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0qh5wy7
+        condition: ''
+  Activity_0qh5wy7:
+    plugin: eca_views_query
+    label: '"ALL CERTIFICATE"'
+    configuration:
+      token_name: all_certificate
+      view_id: all_certificate_for_admin
+      display_id: block_1
+      arguments: ''
+    successors:
+      -
+        id: Gateway_0zoys6a
+        condition: ''
+  Activity_1uymbtg:
+    plugin: eca_views_query
+    label: 'view "My current certificate"'
+    configuration:
+      token_name: certificate_employee
+      view_id: current_certificate
+      display_id: default
+      arguments: ''
+    successors:
+      -
+        id: Activity_0tn8dmn
+        condition: ''
+  Activity_0m9f0ff:
+    plugin: eca_get_field_value
+    label: 'get balance'
+    configuration:
+      field_name: field_balance_a_vacations_day
+      token_name: actual_balance
+      object: user
+    successors:
+      -
+        id: Activity_1uymbtg
+        condition: ''
+  Activity_0tpc582:
+    plugin: eca_set_field_value
+    label: 'Set field STATE'
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_disabled
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[disabled_cert]'
+    successors:
+      -
+        id: Activity_0hpo5m5
+        condition: ''
+  Activity_0hpo5m5:
+    plugin: 'entity:unpublish_action:node'
+    label: Unpublish
+    configuration:
+      object: '[disabled_cert]'
+    successors:
+      -
+        id: Activity_00c0g7y
+        condition: ''
+  Activity_05gbfza:
+    plugin: eca_token_load_entity
+    label: 'load first certificate'
+    configuration:
+      token_name: disabled_cert
+      from: id
+      entity_type: _none
+      entity_id: '[all_certificate:0:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[all_certificate]'
+    successors:
+      -
+        id: Activity_0tpc582
+        condition: Flow_1mhpquu
+  Activity_00c0g7y:
+    plugin: eca_list_remove
+    label: 'dropped certificate'
+    configuration:
+      value: ''
+      token_name: dropped_certificate
+      method: first
+      index: ''
+      list_token: all_certificate
+    successors:
+      -
+        id: Activity_181k1vx
+        condition: ''
+  Activity_181k1vx:
+    plugin: eca_switch_account
+    label: 'switch to employee'
+    configuration:
+      user_id: '[dropped_certificate:field_employee:uid]'
+    successors:
+      -
+        id: Gateway_0zoys6a
+        condition: ''
+      -
+        id: Activity_0m9f0ff
+        condition: ''
+  Activity_0tn8dmn:
+    plugin: eca_token_load_entity
+    label: 'load first certificate'
+    configuration:
+      token_name: first_certificate
+      from: id
+      entity_type: node
+      entity_id: '[certificate_employee:0:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[certificate_employee]'
+    successors:
+      -
+        id: Activity_0ye7fxa
+        condition: ''
+  Activity_0ye7fxa:
+    plugin: eca_token_load_entity
+    label: 'load second certificate'
+    configuration:
+      token_name: second_certificate
+      from: id
+      entity_type: node
+      entity_id: '[certificate_employee:0:nid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[certificate_employee]'
+    successors:
+      -
+        id: Activity_1dflrp2
+        condition: ''
+  Activity_1dflrp2:
+    plugin: 'eca_tamper:math'
+    label: 'math: get all limit vacation day'
+    configuration:
+      operation: addition
+      flip: false
+      value: '[second_certificate:field_limit_:value]'
+      eca_data: '[first_certificate:field_limit_:value]'
+      eca_token_name: default_limit
+    successors:
+      -
+        id: Activity_0bxblux
+        condition: ''
+  Activity_0bxblux:
+    plugin: 'eca_tamper:math'
+    label: Activity_0bxblux
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[actual_balance]'
+      eca_data: '[default_limit]'
+      eca_token_name: result_number
+    successors:
+      -
+        id: Gateway_191dxix
+        condition: ''

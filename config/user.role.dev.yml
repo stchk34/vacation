@@ -10,14 +10,11 @@ label: Dev
 weight: -7
 is_admin: null
 permissions:
-  - 'access any state_for_approvers workflow_transion overview'
   - 'access own request_state workflow_transion overview'
   - 'access own state_certificate workflow_transion overview'
-  - 'access own state_for_approvers workflow_transion overview'
   - 'access users overview'
   - 'create request_state workflow_transition'
   - 'create state_certificate workflow_transition'
   - 'create state_for_approvers workflow_transition'
-  - 'create transaction_type workflow_transition'
   - 'view user email addresses'
   - 'view users by role'
