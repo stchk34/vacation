@@ -10,8 +10,6 @@ dependencies:
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
-    - field.field.node.vacation_request.field_state_for_approvers
-    - field.field.node.vacation_request.field_status_request
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
   module:
@@ -126,6 +124,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -139,12 +144,9 @@ hidden:
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true
   field_employee_sender: true
-  field_state_for_approvers: true
-  field_status_request: true
   path: true
   promote: true
   publish_on: true
-  status: true
   sticky: true
   uid: true
   unpublish_on: true

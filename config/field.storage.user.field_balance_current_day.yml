@@ -1,0 +1,20 @@
+uuid: 4530a4e5-1506-4f5a-a78f-f336432c3701
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_balance_current_day
+field_name: field_balance_current_day
+entity_type: user
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

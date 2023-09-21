@@ -6,17 +6,13 @@ dependencies:
     - filter.format.basic_html
     - node.type.vacation_request
   module:
-    - actions_permissions
     - comment
     - contact
     - content_moderation
     - filter
     - media
     - node
-    - search
-    - shortcut
     - system
-    - workflow
 _core:
   default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
 id: authenticated
@@ -26,19 +22,10 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'access shortcuts'
   - 'access site-wide contact form'
   - 'access user profiles'
-  - 'create request_state workflow_transition'
-  - 'create state_certificate workflow_transition'
-  - 'create state_for_approvers workflow_transition'
-  - 'create transaction_type workflow_transition'
   - 'create vacation_request content'
-  - 'execute entity:publish_action node'
-  - 'execute workflow_node_given_state_action node'
   - 'post comments'
-  - 'search content'
-  - 'skip comment approval'
   - 'use approve_request transition publish'
   - 'use text format basic_html'
   - 'view any unpublished content'

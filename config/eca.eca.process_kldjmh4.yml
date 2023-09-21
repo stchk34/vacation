@@ -14,13 +14,10 @@ dependencies:
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - node.type.vacation_request
-    - views.view.approvers
   module:
-    - eca_base
     - eca_content
     - eca_tamper
     - eca_user
-    - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
@@ -49,9 +46,6 @@ gateways:
         condition: ''
       -
         id: Activity_1jrx8jo
-        condition: ''
-      -
-        id: Activity_14iposb
         condition: ''
 actions:
   Activity_0c3pcf2:
@@ -186,40 +180,4 @@ actions:
       trim: false
       save_entity: true
       object: '[new_request]'
-    successors: {  }
-  Activity_14iposb:
-    plugin: eca_views_query
-    label: 'view approvers'
-    configuration:
-      token_name: list_approvers
-      view_id: approvers
-      display_id: block_1
-      arguments: '[user:uid]'
-    successors:
-      -
-        id: Activity_0atb8zq
-        condition: ''
-  Activity_05x6j2z:
-    plugin: action_message_action
-    label: message
-    configuration:
-      message: '[list_approvers:user:uid]'
-      replace_tokens: true
-    successors: {  }
-  Activity_0atb8zq:
-    plugin: eca_count
-    label: 'count approvers'
-    configuration:
-      token_name: all_approvers
-      list_token: list_approvers
-    successors:
-      -
-        id: Activity_1itpqo0
-        condition: ''
-  Activity_1itpqo0:
-    plugin: action_message_action
-    label: 'display count approvers'
-    configuration:
-      message: '[all_approvers]'
-      replace_tokens: true
     successors: {  }

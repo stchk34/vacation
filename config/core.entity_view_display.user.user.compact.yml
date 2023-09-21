@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.user.compact
     - field.field.user.user.field_balance_a_vacations_day
+    - field.field.user.user.field_balance_current_day
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.field.user.user.field_my_team_lead
     - field.field.user.user.field_position
@@ -39,6 +40,7 @@ content:
     region: content
 hidden:
   field_balance_a_vacations_day: true
+  field_balance_current_day: true
   field_limit_of_weekends_per_year: true
   field_my_team_lead: true
   field_position: true

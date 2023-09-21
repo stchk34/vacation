@@ -5,13 +5,9 @@ dependencies:
   config:
     - filter.format.restricted_html
   module:
-    - comment
     - contact
     - filter
     - media
-    - search
-    - system
-    - workflow
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
 id: anonymous
@@ -19,11 +15,6 @@ label: 'Anonymous user'
 weight: -3
 is_admin: false
 permissions:
-  - 'access comments'
-  - 'access content'
   - 'access site-wide contact form'
-  - 'create state_for_approvers workflow_transition'
-  - 'create transaction_type workflow_transition'
-  - 'search content'
   - 'use text format restricted_html'
   - 'view media'

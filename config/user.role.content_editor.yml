@@ -1,15 +1,9 @@
 uuid: ea8ebe7d-e042-464c-9b49-a38e2cc7c078
 langcode: en
 status: true
-dependencies:
-  module:
-    - workflow
+dependencies: {  }
 id: content_editor
 label: 'Content editor'
 weight: -2
 is_admin: null
-permissions:
-  - 'create request_state workflow_transition'
-  - 'create state_certificate workflow_transition'
-  - 'create state_for_approvers workflow_transition'
-  - 'create transaction_type workflow_transition'
+permissions: {  }

@@ -1,20 +1,10 @@
 uuid: d9322a3f-f330-4053-ab6c-00bdac0ae4b8
 langcode: en
 status: true
-dependencies:
-  module:
-    - administerusersbyrole
-    - workflow
+dependencies: {  }
 id: dev
 label: Dev
 weight: -7
 is_admin: null
 permissions:
-  - 'access own request_state workflow_transion overview'
-  - 'access own state_certificate workflow_transion overview'
-  - 'access users overview'
-  - 'create request_state workflow_transition'
-  - 'create state_certificate workflow_transition'
-  - 'create state_for_approvers workflow_transition'
   - 'view user email addresses'
-  - 'view users by role'

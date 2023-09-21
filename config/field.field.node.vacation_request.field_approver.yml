@@ -24,13 +24,6 @@ settings:
       direction: ASC
     auto_create: false
     filter:
-      type: role
-      role:
-        ceo: ceo
-        administrator: administrator
-        team_lead: team_lead
-        pm: pm
-        dev: '0'
-        content_editor: '0'
+      type: _none
     include_anonymous: false
 field_type: entity_reference
