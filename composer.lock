@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ecb5ebcde43f6461dcf67bcc17844bf",
+    "content-hash": "da3e473b7f7c5465d3db68a48ef91bd4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5997,6 +5997,60 @@
                 "issues": "https://www.drupal.org/project/issues/webform?version=8.x",
                 "docs": "https://www.drupal.org/docs/8/modules/webform",
                 "forum": "https://drupal.stackexchange.com/questions/tagged/webform"
+            }
+        },
+        {
+            "name": "drupal/webform_node_element",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/webform_node_element.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/webform_node_element-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "c0512e9fe437cc5da7d0cd4750388da666b12a4b"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/webform": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1637242231",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Finn Lewis",
+                    "homepage": "https://www.drupal.org/user/119432"
+                },
+                {
+                    "name": "alarcombe",
+                    "homepage": "https://www.drupal.org/user/172759"
+                },
+                {
+                    "name": "cafuego",
+                    "homepage": "https://www.drupal.org/user/218525"
+                }
+            ],
+            "description": "Webform Node Element is a module that allows you to include node content in a webform without using the PHP input filter.",
+            "homepage": "https://www.drupal.org/project/webform_node_element",
+            "support": {
+                "source": "https://git.drupalcode.org/project/webform_node_element",
+                "issues": "https://www.drupal.org/project/issues/search/webform_node_element"
             }
         },
         {

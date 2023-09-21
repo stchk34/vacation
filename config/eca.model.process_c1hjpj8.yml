@@ -147,7 +147,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:outgoing>Flow_17cbbf9</bpmn2:outgoing>
       </bpmn2:startEvent>
-      <bpmn2:task id="Activity_1dozkw8" camunda:modelerTemplate="org.drupal.action.eca_enqueue_task_delayed">
+      <bpmn2:task id="Activity_1dozkw8" name="create 2 certificate" camunda:modelerTemplate="org.drupal.action.eca_enqueue_task_delayed">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_enqueue_task_delayed" />
@@ -515,6 +515,7 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1dozkw8_di" bpmnElement="Activity_1dozkw8">
           <dc:Bounds x="2140" y="450" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Event_1l3e4qj_di" bpmnElement="Event_1l3e4qj">
           <dc:Bounds x="362" y="592" width="36" height="36" />

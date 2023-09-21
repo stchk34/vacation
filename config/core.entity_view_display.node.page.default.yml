@@ -7,7 +7,20 @@ dependencies:
     - node.type.page
   module:
     - datetime
+    - layout_builder
+    - layout_discovery
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components: {  }
+        third_party_settings: {  }
 id: node.page.default
 targetEntityType: node
 bundle: page

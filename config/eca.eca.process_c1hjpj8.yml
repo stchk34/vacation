@@ -125,7 +125,7 @@ actions:
         condition: ''
   Activity_1dozkw8:
     plugin: eca_enqueue_task_delayed
-    label: Activity_1dozkw8
+    label: 'create 2 certificate'
     configuration:
       delay_value: '2'
       delay_unit: '60'

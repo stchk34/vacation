@@ -43,9 +43,9 @@ content:
     region: content
   field_start_date:
     type: timestamp
-    label: above
+    label: inline
     settings:
-      date_format: medium
+      date_format: vacation_date
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
@@ -53,9 +53,9 @@ content:
     region: content
   field_use_up:
     type: timestamp
-    label: above
+    label: inline
     settings:
-      date_format: medium
+      date_format: vacation_date
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }

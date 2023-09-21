@@ -12,7 +12,121 @@ dependencies:
   module:
     - field_token_value
     - image
+    - layout_builder
+    - layout_discovery
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          ee38c2c0-b1fe-4e29-b587-fa87a0d8250d:
+            uuid: ee38c2c0-b1fe-4e29-b587-fa87a0d8250d
+            region: content
+            configuration:
+              id: 'field_block:user:user:user_picture'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          b4c84760-985a-4125-85e0-961361278956:
+            uuid: b4c84760-985a-4125-85e0-961361278956
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_position'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          ca9f2165-b44c-4bac-a802-384fb23cf5b1:
+            uuid: ca9f2165-b44c-4bac-a802-384fb23cf5b1
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_teams'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          37dc1d39-3fcb-4b90-88e3-d19de7f26d67:
+            uuid: 37dc1d39-3fcb-4b90-88e3-d19de7f26d67
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_my_team_lead'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          48a256d4-2976-4b5d-b347-18a2a8dc7006:
+            uuid: 48a256d4-2976-4b5d-b347-18a2a8dc7006
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_balance_a_vacations_day'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: number_integer
+                label: inline
+                settings:
+                  thousand_separator: ''
+                  prefix_suffix: true
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          d3a32409-48b9-46c0-8541-35141ebcc289:
+            uuid: d3a32409-48b9-46c0-8541-35141ebcc289
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_limit_of_weekends_per_year'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: field_token_value_text
+                label: inline
+                settings:
+                  wrapper: ''
+                  link: false
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+        third_party_settings: {  }
 id: user.user.default
 targetEntityType: user
 bundle: user

@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_current_state_certificate
     - field.storage.node.field_limit_
     - field.storage.node.field_start_date
     - field.storage.node.field_use_up
     - node.type.certificate
   module:
     - node
+    - options
     - user
 id: current_certificate
 label: 'Current certificate'
@@ -35,7 +37,7 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: field
-          label: ''
+          label: ID
           exclude: false
           alter:
             alter_text: false
@@ -101,16 +103,34 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: ''
+          label: Title
           exclude: false
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -146,7 +166,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Start date'
           exclude: false
           alter:
             alter_text: false
@@ -190,7 +210,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
+            date_format: vacation_date
             custom_date_format: ''
             timezone: ''
           group_column: value
@@ -211,7 +231,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'End date'
           exclude: false
           alter:
             alter_text: false
@@ -255,7 +275,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
+            date_format: vacation_date
             custom_date_format: ''
             timezone: ''
           group_column: value
@@ -273,10 +293,10 @@ display:
           table: node__field_limit_
           field: field_limit_
           relationship: none
-          group_type: group
+          group_type: sum
           admin_label: ''
           plugin_id: field
-          label: 'Limit vacation days'
+          label: Days
           exclude: false
           alter:
             alter_text: false
@@ -322,6 +342,69 @@ display:
           settings:
             thousand_separator: ''
             prefix_suffix: true
+          group_column: value
+          group_columns:
+            value: value
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_current_state_certificate:
+          id: field_current_state_certificate
+          table: node__field_current_state_certificate
+          field: field_current_state_certificate
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: State
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -433,6 +516,46 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -444,33 +567,49 @@ display:
             title: title
             field_start_date: field_start_date
             field_use_up: field_use_up
+            field_limit_: field_limit_
+            field_current_state_certificate: field_current_state_certificate
           default: '-1'
           info:
             nid:
               sortable: false
               default_sort_order: asc
-              align: ''
+              align: views-align-center
               separator: ''
               empty_column: false
               responsive: ''
             title:
               sortable: false
               default_sort_order: asc
-              align: ''
+              align: views-align-center
               separator: ''
               empty_column: false
               responsive: ''
             field_start_date:
               sortable: false
               default_sort_order: asc
-              align: ''
+              align: views-align-center
               separator: ''
               empty_column: false
               responsive: ''
             field_use_up:
               sortable: false
               default_sort_order: asc
-              align: ''
+              align: views-align-center
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_limit_:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-center
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_current_state_certificate:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-center
               separator: ''
               empty_column: false
               responsive: ''
@@ -496,6 +635,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      group_by: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -510,6 +650,52 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_current_state_certificate'
+        - 'config:field.storage.node.field_limit_'
+        - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_use_up'
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
+    position: 2
+    display_options:
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_current_state_certificate'
+        - 'config:field.storage.node.field_limit_'
+        - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_use_up'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: my-current-certificate
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_current_state_certificate'
         - 'config:field.storage.node.field_limit_'
         - 'config:field.storage.node.field_start_date'
         - 'config:field.storage.node.field_use_up'
