@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
+    - field.field.node.vacation_request.field_request_state
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
   module:
@@ -17,6 +18,7 @@ dependencies:
     - options
     - smart_date
     - user
+    - workflow
 third_party_settings:
   layout_builder:
     enabled: false
@@ -100,6 +102,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_request_state:
+    type: workflow_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_type_vacations:
     type: list_default

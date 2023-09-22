@@ -69,6 +69,7 @@
         "drupal/scheduler": "^1.5",
         "drupal/smart_date": "^3.7",
         "drupal/smtp": "^1.2",
+        "drupal/tab_manager": "^1.0",
         "drupal/ultimate_cron": "^2.0@alpha",
         "drupal/user_redirect": "^2.0",
         "drupal/vercf": "^1.0",

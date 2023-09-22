@@ -10,11 +10,13 @@ dependencies:
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
+    - field.field.node.vacation_request.field_request_state
     - field.field.node.vacation_request.field_type_vacations
     - node.type.vacation_request
   module:
     - conditional_fields
     - smart_date
+    - workflow
 id: node.vacation_request.default
 targetEntityType: node
 bundle: vacation_request
@@ -106,6 +108,12 @@ content:
       placeholder: ''
     third_party_settings:
       conditional_fields: {  }
+  field_request_state:
+    type: workflow_default
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_type_vacations:
     type: options_buttons
     weight: 1
@@ -126,7 +134,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 8
+    weight: 6
     region: content
     settings:
       display_label: true

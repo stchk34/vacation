@@ -14,10 +14,13 @@ dependencies:
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - node.type.vacation_request
+    - views.view.list_approvers
   module:
+    - eca_base
     - eca_content
     - eca_tamper
     - eca_user
+    - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
@@ -33,7 +36,16 @@ events:
       -
         id: Activity_0c3pcf2
         condition: ''
-conditions: {  }
+conditions:
+  Flow_1at95zf:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: all_approvers
+      right: '0'
+      operator: greaterthan
+      type: numeric
 gateways:
   Gateway_0l452un:
     type: 0
@@ -47,6 +59,15 @@ gateways:
       -
         id: Activity_1jrx8jo
         condition: ''
+      -
+        id: Activity_1svcnxq
+        condition: ''
+  Gateway_0zzcmmf:
+    type: 0
+    successors:
+      -
+        id: Activity_1vxsrnu
+        condition: Flow_1at95zf
 actions:
   Activity_0c3pcf2:
     plugin: eca_token_load_entity
@@ -180,4 +201,89 @@ actions:
       trim: false
       save_entity: true
       object: '[new_request]'
+    successors: {  }
+  Activity_1svcnxq:
+    plugin: eca_views_query
+    label: '"List approvers"'
+    configuration:
+      token_name: all_approvers
+      view_id: list_approvers
+      display_id: default
+      arguments: '[new_request]'
+    successors:
+      -
+        id: Activity_0x2hsi1
+        condition: ''
+      -
+        id: Gateway_0zzcmmf
+        condition: ''
+  Activity_0x2hsi1:
+    plugin: action_message_action
+    label: Activity_0x2hsi1
+    configuration:
+      replace_tokens: false
+      message: '[all_approvers] -> в''юшка всі апруверів реквестів'
+    successors: {  }
+  Activity_1vxsrnu:
+    plugin: eca_list_remove
+    label: 'Drop user'
+    configuration:
+      value: ''
+      token_name: first_approver
+      method: first
+      index: ''
+      list_token: all_approvers
+    successors:
+      -
+        id: Activity_0xwfy3a
+        condition: ''
+      -
+        id: Activity_1hjxd58
+        condition: ''
+  Activity_0xwfy3a:
+    plugin: eca_token_load_entity
+    label: 'load user'
+    configuration:
+      token_name: approver
+      from: id
+      entity_type: user
+      entity_id: '[first_approver:uid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[all_approvers]'
+    successors:
+      -
+        id: Activity_1hhgq2f
+        condition: ''
+      -
+        id: Gateway_0zzcmmf
+        condition: ''
+      -
+        id: Activity_0tieq5m
+        condition: ''
+  Activity_1hhgq2f:
+    plugin: action_send_email_action
+    label: email
+    configuration:
+      replace_tokens: false
+      recipient: '[approver:mail]'
+      subject: 'новий реквест на апрув'
+      message: 'привіт, апрувни пліз'
+    successors: {  }
+  Activity_1hjxd58:
+    plugin: action_message_action
+    label: Activity_1hjxd58
+    configuration:
+      replace_tokens: false
+      message: 'дропнули юзера [first_approver:uid]'
+    successors: {  }
+  Activity_0tieq5m:
+    plugin: action_message_action
+    label: Activity_0tieq5m
+    configuration:
+      replace_tokens: false
+      message: 'завантажили юзера [approver]'
     successors: {  }

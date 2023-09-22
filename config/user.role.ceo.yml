@@ -8,15 +8,13 @@ dependencies:
     - field_ui
     - group
     - rules_link_field
-    - workflow
 id: ceo
 label: CEO
 weight: -10
 is_admin: null
 permissions:
   - 'access group overview'
-  - 'access own request_state workflow_transion overview'
-  - 'access own state_certificate workflow_transion overview'
+  - 'access user profiles'
   - 'access users overview'
   - 'administer account settings'
   - 'administer group'
@@ -30,9 +28,6 @@ permissions:
   - 'administer users'
   - 'cancel account'
   - 'cancel users by role'
-  - 'create request_state workflow_transition'
-  - 'create state_certificate workflow_transition'
-  - 'create state_for_approvers workflow_transition'
   - 'create team_lead_group group'
   - 'create users'
   - 'edit users by role'

@@ -7,7 +7,6 @@ dependencies:
     - node.type.vacation_request
   module:
     - comment
-    - contact
     - content_moderation
     - filter
     - media
@@ -22,8 +21,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'access site-wide contact form'
-  - 'access user profiles'
   - 'create vacation_request content'
   - 'post comments'
   - 'use approve_request transition publish'
@@ -31,4 +28,3 @@ permissions:
   - 'view any unpublished content'
   - 'view media'
   - 'view own unpublished content'
-  - 'view user email addresses'

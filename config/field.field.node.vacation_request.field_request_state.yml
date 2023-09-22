@@ -1,0 +1,22 @@
+uuid: 310c7a00-c79c-4970-9708-25d25286583a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_request_state
+    - node.type.vacation_request
+  module:
+    - workflow
+id: node.vacation_request.field_request_state
+field_name: field_request_state
+entity_type: node
+bundle: vacation_request
+label: 'Request state'
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: workflow

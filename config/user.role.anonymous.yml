@@ -2,11 +2,8 @@ uuid: 964da6f7-9af0-49af-a022-d7fa00406eb2
 langcode: en
 status: true
 dependencies:
-  config:
-    - filter.format.restricted_html
   module:
     - contact
-    - filter
     - media
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
@@ -16,5 +13,4 @@ weight: -3
 is_admin: false
 permissions:
   - 'access site-wide contact form'
-  - 'use text format restricted_html'
   - 'view media'

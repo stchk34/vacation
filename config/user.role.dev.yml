@@ -6,5 +6,4 @@ id: dev
 label: Dev
 weight: -7
 is_admin: null
-permissions:
-  - 'view user email addresses'
+permissions: {  }
