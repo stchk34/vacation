@@ -1,4 +1,4 @@
-uuid: cecf46ca-9f63-460a-b64d-cb45ee25de8d
+uuid: d859143f-4209-4ee3-b984-2439f7afac8d
 langcode: en
 status: true
 dependencies:
@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.field.user.user.field_balance_a_vacations_day
     - field.storage.node.field_days
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
@@ -17,6 +18,7 @@ dependencies:
     - field.storage.node.field_type_paid_vacation
     - field.storage.node.field_type_transaction
     - field.storage.node.field_vacat
+    - field.storage.user.field_balance_a_vacations_day
     - node.type.transaction
     - node.type.vacation_request
   module:
@@ -46,7 +48,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[upd_request:field_status_request:value]'
+      left: '[upd_request:field_request_state:value]'
       right: request_state_approved
       operator: equal
       type: value
@@ -55,7 +57,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[upd_request:field_status_request:value]'
+      left: '[upd_request:field_request_state:value]'
       right: request_state_disapproved
       operator: equal
       type: value
@@ -64,7 +66,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: "[upd_request:\tfield_type_vacations:value]"
+      left: '[upd_request:field_type_vacations:value]'
       right: '2'
       operator: equal
       type: value
@@ -73,7 +75,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: "[upd_request:\tfield_type_vacations:value]"
+      left: '[upd_request:field_type_vacations:value]'
       right: '1'
       operator: equal
       type: value
@@ -142,6 +144,9 @@ actions:
       -
         id: Activity_1j2dkni
         condition: ''
+      -
+        id: Activity_1blmi4o
+        condition: ''
   Activity_0g7rzjw:
     plugin: eca_new_entity
     label: 'Transaction paid vacation'
@@ -175,7 +180,10 @@ actions:
     label: 'Unpublish request'
     configuration:
       object: '[upd_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_0p7jt39
+        condition: ''
   Activity_0mbz1by:
     plugin: eca_switch_account
     label: 'switch user'
@@ -184,6 +192,9 @@ actions:
     successors:
       -
         id: Gateway_00ul7ai
+        condition: ''
+      -
+        id: Activity_1bulkqo
         condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value
@@ -333,7 +344,7 @@ actions:
       field_name_entity_ref: field_employee_sender
       token_name: sender_request
       from: current
-      entity_type: _none
+      entity_type: user
       entity_id: ''
       revision_id: ''
       properties: ''
@@ -344,6 +355,9 @@ actions:
     successors:
       -
         id: Activity_0mbz1by
+        condition: ''
+      -
+        id: Activity_0qine03
         condition: ''
   Activity_0s8462p:
     plugin: 'eca_tamper:math'
@@ -385,4 +399,32 @@ actions:
     configuration:
       replace_tokens: false
       message: PAID
+    successors: {  }
+  Activity_1blmi4o:
+    plugin: action_message_action
+    label: Activity_1blmi4o
+    configuration:
+      replace_tokens: false
+      message: '1) завантажили вакейшен реквест [upd_request]'
+    successors: {  }
+  Activity_0qine03:
+    plugin: action_message_action
+    label: Activity_0qine03
+    configuration:
+      replace_tokens: false
+      message: '2) завантажили юзера з вакейшен реквеста [sender_request]'
+    successors: {  }
+  Activity_1bulkqo:
+    plugin: action_message_action
+    label: Activity_1bulkqo
+    configuration:
+      replace_tokens: false
+      message: 'свічнулись на адміна'
+    successors: {  }
+  Activity_0p7jt39:
+    plugin: action_message_action
+    label: Activity_0p7jt39
+    configuration:
+      replace_tokens: false
+      message: 'Реквест dissaprove і його видалили'
     successors: {  }

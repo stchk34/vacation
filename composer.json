@@ -77,6 +77,7 @@
         "drupal/views_bulk_operations": "^4.2",
         "drupal/views_cm_current_state": "^2.0",
         "drupal/webform": "^6.1",
+        "drupal/webform_content_creator": "^4.0",
         "drupal/webform_node_element": "^1.2",
         "drupal/workflow": "^1.7",
         "drupal/workflow_buttons": "^1.0@beta",
@@ -109,7 +110,10 @@
           },
            "drupal/rules": {
               "Entity integrity check": "https://www.drupal.org/files/issues/2021-01-29/3059402-22.entity_integrity_check.patch"
-          }
+          },
+            "drupal/tamper": {
+                "Fixed problem with timezone": "https://www.drupal.org/files/issues/2023-04-06/0001-Issue-3268276-Reworking-timezones.patch"
+            }
         },
         "installer-paths": {
             "web/core": [

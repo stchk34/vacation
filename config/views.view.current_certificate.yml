@@ -5,10 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_limit_
-    - field.storage.node.field_start_date
+    - field.storage.node.field_start_date_certificate
     - field.storage.node.field_use_up
     - node.type.certificate
   module:
+    - datetime
     - node
     - options
     - user
@@ -158,10 +159,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_start_date:
-          id: field_start_date
-          table: node__field_start_date
-          field: field_start_date
+        field_start_date_certificate:
+          id: field_start_date_certificate
+          table: node__field_start_date_certificate
+          field: field_start_date_certificate
           relationship: none
           group_type: group
           admin_label: ''
@@ -199,7 +200,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -208,11 +209,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: datetime_default
           settings:
-            date_format: vacation_date
-            custom_date_format: ''
-            timezone: ''
+            timezone_override: UTC
+            format_type: vacation_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -231,7 +231,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'End date'
+          label: 'Use up'
           exclude: false
           alter:
             alter_text: false
@@ -264,7 +264,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -273,11 +273,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: datetime_default
           settings:
-            date_format: vacation_date
-            custom_date_format: ''
-            timezone: ''
+            timezone_override: UTC
+            format_type: vacation_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -652,7 +651,7 @@ display:
       tags:
         - 'config:field.storage.node.field_current_state_certificate'
         - 'config:field.storage.node.field_limit_'
-        - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_start_date_certificate'
         - 'config:field.storage.node.field_use_up'
   block_1:
     id: block_1
@@ -674,7 +673,7 @@ display:
       tags:
         - 'config:field.storage.node.field_current_state_certificate'
         - 'config:field.storage.node.field_limit_'
-        - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_start_date_certificate'
         - 'config:field.storage.node.field_use_up'
   page_1:
     id: page_1
@@ -697,5 +696,5 @@ display:
       tags:
         - 'config:field.storage.node.field_current_state_certificate'
         - 'config:field.storage.node.field_limit_'
-        - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_start_date_certificate'
         - 'config:field.storage.node.field_use_up'

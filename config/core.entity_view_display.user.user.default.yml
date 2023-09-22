@@ -127,26 +127,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
-          341f4fca-4740-45c9-8cc9-19e0f83d7c42:
-            uuid: 341f4fca-4740-45c9-8cc9-19e0f83d7c42
-            region: content
-            configuration:
-              id: 'field_block:user:user:field_balance_current_day'
-              label: 'Balance current day'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: number_integer
-                label: inline
-                settings:
-                  thousand_separator: ''
-                  prefix_suffix: true
-                third_party_settings: {  }
-            weight: 6
-            additional: {  }
         third_party_settings: {  }
 id: user.user.default
 targetEntityType: user

@@ -1,4 +1,4 @@
-uuid: 0055807e-7bc5-43bb-8ffd-84a3034b5097
+uuid: ba442899-2355-47a8-93e1-66e765154bb3
 langcode: en
 status: true
 dependencies:
@@ -21,20 +21,10 @@ targetEntityType: node
 bundle: vacation_request
 mode: teaser
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: -20
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
-    region: content
-  workflow_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
     region: content
 hidden:
   field_approver: true

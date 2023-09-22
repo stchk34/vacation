@@ -1,22 +1,22 @@
-uuid: 3385cd06-bb1f-4970-8957-1f3db408ecc3
+uuid: 8de7d120-ac05-4d4c-a392-120897ca3fa1
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - options
-id: node.field_type_vacations
-field_name: field_type_vacations
+id: node.field_type_certificate
+field_name: field_type_certificate
 entity_type: node
 type: list_string
 settings:
   allowed_values:
     -
       value: '1'
-      label: 'Paid vacation'
+      label: Basic
     -
       value: '2'
-      label: 'Not paid vacation'
+      label: Bonus
   allowed_values_function: ''
 module: options
 locked: false

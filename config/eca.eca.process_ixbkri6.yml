@@ -1,0 +1,167 @@
+uuid: eed322ce-b21c-42ad-8e7e-663a7b3cb785
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.certificate.field_use_up
+    - field.storage.node.field_use_up
+    - views.view.bonus_certificate
+  module:
+    - eca_base
+    - eca_content
+    - eca_user
+    - eca_views
+    - node
+id: process_ixbkri6
+modeller: bpmn_io
+label: 'Bonus certificate'
+version: ''
+weight: null
+events:
+  Event_10hgqf0:
+    plugin: 'eca_base:eca_cron'
+    label: CRON
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: Activity_173yh9p
+        condition: ''
+conditions:
+  Flow_1ddncft:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: bonus_certificate
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_0zurklx:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[current-date:raw]'
+      right: '[first_certificate:field_use_up:date:raw]'
+      operator: greaterthan
+      type: value
+gateways:
+  Gateway_11pc3k3:
+    type: 0
+    successors:
+      -
+        id: Activity_1fok5k8
+        condition: Flow_1ddncft
+actions:
+  Activity_173yh9p:
+    plugin: eca_switch_account
+    label: Activity_173yh9p
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_07cla7c
+        condition: ''
+      -
+        id: Activity_0w1kc98
+        condition: ''
+  Activity_07cla7c:
+    plugin: eca_views_query
+    label: Activity_07cla7c
+    configuration:
+      token_name: bonus_certificate
+      view_id: bonus_certificate
+      display_id: default
+      arguments: ''
+    successors:
+      -
+        id: Activity_1q1hr9t
+        condition: ''
+      -
+        id: Gateway_11pc3k3
+        condition: ''
+  Activity_1q1hr9t:
+    plugin: action_message_action
+    label: Activity_1q1hr9t
+    configuration:
+      replace_tokens: false
+      message: 'завантажили в''юшку з бонус сертифікатами'
+    successors: {  }
+  Activity_1fok5k8:
+    plugin: eca_list_remove
+    label: Activity_1fok5k8
+    configuration:
+      value: ''
+      token_name: first_certificate
+      method: first
+      index: ''
+      list_token: bonus_certificate
+    successors:
+      -
+        id: Activity_1gcs23w
+        condition: Flow_0zurklx
+      -
+        id: Activity_1wohtkn
+        condition: ''
+  Activity_1gcs23w:
+    plugin: eca_set_field_value
+    label: Activity_1gcs23w
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_disabled
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[first_certificate]'
+    successors:
+      -
+        id: Activity_1m19jdo
+        condition: ''
+      -
+        id: Activity_01emcjn
+        condition: ''
+  Activity_1m19jdo:
+    plugin: 'entity:unpublish_action:node'
+    label: Activity_1m19jdo
+    configuration:
+      object: '[first_certificate]'
+    successors:
+      -
+        id: Gateway_11pc3k3
+        condition: ''
+      -
+        id: Activity_1ysyda0
+        condition: ''
+  Activity_1wohtkn:
+    plugin: action_message_action
+    label: Activity_1wohtkn
+    configuration:
+      replace_tokens: false
+      message: |-
+        ремувнули сертифікат з в'юшкі
+        [first_certificate:field_use_up:date:raw]
+        [current-date:raw]
+    successors: {  }
+  Activity_0w1kc98:
+    plugin: action_message_action
+    label: Activity_0w1kc98
+    configuration:
+      replace_tokens: false
+      message: 'світчнула юзера при апдей'
+    successors: {  }
+  Activity_01emcjn:
+    plugin: action_message_action
+    label: Activity_01emcjn
+    configuration:
+      replace_tokens: false
+      message: 'встановити стан поля на disabled'
+    successors: {  }
+  Activity_1ysyda0:
+    plugin: action_message_action
+    label: Activity_1ysyda0
+    configuration:
+      replace_tokens: false
+      message: 'unpublish certificate'
+    successors: {  }

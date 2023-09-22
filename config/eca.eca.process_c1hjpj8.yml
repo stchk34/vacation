@@ -6,14 +6,16 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
-    - field.field.node.certificate.field_start_date
+    - field.field.node.certificate.field_start_date_certificate
+    - field.field.node.certificate.field_type_certificate
     - field.field.node.certificate.field_use_up
     - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
-    - field.storage.node.field_start_date
+    - field.storage.node.field_start_date_certificate
+    - field.storage.node.field_type_certificate
     - field.storage.node.field_use_up
     - field.storage.user.field_balance_a_vacations_day
     - field.storage.user.field_limit_of_weekends_per_year
@@ -116,7 +118,7 @@ actions:
       token_name: new_certificate
       type: 'node certificate'
       langcode: en
-      label: Certificate
+      label: 'Certificate for [new_user:account-name] #[entity:nid]'
       published: true
       owner: '1'
     successors:
@@ -176,7 +178,7 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_0zx5jkb
+        id: Activity_0ygofef
         condition: ''
   Activity_0zx5jkb:
     plugin: eca_set_field_value
@@ -219,7 +221,7 @@ actions:
       object: '[new_user]'
     successors:
       -
-        id: Activity_08a2ek6
+        id: Activity_1oywa5n
         condition: ''
   Activity_1oywa5n:
     plugin: eca_save_entity
@@ -230,12 +232,12 @@ actions:
       -
         id: Activity_1dozkw8
         condition: ''
-  Activity_08a2ek6:
+  Activity_0vpnh39:
     plugin: eca_set_field_value
-    label: 'set field START DATE'
+    label: "set field\_ \_END DATE"
     configuration:
-      field_name: field_start_date
-      field_value: '[current-date:raw]'
+      field_name: field_use_up.value
+      field_value: '[end_date_timezone]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -243,9 +245,50 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_1u5bj20
+        id: Activity_0zx5jkb
         condition: ''
-  Activity_1u5bj20:
+  Activity_0ygofef:
+    plugin: eca_set_field_value
+    label: 'set field BASIC TYPE CERTIFICATE'
+    configuration:
+      field_name: field_type_certificate
+      field_value: Basic
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[new_certificate]'
+    successors:
+      -
+        id: Activity_19wn29z
+        condition: ''
+  Activity_19wn29z:
+    plugin: 'eca_tamper:timetodate'
+    label: 'UNIX TO DATE'
+    configuration:
+      date_format: 'Y-m-d\TH:i:s'
+      eca_data: '[current-date:raw]'
+      eca_token_name: '[actual_date]'
+    successors:
+      -
+        id: Activity_1pavcko
+        condition: ''
+  Activity_1pavcko:
+    plugin: eca_set_field_value
+    label: 'set field Start DATE'
+    configuration:
+      field_name: field_start_date_certificate.value
+      field_value: '[actual_date]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[new_certificate]'
+    successors:
+      -
+        id: Activity_0g4f974
+        condition: ''
+  Activity_0g4f974:
     plugin: 'eca_tamper:math'
     label: math
     configuration:
@@ -256,20 +299,27 @@ actions:
       eca_token_name: end_date_timestamp
     successors:
       -
-        id: Activity_0vpnh39
+        id: Activity_1huyit6
         condition: ''
-  Activity_0vpnh39:
-    plugin: eca_set_field_value
-    label: "set field\_ \_END DATE"
+  Activity_1huyit6:
+    plugin: 'eca_tamper:timetodate'
+    label: Activity_1huyit6
     configuration:
-      field_name: field_use_up
-      field_value: '[end_date_timestamp]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[new_certificate]'
+      date_format: 'Y-m-d\TH:i:s'
+      eca_data: '[end_date_timestamp]'
+      eca_token_name: '[end_date]'
     successors:
       -
-        id: Activity_1oywa5n
+        id: Activity_023kpsw
+        condition: ''
+  Activity_023kpsw:
+    plugin: 'eca_tamper:timeoffset'
+    label: Activity_023kpsw
+    configuration:
+      timezone: Europe/Kyiv
+      eca_data: '[end_date]'
+      eca_token_name: '[end_date_timezone]'
+    successors:
+      -
+        id: Activity_0vpnh39
         condition: ''

@@ -1,4 +1,4 @@
-uuid: 22a5c689-ac03-4a0d-880c-c96eefe74d64
+uuid: a8d40ea7-ce9a-45f7-b86b-64e6726781aa
 langcode: en
 status: true
 dependencies:
@@ -17,8 +17,8 @@ required: false
 translatable: false
 default_value:
   -
-    default_duration: 1440
-    default_duration_increments: "30\r\n1440|1 day\r\n90\r\n2880|2 day\r\ncustom"
+    default_duration: 60
+    default_duration_increments: "30\r\n60|1 hour\r\n90\r\n120|2 hours\r\ncustom"
     default_date_type: ''
     default_date: ''
     min: ''

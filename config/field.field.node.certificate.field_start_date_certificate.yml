@@ -1,17 +1,17 @@
-uuid: cbc3d998-984c-4fa8-888e-263441385a4f
+uuid: f32f3d6f-254e-4acd-9e55-768bc3270417
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_use_up
+    - field.storage.node.field_start_date_certificate
     - node.type.certificate
   module:
     - datetime
-id: node.certificate.field_use_up
-field_name: field_use_up
+id: node.certificate.field_start_date_certificate
+field_name: field_start_date_certificate
 entity_type: node
 bundle: certificate
-label: 'Use up'
+label: 'Start date'
 description: ''
 required: false
 translatable: false

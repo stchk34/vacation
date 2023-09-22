@@ -1,4 +1,4 @@
-uuid: cf872d9e-d98b-4498-9136-246b5a8d26ef
+uuid: d84e9385-a194-49aa-95cf-1595758266e3
 langcode: en
 status: true
 dependencies:
@@ -61,6 +61,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_11v0xzy</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1vtaur8</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0b3xjio</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:exclusiveGateway id="Gateway_0okut2l">
         <bpmn2:incoming>Flow_1wcqm5q</bpmn2:incoming>
@@ -73,7 +74,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[upd_request:field_status_request:value]</camunda:string>
+            <camunda:string>[upd_request:field_request_state:value]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -161,6 +162,7 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1uwdaom</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0iciy3m</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1bllzfn" name="state -&#62;dissaprove" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Gateway_00ul7ai" targetRef="Gateway_1w2mr9d">
         <bpmn2:extensionElements>
@@ -168,7 +170,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[upd_request:field_status_request:value]</camunda:string>
+            <camunda:string>[upd_request:field_request_state:value]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -198,6 +200,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1rzwksx</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1gqm5ko</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0hklbex</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0k0dwho" name="set field &#34;owner&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
@@ -521,7 +524,7 @@ modeldata: |
             <camunda:string>current</camunda:string>
           </camunda:field>
           <camunda:field name="entity_type">
-            <camunda:string>_none</camunda:string>
+            <camunda:string>user</camunda:string>
           </camunda:field>
           <camunda:field name="entity_id" />
           <camunda:field name="revision_id">
@@ -545,6 +548,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1vtaur8</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1rzwksx</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0tafxxv</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0s8462p" name="calculate actual balance after vacation request" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
         <bpmn2:extensionElements>
@@ -643,7 +647,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[upd_request:	field_type_vacations:value]</camunda:string>
+            <camunda:string>[upd_request:field_type_vacations:value]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -668,7 +672,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[upd_request:	field_type_vacations:value]</camunda:string>
+            <camunda:string>[upd_request:field_type_vacations:value]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -687,6 +691,66 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
       </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_1blmi4o" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>1) завантажили вакейшен реквест [upd_request]</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0b3xjio</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0b3xjio" sourceRef="Activity_177hcd7" targetRef="Activity_1blmi4o" />
+      <bpmn2:task id="Activity_0qine03" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>2) завантажили юзера з вакейшен реквеста [sender_request]</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0tafxxv</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0tafxxv" sourceRef="Activity_1j2dkni" targetRef="Activity_0qine03" />
+      <bpmn2:task id="Activity_1bulkqo" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>свічнулись на адміна</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0hklbex</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0hklbex" sourceRef="Activity_0mbz1by" targetRef="Activity_1bulkqo" />
+      <bpmn2:task id="Activity_0p7jt39" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>Реквест dissaprove і його видалили</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0iciy3m</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0iciy3m" sourceRef="Activity_1ozf1jb" targetRef="Activity_0p7jt39" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-8fe252fe-c91d-4c5d-ae6b-5d0ef02003ab">
       <bpmndi:BPMNPlane id="sid-5ad2eb0b-5abd-465b-885f-973b44cd0f56" bpmnElement="Process_qLVr3Yo">
@@ -792,6 +856,18 @@ modeldata: |
         <bpmndi:BPMNShape id="Activity_1laivvx_di" bpmnElement="Activity_1laivvx">
           <dc:Bounds x="450" y="-170" width="100" height="80" />
           <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1blmi4o_di" bpmnElement="Activity_1blmi4o">
+          <dc:Bounds x="-170" y="270" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0qine03_di" bpmnElement="Activity_0qine03">
+          <dc:Bounds x="-30" y="270" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1bulkqo_di" bpmnElement="Activity_1bulkqo">
+          <dc:Bounds x="130" y="270" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0p7jt39_di" bpmnElement="Activity_0p7jt39">
+          <dc:Bounds x="730" y="520" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1wcqm5q_di" bpmnElement="Flow_1wcqm5q">
           <di:waypoint x="320" y="385" />
@@ -919,6 +995,22 @@ modeldata: |
           <bpmndi:BPMNLabel>
             <dc:Bounds x="445" y="29" width="90" height="27" />
           </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0b3xjio_di" bpmnElement="Flow_0b3xjio">
+          <di:waypoint x="-120" y="370" />
+          <di:waypoint x="-120" y="350" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0tafxxv_di" bpmnElement="Flow_0tafxxv">
+          <di:waypoint x="20" y="370" />
+          <di:waypoint x="20" y="350" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0hklbex_di" bpmnElement="Flow_0hklbex">
+          <di:waypoint x="180" y="370" />
+          <di:waypoint x="180" y="350" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0iciy3m_di" bpmnElement="Flow_0iciy3m">
+          <di:waypoint x="640" y="560" />
+          <di:waypoint x="730" y="560" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

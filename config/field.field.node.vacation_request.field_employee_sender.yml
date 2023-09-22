@@ -1,4 +1,4 @@
-uuid: 923e8205-4338-4647-b7f1-21934187f9bc
+uuid: 20cf4006-e775-4400-bc65-21982900f69a
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ entity_type: node
 bundle: vacation_request
 label: Employee
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

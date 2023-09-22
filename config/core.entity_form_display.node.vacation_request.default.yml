@@ -1,4 +1,4 @@
-uuid: b778abfc-b7cf-4d48-ae0e-11bd7c53274b
+uuid: 21714716-9596-46e5-a1e2-d74a0b861cba
 langcode: en
 status: true
 dependencies:
@@ -15,6 +15,8 @@ dependencies:
     - node.type.vacation_request
   module:
     - conditional_fields
+    - path
+    - scheduler
     - smart_date
     - workflow
 id: node.vacation_request.default
@@ -22,15 +24,25 @@ targetEntityType: node
 bundle: vacation_request
 mode: default
 content:
-  field_approver:
-    type: options_buttons
-    weight: 5
+  created:
+    type: datetime_timestamp
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_approver:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_duration_example:
     type: smartdate_only
-    weight: 3
+    weight: 9
     region: content
     settings:
       modal: false
@@ -46,7 +58,7 @@ content:
       separator: to
     third_party_settings:
       conditional_fields:
-        bd1dabba-e005-4058-beed-9dd02d3c3155:
+        5e588540-4d8d-4c5d-8e9f-6d4d0d21ad6a:
           entity_type: node
           bundle: vacation_request
           dependee: field_type_vacations
@@ -65,8 +77,8 @@ content:
             effect_options: {  }
             selector: ''
   field_duration_not_paid_vacation:
-    type: smartdate_default
-    weight: 2
+    type: smartdate_inline
+    weight: 8
     region: content
     settings:
       modal: false
@@ -79,9 +91,10 @@ content:
         custom
       show_extra: false
       hide_date: true
+      separator: to
     third_party_settings:
       conditional_fields:
-        347a7b31-96c3-4dc4-ae19-5e9147f5ea54:
+        0af2208e-2800-46ea-b02c-88c336b1b2fe:
           entity_type: node
           bundle: vacation_request
           dependee: field_type_vacations
@@ -101,34 +114,33 @@ content:
             selector: ''
   field_reason_vacation:
     type: string_textfield
-    weight: 4
+    weight: 10
     region: content
     settings:
       size: 60
       placeholder: ''
-    third_party_settings:
-      conditional_fields: {  }
+    third_party_settings: {  }
   field_request_state:
     type: workflow_default
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   field_type_vacations:
-    type: options_buttons
-    weight: 1
+    type: options_select
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
-  moderation_state:
-    type: workflow_buttons
-    weight: 12
+  path:
+    type: path
+    weight: 3
     region: content
-    settings:
-      show_current_state: '1'
+    settings: {  }
     third_party_settings: {  }
-  scheduler_settings:
-    weight: 5
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -147,14 +159,25 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
-  created: true
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true
   field_employee_sender: true
-  path: true
   promote: true
-  publish_on: true
   sticky: true
-  uid: true
-  unpublish_on: true

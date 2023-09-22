@@ -71,9 +71,14 @@ elements: |-
       include_anonymous: false
       filter:
         type: _none
-  limit_vacation_days:
-    '#type': number
-    '#title': 'Limit vacation days'
+    '#required': true
+  type_certificate:
+    '#type': select
+    '#title': 'Type certificate'
+    '#options':
+      bonus: bonus
+      basic: basic
+    '#default_value': bonus
     '#access_create_roles':
       - authenticated
       - anonymous

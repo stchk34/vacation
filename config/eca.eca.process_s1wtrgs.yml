@@ -1,0 +1,54 @@
+uuid: aef192db-b5ad-4b89-a7ec-324234ff0c2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.certificate
+  module:
+    - eca_content
+    - eca_user
+id: process_s1wtrgs
+modeller: bpmn_io
+label: 'Bonus certificate 2.0'
+version: ''
+weight: null
+events:
+  Event_01kf1e0:
+    plugin: 'content_entity:insert'
+    label: 'INSERT BONUS'
+    configuration:
+      type: 'node certificate'
+    successors:
+      -
+        id: Activity_1f8im1y
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  Activity_1jq6trv:
+    plugin: eca_token_load_entity
+    label: Activity_1jq6trv
+    configuration:
+      token_name: new_bonus-certificate
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_08kc3a3
+        condition: ''
+  Activity_1f8im1y:
+    plugin: eca_switch_account
+    label: Activity_1f8im1y
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1jq6trv
+        condition: ''

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - node.type.vacation_request
   module:
     - comment
     - content_moderation
@@ -21,7 +20,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'create vacation_request content'
   - 'post comments'
   - 'use approve_request transition publish'
   - 'use text format basic_html'

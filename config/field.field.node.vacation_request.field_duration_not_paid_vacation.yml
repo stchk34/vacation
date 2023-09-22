@@ -1,4 +1,4 @@
-uuid: 25683768-bead-4c5f-bfe4-45103bf7ce40
+uuid: a29c5879-214b-4b90-9f0f-bc3d6027c7c1
 langcode: en
 status: true
 dependencies:
@@ -17,8 +17,8 @@ required: false
 translatable: false
 default_value:
   -
-    default_duration: 1440
-    default_duration_increments: "1440|1 days\r\n2880|2 days\r\ncustom"
+    default_duration: 60
+    default_duration_increments: "30\r\n60|1 hour\r\n90\r\n120|2 hours\r\ncustom"
     default_date_type: ''
     default_date: ''
     min: ''

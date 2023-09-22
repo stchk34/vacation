@@ -1,4 +1,4 @@
-uuid: 3bd11fc8-1c0a-40cd-8243-7c6b4b456fee
+uuid: b7237b83-41c4-480d-88f9-1a18b6abdf8e
 langcode: en
 status: true
 dependencies:
@@ -14,13 +14,11 @@ dependencies:
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - node.type.vacation_request
-    - views.view.list_approvers
   module:
     - eca_base
     - eca_content
     - eca_tamper
     - eca_user
-    - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
@@ -59,9 +57,6 @@ gateways:
       -
         id: Activity_1jrx8jo
         condition: ''
-      -
-        id: Activity_1svcnxq
-        condition: ''
   Gateway_0zzcmmf:
     type: 0
     successors:
@@ -86,6 +81,9 @@ actions:
     successors:
       -
         id: Activity_0c4vplg
+        condition: ''
+      -
+        id: Activity_1w3fjd1
         condition: ''
   Activity_0c4vplg:
     plugin: eca_switch_account
@@ -202,21 +200,6 @@ actions:
       save_entity: true
       object: '[new_request]'
     successors: {  }
-  Activity_1svcnxq:
-    plugin: eca_views_query
-    label: '"List approvers"'
-    configuration:
-      token_name: all_approvers
-      view_id: list_approvers
-      display_id: default
-      arguments: '[new_request]'
-    successors:
-      -
-        id: Activity_0x2hsi1
-        condition: ''
-      -
-        id: Gateway_0zzcmmf
-        condition: ''
   Activity_0x2hsi1:
     plugin: action_message_action
     label: Activity_0x2hsi1
@@ -286,4 +269,11 @@ actions:
     configuration:
       replace_tokens: false
       message: 'завантажили юзера [approver]'
+    successors: {  }
+  Activity_1w3fjd1:
+    plugin: action_message_action
+    label: Activity_1w3fjd1
+    configuration:
+      replace_tokens: false
+      message: 'модель тривалість: завантажили реквест'
     successors: {  }
