@@ -60,6 +60,7 @@ module:
   field_token_value: 0
   field_ui: 0
   field_validation: 0
+  field_validation_legacy: 0
   file: 0
   filter: 0
   group: 0

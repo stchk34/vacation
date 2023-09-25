@@ -44,7 +44,7 @@
         "drupal/entityreference_filter": "^1.4",
         "drupal/field_group": "^3.4",
         "drupal/field_token_value": "^3.0",
-        "drupal/field_validation": "^1.0@beta",
+        "drupal/field_validation": "^3.0@beta",
         "drupal/group": "^1.5",
         "drupal/hours_minutes_seconds": "^1.1",
         "drupal/jquery_ui": "^1.6",

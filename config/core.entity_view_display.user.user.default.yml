@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_balance_current_day
+    - field.field.user.user.field_bonus_days
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.field.user.user.field_my_team_lead
     - field.field.user.user.field_position
@@ -127,6 +128,26 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 5
             additional: {  }
+          3c3bcae5-9ecc-4cdf-b0d5-26217db220ff:
+            uuid: 3c3bcae5-9ecc-4cdf-b0d5-26217db220ff
+            region: content
+            configuration:
+              id: 'field_block:user:user:field_bonus_days'
+              label: 'Bonus days'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: number_integer
+                label: inline
+                settings:
+                  thousand_separator: ''
+                  prefix_suffix: true
+                third_party_settings: {  }
+            weight: 6
+            additional: {  }
         third_party_settings: {  }
 id: user.user.default
 targetEntityType: user
@@ -150,6 +171,15 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_bonus_days:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_limit_of_weekends_per_year:
     type: field_token_value_text

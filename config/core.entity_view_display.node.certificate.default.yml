@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
+    - field.field.node.certificate.field_smart_date_range_example
     - field.field.node.certificate.field_start_date_certificate
     - field.field.node.certificate.field_type_certificate
     - field.field.node.certificate.field_use_up
@@ -13,6 +14,7 @@ dependencies:
   module:
     - datetime
     - options
+    - smart_date
     - user
 id: node.certificate.default
 targetEntityType: node
@@ -43,30 +45,44 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_smart_date_range_example:
+    type: smartdate_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+      format: default
+      force_chronological: false
+      add_classes: false
+      time_wrapper: true
+      localize: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
   field_start_date_certificate:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: UTC
+      timezone_override: ''
       format_type: vacation_date
     third_party_settings: {  }
-    weight: 7
+    weight: 5
     region: content
   field_type_certificate:
     type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   field_use_up:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: UTC
+      timezone_override: ''
       format_type: vacation_date
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: content
   links:
     settings: {  }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96fd260157d0c89ae93a9e8fb7decd06",
+    "content-hash": "106cbce21ff09d19fcb23c98dc24377d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3504,26 +3504,26 @@
         },
         {
             "name": "drupal/field_validation",
-            "version": "1.0.0-beta3",
+            "version": "3.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/field_validation.git",
-                "reference": "8.x-1.0-beta3"
+                "reference": "3.0.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/field_validation-8.x-1.0-beta3.zip",
-                "reference": "8.x-1.0-beta3",
-                "shasum": "d527fa9696e069f582d1b0c3f7d81928082346ca"
+                "url": "https://ftp.drupal.org/files/projects/field_validation-3.0.0-beta1.zip",
+                "reference": "3.0.0-beta1",
+                "shasum": "e6c23bdf543914db71325a6d4da68fbd1e9bbd33"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.3 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta3",
-                    "datestamp": "1601896531",
+                    "version": "3.0.0-beta1",
+                    "datestamp": "1692612501",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."

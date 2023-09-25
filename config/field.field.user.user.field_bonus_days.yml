@@ -1,0 +1,26 @@
+uuid: ae45392d-ae7e-4316-80fc-db3c04261616
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_bonus_days
+  module:
+    - user
+id: user.user.field_bonus_days
+field_name: field_bonus_days
+entity_type: user
+bundle: user
+label: 'Bonus days'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

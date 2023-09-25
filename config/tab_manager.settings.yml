@@ -1,4 +1,34 @@
 _core:
   default_config_hash: G9q6Tqm-w6C28Pa8v04_ehrh0RVMvveNIMPscJ0hUzQ
 langcode: en
-tabs: {  }
+tabs:
+  -
+    id: entity.user.canonical
+    title: View
+    weight: '-10'
+    hidden: 0
+  -
+    id: 'views_view:view.scheduler_scheduled_content.user_page'
+    title: Scheduled
+    weight: '-10'
+    hidden: 1
+  -
+    id: shortcut.set_switch
+    title: Shortcuts
+    weight: '0'
+    hidden: 1
+  -
+    id: entity.user.edit_form
+    title: Edit
+    weight: '0'
+    hidden: 0
+  -
+    id: entity.webform_submission.user
+    title: Submissions
+    weight: '0'
+    hidden: 1
+  -
+    id: entity.user.contact_form
+    title: Contact
+    weight: '2'
+    hidden: 1

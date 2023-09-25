@@ -14,7 +14,7 @@ dependencies:
     - node
 id: process_ixbkri6
 modeller: bpmn_io
-label: 'Bonus certificate'
+label: 'Delete bonus certificate'
 version: ''
 weight: null
 events:

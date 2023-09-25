@@ -1,0 +1,122 @@
+uuid: c60a6b03-50cb-44a0-a262-7f1f65df4d81
+langcode: en
+status: false
+dependencies:
+  module:
+    - eca_base
+    - eca_form
+    - eca_tamper
+id: process_s1rjbgc
+modeller: bpmn_io
+label: 'Validation certificate'
+version: ''
+weight: null
+events:
+  Event_1y6clht:
+    plugin: 'form:form_validate'
+    label: 'Form ADD certificate'
+    configuration:
+      form_id: node-certificate-form
+      entity_type_id: ''
+      bundle: ''
+      operation: ''
+    successors:
+      -
+        id: Gateway_028qdqd
+        condition: ''
+conditions:
+  Flow_0kxkbd0:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[end_date_timestamp]'
+      right: '[unix_start_date]'
+      operator: lessthan
+      type: value
+  Flow_0fum8yu:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[unix_start_date]'
+      right: '[current-date:raw]'
+      operator: greaterthan
+      type: value
+gateways:
+  Gateway_028qdqd:
+    type: 0
+    successors:
+      -
+        id: Activity_0tyzak4
+        condition: ''
+      -
+        id: Activity_1s5gaaw
+        condition: ''
+  Gateway_19mi4nq:
+    type: 0
+    successors:
+      -
+        id: Activity_1eotb8y
+        condition: Flow_0fum8yu
+actions:
+  Activity_0tyzak4:
+    plugin: eca_form_field_get_value
+    label: Activity_0tyzak4
+    configuration:
+      token_name: start_date
+      field_name: 'field_start_date_certificate[0][value][date]'
+      strip_tags: true
+      trim: true
+      xss_filter: true
+    successors:
+      -
+        id: Activity_0lv4o18
+        condition: ''
+  Activity_0lv4o18:
+    plugin: 'eca_tamper:strtotime'
+    label: 'seconds in start_date'
+    configuration:
+      eca_data: '[start_date]'
+      eca_token_name: unix_start_date
+    successors:
+      -
+        id: Gateway_19mi4nq
+        condition: ''
+  Activity_1eotb8y:
+    plugin: eca_form_field_set_error
+    label: 'set error'
+    configuration:
+      message: 'The date of this must be equal to or greater than today'
+      field_name: op
+    successors: {  }
+  Activity_1s5gaaw:
+    plugin: eca_form_field_get_value
+    label: Activity_1s5gaaw
+    configuration:
+      token_name: end_date
+      field_name: 'field_use_up[0][value][date]'
+      strip_tags: true
+      trim: true
+      xss_filter: true
+    successors:
+      -
+        id: Activity_0dt51am
+        condition: ''
+  Activity_0dt51am:
+    plugin: 'eca_tamper:strtotime'
+    label: Activity_0dt51am
+    configuration:
+      eca_data: '[end_date]'
+      eca_token_name: end_date_timestamp
+    successors:
+      -
+        id: Activity_0kc1xdd
+        condition: Flow_0kxkbd0
+  Activity_0kc1xdd:
+    plugin: eca_form_field_set_error
+    label: Activity_0kc1xdd
+    configuration:
+      message: 'The date of this must be greater than start date'
+      field_name: op
+    successors: {  }

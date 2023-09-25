@@ -237,7 +237,7 @@ actions:
     label: "set field\_ \_END DATE"
     configuration:
       field_name: field_use_up.value
-      field_value: '[end_date_timezone]'
+      field_value: '[end_date]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -260,14 +260,14 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_19wn29z
+        id: Activity_063s8nt
         condition: ''
   Activity_19wn29z:
     plugin: 'eca_tamper:timetodate'
     label: 'UNIX TO DATE'
     configuration:
       date_format: 'Y-m-d\TH:i:s'
-      eca_data: '[current-date:raw]'
+      eca_data: '[current_date_timezone]'
       eca_token_name: '[actual_date]'
     successors:
       -
@@ -299,27 +299,38 @@ actions:
       eca_token_name: end_date_timestamp
     successors:
       -
-        id: Activity_1huyit6
+        id: Activity_1ows753
         condition: ''
   Activity_1huyit6:
     plugin: 'eca_tamper:timetodate'
-    label: Activity_1huyit6
+    label: 'UNIX TO DATE'
     configuration:
       date_format: 'Y-m-d\TH:i:s'
-      eca_data: '[end_date_timestamp]'
+      eca_data: '[end_date_timezone]'
       eca_token_name: '[end_date]'
     successors:
       -
-        id: Activity_023kpsw
+        id: Activity_0vpnh39
         condition: ''
-  Activity_023kpsw:
+  Activity_1ows753:
     plugin: 'eca_tamper:timeoffset'
-    label: Activity_023kpsw
+    label: Activity_1ows753
     configuration:
       timezone: Europe/Kyiv
-      eca_data: '[end_date]'
-      eca_token_name: '[end_date_timezone]'
+      eca_data: '[end_date_timestamp]'
+      eca_token_name: end_date_timezone
     successors:
       -
-        id: Activity_0vpnh39
+        id: Activity_1huyit6
+        condition: ''
+  Activity_063s8nt:
+    plugin: 'eca_tamper:timeoffset'
+    label: Activity_063s8nt
+    configuration:
+      timezone: Europe/Kyiv
+      eca_data: '[current-date:raw]'
+      eca_token_name: '[current_date_timezone]'
+    successors:
+      -
+        id: Activity_19wn29z
         condition: ''

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_balance_current_day
+    - field.field.user.user.field_bonus_days
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.field.user.user.field_my_team_lead
     - field.field.user.user.field_position
@@ -31,6 +32,13 @@ content:
     weight: 3
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_bonus_days:
+    type: number
+    weight: 8
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_position:
     type: options_select

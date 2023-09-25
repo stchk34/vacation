@@ -1,0 +1,20 @@
+uuid: 4917eaaf-f414-4a3d-832e-e9a6f8b885ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_bonus_days
+field_name: field_bonus_days
+entity_type: user
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

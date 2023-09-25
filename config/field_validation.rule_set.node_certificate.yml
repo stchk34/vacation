@@ -1,0 +1,9 @@
+uuid: a45f4cdd-7b93-4d46-9c3c-077407e372c7
+langcode: en
+status: true
+dependencies: {  }
+name: node_certificate
+label: 'node certificate validation'
+entity_type: node
+bundle: certificate
+field_validation_rules: {  }
