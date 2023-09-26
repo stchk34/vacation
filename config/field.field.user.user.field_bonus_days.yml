@@ -22,5 +22,5 @@ settings:
   min: null
   max: null
   prefix: ''
-  suffix: ''
+  suffix: ' day | days'
 field_type: integer

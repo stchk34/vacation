@@ -1,4 +1,4 @@
-uuid: 29158066-147c-4dcf-882e-8b34d16544ce
+uuid: 54ab0036-b0e1-4dd5-9a29-a91a74e489da
 langcode: en
 status: false
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: vacation_powered
 theme: vacation
 region: header
-weight: -3
+weight: -4
 provider: null
 plugin: system_powered_by_block
 settings:

@@ -1,7 +1,9 @@
-uuid: 7f038fca-75ab-4e99-ae6a-25083c6dacf6
+uuid: 5449cabf-d12a-4754-9916-4f8dd6d357ae
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - vacation
 _core:
@@ -9,7 +11,7 @@ _core:
 id: vacation_primary_admin_actions
 theme: vacation
 region: highlighted
-weight: -6
+weight: -5
 provider: null
 plugin: local_actions_block
 settings:
@@ -17,4 +19,8 @@ settings:
   label: 'Primary admin actions'
   label_display: '0'
   provider: core
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /cab

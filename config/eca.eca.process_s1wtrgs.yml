@@ -14,6 +14,7 @@ dependencies:
     - eca_base
     - eca_content
     - eca_tamper
+    - eca_user
 id: process_s1wtrgs
 modeller: bpmn_io
 label: 'Bonus certificate 2.0'
@@ -27,16 +28,7 @@ events:
       type: 'node certificate'
     successors:
       -
-        id: Activity_1jq6trv
-        condition: ''
-  Event_138zc0w:
-    plugin: 'content_entity:custom'
-    label: Event_138zc0w
-    configuration:
-      event_id: x5
-    successors:
-      -
-        id: Activity_1t1bdc4
+        id: Activity_0j2gjyg
         condition: ''
 conditions:
   Flow_02f5f0r:
@@ -88,23 +80,27 @@ actions:
         id: Activity_0ok4avq
         condition: ''
       -
-        id: Activity_0hx14st
+        id: Activity_0jlepwx
         condition: ''
   Activity_0ok4avq:
     plugin: action_message_action
     label: Activity_0ok4avq
     configuration:
       replace_tokens: false
-      message: 'завантажили юзера з ноди бонусного сертифіката [employee]'
+      message: |-
+        завантажили юзера з ноди бонусного сертифіката [employee]
+
+        ######
+        [employee:field_bonus_days:value]
     successors: {  }
   Activity_1t1bdc4:
     plugin: 'eca_tamper:math'
-    label: Activity_1t1bdc4
+    label: MATH
     configuration:
       operation: addition
       flip: false
       value: '[new_bonus_certificate:field_limit_:value]'
-      eca_data: '[employee:field_bonus_days:value]'
+      eca_data: '[bonus_days]'
       eca_token_name: number_bonus_day
     successors:
       -
@@ -122,20 +118,21 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[employee]'
     successors:
       -
         id: Activity_02dma82
+        condition: ''
+      -
+        id: Activity_0olchhb
         condition: ''
   Activity_09u20n7:
     plugin: action_message_action
     label: Activity_09u20n7
     configuration:
       replace_tokens: false
-      message: |-
-        [number_bonus_day]-> кількість бонуснів
-        [new_bonus_certificate:field_limit_:value] -> бонусні з сертифіката
+      message: '[bonus_days] + [new_bonus_certificate:field_limit_:value]'
     successors: {  }
   Activity_02dma82:
     plugin: action_message_action
@@ -144,11 +141,49 @@ actions:
       replace_tokens: false
       message: 'заповнили філд [employee:field_bonus_days:value]'
     successors: {  }
-  Activity_0hx14st:
-    plugin: eca_trigger_content_entity_custom_event
-    label: TRIGGER
+  Activity_0j2gjyg:
+    plugin: eca_switch_account
+    label: Activity_0j2gjyg
     configuration:
-      event_id: x5
-      tokens: ''
-      object: '[new_bonus_certificate]'
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1jq6trv
+        condition: ''
+  Activity_0olchhb:
+    plugin: eca_save_entity
+    label: Activity_0olchhb
+    configuration:
+      object: '[employee]'
+    successors:
+      -
+        id: Activity_0dfqxg9
+        condition: ''
+  Activity_0dfqxg9:
+    plugin: action_message_action
+    label: Activity_0dfqxg9
+    configuration:
+      replace_tokens: false
+      message: 'збережено до юзерва'
+    successors: {  }
+  Activity_0jlepwx:
+    plugin: eca_get_field_value
+    label: Activity_0jlepwx
+    configuration:
+      field_name: field_bonus_days
+      token_name: bonus_days
+      object: '[employee]'
+    successors:
+      -
+        id: Activity_1t1bdc4
+        condition: ''
+      -
+        id: Activity_1hcn24e
+        condition: ''
+  Activity_1hcn24e:
+    plugin: action_message_action
+    label: Activity_1hcn24e
+    configuration:
+      replace_tokens: false
+      message: '[bonus_days] кількість бонусів'
     successors: {  }

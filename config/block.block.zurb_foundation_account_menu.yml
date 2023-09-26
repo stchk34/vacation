@@ -1,4 +1,4 @@
-uuid: 0e77c21c-6c92-494e-bda0-f957cf42eb35
+uuid: 7f139f62-6040-4626-a290-ea107b2557a5
 langcode: en
 status: true
 dependencies:
@@ -7,11 +7,13 @@ dependencies:
   module:
     - system
   theme:
-    - vacation
-id: useraccountmenu_2
-theme: vacation
+    - zurb_foundation
+_core:
+  default_config_hash: 6IFAC3qIfKON-TCvIwSOD46i3w6gG_wvEspLN3EBBkA
+id: zurb_foundation_account_menu
+theme: zurb_foundation
 region: header
-weight: -6
+weight: -4
 provider: null
 plugin: 'system_menu_block:account'
 settings:
@@ -20,6 +22,6 @@ settings:
   label_display: '0'
   provider: system
   level: 1
-  depth: 0
+  depth: 1
   expand_all_items: false
 visibility: {  }

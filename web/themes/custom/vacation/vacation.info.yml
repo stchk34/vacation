@@ -1,20 +1,23 @@
-name: Vacation system
-description: "Custom sub-theme"
+name: Vacation
+description: "Custom sub-theme, inherits from the Foundation base theme read <a href=\"http://foundation.zurb.com/docs/index.php\">framework documentation</a>"
 core: 8.x
 core_version_requirement: ^8 || ^9 || ^10
 type: theme
 base theme: zurb_foundation
 
+# Uncomment these lines and change "STARTER" to your theme name if you
+# need to add custom CSS or JS
 libraries:
-  - vacation/global
+ - vacation/global
+ - vacation/slick
 
 # Regions are output in the page.html.twig
+
 regions:
-  header_menu: 'Header menu'
+  header_menu: Header menu
   header: Header
-  header_kebab: 'Header kebab menu'
-  highlighted: Highlighted
   help: Help
+  highlighted: Highlighted
   content: Content
   footer_first: 'Footer first column'
   footer_last: 'Footer last column'

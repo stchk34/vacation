@@ -63,6 +63,7 @@ module:
   field_validation_legacy: 0
   file: 0
   filter: 0
+  foundation_layouts: 0
   group: 0
   help: 0
   history: 0
@@ -144,5 +145,7 @@ theme:
   olivero: 0
   claro: 0
   bootstrap_barrio: 0
+  stable: 0
+  zurb_foundation: 0
   vacation: 0
 profile: standard

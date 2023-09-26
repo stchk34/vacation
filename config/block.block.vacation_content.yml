@@ -1,4 +1,4 @@
-uuid: 3a31e77b-20be-41f3-a369-42b5d01da890
+uuid: a1033598-203c-4a98-b868-393e00e3143b
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: vacation_content
 theme: vacation
 region: content
-weight: -7
+weight: -6
 provider: null
 plugin: system_main_block
 settings:

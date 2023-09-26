@@ -1,6 +1,6 @@
 uuid: c60a6b03-50cb-44a0-a262-7f1f65df4d81
 langcode: en
-status: false
+status: true
 dependencies:
   module:
     - eca_base
@@ -22,7 +22,7 @@ events:
       operation: ''
     successors:
       -
-        id: Gateway_028qdqd
+        id: Activity_0tyzak4
         condition: ''
 conditions:
   Flow_0kxkbd0:
@@ -34,31 +34,7 @@ conditions:
       right: '[unix_start_date]'
       operator: lessthan
       type: value
-  Flow_0fum8yu:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[unix_start_date]'
-      right: '[current-date:raw]'
-      operator: greaterthan
-      type: value
-gateways:
-  Gateway_028qdqd:
-    type: 0
-    successors:
-      -
-        id: Activity_0tyzak4
-        condition: ''
-      -
-        id: Activity_1s5gaaw
-        condition: ''
-  Gateway_19mi4nq:
-    type: 0
-    successors:
-      -
-        id: Activity_1eotb8y
-        condition: Flow_0fum8yu
+gateways: {  }
 actions:
   Activity_0tyzak4:
     plugin: eca_form_field_get_value
@@ -81,15 +57,8 @@ actions:
       eca_token_name: unix_start_date
     successors:
       -
-        id: Gateway_19mi4nq
+        id: Activity_1s5gaaw
         condition: ''
-  Activity_1eotb8y:
-    plugin: eca_form_field_set_error
-    label: 'set error'
-    configuration:
-      message: 'The date of this must be equal to or greater than today'
-      field_name: op
-    successors: {  }
   Activity_1s5gaaw:
     plugin: eca_form_field_get_value
     label: Activity_1s5gaaw

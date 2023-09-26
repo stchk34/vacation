@@ -1,0 +1,74 @@
+.header{
+  position: relative;
+  height: auto;
+  margin: 0;
+  background:$dark-gray-default-theme;
+  color:$white;
+}
+.vacation-header-wrapper{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 20px;
+}
+//Menu.
+.vacation-header-menu{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  ul{
+    li{
+      list-style:none;
+      .is-active{
+        color:$medium-gray;
+      }
+      a{
+        font-size:23px;
+        color:$white;
+        padding:0 10px;
+        font-weight: 400;
+        text-transform: uppercase;
+        &:hover{
+          text-decoration:none;
+          color:$medium-gray;
+        }
+        &:focus{
+          text-decoration:none;
+        }
+      }
+    }
+  }
+}
+
+//Actual balance field.
+#block-actualbalance{
+  .views-field-field-balance-a-vacations-day{
+    .field-content{
+      font-weight:600;
+      font-size:25px;
+    }
+  }
+}
+
+@include breakpoint(small only) {
+  .vacation-header-wrapper{
+    padding:10px 8px;
+  }
+  //Menu.
+  .vacation-header-menu{
+    ul{
+      li{
+        a{
+          font-size:16px;
+          padding: 0 5px 0 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+
+  .vacation-header-menu ul li a{
+    font-size: calc(16px + (12 - 16) * (100vw - 420px) / (320 - 420));
+  }
+}

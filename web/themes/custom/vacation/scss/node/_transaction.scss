@@ -1,0 +1,86 @@
+.field--name-field-transaction,
+.field--name-field-actual-balance,
+.field--name-field-user,
+.field--name-field-order-operation,
+.field--name-field-transaction-type,
+.field--name-field-balance,
+.field--node-field-owner,
+.field--node-field-days,
+.field--node-field-type-paid-vacation,
+.field--node-field-vacat{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  .field-label{
+      font-weight:600;
+  }
+  .field__item{
+    margin-left:5px;
+    a{
+      color:$dark-gray-default-theme;
+    }
+  }
+}
+
+//Page all-transactions.
+#views-exposed-form-all-transactions-page-1{
+  .js-form-item{
+    margin-right:5px;
+    label{
+      text-align:center;
+    }
+  }
+}
+.my-transactions-view{
+  padding-top: 15px;
+  header{
+    .views-field-field-balance{
+      .field-content{
+        font-size: 25px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+
+
+//Page "My cab".
+#cabinet-menu{
+  margin:20px 10px;
+  ul{
+    li{
+      list-style:none;
+      a{
+        font-size:19px;
+        padding:10px;
+
+        &:after{
+          padding-left:5px;
+          content: "\002F";
+        }
+        &:active{
+          font-weight:600;
+          color: #ecc2ec;
+        }
+      }
+      &:last-child{
+        a{
+          &:after{
+            content:'';
+          }
+        }
+      }
+    }
+  }
+}
+
+#my-current-certificate{
+  .block-title{
+    text-align:center;
+    font-size:20px;
+    font-weight:600;
+  }
+}
+
+//Page with views.

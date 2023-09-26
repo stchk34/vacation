@@ -1,15 +1,17 @@
-uuid: 87eb3ada-1bcc-4111-aeb6-1ba6f4b07492
+uuid: 77ad3d95-3287-46cf-98e1-bd6f4ec87f45
 langcode: en
-status: false
+status: true
 dependencies:
+  module:
+    - system
   theme:
     - vacation
 _core:
   default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
 id: vacation_page_title
 theme: vacation
-region: header
-weight: -5
+region: content
+weight: -7
 provider: null
 plugin: page_title_block
 settings:
@@ -17,4 +19,8 @@ settings:
   label: 'Page title'
   label_display: '0'
   provider: core
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/cab\r\n/user/*"

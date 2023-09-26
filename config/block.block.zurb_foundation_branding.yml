@@ -1,15 +1,17 @@
-uuid: d88b7956-f124-43df-a3b2-3365bbd7469d
+uuid: 0b2e34d2-de15-4f13-9678-c64adda6d760
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - vacation
-id: sitebranding
-theme: vacation
+    - zurb_foundation
+_core:
+  default_config_hash: hXaAu73YeChkBnJ_uWW_ehlhZVTiu-nIMOAEU2mXsGk
+id: zurb_foundation_branding
+theme: zurb_foundation
 region: header
-weight: -8
+weight: -6
 provider: null
 plugin: system_branding_block
 settings:
@@ -17,7 +19,7 @@ settings:
   label: 'Site branding'
   label_display: '0'
   provider: system
-  use_site_logo: false
+  use_site_logo: true
   use_site_name: true
   use_site_slogan: true
 visibility: {  }

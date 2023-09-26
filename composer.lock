@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "106cbce21ff09d19fcb23c98dc24377d",
+    "content-hash": "4d6a2435acf953e585364060dd37c71f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3548,6 +3548,58 @@
             "homepage": "https://www.drupal.org/project/field_validation",
             "support": {
                 "source": "https://git.drupalcode.org/project/field_validation"
+            }
+        },
+        {
+            "name": "drupal/foundation_layouts",
+            "version": "6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/foundation_layouts.git",
+                "reference": "8.x-6.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/foundation_layouts-8.x-6.2.zip",
+                "reference": "8.x-6.2",
+                "shasum": "cdfbb83167591206c55a38eb55f6446c23ccb256"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-6.2",
+                    "datestamp": "1670879748",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "abu-zakham",
+                    "homepage": "https://www.drupal.org/user/2836067"
+                },
+                {
+                    "name": "HongPong",
+                    "homepage": "https://www.drupal.org/user/60005"
+                },
+                {
+                    "name": "josebc",
+                    "homepage": "https://www.drupal.org/user/1376836"
+                }
+            ],
+            "description": "Provides ZURB Foundation grid system layouts.",
+            "homepage": "https://www.drupal.org/project/foundation_layouts",
+            "support": {
+                "source": "https://git.drupalcode.org/project/foundation_layouts"
             }
         },
         {

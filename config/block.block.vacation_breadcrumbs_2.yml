@@ -1,4 +1,4 @@
-uuid: fe2b64a4-0c79-4b17-9716-6f9b24dbbfcc
+uuid: d22ecea8-eb0e-4bc6-8a0c-0a3bdd1e9140
 langcode: en
 status: false
 dependencies:
@@ -6,10 +6,10 @@ dependencies:
     - system
   theme:
     - vacation
-id: breadcrumbs
+id: vacation_breadcrumbs_2
 theme: vacation
-region: header_menu
-weight: 0
+region: header
+weight: -5
 provider: null
 plugin: system_breadcrumb_block
 settings:

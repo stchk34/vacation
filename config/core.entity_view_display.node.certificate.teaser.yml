@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
-    - field.field.node.certificate.field_smart_date_range_example
     - field.field.node.certificate.field_start_date_certificate
     - field.field.node.certificate.field_type_certificate
     - field.field.node.certificate.field_use_up
@@ -28,7 +27,6 @@ hidden:
   field_current_state_certificate: true
   field_employee: true
   field_limit_: true
-  field_smart_date_range_example: true
   field_start_date_certificate: true
   field_type_certificate: true
   field_use_up: true

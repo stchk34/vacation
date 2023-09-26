@@ -1,0 +1,39 @@
+<div class="page">
+  <header role="banner" class="header">
+    <div class="vacation-header-wrapper">
+      <div class="vacation-header-menu">
+          {{ page.header_menu }}
+      </div>
+      <div class="vacation-header-info">
+        <div class="vacation-header-info-user">
+          {{ page.header }}
+        </div>
+      </div>
+    </div>
+  </header>
+  {{ page.help}}
+  {{ page.highlighted }}
+  <main role="main">
+    <a id="main-content" tabindex="-1"></a>
+    {{ page.content }}
+  </main>
+  <footer role="contentinfo">
+    <div class="footer-wrapper">
+      <div class="footer-wrapper-menu">
+        {{ page.footer_first }}
+      </div>
+      <div class="footer-wrapper-copyright">
+          {{ page.footer_last }}
+      </div>
+    </div>
+  </footer>
+</div>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+

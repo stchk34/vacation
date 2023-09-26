@@ -1,6 +1,6 @@
-uuid: ece103d9-480e-4f0d-93a3-d05674f43b4d
+uuid: ec0f82b8-848a-40e8-8156-5af0cbebe5e2
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - system.menu.account
@@ -10,8 +10,8 @@ dependencies:
     - vacation
 id: vacation_useraccountmenu
 theme: vacation
-region: header
-weight: 0
+region: footer_last
+weight: -7
 provider: null
 plugin: 'system_menu_block:account'
 settings:

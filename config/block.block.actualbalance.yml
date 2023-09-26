@@ -1,0 +1,25 @@
+uuid: bdb78891-5c76-4aa7-925d-c9834b7fdf0d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:c5f767b2-6435-446b-a3f1-05178cf5ee48'
+  module:
+    - block_content
+  theme:
+    - vacation
+id: actualbalance
+theme: vacation
+region: header
+weight: -7
+provider: null
+plugin: 'block_content:c5f767b2-6435-446b-a3f1-05178cf5ee48'
+settings:
+  id: 'block_content:c5f767b2-6435-446b-a3f1-05178cf5ee48'
+  label: 'Actual Balance'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -2,11 +2,15 @@ uuid: 6a745f47-9c62-4b94-b155-db81a21632a8
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.certificate
+    - node.type.vacation_request
   module:
     - actions_permissions
     - administerusersbyrole
     - field_ui
     - group
+    - node
     - rules_link_field
 id: ceo
 label: CEO
@@ -28,8 +32,10 @@ permissions:
   - 'administer users'
   - 'cancel account'
   - 'cancel users by role'
+  - 'create certificate content'
   - 'create team_lead_group group'
   - 'create users'
+  - 'create vacation_request content'
   - 'edit users by role'
   - 'execute entity:publish_action group'
   - 'execute rules that react on rules link clicked event'

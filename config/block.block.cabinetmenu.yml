@@ -1,0 +1,30 @@
+uuid: f2954a2f-9ee4-45ce-920b-0680364d15f3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:9515309a-0521-4e7d-a9f8-a2882882fe90'
+  module:
+    - block_content
+    - system
+  theme:
+    - vacation
+id: cabinetmenu
+theme: vacation
+region: highlighted
+weight: -7
+provider: null
+plugin: 'block_content:9515309a-0521-4e7d-a9f8-a2882882fe90'
+settings:
+  id: 'block_content:9515309a-0521-4e7d-a9f8-a2882882fe90'
+  label: 'Cabinet menu'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/history-transactions\r\n/all-vacation-request\r\n/my-request\r\n/my-team\r\n/cab"

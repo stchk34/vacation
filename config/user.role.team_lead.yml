@@ -2,11 +2,15 @@ uuid: c1f6e308-9e44-4ce4-a296-a4ad54d20aff
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.certificate
+    - node.type.vacation_request
   module:
     - actions_permissions
     - administerusersbyrole
     - field_ui
     - group
+    - node
     - rules_link_field
 id: team_lead
 label: 'Team Lead'
@@ -27,10 +31,9 @@ permissions:
   - 'administer user form display'
   - 'administer users'
   - 'cancel account'
-  - 'cancel users by role'
+  - 'create certificate content'
   - 'create team_lead_group group'
-  - 'create users'
-  - 'edit users by role'
+  - 'create vacation_request content'
   - 'execute entity:publish_action group'
   - 'execute rules that react on rules link clicked event'
   - 'execute user_add_role_action user'

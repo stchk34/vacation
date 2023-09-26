@@ -1,6 +1,6 @@
 uuid: 286d7578-be02-4460-9ae8-c8759e11d5c1
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.field.node.certificate.field_current_state_certificate
@@ -20,6 +20,7 @@ dependencies:
     - node.type.certificate
     - node.type.transaction
   module:
+    - eca_base
     - eca_content
     - eca_queue
     - eca_user
@@ -51,7 +52,19 @@ events:
       -
         id: Activity_1e8a4cz
         condition: ''
-conditions: {  }
+      -
+        id: Activity_1t26iaw
+        condition: ''
+conditions:
+  Flow_0envykm:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[certificate:field_type_certificate:value]'
+      right: '2'
+      operator: equal
+      type: value
+      negate: true
 gateways:
   Gateway_16f7k7n:
     type: 0
@@ -61,7 +74,7 @@ gateways:
         condition: ''
       -
         id: Activity_11pv3i3
-        condition: ''
+        condition: Flow_0envykm
 actions:
   Activity_1nwuz9q:
     plugin: eca_switch_account
@@ -210,3 +223,10 @@ actions:
       -
         id: Activity_1cgjniy
         condition: ''
+  Activity_1t26iaw:
+    plugin: action_message_action
+    label: Activity_1t26iaw
+    configuration:
+      replace_tokens: false
+      message: 'Запустився Unpublish'
+    successors: {  }

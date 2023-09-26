@@ -21,7 +21,7 @@ tabs:
     id: entity.user.edit_form
     title: Edit
     weight: '0'
-    hidden: 0
+    hidden: 1
   -
     id: entity.webform_submission.user
     title: Submissions

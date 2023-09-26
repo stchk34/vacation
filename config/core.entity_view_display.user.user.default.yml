@@ -13,9 +13,9 @@ dependencies:
     - field.field.user.user.user_picture
   module:
     - field_token_value
+    - foundation_layouts
     - image
     - layout_builder
-    - layout_discovery
     - user
 third_party_settings:
   layout_builder:
@@ -23,37 +23,88 @@ third_party_settings:
     allow_custom: false
     sections:
       -
-        layout_id: layout_onecol
+        layout_id: foundation-2-10
         layout_settings:
           label: ''
+          context_mapping: {  }
+          wrappers:
+            sidebar_left: div
+            sidebar_right: div
+          wrapper_classes: ''
+          attributes: {  }
+          wrapper_id: user-cab
         components:
-          ee38c2c0-b1fe-4e29-b587-fa87a0d8250d:
-            uuid: ee38c2c0-b1fe-4e29-b587-fa87a0d8250d
-            region: content
+          4b1f0ddc-a5d9-4214-aa77-7ca6baf9a14a:
+            uuid: 4b1f0ddc-a5d9-4214-aa77-7ca6baf9a14a
+            region: sidebar_left
             configuration:
               id: 'field_block:user:user:user_picture'
+              label: Picture
               label_display: '0'
+              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+                view_mode: view_mode
               formatter:
                 type: image
                 label: hidden
                 settings:
                   image_link: ''
-                  image_style: ''
+                  image_style: medium
                   image_loading:
                     attribute: lazy
                 third_party_settings: {  }
             weight: 0
             additional: {  }
-          b4c84760-985a-4125-85e0-961361278956:
-            uuid: b4c84760-985a-4125-85e0-961361278956
-            region: content
+          ef29d063-6216-4901-aeca-055a3d814ed8:
+            uuid: ef29d063-6216-4901-aeca-055a3d814ed8
+            region: sidebar_left
             configuration:
-              id: 'field_block:user:user:field_position'
+              id: 'field_block:user:user:name'
+              label: Name
               label_display: '0'
+              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          62e96ff0-6806-4468-b66d-d9b45b507b54:
+            uuid: 62e96ff0-6806-4468-b66d-d9b45b507b54
+            region: sidebar_right
+            configuration:
+              id: 'field_block:user:user:field_position'
+              label: Position
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          b7cce3f2-6064-4bb7-9bc8-b9edda688f23:
+            uuid: b7cce3f2-6064-4bb7-9bc8-b9edda688f23
+            region: sidebar_right
+            configuration:
+              id: 'field_block:user:user:field_teams'
+              label: Teams
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
               formatter:
                 type: entity_reference_label
                 label: inline
@@ -62,14 +113,17 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 1
             additional: {  }
-          ca9f2165-b44c-4bac-a802-384fb23cf5b1:
-            uuid: ca9f2165-b44c-4bac-a802-384fb23cf5b1
-            region: content
+          75089b1a-a793-44f5-a371-c08c4664b47b:
+            uuid: 75089b1a-a793-44f5-a371-c08c4664b47b
+            region: sidebar_right
             configuration:
-              id: 'field_block:user:user:field_teams'
+              id: 'field_block:user:user:field_my_team_lead'
+              label: 'My team lead'
               label_display: '0'
+              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+                view_mode: view_mode
               formatter:
                 type: entity_reference_label
                 label: inline
@@ -78,59 +132,29 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 2
             additional: {  }
-          37dc1d39-3fcb-4b90-88e3-d19de7f26d67:
-            uuid: 37dc1d39-3fcb-4b90-88e3-d19de7f26d67
-            region: content
-            configuration:
-              id: 'field_block:user:user:field_my_team_lead'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: entity_reference_label
-                label: inline
-                settings:
-                  link: true
-                third_party_settings: {  }
-            weight: 3
-            additional: {  }
-          48a256d4-2976-4b5d-b347-18a2a8dc7006:
-            uuid: 48a256d4-2976-4b5d-b347-18a2a8dc7006
-            region: content
+          089a128d-2f72-4e26-b0c7-b2c6e5fa2c28:
+            uuid: 089a128d-2f72-4e26-b0c7-b2c6e5fa2c28
+            region: sidebar_right
             configuration:
               id: 'field_block:user:user:field_balance_a_vacations_day'
+              label: 'Balance a vacations day'
               label_display: '0'
+              provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+                view_mode: view_mode
               formatter:
                 type: number_integer
                 label: inline
                 settings:
-                  thousand_separator: ''
+                  thousand_separator: ' '
                   prefix_suffix: true
                 third_party_settings: {  }
-            weight: 4
+            weight: 3
             additional: {  }
-          d3a32409-48b9-46c0-8541-35141ebcc289:
-            uuid: d3a32409-48b9-46c0-8541-35141ebcc289
-            region: content
-            configuration:
-              id: 'field_block:user:user:field_limit_of_weekends_per_year'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: field_token_value_text
-                label: inline
-                settings:
-                  wrapper: ''
-                  link: false
-                third_party_settings: {  }
-            weight: 5
-            additional: {  }
-          3c3bcae5-9ecc-4cdf-b0d5-26217db220ff:
-            uuid: 3c3bcae5-9ecc-4cdf-b0d5-26217db220ff
-            region: content
+          81dba9df-bef2-4908-9d32-5565b356784a:
+            uuid: 81dba9df-bef2-4908-9d32-5565b356784a
+            region: sidebar_right
             configuration:
               id: 'field_block:user:user:field_bonus_days'
               label: 'Bonus days'
@@ -143,10 +167,10 @@ third_party_settings:
                 type: number_integer
                 label: inline
                 settings:
-                  thousand_separator: ''
+                  thousand_separator: ' '
                   prefix_suffix: true
                 third_party_settings: {  }
-            weight: 6
+            weight: 4
             additional: {  }
         third_party_settings: {  }
 id: user.user.default

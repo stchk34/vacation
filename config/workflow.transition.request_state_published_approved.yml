@@ -11,12 +11,5 @@ module: workflow
 from_sid: request_state_published
 to_sid: request_state_approved
 roles:
-  ceo: ceo
   administrator: administrator
-  team_lead: team_lead
-  pm: pm
   workflow_author: '0'
-  dev: '0'
-  authenticated: '0'
-  anonymous: '0'
-  content_editor: '0'

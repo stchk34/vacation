@@ -42,6 +42,9 @@ events:
       -
         id: Activity_177hcd7
         condition: ''
+      -
+        id: Activity_0wapxa9
+        condition: ''
 conditions:
   Flow_1wcqm5q:
     plugin: eca_scalar
@@ -96,17 +99,8 @@ gateways:
         id: Gateway_0okut2l
         condition: Flow_1wcqm5q
       -
-        id: Gateway_1w2mr9d
-        condition: Flow_1bllzfn
-  Gateway_1w2mr9d:
-    type: 0
-    successors:
-      -
-        id: Activity_09nmk46
-        condition: ''
-      -
         id: Activity_1ozf1jb
-        condition: ''
+        condition: Flow_1bllzfn
   Gateway_0idb1ar:
     type: 0
     successors:
@@ -114,10 +108,7 @@ gateways:
         id: Activity_0g7rzjw
         condition: ''
       -
-        id: Activity_0s8462p
-        condition: ''
-      -
-        id: Activity_1laivvx
+        id: Activity_0muzsq9
         condition: ''
   Gateway_11r85mq:
     type: 0
@@ -182,7 +173,7 @@ actions:
       object: '[upd_request]'
     successors:
       -
-        id: Activity_0p7jt39
+        id: Activity_1qpa53k
         condition: ''
   Activity_0mbz1by:
     plugin: eca_switch_account
@@ -298,15 +289,6 @@ actions:
       -
         id: Activity_0apff12
         condition: ''
-  Activity_09nmk46:
-    plugin: action_send_email_action
-    label: 'send email'
-    configuration:
-      replace_tokens: false
-      recipient: ''
-      subject: 'Your vacation request disapproved!'
-      message: (9999999999
-    successors: {  }
   Activity_18cket8:
     plugin: eca_set_field_value
     label: 'set field Days'
@@ -366,11 +348,14 @@ actions:
       operation: subtraction
       flip: false
       value: '[upd_request:field_duration_of_the_paid_vacat:value]'
-      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
+      eca_data: '[actual_balance_sender]'
       eca_token_name: balance_after_request
     successors:
       -
         id: Activity_15hsrgz
+        condition: ''
+      -
+        id: Activity_1kk5uux
         condition: ''
   Activity_15hsrgz:
     plugin: eca_set_field_value
@@ -387,44 +372,94 @@ actions:
       -
         id: Activity_01irqi3
         condition: ''
+      -
+        id: Activity_1rq9qax
+        condition: ''
   Activity_01irqi3:
     plugin: eca_save_entity
     label: 'save sender entity'
     configuration:
       object: '[sender_request]'
-    successors: {  }
-  Activity_1laivvx:
-    plugin: action_message_action
-    label: 'message "PAID"'
-    configuration:
-      replace_tokens: false
-      message: PAID
-    successors: {  }
+    successors:
+      -
+        id: Activity_0b2wri7
+        condition: ''
   Activity_1blmi4o:
     plugin: action_message_action
     label: Activity_1blmi4o
     configuration:
       replace_tokens: false
-      message: '1) завантажили вакейшен реквест [upd_request]'
+      message: 'крок 2: завантажили вакейшен реквест [upd_request]'
     successors: {  }
   Activity_0qine03:
     plugin: action_message_action
     label: Activity_0qine03
     configuration:
       replace_tokens: false
-      message: '2) завантажили юзера з вакейшен реквеста [sender_request]'
+      message: 'крок 3: завантажили юзера з вакейшен реквеста [sender_request]'
     successors: {  }
   Activity_1bulkqo:
     plugin: action_message_action
     label: Activity_1bulkqo
     configuration:
       replace_tokens: false
-      message: 'свічнулись на адміна'
+      message: 'крок 4: свічнулись на адміна'
     successors: {  }
-  Activity_0p7jt39:
+  Activity_0wapxa9:
     plugin: action_message_action
-    label: Activity_0p7jt39
+    label: Activity_0wapxa9
     configuration:
       replace_tokens: false
-      message: 'Реквест dissaprove і його видалили'
+      message: |-
+        запрацювала ека з списанням днів при реквесті
+        крок 1: апдейтнувся реквест
+    successors: {  }
+  Activity_1kk5uux:
+    plugin: action_message_action
+    label: Activity_1kk5uux
+    configuration:
+      replace_tokens: false
+      message: 'крок 6: відняти [actual_balance_sender] від [upd_request:field_duration_of_the_paid_vacat:value]'
+    successors: {  }
+  Activity_0muzsq9:
+    plugin: eca_get_field_value
+    label: Activity_0muzsq9
+    configuration:
+      field_name: field_balance_a_vacations_day
+      token_name: actual_balance_sender
+      object: '[sender_request]'
+    successors:
+      -
+        id: Activity_0s8462p
+        condition: ''
+      -
+        id: Activity_184ktyy
+        condition: ''
+  Activity_184ktyy:
+    plugin: action_message_action
+    label: Activity_184ktyy
+    configuration:
+      replace_tokens: false
+      message: 'крок 5: отримати поточний баланс юзера [actual_balance_sender]'
+    successors: {  }
+  Activity_1rq9qax:
+    plugin: action_message_action
+    label: Activity_1rq9qax
+    configuration:
+      replace_tokens: false
+      message: 'крок 7: встановили нове значення поля  [actual_balance_sender]  і тепер воно має значення [balance_after_request]'
+    successors: {  }
+  Activity_0b2wri7:
+    plugin: action_message_action
+    label: Activity_0b2wri7
+    configuration:
+      replace_tokens: false
+      message: 'крок 8: зберегли ентіті юзера'
+    successors: {  }
+  Activity_1qpa53k:
+    plugin: action_message_action
+    label: Activity_1qpa53k
+    configuration:
+      replace_tokens: false
+      message: disapprove
     successors: {  }

@@ -1,4 +1,4 @@
-uuid: 7f900b00-3c4e-4ca9-845a-7f985597c753
+uuid: 82624cf1-1adc-4062-b988-a43b090cb2d6
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: vacation_messages
 theme: vacation
 region: highlighted
-weight: -5
+weight: -6
 provider: null
 plugin: system_messages_block
 settings:

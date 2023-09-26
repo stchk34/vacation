@@ -1,7 +1,9 @@
-uuid: b125f856-db35-473b-8f2f-e22f4befc868
+uuid: 5996ddd9-314b-4d56-a7a8-06dfde57683c
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - vacation
 _core:
@@ -19,4 +21,8 @@ settings:
   provider: core
   primary: false
   secondary: true
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /cab

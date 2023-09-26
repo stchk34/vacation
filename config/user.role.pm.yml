@@ -2,16 +2,20 @@ uuid: 677513b8-3d5b-4de6-85fb-08e082803c9f
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.vacation_request
   module:
     - actions_permissions
     - administerusersbyrole
     - content_moderation
+    - node
 id: pm
 label: PM
 weight: -5
 is_admin: null
 permissions:
   - 'access users overview'
+  - 'create vacation_request content'
   - 'execute workflow_node_next_state_action node'
   - 'view any unpublished content'
   - 'view users by role'
