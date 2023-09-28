@@ -6,23 +6,30 @@ dependencies:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_status_transactions
+    - field.field.user.user.field_balance_a_vacations_day
+    - field.storage.node.field_actual_balance
     - field.storage.node.field_certificate
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
     - field.storage.node.field_owner
+    - field.storage.node.field_previous_balance
     - field.storage.node.field_status_transactions
+    - field.storage.user.field_balance_a_vacations_day
     - node.type.certificate
     - node.type.transaction
   module:
     - eca_base
     - eca_content
     - eca_queue
+    - eca_tamper
     - eca_user
     - node
 id: process_wsz2dg2
@@ -33,7 +40,7 @@ weight: -10
 events:
   Event_0he8mjm:
     plugin: 'content_entity:insert'
-    label: Event_0he8mjm
+    label: 'CREATE CERTIFICATE'
     configuration:
       type: 'node certificate'
     successors:
@@ -163,7 +170,7 @@ actions:
       object: '[earned_transaction]'
     successors:
       -
-        id: Activity_0efx3bo
+        id: Activity_0rxrvct
         condition: ''
   Activity_1s5b3zs:
     plugin: eca_token_load_entity
@@ -181,7 +188,7 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_1nwuz9q
+        id: Activity_0bqt4tf
         condition: ''
   Activity_11pv3i3:
     plugin: eca_enqueue_task_delayed
@@ -229,4 +236,98 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Запустився Unpublish'
+    successors: {  }
+  Activity_0rxrvct:
+    plugin: eca_set_field_value
+    label: 'Set field Previous balance'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[employee_certificate:field_balance_a_vacations_day:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_0kcf6qy
+        condition: ''
+      -
+        id: Activity_0matvd5
+        condition: ''
+  Activity_0bqt4tf:
+    plugin: eca_token_load_entity_ref
+    label: 'load employee'
+    configuration:
+      field_name_entity_ref: field_employee
+      token_name: employee_certificate
+      from: current
+      entity_type: user
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[certificate]'
+    successors:
+      -
+        id: Activity_1nwuz9q
+        condition: ''
+  Activity_0kcf6qy:
+    plugin: action_message_action
+    label: Activity_0kcf6qy
+    configuration:
+      replace_tokens: false
+      message: 'Previous balance - [employee_certificate:field_balance_a_vacations_day:value]'
+    successors: {  }
+  Activity_1cc3x8j:
+    plugin: eca_set_field_value
+    label: 'set field Actual balance'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual_balance]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_19faim9
+        condition: ''
+      -
+        id: Activity_0efx3bo
+        condition: ''
+  Activity_0matvd5:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: addition
+      flip: false
+      value: '[certificate:field_limit_:value]'
+      eca_data: '[employee_certificate:field_balance_a_vacations_day:value]'
+      eca_token_name: actual_balance
+    successors:
+      -
+        id: Activity_0mrtuap
+        condition: ''
+      -
+        id: Activity_1cc3x8j
+        condition: ''
+  Activity_0mrtuap:
+    plugin: action_message_action
+    label: Activity_0mrtuap
+    configuration:
+      replace_tokens: false
+      message: |-
+        [employee_certificate:field_balance_a_vacations_day:value] +[certificate:field_limit_:value]
+        отримаємо [actual_balance]
+    successors: {  }
+  Activity_19faim9:
+    plugin: action_message_action
+    label: Activity_19faim9
+    configuration:
+      replace_tokens: false
+      message: 'актуальний баланс = [actual_balance]'
     successors: {  }

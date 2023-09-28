@@ -3,18 +3,22 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_type_transaction
     - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.user.user.field_balance_a_vacations_day
+    - field.storage.node.field_actual_balance
     - field.storage.node.field_days
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - field.storage.node.field_owner
+    - field.storage.node.field_previous_balance
     - field.storage.node.field_type_paid_vacation
     - field.storage.node.field_type_transaction
     - field.storage.node.field_vacat
@@ -108,7 +112,7 @@ gateways:
         id: Activity_0g7rzjw
         condition: ''
       -
-        id: Activity_0muzsq9
+        id: Activity_0s8462p
         condition: ''
   Gateway_11r85mq:
     type: 0
@@ -184,30 +188,21 @@ actions:
       -
         id: Gateway_00ul7ai
         condition: ''
-      -
-        id: Activity_1bulkqo
-        condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value
     label: 'set field "owner"'
     configuration:
       field_name: field_owner
-      field_value: '[upd_request:uid:entity]'
+      field_value: '[sender_request]'
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[paid_vacation_transaction]'
     successors:
       -
         id: Activity_0u96fty
         condition: ''
-  Activity_0xbg5sc:
-    plugin: eca_save_entity
-    label: 'save entity'
-    configuration:
-      object: '[paid_vacation_transaction]'
-    successors: {  }
   Activity_0kxn1tx:
     plugin: eca_set_field_value
     label: 'set field " Spent type"'
@@ -217,7 +212,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[paid_vacation_transaction]'
     successors:
       -
@@ -232,7 +227,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[paid_vacation_transaction]'
     successors:
       -
@@ -298,11 +293,11 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[paid_vacation_transaction]'
     successors:
       -
-        id: Activity_0xbg5sc
+        id: Activity_0sb2lrt
         condition: ''
   Activity_0u96fty:
     plugin: eca_set_field_value
@@ -313,7 +308,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: true
+      save_entity: false
       object: '[paid_vacation_transaction]'
     successors:
       -
@@ -348,7 +343,7 @@ actions:
       operation: subtraction
       flip: false
       value: '[upd_request:field_duration_of_the_paid_vacat:value]'
-      eca_data: '[actual_balance_sender]'
+      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
       eca_token_name: balance_after_request
     successors:
       -
@@ -398,13 +393,6 @@ actions:
       replace_tokens: false
       message: 'крок 3: завантажили юзера з вакейшен реквеста [sender_request]'
     successors: {  }
-  Activity_1bulkqo:
-    plugin: action_message_action
-    label: Activity_1bulkqo
-    configuration:
-      replace_tokens: false
-      message: 'крок 4: свічнулись на адміна'
-    successors: {  }
   Activity_0wapxa9:
     plugin: action_message_action
     label: Activity_0wapxa9
@@ -419,28 +407,7 @@ actions:
     label: Activity_1kk5uux
     configuration:
       replace_tokens: false
-      message: 'крок 6: відняти [actual_balance_sender] від [upd_request:field_duration_of_the_paid_vacat:value]'
-    successors: {  }
-  Activity_0muzsq9:
-    plugin: eca_get_field_value
-    label: Activity_0muzsq9
-    configuration:
-      field_name: field_balance_a_vacations_day
-      token_name: actual_balance_sender
-      object: '[sender_request]'
-    successors:
-      -
-        id: Activity_0s8462p
-        condition: ''
-      -
-        id: Activity_184ktyy
-        condition: ''
-  Activity_184ktyy:
-    plugin: action_message_action
-    label: Activity_184ktyy
-    configuration:
-      replace_tokens: false
-      message: 'крок 5: отримати поточний баланс юзера [actual_balance_sender]'
+      message: 'крок 6: відняти [sender_request:field_balance_a_vacations_day:value] від [upd_request:field_duration_of_the_paid_vacat:value]'
     successors: {  }
   Activity_1rq9qax:
     plugin: action_message_action
@@ -462,4 +429,44 @@ actions:
     configuration:
       replace_tokens: false
       message: disapprove
+    successors: {  }
+  Activity_0sb2lrt:
+    plugin: eca_set_field_value
+    label: 'set Previous balance'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[sender_request:field_balance_a_vacations_day:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_1k4mghb
+        condition: ''
+  Activity_1k4mghb:
+    plugin: 'eca_tamper:math'
+    label: Activity_1k4mghb
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
+      eca_token_name: '[actual_balance]'
+    successors:
+      -
+        id: Activity_05wdp8z
+        condition: ''
+  Activity_05wdp8z:
+    plugin: eca_set_field_value
+    label: Activity_05wdp8z
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual_balance]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
     successors: {  }
