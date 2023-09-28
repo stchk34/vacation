@@ -28,7 +28,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'History transactions burning days'
+      title: 'History transactions'
       fields:
         nid:
           id: nid
@@ -296,7 +296,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'no transactions currently available'
+            value: 'No transactions currently available'
             format: basic_html
           tokenize: false
       sorts:

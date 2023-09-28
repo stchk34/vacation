@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.certificate.field_start_date_certificate
     - field.field.node.certificate.field_type_certificate
     - field.field.node.certificate.field_use_up
-    - field.field.user.user.field_balance_a_vacations_day
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_employee
@@ -17,7 +16,6 @@ dependencies:
     - field.storage.node.field_start_date_certificate
     - field.storage.node.field_type_certificate
     - field.storage.node.field_use_up
-    - field.storage.user.field_balance_a_vacations_day
     - field.storage.user.field_limit_of_weekends_per_year
     - node.type.certificate
   module:
@@ -92,6 +90,9 @@ actions:
       -
         id: Activity_156u9ex
         condition: ''
+      -
+        id: Activity_0yn1x3t
+        condition: ''
   Activity_156u9ex:
     plugin: eca_enqueue_task_delayed
     label: 'create queue'
@@ -118,7 +119,7 @@ actions:
       token_name: new_certificate
       type: 'node certificate'
       langcode: en
-      label: 'Certificate for [new_user:account-name] #[entity:nid]'
+      label: 'Certificate for [new_user:account-name] #[new_certificate:nid]'
       published: true
       owner: '1'
     successors:
@@ -193,34 +194,6 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_1ibvcgd
-        condition: ''
-  Activity_1ibvcgd:
-    plugin: 'eca_tamper:math'
-    label: 'math current balance'
-    configuration:
-      operation: addition
-      flip: false
-      value: '[new_certificate:field_limit_:value]'
-      eca_data: '[new_user:field_balance_a_vacations_day:value]'
-      eca_token_name: current_limit
-    successors:
-      -
-        id: Activity_168o4fy
-        condition: ''
-  Activity_168o4fy:
-    plugin: eca_set_field_value
-    label: 'set field balance to user'
-    configuration:
-      field_name: field_balance_a_vacations_day
-      field_value: '[current_limit]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[new_user]'
-    successors:
-      -
         id: Activity_1oywa5n
         condition: ''
   Activity_1oywa5n:
@@ -231,6 +204,9 @@ actions:
     successors:
       -
         id: Activity_1dozkw8
+        condition: ''
+      -
+        id: Activity_1szo6r6
         condition: ''
   Activity_0vpnh39:
     plugin: eca_set_field_value
@@ -314,7 +290,7 @@ actions:
         condition: ''
   Activity_1ows753:
     plugin: 'eca_tamper:timeoffset'
-    label: Activity_1ows753
+    label: 'time offset'
     configuration:
       timezone: Europe/Kyiv
       eca_data: '[end_date_timestamp]'
@@ -325,7 +301,7 @@ actions:
         condition: ''
   Activity_063s8nt:
     plugin: 'eca_tamper:timeoffset'
-    label: Activity_063s8nt
+    label: 'time offset'
     configuration:
       timezone: Europe/Kyiv
       eca_data: '[current-date:raw]'
@@ -334,3 +310,17 @@ actions:
       -
         id: Activity_19wn29z
         condition: ''
+  Activity_0yn1x3t:
+    plugin: action_message_action
+    label: Activity_0yn1x3t
+    configuration:
+      replace_tokens: false
+      message: 'Створено юзера'
+    successors: {  }
+  Activity_1szo6r6:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'Створено сертифікат для юзер #[new_user]'
+    successors: {  }

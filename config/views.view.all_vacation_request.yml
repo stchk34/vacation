@@ -29,7 +29,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'All vacation request'
+      title: 'Queue of vacation requests'
       fields:
         title:
           id: title
@@ -209,19 +209,14 @@ display:
           empty_zero: false
           hide_alter_empty: false
           click_sort_column: value
-          type: smartdate_custom
+          type: smartdate_default
           settings:
-            separator: '-'
-            date_format: 'D, M j Y'
-            custom_date_format: ''
-            timezone: ''
-            join: ', '
-            time_format: 'g:ia'
-            time_hour_format: 'g:ia'
-            allday_label: 'All day'
-            date_first: '1'
-            ampm_reduce: 0
-            site_time_toggle: 0
+            timezone_override: ''
+            format: compact
+            force_chronological: false
+            add_classes: false
+            time_wrapper: false
+            localize: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -285,7 +280,7 @@ display:
           type: smartdate_default
           settings:
             timezone_override: ''
-            format: default
+            format: compact
             force_chronological: false
             add_classes: false
             time_wrapper: true

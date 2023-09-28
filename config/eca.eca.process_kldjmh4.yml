@@ -15,7 +15,6 @@ dependencies:
     - field.storage.node.field_employee_sender
     - node.type.vacation_request
   module:
-    - eca_base
     - eca_content
     - eca_tamper
     - eca_user
@@ -34,16 +33,7 @@ events:
       -
         id: Activity_0c3pcf2
         condition: ''
-conditions:
-  Flow_1at95zf:
-    plugin: eca_count
-    configuration:
-      negate: false
-      case: false
-      left: all_approvers
-      right: '0'
-      operator: greaterthan
-      type: numeric
+conditions: {  }
 gateways:
   Gateway_0l452un:
     type: 0
@@ -57,12 +47,6 @@ gateways:
       -
         id: Activity_1jrx8jo
         condition: ''
-  Gateway_0zzcmmf:
-    type: 0
-    successors:
-      -
-        id: Activity_1vxsrnu
-        condition: Flow_1at95zf
 actions:
   Activity_0c3pcf2:
     plugin: eca_token_load_entity
@@ -83,7 +67,7 @@ actions:
         id: Activity_0c4vplg
         condition: ''
       -
-        id: Activity_1w3fjd1
+        id: Activity_0zdx2ux
         condition: ''
   Activity_0c4vplg:
     plugin: eca_switch_account
@@ -153,7 +137,10 @@ actions:
     label: 'save entity'
     configuration:
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_1tjet6d
+        condition: ''
   Activity_1ct2c1l:
     plugin: 'eca_tamper:math'
     label: 'duration in days'
@@ -165,14 +152,14 @@ actions:
       eca_token_name: duration_in_days
     successors:
       -
-        id: Activity_15fq56m
+        id: Activity_0dev3gl
         condition: ''
   Activity_15fq56m:
     plugin: eca_set_field_value
     label: 'set field Duration in days'
     configuration:
       field_name: field_duration_of_the_paid_vacat
-      field_value: '[duration_in_days]'
+      field_value: '[ceil_duration_days]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -187,7 +174,10 @@ actions:
     label: 'save entity'
     configuration:
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_1350iz7
+        condition: ''
   Activity_1jrx8jo:
     plugin: eca_set_field_value
     label: 'set field "Sender"'
@@ -200,80 +190,37 @@ actions:
       save_entity: true
       object: '[new_request]'
     successors: {  }
-  Activity_0x2hsi1:
-    plugin: action_message_action
-    label: Activity_0x2hsi1
+  Activity_0dev3gl:
+    plugin: 'eca_tamper:math'
+    label: Activity_0dev3gl
     configuration:
-      replace_tokens: false
-      message: '[all_approvers] -> в''юшка всі апруверів реквестів'
-    successors: {  }
-  Activity_1vxsrnu:
-    plugin: eca_list_remove
-    label: 'Drop user'
-    configuration:
-      value: ''
-      token_name: first_approver
-      method: first
-      index: ''
-      list_token: all_approvers
+      operation: addition
+      flip: false
+      value: '1'
+      eca_data: '[duration_in_days]'
+      eca_token_name: ceil_duration_days
     successors:
       -
-        id: Activity_0xwfy3a
+        id: Activity_15fq56m
         condition: ''
-      -
-        id: Activity_1hjxd58
-        condition: ''
-  Activity_0xwfy3a:
-    plugin: eca_token_load_entity
-    label: 'load user'
-    configuration:
-      token_name: approver
-      from: id
-      entity_type: user
-      entity_id: '[first_approver:uid]'
-      revision_id: ''
-      properties: ''
-      langcode: _interface
-      latest_revision: false
-      unchanged: false
-      object: '[all_approvers]'
-    successors:
-      -
-        id: Activity_1hhgq2f
-        condition: ''
-      -
-        id: Gateway_0zzcmmf
-        condition: ''
-      -
-        id: Activity_0tieq5m
-        condition: ''
-  Activity_1hhgq2f:
-    plugin: action_send_email_action
-    label: email
-    configuration:
-      replace_tokens: false
-      recipient: '[approver:mail]'
-      subject: 'новий реквест на апрув'
-      message: 'привіт, апрувни пліз'
-    successors: {  }
-  Activity_1hjxd58:
+  Activity_0zdx2ux:
     plugin: action_message_action
-    label: Activity_1hjxd58
+    label: Activity_0zdx2ux
     configuration:
       replace_tokens: false
-      message: 'дропнули юзера [first_approver:uid]'
+      message: 'Створено вакейшен реквест'
     successors: {  }
-  Activity_0tieq5m:
+  Activity_1tjet6d:
     plugin: action_message_action
-    label: Activity_0tieq5m
+    label: Activity_1tjet6d
     configuration:
       replace_tokens: false
-      message: 'завантажили юзера [approver]'
+      message: 'Визначена тривалість в годинах для неоплачуваного вакейшен реквеста'
     successors: {  }
-  Activity_1w3fjd1:
+  Activity_1350iz7:
     plugin: action_message_action
-    label: Activity_1w3fjd1
+    label: Activity_1350iz7
     configuration:
       replace_tokens: false
-      message: 'модель тривалість: завантажили реквест'
+      message: 'Визначена тривалість в днях для оплачуваного вакейшен реквеста'
     successors: {  }

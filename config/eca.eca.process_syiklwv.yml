@@ -49,7 +49,7 @@ events:
         condition: Flow_09cd42h
   Event_0kfl1fu:
     plugin: 'content_entity:custom'
-    label: Event_0kfl1fu
+    label: x2
     configuration:
       event_id: x2
     successors:
@@ -111,6 +111,15 @@ conditions:
       right: '[entity:field_limit_:value]'
       operator: equal
       type: value
+  Flow_1c3a4me:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[result_number]'
+      right: '0'
+      operator: equal
+      type: value
 gateways:
   Gateway_191dxix:
     type: 0
@@ -124,6 +133,9 @@ gateways:
       -
         id: Activity_1fj42hl
         condition: Flow_1wsb6de
+      -
+        id: Activity_1iceyv2
+        condition: Flow_1c3a4me
   Gateway_0mdlk00:
     type: 0
     successors:
@@ -199,6 +211,9 @@ actions:
       -
         id: Activity_1ieitrk
         condition: ''
+      -
+        id: Activity_0pyfpxu
+        condition: ''
   Activity_1ieitrk:
     plugin: eca_set_field_value
     label: 'set field owner'
@@ -257,7 +272,7 @@ actions:
       object: '[burn_transaction]'
     successors:
       -
-        id: Activity_0cxy4hb
+        id: Activity_0ct4jp5
         condition: ''
       -
         id: Activity_179yxps
@@ -274,9 +289,6 @@ actions:
     successors:
       -
         id: Activity_1ajidky
-        condition: ''
-      -
-        id: Activity_0ct4jp5
         condition: ''
   Activity_1dudhxf:
     plugin: eca_new_entity
@@ -363,12 +375,10 @@ actions:
         condition: ''
   Activity_1iteihk:
     plugin: action_message_action
-    label: message
+    label: '#9'
     configuration:
       replace_tokens: false
-      message: |-
-        9 пункт: Згорів сертифікат і тепер баланс юзера #[employee_certificate]
-         Його початковий баланс був [default_limit] потім від нього віднялось [number_days]  і вийшло  [result_number]
+      message: '#9 Зберегли транзакцію по згорянню днів і запустили тригер по відніманню днів з поточного балансу юзера'
     successors: {  }
   Activity_03tnv4l:
     plugin: eca_token_load_entity
@@ -387,6 +397,9 @@ actions:
     successors:
       -
         id: Activity_16l40qv
+        condition: ''
+      -
+        id: Activity_1wx8spx
         condition: ''
   Activity_16l40qv:
     plugin: eca_switch_account
@@ -412,9 +425,6 @@ actions:
       -
         id: Activity_0gfgfxg
         condition: ''
-      -
-        id: Activity_0itzmc2
-        condition: ''
   Activity_1bbly09:
     plugin: 'eca_tamper:math'
     label: Activity_1bbly09
@@ -428,16 +438,16 @@ actions:
       -
         id: Activity_17hbw82
         condition: ''
-      -
-        id: Activity_0j4ya8b
-        condition: ''
   Activity_0gfgfxg:
     plugin: action_message_action
     label: Activity_0gfgfxg
     configuration:
       replace_tokens: false
       message: 'upd balance useer to [day_not_used]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_0j4ya8b
+        condition: ''
   Activity_14ix130:
     plugin: eca_views_query
     label: 'view "My current certificate"'
@@ -491,10 +501,10 @@ actions:
         condition: ''
   Activity_1t03wtt:
     plugin: action_message_action
-    label: message
+    label: '#4'
     configuration:
       replace_tokens: false
-      message: '6 пункт:  отримуємо кількість днів,які витратили за рік : [max_day] - [actual_balance] = [result_number]'
+      message: '#4 Отримали кількість днів,які було витрачено за рік [result_number]'
     successors: {  }
   Activity_1df6qz1:
     plugin: eca_get_field_value
@@ -505,59 +515,37 @@ actions:
       object: '[employee_certificate]'
     successors:
       -
-        id: Activity_19yfydm
-        condition: ''
-      -
         id: Activity_14ix130
         condition: ''
   Activity_1uc4cke:
     plugin: action_message_action
-    label: Activity_1uc4cke
+    label: '#3'
     configuration:
       replace_tokens: false
-      message: '5 пункт: актуальний баланс ->[actual_balance]'
-    successors: {  }
-  Activity_19yfydm:
-    plugin: action_message_action
-    label: ok
-    configuration:
-      replace_tokens: false
-      message: 'пункт 1: отримано баланс-> [max_day]'
+      message: '#3 Отримали актуальний баланс юзера [actual_balance]'
     successors: {  }
   Activity_0b87gf5:
     plugin: action_message_action
-    label: Activity_0b87gf5
+    label: '#5'
     configuration:
       replace_tokens: false
-      message: '7пункт: [result_number] < [entity:field_limit_:value]'
-    successors: {  }
-  Activity_0cxy4hb:
-    plugin: action_message_action
-    label: Activity_0cxy4hb
-    configuration:
-      replace_tokens: false
-      message: '8 пункт: кількість витрачених днів -> [number_days]'
+      message: '#5 Якщо [result_number] < [entity:field_limit_:value]'
     successors: {  }
   Activity_0ct4jp5:
     plugin: action_message_action
-    label: Activity_0ct4jp5
+    label: '#7'
     configuration:
       replace_tokens: false
-      message: |-
-        8 пункт: [entity:field_limit_:value] -> значення з  згорівшого сертифіката
-        [result_number] -> витрачені дні за  період року
+      message: '#7 Отримуємо кількість днів,які не були використані з сертифіката, що згорів [number_days]'
     successors: {  }
   Activity_0zulopl:
     plugin: eca_trigger_content_entity_custom_event
-    label: TRIGGER
+    label: 'TRIGGER x2'
     configuration:
       event_id: x2
       tokens: ''
       object: '[burn_transaction]'
-    successors:
-      -
-        id: Activity_1iteihk
-        condition: ''
+    successors: {  }
   Activity_0o3klzu:
     plugin: eca_token_load_entity_ref
     label: 'load owner in transaction'
@@ -577,9 +565,6 @@ actions:
       -
         id: Activity_0ujekzk
         condition: ''
-      -
-        id: Activity_120vg5g
-        condition: ''
   Activity_0ujekzk:
     plugin: eca_get_field_value
     label: 'get balance'
@@ -594,19 +579,12 @@ actions:
       -
         id: Activity_0fme9yb
         condition: ''
-  Activity_120vg5g:
-    plugin: action_message_action
-    label: Activity_120vg5g
-    configuration:
-      replace_tokens: false
-      message: 'власник транзакції -> [owner_transactions]'
-    successors: {  }
   Activity_0fme9yb:
     plugin: action_message_action
-    label: Activity_0fme9yb
+    label: '#10'
     configuration:
       replace_tokens: false
-      message: 'отримання значення з філда юзера = [balance]'
+      message: '#10 Отримали поточний баланс юзера [balance], він має збігатись з балансом з повідомлення #6'
     successors: {  }
   Activity_1s0e3nt:
     plugin: eca_switch_account
@@ -619,17 +597,17 @@ actions:
         condition: ''
   Activity_0j4ya8b:
     plugin: action_message_action
-    label: Activity_0j4ya8b
+    label: '#11'
     configuration:
       replace_tokens: false
-      message: '[balance] - [entity:field_days:value] = [day_not_used]'
+      message: '#11 Заповнили значення поля юзера новим актуальним балансом [balance]'
     successors: {  }
   Activity_0iq76vf:
     plugin: action_message_action
-    label: Activity_0iq76vf
+    label: '#2'
     configuration:
       replace_tokens: false
-      message: '4 пункт: отримали значення max_day [max_day]'
+      message: '#2 отримали суму всіх поточних сертифікатів [max_day]'
     successors: {  }
   Activity_059edt5:
     plugin: eca_count
@@ -641,13 +619,6 @@ actions:
       -
         id: Activity_0m9f0ff
         condition: ''
-  Activity_0itzmc2:
-    plugin: action_message_action
-    label: Activity_0itzmc2
-    configuration:
-      replace_tokens: false
-      message: 'зберігаємо значення поля до юзера [day_not_used]'
-    successors: {  }
   Activity_0x3fjeh:
     plugin: action_message_action
     label: Activity_0x3fjeh
@@ -657,7 +628,7 @@ actions:
     successors: {  }
   Activity_179yxps:
     plugin: eca_set_field_value
-    label: Activity_179yxps
+    label: 'set field PREVIOUS BALANCE'
     configuration:
       field_name: field_previous_balance
       field_value: '[employee_certificate:field_balance_a_vacations_day:value]'
@@ -672,20 +643,23 @@ actions:
         condition: ''
   Activity_04z6wod:
     plugin: 'eca_tamper:math'
-    label: Activity_04z6wod
+    label: 'MATH actual-balance - day_not_used'
     configuration:
       operation: subtraction
       flip: false
       value: '[number_days]'
       eca_data: '[employee_certificate:field_balance_a_vacations_day:value]'
-      eca_token_name: '[transaction_actual_balance]'
+      eca_token_name: transaction_actual_balance
     successors:
       -
         id: Activity_0355lf6
         condition: ''
+      -
+        id: Activity_08nqpnu
+        condition: ''
   Activity_0355lf6:
     plugin: eca_set_field_value
-    label: Activity_0355lf6
+    label: 'set field ACTUAL BALANCE'
     configuration:
       field_name: field_actual_balance
       field_value: '[transaction_actual_balance]'
@@ -696,5 +670,193 @@ actions:
       object: '[burn_transaction]'
     successors:
       -
+        id: Activity_044krtd
+        condition: ''
+  Activity_044krtd:
+    plugin: eca_save_entity
+    label: SAVE
+    configuration:
+      object: '[burn_transaction]'
+    successors:
+      -
+        id: Activity_1iteihk
+        condition: ''
+      -
         id: Activity_0zulopl
         condition: ''
+  Activity_1wx8spx:
+    plugin: action_message_action
+    label: '#1'
+    configuration:
+      replace_tokens: false
+      message: '#1 Сертифікат згорів'
+    successors: {  }
+  Activity_0pyfpxu:
+    plugin: action_message_action
+    label: '#6'
+    configuration:
+      replace_tokens: false
+      message: '#6 То створюємо транзакцію по згорянню днів, значення актуального балансу юзера = [employee_certificate:field_balance_a_vacations_day:value]'
+    successors: {  }
+  Activity_08nqpnu:
+    plugin: action_message_action
+    label: '#8'
+    configuration:
+      replace_tokens: false
+      message: '#8 Щоб отримати актуальний баланс для транзакції, потрібно отримати різницю [employee_certificate:field_balance_a_vacations_day:value] - [number_days]'
+    successors: {  }
+  Activity_1iceyv2:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_07khjo5
+        condition: ''
+  Activity_07khjo5:
+    plugin: eca_new_entity
+    label: 'Create new'
+    configuration:
+      token_name: burn_all_day
+      type: 'node transaction'
+      langcode: ''
+      label: 'Burning out all days from the [first_certificate:title]'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_0zm2guw
+        condition: ''
+      -
+        id: Activity_15f30ms
+        condition: ''
+  Activity_0zm2guw:
+    plugin: eca_set_field_value
+    label: 'set field owner'
+    configuration:
+      field_name: field_owner
+      field_value: '[employee_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_0o9m2i6
+        condition: ''
+  Activity_0o9m2i6:
+    plugin: eca_set_field_value
+    label: 'set field Type transaction'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_spent_when_burning_day
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: v
+    successors:
+      -
+        id: Activity_1wvbu7o
+        condition: ''
+  Activity_1wvbu7o:
+    plugin: eca_set_field_value
+    label: 'set field certificate'
+    configuration:
+      field_name: field_certificate
+      field_value: '[first_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_0qbzxao
+        condition: ''
+  Activity_0qbzxao:
+    plugin: eca_set_field_value
+    label: 'set field Days'
+    configuration:
+      field_name: field_days
+      field_value: '[entity:field_limit_:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_154c1rt
+        condition: ''
+      -
+        id: Activity_0tjmuoo
+        condition: ''
+  Activity_154c1rt:
+    plugin: eca_set_field_value
+    label: 'set field previous balance'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[employee_certificate:field_balance_a_vacations_day:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_12u9sfn
+        condition: ''
+  Activity_12u9sfn:
+    plugin: 'eca_tamper:math'
+    label: math
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[entity:field_limit_:value]'
+      eca_data: '[employee_certificate:field_balance_a_vacations_day:value]'
+      eca_token_name: actual_balance_burn_all_day
+    successors:
+      -
+        id: Activity_1lfjbwk
+        condition: ''
+  Activity_1lfjbwk:
+    plugin: eca_set_field_value
+    label: 'set field Actual balance'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual_balance_burn_all_day]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_0enqoj9
+        condition: ''
+  Activity_0enqoj9:
+    plugin: eca_save_entity
+    label: save
+    configuration:
+      object: '[burn_all_day]'
+    successors:
+      -
+        id: Activity_0zulopl
+        condition: ''
+  Activity_15f30ms:
+    plugin: action_message_action
+    label: '#10'
+    configuration:
+      replace_tokens: false
+      message: '#10 Створено транзакцію на списання всіх днів ,тому що [result_number] = 0'
+    successors: {  }
+  Activity_0tjmuoo:
+    plugin: action_message_action
+    label: Activity_0tjmuoo
+    configuration:
+      replace_tokens: false
+      message: '#11  Заповнила філд field_days значенням [entity:field_limit_:value]'
+    successors: {  }

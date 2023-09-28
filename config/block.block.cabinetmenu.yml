@@ -11,8 +11,8 @@ dependencies:
     - vacation
 id: cabinetmenu
 theme: vacation
-region: highlighted
-weight: -7
+region: help
+weight: -8
 provider: null
 plugin: 'block_content:9515309a-0521-4e7d-a9f8-a2882882fe90'
 settings:
@@ -27,4 +27,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/history-transactions\r\n/all-vacation-request\r\n/my-request\r\n/my-team\r\n/cab"
+    pages: "/history-transactions\r\n/all-vacation-request\r\n/my-request\r\n/my-request/not-paid\r\n/my-team\r\n/cab"

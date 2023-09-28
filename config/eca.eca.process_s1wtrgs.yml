@@ -62,7 +62,7 @@ actions:
         condition: Flow_02f5f0r
   Activity_08kc3a3:
     plugin: eca_token_load_entity_ref
-    label: Activity_08kc3a3
+    label: 'load employee'
     configuration:
       field_name_entity_ref: field_employee
       token_name: employee
@@ -74,25 +74,11 @@ actions:
       langcode: _interface
       latest_revision: false
       unchanged: false
-      object: ''
+      object: '[new_bonus_certificate]'
     successors:
-      -
-        id: Activity_0ok4avq
-        condition: ''
       -
         id: Activity_0jlepwx
         condition: ''
-  Activity_0ok4avq:
-    plugin: action_message_action
-    label: Activity_0ok4avq
-    configuration:
-      replace_tokens: false
-      message: |-
-        завантажили юзера з ноди бонусного сертифіката [employee]
-
-        ######
-        [employee:field_bonus_days:value]
-    successors: {  }
   Activity_1t1bdc4:
     plugin: 'eca_tamper:math'
     label: MATH
@@ -105,9 +91,6 @@ actions:
     successors:
       -
         id: Activity_1kqv79i
-        condition: ''
-      -
-        id: Activity_09u20n7
         condition: ''
   Activity_1kqv79i:
     plugin: eca_set_field_value
@@ -122,28 +105,11 @@ actions:
       object: '[employee]'
     successors:
       -
-        id: Activity_02dma82
-        condition: ''
-      -
         id: Activity_0olchhb
         condition: ''
-  Activity_09u20n7:
-    plugin: action_message_action
-    label: Activity_09u20n7
-    configuration:
-      replace_tokens: false
-      message: '[bonus_days] + [new_bonus_certificate:field_limit_:value]'
-    successors: {  }
-  Activity_02dma82:
-    plugin: action_message_action
-    label: Activity_02dma82
-    configuration:
-      replace_tokens: false
-      message: 'заповнили філд [employee:field_bonus_days:value]'
-    successors: {  }
   Activity_0j2gjyg:
     plugin: eca_switch_account
-    label: Activity_0j2gjyg
+    label: switch
     configuration:
       user_id: '1'
     successors:
@@ -161,14 +127,14 @@ actions:
         condition: ''
   Activity_0dfqxg9:
     plugin: action_message_action
-    label: Activity_0dfqxg9
+    label: message
     configuration:
       replace_tokens: false
-      message: 'збережено до юзерва'
+      message: 'Створено бонусний сертифікат та додано дні в ентіті юзера'
     successors: {  }
   Activity_0jlepwx:
     plugin: eca_get_field_value
-    label: Activity_0jlepwx
+    label: 'get field bonus in entity user'
     configuration:
       field_name: field_bonus_days
       token_name: bonus_days
@@ -177,13 +143,3 @@ actions:
       -
         id: Activity_1t1bdc4
         condition: ''
-      -
-        id: Activity_1hcn24e
-        condition: ''
-  Activity_1hcn24e:
-    plugin: action_message_action
-    label: Activity_1hcn24e
-    configuration:
-      replace_tokens: false
-      message: '[bonus_days] кількість бонусів'
-    successors: {  }

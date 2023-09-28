@@ -3,8 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.certificate.field_use_up
-    - field.storage.node.field_use_up
     - views.view.bonus_certificate
   module:
     - eca_base
@@ -56,19 +54,16 @@ gateways:
 actions:
   Activity_173yh9p:
     plugin: eca_switch_account
-    label: Activity_173yh9p
+    label: 'switch to admin'
     configuration:
       user_id: '1'
     successors:
       -
         id: Activity_07cla7c
         condition: ''
-      -
-        id: Activity_0w1kc98
-        condition: ''
   Activity_07cla7c:
     plugin: eca_views_query
-    label: Activity_07cla7c
+    label: 'view "Bonus certificate"'
     configuration:
       token_name: bonus_certificate
       view_id: bonus_certificate
@@ -76,21 +71,11 @@ actions:
       arguments: ''
     successors:
       -
-        id: Activity_1q1hr9t
-        condition: ''
-      -
         id: Gateway_11pc3k3
         condition: ''
-  Activity_1q1hr9t:
-    plugin: action_message_action
-    label: Activity_1q1hr9t
-    configuration:
-      replace_tokens: false
-      message: 'завантажили в''юшку з бонус сертифікатами'
-    successors: {  }
   Activity_1fok5k8:
     plugin: eca_list_remove
-    label: Activity_1fok5k8
+    label: 'remove 1 certificate'
     configuration:
       value: ''
       token_name: first_certificate
@@ -101,12 +86,9 @@ actions:
       -
         id: Activity_1gcs23w
         condition: Flow_0zurklx
-      -
-        id: Activity_1wohtkn
-        condition: ''
   Activity_1gcs23w:
     plugin: eca_set_field_value
-    label: Activity_1gcs23w
+    label: 'set field Current State'
     configuration:
       field_name: field_current_state_certificate
       field_value: state_certificate_disabled
@@ -119,12 +101,9 @@ actions:
       -
         id: Activity_1m19jdo
         condition: ''
-      -
-        id: Activity_01emcjn
-        condition: ''
   Activity_1m19jdo:
     plugin: 'entity:unpublish_action:node'
-    label: Activity_1m19jdo
+    label: 'Unpublish certificate'
     configuration:
       object: '[first_certificate]'
     successors:
@@ -132,36 +111,12 @@ actions:
         id: Gateway_11pc3k3
         condition: ''
       -
-        id: Activity_1ysyda0
+        id: Activity_0iilxpo
         condition: ''
-  Activity_1wohtkn:
+  Activity_0iilxpo:
     plugin: action_message_action
-    label: Activity_1wohtkn
+    label: Activity_0iilxpo
     configuration:
       replace_tokens: false
-      message: |-
-        ремувнули сертифікат з в'юшкі
-        [first_certificate:field_use_up:date:raw]
-        [current-date:raw]
-    successors: {  }
-  Activity_0w1kc98:
-    plugin: action_message_action
-    label: Activity_0w1kc98
-    configuration:
-      replace_tokens: false
-      message: 'світчнула юзера при апдей'
-    successors: {  }
-  Activity_01emcjn:
-    plugin: action_message_action
-    label: Activity_01emcjn
-    configuration:
-      replace_tokens: false
-      message: 'встановити стан поля на disabled'
-    successors: {  }
-  Activity_1ysyda0:
-    plugin: action_message_action
-    label: Activity_1ysyda0
-    configuration:
-      replace_tokens: false
-      message: 'unpublish certificate'
+      message: 'Термін дії бонусного сертифіката минув'
     successors: {  }

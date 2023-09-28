@@ -10,8 +10,8 @@ _core:
   default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
 id: vacation_primary_admin_actions
 theme: vacation
-region: highlighted
-weight: -5
+region: help
+weight: -6
 provider: null
 plugin: local_actions_block
 settings:
