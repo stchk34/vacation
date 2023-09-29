@@ -59,9 +59,6 @@ events:
       -
         id: Activity_1e8a4cz
         condition: ''
-      -
-        id: Activity_13ou1p6
-        condition: ''
   Event_1r1cm92:
     plugin: 'content_entity:custom'
     label: x1
@@ -340,9 +337,6 @@ actions:
       -
         id: Activity_1sqpc96
         condition: ''
-      -
-        id: Activity_0buww2g
-        condition: ''
   Activity_1sqpc96:
     plugin: eca_set_field_value
     label: 'set field balance'
@@ -381,24 +375,10 @@ actions:
       replace_tokens: false
       message: 'Змінено поточний баланс юзера [balance_after_certificate]'
     successors: {  }
-  Activity_0buww2g:
-    plugin: action_message_action
-    label: Activity_0buww2g
-    configuration:
-      replace_tokens: false
-      message: 'Виконання плюсування днів: [employee_certificate:field_balance_a_vacations_day:value] + [earned_transaction:field_days:value]'
-    successors: {  }
   Activity_1hyftxu:
     plugin: action_message_action
     label: Activity_1hyftxu
     configuration:
       replace_tokens: false
       message: 'Unpublish certificate'
-    successors: {  }
-  Activity_13ou1p6:
-    plugin: action_message_action
-    label: Activity_13ou1p6
-    configuration:
-      replace_tokens: false
-      message: 'запустився тригер'
     successors: {  }

@@ -205,7 +205,6 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0cr23qy</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_1t29eaw</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0cr23qy" sourceRef="Activity_056gn5r" targetRef="Activity_07z4qu3" />
       <bpmn2:sequenceFlow id="Flow_0lbdma1" name="not paid" sourceRef="Gateway_0l452un" targetRef="Activity_0g2xxt5" />
@@ -275,7 +274,6 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0hagj2v</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_0ak86d1</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_1jrx8jo" name="set field &#34;Sender&#34;" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
@@ -349,36 +347,6 @@ modeldata: |
         <bpmn2:incoming>Flow_1ugk1g9</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1ugk1g9" sourceRef="Activity_0c3pcf2" targetRef="Activity_0zdx2ux" />
-      <bpmn2:task id="Activity_1tjet6d" camunda:modelerTemplate="org.drupal.action.action_message_action">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="action_message_action" />
-          </camunda:properties>
-          <camunda:field name="message">
-            <camunda:string>Визначена тривалість в годинах для неоплачуваного вакейшен реквеста</camunda:string>
-          </camunda:field>
-          <camunda:field name="replace_tokens">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_1t29eaw</bpmn2:incoming>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1t29eaw" sourceRef="Activity_07z4qu3" targetRef="Activity_1tjet6d" />
-      <bpmn2:task id="Activity_1350iz7" camunda:modelerTemplate="org.drupal.action.action_message_action">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="action_message_action" />
-          </camunda:properties>
-          <camunda:field name="message">
-            <camunda:string>Визначена тривалість в днях для оплачуваного вакейшен реквеста</camunda:string>
-          </camunda:field>
-          <camunda:field name="replace_tokens">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_0ak86d1</bpmn2:incoming>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_0ak86d1" sourceRef="Activity_0gvmbur" targetRef="Activity_1350iz7" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-ff71f313-d1c5-4584-a868-9551e51cbfdc">
       <bpmndi:BPMNPlane id="sid-99524e41-9ee1-4b61-986d-085617a75517" bpmnElement="Process_kldJmh4">
@@ -440,12 +408,6 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0zdx2ux_di" bpmnElement="Activity_0zdx2ux">
           <dc:Bounds x="430" y="-60" width="100" height="80" />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1tjet6d_di" bpmnElement="Activity_1tjet6d">
-          <dc:Bounds x="1300" y="-140" width="100" height="80" />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1350iz7_di" bpmnElement="Activity_1350iz7">
-          <dc:Bounds x="1440" y="0" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1jzbdiz_di" bpmnElement="Flow_1jzbdiz">
           <di:waypoint x="378" y="90" />
@@ -514,14 +476,6 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_1ugk1g9_di" bpmnElement="Flow_1ugk1g9">
           <di:waypoint x="480" y="50" />
           <di:waypoint x="480" y="20" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_1t29eaw_di" bpmnElement="Flow_1t29eaw">
-          <di:waypoint x="1350" y="-30" />
-          <di:waypoint x="1350" y="-60" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0ak86d1_di" bpmnElement="Flow_0ak86d1">
-          <di:waypoint x="1490" y="130" />
-          <di:waypoint x="1490" y="80" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

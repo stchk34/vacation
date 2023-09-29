@@ -137,10 +137,7 @@ actions:
     label: 'save entity'
     configuration:
       object: '[new_request]'
-    successors:
-      -
-        id: Activity_1tjet6d
-        condition: ''
+    successors: {  }
   Activity_1ct2c1l:
     plugin: 'eca_tamper:math'
     label: 'duration in days'
@@ -174,10 +171,7 @@ actions:
     label: 'save entity'
     configuration:
       object: '[new_request]'
-    successors:
-      -
-        id: Activity_1350iz7
-        condition: ''
+    successors: {  }
   Activity_1jrx8jo:
     plugin: eca_set_field_value
     label: 'set field "Sender"'
@@ -209,18 +203,4 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Створено вакейшен реквест'
-    successors: {  }
-  Activity_1tjet6d:
-    plugin: action_message_action
-    label: Activity_1tjet6d
-    configuration:
-      replace_tokens: false
-      message: 'Визначена тривалість в годинах для неоплачуваного вакейшен реквеста'
-    successors: {  }
-  Activity_1350iz7:
-    plugin: action_message_action
-    label: Activity_1350iz7
-    configuration:
-      replace_tokens: false
-      message: 'Визначена тривалість в днях для оплачуваного вакейшен реквеста'
     successors: {  }
