@@ -1,0 +1,12 @@
+uuid: 4e69fff3-d0ce-47d8-bb01-66598cac47b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.request_state
+id: request_state_agree
+label: Agree
+module: workflow
+wid: request_state
+weight: -8
+sysid: 0

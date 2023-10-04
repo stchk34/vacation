@@ -1,0 +1,18 @@
+uuid: a2b1192a-1831-460b-94f9-c8b1ae5c238f
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_agree
+    - workflow.state.request_state_disapproved
+id: request_state_agree_disapproved
+label: null
+module: workflow
+from_sid: request_state_agree
+to_sid: request_state_disapproved
+roles:
+  ceo: ceo
+  team_lead: team_lead
+  pm: pm
+  administrator: administrator
+  workflow_author: '0'

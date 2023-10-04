@@ -3,33 +3,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_days
-    - field.field.node.transaction.field_owner
-    - field.field.node.transaction.field_previous_balance
-    - field.field.node.transaction.field_status_transactions
-    - field.field.node.transaction.field_type_paid_vacation
-    - field.field.node.transaction.field_vacat
-    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.user.user.field_balance_a_vacations_day
-    - field.storage.node.field_actual_balance
     - field.storage.node.field_days
-    - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
-    - field.storage.node.field_owner
-    - field.storage.node.field_previous_balance
-    - field.storage.node.field_status_transactions
-    - field.storage.node.field_type_paid_vacation
-    - field.storage.node.field_vacat
     - field.storage.user.field_balance_a_vacations_day
-    - node.type.transaction
     - node.type.vacation_request
+    - views.view.vacation_request
   module:
     - eca_base
     - eca_content
     - eca_tamper
     - eca_user
+    - eca_views
     - node
 id: process_qlvr3yo
 modeller: bpmn_io
@@ -92,12 +79,21 @@ conditions:
       right: '1'
       operator: equal
       type: value
+  Flow_1ft74wm:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: list_approvers
+      right: '0'
+      operator: greaterthan
+      type: numeric
 gateways:
   Gateway_0okut2l:
     type: 0
     successors:
       -
-        id: Gateway_11r85mq
+        id: Activity_1jfzka7
         condition: Flow_1g0buwi
       -
         id: Activity_0g7rzjw
@@ -111,12 +107,12 @@ gateways:
       -
         id: Activity_1ozf1jb
         condition: Flow_1bllzfn
-  Gateway_11r85mq:
+  Gateway_1q4f2q9:
     type: 0
     successors:
       -
-        id: Activity_1jfzka7
-        condition: ''
+        id: Activity_10f036i
+        condition: Flow_1ft74wm
 actions:
   Activity_177hcd7:
     plugin: eca_token_load_entity
@@ -180,7 +176,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Gateway_00ul7ai
+        id: Activity_033h6g0
         condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value
@@ -467,3 +463,56 @@ actions:
       replace_tokens: false
       message: 'Після Транзакції по списанню оновився баланс до [balance_after_request]'
     successors: {  }
+  Activity_033h6g0:
+    plugin: eca_views_query
+    label: 'view" Vacation request"'
+    configuration:
+      token_name: list_approvers
+      view_id: vacation_request
+      display_id: block_1
+      arguments: '[upd_request]'
+    successors:
+      -
+        id: Activity_0msk7ry
+        condition: ''
+  Activity_0msk7ry:
+    plugin: eca_count
+    label: 'count approvers in view'
+    configuration:
+      token_name: count_approvers
+      list_token: list_approvers
+    successors:
+      -
+        id: Activity_0ci1sfy
+        condition: ''
+      -
+        id: Activity_1a634e9
+        condition: ''
+  Activity_0ci1sfy:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'model upd request:[count_approvers] -> кількість апруверів в вакейшен реквесті'
+    successors: {  }
+  Activity_10f036i:
+    plugin: eca_list_remove
+    label: Activity_10f036i
+    configuration:
+      value: ''
+      token_name: approver
+      method: first
+      index: ''
+      list_token: list_approvers
+    successors: {  }
+  Activity_1a634e9:
+    plugin: eca_token_set_value
+    label: Activity_1a634e9
+    configuration:
+      token_name: countt
+      token_value: '[count_approvers]'
+      use_yaml: false
+    successors:
+      -
+        id: Gateway_1q4f2q9
+        condition: ''

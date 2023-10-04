@@ -89,6 +89,7 @@ modeldata: |
         <bpmn2:outgoing>Flow_0lbdma1</bpmn2:outgoing>
         <bpmn2:outgoing>Flow_0yxghko</bpmn2:outgoing>
         <bpmn2:outgoing>Flow_0l4ys5e</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0c8pi9n</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
       <bpmn2:sequenceFlow id="Flow_0tqw83w" sourceRef="Activity_0c4vplg" targetRef="Gateway_0l452un" />
       <bpmn2:task id="Activity_17cjcqu" name="duration timestamp paid vacation" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
@@ -347,6 +348,107 @@ modeldata: |
         <bpmn2:incoming>Flow_1ugk1g9</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1ugk1g9" sourceRef="Activity_0c3pcf2" targetRef="Activity_0zdx2ux" />
+      <bpmn2:task id="Activity_0ws5lfu" name="view" camunda:modelerTemplate="org.drupal.action.eca_views_query">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_views_query" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>all_vacation_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="view_id">
+            <camunda:string>vacation_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="display_id">
+            <camunda:string>block_1</camunda:string>
+          </camunda:field>
+          <camunda:field name="arguments">
+            <camunda:string>[new_request]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0c8pi9n</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1h4zam5</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0c8pi9n" sourceRef="Gateway_0l452un" targetRef="Activity_0ws5lfu" />
+      <bpmn2:exclusiveGateway id="Gateway_07ny3ja">
+        <bpmn2:incoming>Flow_1h4zam5</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_10pxbh5</bpmn2:outgoing>
+      </bpmn2:exclusiveGateway>
+      <bpmn2:sequenceFlow id="Flow_1h4zam5" sourceRef="Activity_0ws5lfu" targetRef="Gateway_07ny3ja" />
+      <bpmn2:task id="Activity_0k6tbjh" name="remove" camunda:modelerTemplate="org.drupal.action.eca_list_remove">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_list_remove" />
+          </camunda:properties>
+          <camunda:field name="list_token">
+            <camunda:string>all_vacation_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="method">
+            <camunda:string>first</camunda:string>
+          </camunda:field>
+          <camunda:field name="index">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="value">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="token_name">
+            <camunda:string>approver</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_10pxbh5</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_19bhj2i</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_10pxbh5" camunda:modelerTemplate="org.drupal.condition.eca_count" sourceRef="Gateway_07ny3ja" targetRef="Activity_0k6tbjh">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_count" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>all_vacation_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>greaterthan</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>0</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>numeric</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_12elzx4" camunda:modelerTemplate="org.drupal.action.action_send_email_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_send_email_action" />
+          </camunda:properties>
+          <camunda:field name="recipient">
+            <camunda:string>[approver:mail]</camunda:string>
+          </camunda:field>
+          <camunda:field name="subject">
+            <camunda:string>Request for Approval of New Vacation Request</camunda:string>
+          </camunda:field>
+          <camunda:field name="message">
+            <camunda:string>Dear [approver:account-name],
+  I hope this message finds you well. I am writing to inform you that there is a new vacation request that requires your approval.
+  Employee Name: [new_request:field_employee_sender:entity:account-name]
+  Reason for Vacation: [new_request:field_reason_vacation:value]
+  Please log in to the Vacation system or follow the link provided to review and approve or deny the vacation request: [site:url]all-vacation-request</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_19bhj2i</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_19bhj2i" sourceRef="Activity_0k6tbjh" targetRef="Activity_12elzx4" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-ff71f313-d1c5-4584-a868-9551e51cbfdc">
       <bpmndi:BPMNPlane id="sid-99524e41-9ee1-4b61-986d-085617a75517" bpmnElement="Process_kldJmh4">
@@ -408,6 +510,20 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0zdx2ux_di" bpmnElement="Activity_0zdx2ux">
           <dc:Bounds x="430" y="-60" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0ws5lfu_di" bpmnElement="Activity_0ws5lfu">
+          <dc:Bounds x="730" y="-140" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Gateway_07ny3ja_di" bpmnElement="Gateway_07ny3ja" isMarkerVisible="true">
+          <dc:Bounds x="885" y="-125" width="50" height="50" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0k6tbjh_di" bpmnElement="Activity_0k6tbjh">
+          <dc:Bounds x="990" y="-140" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_12elzx4_di" bpmnElement="Activity_12elzx4">
+          <dc:Bounds x="1150" y="-140" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1jzbdiz_di" bpmnElement="Flow_1jzbdiz">
           <di:waypoint x="378" y="90" />
@@ -476,6 +592,22 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_1ugk1g9_di" bpmnElement="Flow_1ugk1g9">
           <di:waypoint x="480" y="50" />
           <di:waypoint x="480" y="20" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0c8pi9n_di" bpmnElement="Flow_0c8pi9n">
+          <di:waypoint x="780" y="65" />
+          <di:waypoint x="780" y="-60" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1h4zam5_di" bpmnElement="Flow_1h4zam5">
+          <di:waypoint x="830" y="-100" />
+          <di:waypoint x="885" y="-100" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_10pxbh5_di" bpmnElement="Flow_10pxbh5">
+          <di:waypoint x="935" y="-100" />
+          <di:waypoint x="990" y="-100" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_19bhj2i_di" bpmnElement="Flow_19bhj2i">
+          <di:waypoint x="1090" y="-100" />
+          <di:waypoint x="1150" y="-100" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

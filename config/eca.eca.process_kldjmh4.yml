@@ -8,16 +8,21 @@ dependencies:
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.field.node.vacation_request.field_reason_vacation
     - field.storage.node.field_duration_example
     - field.storage.node.field_duration_not_paid_vacation
     - field.storage.node.field_duration_notpaid_in_hours
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
+    - field.storage.node.field_reason_vacation
     - node.type.vacation_request
+    - views.view.vacation_request
   module:
+    - eca_base
     - eca_content
     - eca_tamper
     - eca_user
+    - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
@@ -33,7 +38,16 @@ events:
       -
         id: Activity_0c3pcf2
         condition: ''
-conditions: {  }
+conditions:
+  Flow_10pxbh5:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: all_vacation_request
+      right: '0'
+      operator: greaterthan
+      type: numeric
 gateways:
   Gateway_0l452un:
     type: 0
@@ -47,6 +61,15 @@ gateways:
       -
         id: Activity_1jrx8jo
         condition: ''
+      -
+        id: Activity_0ws5lfu
+        condition: ''
+  Gateway_07ny3ja:
+    type: 0
+    successors:
+      -
+        id: Activity_0k6tbjh
+        condition: Flow_10pxbh5
 actions:
   Activity_0c3pcf2:
     plugin: eca_token_load_entity
@@ -203,4 +226,43 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Створено вакейшен реквест'
+    successors: {  }
+  Activity_0ws5lfu:
+    plugin: eca_views_query
+    label: view
+    configuration:
+      token_name: all_vacation_request
+      view_id: vacation_request
+      display_id: block_1
+      arguments: '[new_request]'
+    successors:
+      -
+        id: Gateway_07ny3ja
+        condition: ''
+  Activity_0k6tbjh:
+    plugin: eca_list_remove
+    label: remove
+    configuration:
+      value: ''
+      token_name: approver
+      method: first
+      index: ''
+      list_token: all_vacation_request
+    successors:
+      -
+        id: Activity_12elzx4
+        condition: ''
+  Activity_12elzx4:
+    plugin: action_send_email_action
+    label: Activity_12elzx4
+    configuration:
+      replace_tokens: false
+      recipient: '[approver:mail]'
+      subject: 'Request for Approval of New Vacation Request'
+      message: |-
+        Dear [approver:account-name],
+        I hope this message finds you well. I am writing to inform you that there is a new vacation request that requires your approval.
+        Employee Name: [new_request:field_employee_sender:entity:account-name]
+        Reason for Vacation: [new_request:field_reason_vacation:value]
+        Please log in to the Vacation system or follow the link provided to review and approve or deny the vacation request: [site:url]all-vacation-request
     successors: {  }

@@ -1,0 +1,18 @@
+uuid: 82c46400-2ddf-41e1-bd07-07b299d975bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_agree
+    - workflow.state.request_state_disapproved
+id: request_state_disapproved_agree
+label: null
+module: workflow
+from_sid: request_state_disapproved
+to_sid: request_state_agree
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  pm: '0'
+  administrator: '0'

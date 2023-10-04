@@ -27,4 +27,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/history-transactions\r\n/all-vacation-request\r\n/my-request\r\n/my-request/not-paid\r\n/my-team\r\n/cab"
+    pages: "/history-transactions\r\n/all-vacation-request\r\n/my-request\r\n/my-request/not-paid\r\n/my-team\r\n/cab\r\n/all-vacation-request/not-paid"

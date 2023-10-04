@@ -49,12 +49,142 @@
   }
 }
 
+table{
+  td{
+    .workflow-button-published{
+      display:none!important;
+    }
+  }
+}
 
+.field--node-field-request-state{
+  form{
+    .workflow-button-published{
+      display:none!important;
+    }
+    input{
+      margin-bottom:0;
+    }
+  }
+}
 
+.field--node-field-approver{
+  .field__items{
+    display:flex;
+    flex-direction: row;
+    .field__item{
+      margin-right:5px;
+    }
+  }
+}
 
+//Approvers form.
+.field--name-field-approver {
 
+  table {
+    margin-bottom: 0;
+  }
 
+  //Button "Add another item".
+  .field-add-more-submit {
+    font-size: 14px;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    padding: 10px;
+  }
 
+  .js-form-item {
+    .tabledrag-toggle-weight-wrapper {
+      //Show row weight hidden.
+      button {
+        display: none;
+      }
+    }
+
+    //Table for input link.
+    .field-multiple-table.responsive-enabled {
+      //Header table.
+      thead {
+        border: none;
+        display: none;
+      }
+
+      td {
+        padding: 0;
+        border: none;
+        text-align: left;
+      }
+
+      //Body table.
+      tbody {
+        //tr:not(:first-child) {
+        //  label {
+        //    display: none;
+        //  }
+        //}
+
+        td {
+          padding: 0;
+        }
+
+        border: none;
+
+        .draggable {
+          .field-multiple-drag {
+            display: none;
+          }
+
+          //Title "URL".
+          label {
+            font-size: 20px;
+            font-weight: 600;
+          }
+
+          .js-form-type-url {
+            .help-text {
+              display: none;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+.smartdate--time-inline {
+  display: flex;
+  align-items: center;
+  h4{
+    margin-right:5px;
+    font-size:18px;
+  }
+}
+
+.js-form-item-field-duration-not-paid-vacation-0-duration{
+  select{
+    max-width: fit-content;
+  }
+  .smartdate--widget.allday-label {
+    float: left;
+    margin: 0.1em 2.2em 0.75em -62px;
+  }
+}
+
+.field--name-field-type-vacations{
+  select{
+    max-width: fit-content;
+  }
+}
+
+#block-views-block-transaction-in-request-block-1{
+  max-width:1500px;
+  margin: 0 auto;
+  h2{
+    font-size:20px;
+    text-align:center;
+  }
+}
 
 
 
@@ -245,81 +375,6 @@
       label {
         font-size: 20px;
       }
-    }
-  }
-}
-
-//Comment link form.
-.field--name-field__commit-url {
-  margin: 5px 0 15px 0;
-
-  table {
-    margin-bottom: 0;
-  }
-
-  //Button "Add another item".
-  .field-add-more-submit {
-    font-size: 14px;
-    font-weight: 400;
-    overflow-wrap: anywhere;
-    padding: 10px;
-  }
-
-  .js-form-item {
-    .tabledrag-toggle-weight-wrapper {
-      //Show row weight hidden.
-      button {
-        display: none;
-      }
-    }
-
-    //Table for input link.
-    .field-multiple-table.responsive-enabled {
-      //Header table.
-      thead {
-        border: none;
-        display: none;
-      }
-
-      td {
-        padding: 0;
-        border: none;
-        text-align: left;
-      }
-
-      //Body table.
-      tbody {
-        tr:not(:first-child) {
-          label {
-            display: none;
-          }
-        }
-
-        td {
-          padding: 0;
-        }
-
-        border: none;
-
-        .draggable {
-          .field-multiple-drag {
-            display: none;
-          }
-
-          //Title "URL".
-          label {
-            font-size: 20px;
-            font-weight: 600;
-          }
-
-          .js-form-type-url {
-            .help-text {
-              display: none;
-            }
-          }
-        }
-      }
-
     }
   }
 }

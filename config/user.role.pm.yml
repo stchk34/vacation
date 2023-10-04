@@ -15,11 +15,16 @@ label: PM
 weight: -5
 is_admin: null
 permissions:
+  - 'access any request_state workflow_transion overview'
+  - 'access any state_for_approvers workflow_transion overview'
+  - 'access own request_state workflow_transion overview'
   - 'access request_state workflow_transition form'
   - 'access state_certificate workflow_transition form'
   - 'access state_for_approvers workflow_transition form'
   - 'access transaction_type workflow_transition form'
   - 'access users overview'
+  - 'create request_state workflow_transition'
+  - 'create state_for_approvers workflow_transition'
   - 'create vacation_request content'
   - 'execute workflow_node_given_state_action node'
   - 'execute workflow_node_next_state_action node'

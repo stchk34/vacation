@@ -19,10 +19,9 @@ weight: -10
 is_admin: null
 permissions:
   - 'access any request_state workflow_transion overview'
-  - 'access any state_certificate workflow_transion overview'
   - 'access any state_for_approvers workflow_transion overview'
-  - 'access any transaction_type workflow_transion overview'
   - 'access group overview'
+  - 'access own request_state workflow_transion overview'
   - 'access request_state workflow_transition form'
   - 'access state_certificate workflow_transition form'
   - 'access state_for_approvers workflow_transition form'
@@ -42,6 +41,8 @@ permissions:
   - 'cancel account'
   - 'cancel users by role'
   - 'create certificate content'
+  - 'create request_state workflow_transition'
+  - 'create state_for_approvers workflow_transition'
   - 'create team_lead_group group'
   - 'create users'
   - 'create vacation_request content'

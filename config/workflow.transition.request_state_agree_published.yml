@@ -1,0 +1,18 @@
+uuid: 30b69421-965f-40a2-9e5a-aad310e81f0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_agree
+    - workflow.state.request_state_published
+id: request_state_agree_published
+label: null
+module: workflow
+from_sid: request_state_agree
+to_sid: request_state_published
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  pm: '0'
+  administrator: '0'

@@ -1,0 +1,33 @@
+uuid: dd59b8ec-1be3-4b32-aeb1-866fa283ca9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.transaction_in_request
+  module:
+    - node
+    - views
+  theme:
+    - vacation
+id: views_block__transaction_in_request_block_1
+theme: vacation
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:transaction_in_request-block_1'
+settings:
+  id: 'views_block:transaction_in_request-block_1'
+  label: 'History of the approval request'
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: 'History of the approval request'
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      vacation_request: vacation_request

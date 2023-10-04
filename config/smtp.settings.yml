@@ -10,7 +10,7 @@ smtp_timeout: 30
 smtp_username: sandratkachukk@gmail.com
 smtp_password: 'xbvi pydc empv riyi'
 smtp_from: sandratkachukk@gmail.com
-smtp_fromname: 'admin Vacation system'
+smtp_fromname: 'Vacation system'
 smtp_client_hostname: ''
 smtp_client_helo: ''
 smtp_allowhtml: '0'

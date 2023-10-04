@@ -12,4 +12,7 @@ from_sid: request_state_creation
 to_sid: request_state_published
 roles:
   workflow_author: workflow_author
+  ceo: '0'
+  team_lead: '0'
+  pm: '0'
   administrator: '0'
