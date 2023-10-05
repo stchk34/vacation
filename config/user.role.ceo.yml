@@ -18,14 +18,8 @@ label: CEO
 weight: -10
 is_admin: null
 permissions:
-  - 'access any request_state workflow_transion overview'
-  - 'access any state_for_approvers workflow_transion overview'
   - 'access group overview'
-  - 'access own request_state workflow_transion overview'
   - 'access request_state workflow_transition form'
-  - 'access state_certificate workflow_transition form'
-  - 'access state_for_approvers workflow_transition form'
-  - 'access transaction_type workflow_transition form'
   - 'access user profiles'
   - 'access users overview'
   - 'administer account settings'

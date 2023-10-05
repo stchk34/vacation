@@ -186,8 +186,16 @@ table{
   }
 }
 
-
-
+.views-exposed-form{
+  display: flex;
+  align-items: flex-end;
+  .js-form-item-field-request-state-value{
+    select{
+      max-width: fit-content;
+      margin-right:5px;
+    }
+  }
+}
 
 
 

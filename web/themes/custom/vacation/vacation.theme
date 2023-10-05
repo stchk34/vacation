@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implements hook_node_presave().
+ */
+function vacation_hide_node_presave($node) {
+  // Check if the node type is "Vacation request."
+  if ($node->getType() == 'vacation_request') {
+    // Get the current user.
+    $current_user = \Drupal::currentUser();
+
+    // Check if the current user is the one updating the node.
+    if ($node->getOwnerId() == $current_user->id()) {
+      // Set the node status to unpublished (hidden).
+      $node->set('status', 0);
+    }
+  }
+}

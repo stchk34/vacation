@@ -1,0 +1,33 @@
+uuid: ac6e9a98-63a7-4b1a-a522-31dcd790ced9
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.transaction_in_request
+  module:
+    - node
+    - views
+  theme:
+    - vacation
+id: views_block__transaction_in_request_block_2
+theme: vacation
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:transaction_in_request-block_2'
+settings:
+  id: 'views_block:transaction_in_request-block_2'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      vacation_request: vacation_request

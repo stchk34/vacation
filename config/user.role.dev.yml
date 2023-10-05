@@ -6,11 +6,9 @@ dependencies:
     - node.type.vacation_request
   module:
     - node
-    - workflow
 id: dev
 label: Dev
 weight: -7
 is_admin: null
 permissions:
-  - 'access own request_state workflow_transion overview'
   - 'create vacation_request content'

@@ -11,8 +11,8 @@ module: workflow
 from_sid: request_state_agree
 to_sid: request_state_published
 roles:
+  ceo: ceo
+  team_lead: team_lead
+  pm: pm
+  administrator: administrator
   workflow_author: '0'
-  ceo: '0'
-  team_lead: '0'
-  pm: '0'
-  administrator: '0'

@@ -3,13 +3,31 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_previous_balance
+    - field.field.node.transaction.field_status_transactions
+    - field.field.node.transaction.field_type_paid_vacation
+    - field.field.node.transaction.field_vacat
+    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.field.node.vacation_request.field_request_state
     - field.field.user.user.field_balance_a_vacations_day
+    - field.storage.node.field_actual_balance
     - field.storage.node.field_days
+    - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
+    - field.storage.node.field_owner
+    - field.storage.node.field_previous_balance
+    - field.storage.node.field_request_state
+    - field.storage.node.field_status_transactions
+    - field.storage.node.field_type_paid_vacation
+    - field.storage.node.field_vacat
     - field.storage.user.field_balance_a_vacations_day
+    - node.type.transaction
     - node.type.vacation_request
+    - views.view.transaction_in_request
     - views.view.vacation_request
   module:
     - eca_base
@@ -31,7 +49,7 @@ events:
       type: 'node vacation_request'
     successors:
       -
-        id: Activity_177hcd7
+        id: Activity_0mbz1by
         condition: ''
   Event_1ufu9o1:
     plugin: 'content_entity:custom'
@@ -43,15 +61,6 @@ events:
         id: Activity_1y0n5m6
         condition: ''
 conditions:
-  Flow_1wcqm5q:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[upd_request:field_request_state:value]'
-      right: request_state_approved
-      operator: equal
-      type: value
   Flow_1bllzfn:
     plugin: eca_scalar
     configuration:
@@ -79,15 +88,33 @@ conditions:
       right: '1'
       operator: equal
       type: value
-  Flow_1ft74wm:
-    plugin: eca_count
+  Flow_0u0hrd1:
+    plugin: eca_scalar
     configuration:
       negate: false
       case: false
-      left: list_approvers
-      right: '0'
-      operator: greaterthan
-      type: numeric
+      left: '[upd_request:field_request_state:value]'
+      right: request_state_agree
+      operator: equal
+      type: value
+  Flow_132sn0f:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_request_state:value]'
+      right: request_state_published
+      operator: equal
+      type: value
+  Flow_0xpwm8i:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[count_agree_state]'
+      right: '[count_approvers]'
+      operator: equal
+      type: value
 gateways:
   Gateway_0okut2l:
     type: 0
@@ -98,21 +125,15 @@ gateways:
       -
         id: Activity_0g7rzjw
         condition: Flow_13rdgl5
-  Gateway_00ul7ai:
+  Gateway_16gn9ef:
     type: 0
     successors:
-      -
-        id: Gateway_0okut2l
-        condition: Flow_1wcqm5q
       -
         id: Activity_1ozf1jb
         condition: Flow_1bllzfn
-  Gateway_1q4f2q9:
-    type: 0
-    successors:
       -
-        id: Activity_10f036i
-        condition: Flow_1ft74wm
+        id: Activity_158te4k
+        condition: Flow_0u0hrd1
 actions:
   Activity_177hcd7:
     plugin: eca_token_load_entity
@@ -131,6 +152,9 @@ actions:
     successors:
       -
         id: Activity_1j2dkni
+        condition: ''
+      -
+        id: Activity_0xoy079
         condition: ''
   Activity_0g7rzjw:
     plugin: eca_new_entity
@@ -176,7 +200,10 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Activity_033h6g0
+        id: Activity_17lltrp
+        condition: ''
+      -
+        id: Activity_177hcd7
         condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value
@@ -324,7 +351,10 @@ actions:
       object: '[upd_request]'
     successors:
       -
-        id: Activity_0mbz1by
+        id: Activity_0s15svy
+        condition: ''
+      -
+        id: Gateway_16gn9ef
         condition: ''
   Activity_0s8462p:
     plugin: 'eca_tamper:math'
@@ -420,7 +450,10 @@ actions:
       event_id: x3
       tokens: 'sender_request,paid_vacation_transaction'
       object: '[paid_vacation_transaction]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_1glvn30
+        condition: ''
   Activity_1y0n5m6:
     plugin: eca_switch_account
     label: 'switch to admin'
@@ -438,9 +471,6 @@ actions:
     successors:
       -
         id: Activity_0xg69ms
-        condition: ''
-      -
-        id: Activity_1glvn30
         condition: ''
   Activity_1glvn30:
     plugin: action_message_action
@@ -483,36 +513,115 @@ actions:
       list_token: list_approvers
     successors:
       -
-        id: Activity_0ci1sfy
-        condition: ''
-      -
         id: Activity_1a634e9
         condition: ''
-  Activity_0ci1sfy:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: 'model upd request:[count_approvers] -> кількість апруверів в вакейшен реквесті'
-    successors: {  }
-  Activity_10f036i:
-    plugin: eca_list_remove
-    label: Activity_10f036i
-    configuration:
-      value: ''
-      token_name: approver
-      method: first
-      index: ''
-      list_token: list_approvers
-    successors: {  }
   Activity_1a634e9:
     plugin: eca_token_set_value
-    label: Activity_1a634e9
+    label: 'count as token'
     configuration:
       token_name: countt
       token_value: '[count_approvers]'
       use_yaml: false
     successors:
       -
-        id: Gateway_1q4f2q9
+        id: Activity_0tr5xrc
         condition: ''
+  Activity_158te4k:
+    plugin: eca_set_field_value
+    label: 'Revert state'
+    configuration:
+      field_name: field_request_state
+      field_value: request_state_published
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[upd_request]'
+    successors:
+      -
+        id: Activity_033h6g0
+        condition: Flow_132sn0f
+      -
+        id: Activity_16ggdcc
+        condition: ''
+  Activity_16ggdcc:
+    plugin: action_message_action
+    label: Activity_16ggdcc
+    configuration:
+      replace_tokens: false
+      message: |-
+        статус вакейшен реквест повернуто до Пабліш
+        вивід цього статуса = [upd_request:field_request_state:value]
+    successors: {  }
+  Activity_0tr5xrc:
+    plugin: eca_views_query
+    label: 'View "agree transaction in request"'
+    configuration:
+      token_name: process_request
+      view_id: transaction_in_request
+      display_id: block_1
+      arguments: '[upd_request]'
+    successors:
+      -
+        id: Activity_0hq8t9n
+        condition: ''
+  Activity_0hq8t9n:
+    plugin: eca_count
+    label: count
+    configuration:
+      token_name: count_agree_state
+      list_token: process_request
+    successors:
+      -
+        id: Activity_1374ch1
+        condition: ''
+      -
+        id: Activity_0zuv8kp
+        condition: Flow_0xpwm8i
+  Activity_1374ch1:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: |-
+        model upd request:[count_approvers] -> кількість апруверів в вакейшен реквесті
+        [count_agree_state] -> кількість погоджень реквеста
+    successors: {  }
+  Activity_0zuv8kp:
+    plugin: eca_set_field_value
+    label: 'revert state'
+    configuration:
+      field_name: field_request_state
+      field_value: request_state_approved
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[upd_request]'
+    successors:
+      -
+        id: Gateway_0okut2l
+        condition: ''
+  Activity_0xoy079:
+    plugin: action_message_action
+    label: Activity_0xoy079
+    configuration:
+      replace_tokens: false
+      message: |-
+        реквест апдейтнувся до статусу:[upd_request:field_request_state:value]
+        [upd_request]
+    successors: {  }
+  Activity_17lltrp:
+    plugin: action_message_action
+    label: Activity_17lltrp
+    configuration:
+      replace_tokens: false
+      message: свічнулииии
+    successors: {  }
+  Activity_0s15svy:
+    plugin: action_message_action
+    label: Activity_0s15svy
+    configuration:
+      replace_tokens: false
+      message: '[sender_request] ауаууауау'
+    successors: {  }
