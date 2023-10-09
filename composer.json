@@ -78,6 +78,7 @@
         "drupal/views_attachment_tabs": "^1.1",
         "drupal/views_bulk_operations": "^4.2",
         "drupal/views_cm_current_state": "^2.0",
+        "drupal/views_entity_access_check": "^0.0",
         "drupal/webform": "^6.1",
         "drupal/webform_content_creator": "^4.0",
         "drupal/webform_node_element": "^1.2",

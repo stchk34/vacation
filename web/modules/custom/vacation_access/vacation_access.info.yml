@@ -1,0 +1,5 @@
+name: Vacation Access system
+type: module
+description: 'Provides access for vacation system.'
+core_version_requirement: ^8 || ^9 || ^10
+package: Custom

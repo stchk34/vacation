@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultAllowed;
+use Drupal\Core\Access\AccessResultForbidden;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_update().
+ */
+function vacation_access_entity_update(EntityInterface $entity) {
+  // Check if the updated entity is a node of type 'vacation_request'.
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vacation_request') {
+    // Original version for new entity insertions.
+    if ($entity->isNew()) {
+      // Allow access for new entity insertions.
+      return AccessResultAllowed::allowed();
+    }
+    $author = $entity->getOwner();
+    if ($author->id() !== \Drupal::currentUser()->id()) {
+      // Deny access if the author is not the current user.
+      return AccessResultForbidden::forbidden();
+    }
+  }
+  // Allow access for other entity types or bundles.
+  return AccessResultAllowed::allowed();
+}
+
+

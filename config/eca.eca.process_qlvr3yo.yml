@@ -10,11 +10,13 @@ dependencies:
     - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
+    - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_request_state
     - field.field.user.user.field_balance_a_vacations_day
     - field.storage.node.field_actual_balance
+    - field.storage.node.field_approver
     - field.storage.node.field_days
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
@@ -49,7 +51,7 @@ events:
       type: 'node vacation_request'
     successors:
       -
-        id: Activity_0mbz1by
+        id: Activity_1qjv9fh
         condition: ''
   Event_1ufu9o1:
     plugin: 'content_entity:custom'
@@ -192,18 +194,6 @@ actions:
     successors:
       -
         id: Activity_1qpa53k
-        condition: ''
-  Activity_0mbz1by:
-    plugin: eca_switch_account
-    label: 'switch user'
-    configuration:
-      user_id: '1'
-    successors:
-      -
-        id: Activity_17lltrp
-        condition: ''
-      -
-        id: Activity_177hcd7
         condition: ''
   Activity_0k0dwho:
     plugin: eca_set_field_value
@@ -354,7 +344,7 @@ actions:
         id: Activity_0s15svy
         condition: ''
       -
-        id: Gateway_16gn9ef
+        id: Activity_19yi5bd
         condition: ''
   Activity_0s8462p:
     plugin: 'eca_tamper:math'
@@ -611,13 +601,6 @@ actions:
         реквест апдейтнувся до статусу:[upd_request:field_request_state:value]
         [upd_request]
     successors: {  }
-  Activity_17lltrp:
-    plugin: action_message_action
-    label: Activity_17lltrp
-    configuration:
-      replace_tokens: false
-      message: свічнулииии
-    successors: {  }
   Activity_0s15svy:
     plugin: action_message_action
     label: Activity_0s15svy
@@ -625,3 +608,85 @@ actions:
       replace_tokens: false
       message: '[sender_request] ауаууауау'
     successors: {  }
+  Activity_10uuqtw:
+    plugin: eca_switch_account
+    label: 'switch to current user'
+    configuration:
+      user_id: '[user]'
+    successors:
+      -
+        id: Activity_0zr6k8o
+        condition: ''
+      -
+        id: Activity_1ae4x2p
+        condition: ''
+  Activity_0zr6k8o:
+    plugin: eca_list_remove
+    label: 'remo approver'
+    configuration:
+      value: '[user]'
+      token_name: disabled_user
+      method: first
+      index: ''
+      list_token: approvers
+    successors:
+      -
+        id: Activity_1q4i89a
+        condition: ''
+  Activity_19yi5bd:
+    plugin: eca_token_set_value
+    label: 'set value'
+    configuration:
+      token_name: approver
+      token_value: '[upd_request:field_approver]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1dw2rv9
+        condition: ''
+      -
+        id: Activity_10uuqtw
+        condition: ''
+  Activity_1dw2rv9:
+    plugin: action_message_action
+    label: Activity_1dw2rv9
+    configuration:
+      replace_tokens: false
+      message: |-
+        список всіх апруверів [approver]
+        один апрувер
+    successors: {  }
+  Activity_1ae4x2p:
+    plugin: action_message_action
+    label: Activity_1ae4x2p
+    configuration:
+      replace_tokens: false
+      message: 'action завантажили поточного юзера [user]'
+    successors: {  }
+  Activity_1q4i89a:
+    plugin: eca_switch_account
+    label: Activity_1q4i89a
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Gateway_16gn9ef
+        condition: ''
+  Activity_0trx6uy:
+    plugin: eca_switch_account
+    label: Activity_0trx6uy
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_177hcd7
+        condition: ''
+  Activity_1qjv9fh:
+    plugin: eca_token_load_user_current
+    label: Activity_1qjv9fh
+    configuration:
+      token_name: user
+    successors:
+      -
+        id: Activity_0trx6uy
+        condition: ''

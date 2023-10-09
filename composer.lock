@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45e87930e11cba0d606fa84507ba5780",
+    "content-hash": "91158e44f5a26f73c24e0686d26a74eb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6033,6 +6033,58 @@
             "homepage": "https://www.drupal.org/project/views_cm_current_state",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_cm_current_state"
+            }
+        },
+        {
+            "name": "drupal/views_entity_access_check",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_entity_access_check.git",
+                "reference": "0.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_entity_access_check-0.0.3.zip",
+                "reference": "0.0.3",
+                "shasum": "f14da65ad3be74c75d603b716e482e37ace47255"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "0.0.3",
+                    "datestamp": "1687783446",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Anybody",
+                    "homepage": "https://www.drupal.org/user/291091"
+                },
+                {
+                    "name": "Grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                },
+                {
+                    "name": "thomas.frobieter",
+                    "homepage": "https://www.drupal.org/user/409335"
+                }
+            ],
+            "description": "Adds entity_access() access checking on each views row pre-render (workaround until https://www.drupal.org/project/drupal/issues/777578 is fixed)",
+            "homepage": "https://www.drupal.org/project/views_entity_access_check",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_entity_access_check"
             }
         },
         {

@@ -121,6 +121,7 @@ module:
   typed_data: 0
   update: 0
   user: 0
+  vacation_access: 0
   variationcache: 0
   vercf: 0
   views_add_button: 0
