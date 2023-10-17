@@ -1,0 +1,12 @@
+uuid: 7ff5b563-d369-4a75-a580-232b39b70aa7
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.request_state
+id: request_state_cancel
+label: Cancel
+module: workflow
+wid: request_state
+weight: -8
+sysid: 0

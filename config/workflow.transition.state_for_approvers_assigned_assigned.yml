@@ -1,11 +1,11 @@
-uuid: 69ee961e-90ff-4c77-a1de-8dde70096ea4
+uuid: 1c65e3c3-fca9-4448-9f70-8ce7ff001465
 langcode: en
 status: true
 dependencies:
   config:
     - workflow.state.state_for_approvers_assigned
 id: state_for_approvers_assigned_assigned
-label: ''
+label: null
 module: workflow
 from_sid: state_for_approvers_assigned
 to_sid: state_for_approvers_assigned

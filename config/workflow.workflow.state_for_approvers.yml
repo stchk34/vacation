@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: state_for_approvers
-label: state_for_approvers
+label: 'Operation request'
 module: workflow
 options:
   name_as_title: 0

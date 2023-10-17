@@ -1,0 +1,19 @@
+uuid: a394d9b7-0b0b-4487-9bcf-97dc3b67b067
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_cancel
+    - workflow.state.request_state_creation
+id: request_state_creation_cancel
+label: null
+module: workflow
+from_sid: request_state_creation
+to_sid: request_state_cancel
+roles:
+  workflow_author: workflow_author
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

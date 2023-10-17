@@ -5,10 +5,18 @@ dependencies:
   config:
     - node.type.vacation_request
   module:
+    - actions_permissions
     - node
+    - workflow
 id: dev
 label: Dev
 weight: -7
 is_admin: null
 permissions:
+  - 'access request_state workflow_transition form'
+  - 'access state_for_approvers workflow_transition form'
+  - 'create request_state workflow_transition'
+  - 'create state_for_approvers workflow_transition'
   - 'create vacation_request content'
+  - 'execute workflow_node_given_state_action node'
+  - 'execute workflow_node_next_state_action node'

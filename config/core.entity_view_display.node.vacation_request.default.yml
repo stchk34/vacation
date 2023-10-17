@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.field.node.vacation_request.field_operation
     - field.field.node.vacation_request.field_reason_vacation
     - field.field.node.vacation_request.field_request_state
     - field.field.node.vacation_request.field_type_vacations
@@ -114,3 +115,4 @@ content:
     region: content
 hidden:
   field_count_approvers: true
+  field_operation: true

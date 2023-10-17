@@ -1,0 +1,19 @@
+uuid: 6c92633b-c046-4884-8954-5251d24f8f3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_cancel
+    - workflow.state.request_state_published
+id: request_state_published_cancel
+label: null
+module: workflow
+from_sid: request_state_published
+to_sid: request_state_cancel
+roles:
+  workflow_author: workflow_author
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

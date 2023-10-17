@@ -1,0 +1,12 @@
+uuid: 9273d382-819f-41cc-8347-7dc82e8c94f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_for_approvers
+id: state_for_approvers_started
+label: Started
+module: workflow
+wid: state_for_approvers
+weight: -8
+sysid: 0

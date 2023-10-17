@@ -19,6 +19,10 @@ request_state_published:
     grant_view: true
     grant_update: true
     grant_delete: true
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
 request_state_disapproved:
   workflow_author:
     grant_view: true
@@ -40,6 +44,10 @@ request_state_disapproved:
     grant_view: true
     grant_update: true
     grant_delete: true
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
 request_state_approved:
   workflow_author:
     grant_view: true
@@ -61,6 +69,10 @@ request_state_approved:
     grant_view: true
     grant_update: true
     grant_delete: true
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
 state_certificate_publish:
   workflow_author:
     grant_view: true
@@ -176,15 +188,11 @@ state_for_approvers_assigned:
   workflow_author:
     grant_view: true
     grant_update: true
-    grant_delete: true
+    grant_delete: 0
   ceo:
     grant_view: true
     grant_update: 0
     grant_delete: 0
-  administrator:
-    grant_view: true
-    grant_update: true
-    grant_delete: true
   team_lead:
     grant_view: true
     grant_update: 0
@@ -197,17 +205,9 @@ state_for_approvers_assigned:
     grant_view: true
     grant_update: 0
     grant_delete: 0
-  authenticated:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  anonymous:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  content_editor:
-    grant_view: 0
-    grant_update: 0
+  administrator:
+    grant_view: true
+    grant_update: true
     grant_delete: 0
 state_for_approvers_approved:
   workflow_author:
@@ -367,6 +367,85 @@ request_state_agree:
     grant_update: 0
     grant_delete: 0
   team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+request_state_cancel:
+  workflow_author:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  dev:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+state_for_approvers_cancel:
+  workflow_author:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+state_for_approvers_started:
+  workflow_author:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
     grant_view: true
     grant_update: 0
     grant_delete: 0

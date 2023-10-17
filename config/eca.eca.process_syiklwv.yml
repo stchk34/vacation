@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
     - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_certificate
@@ -17,7 +16,6 @@ dependencies:
     - field.storage.node.field_actual_balance
     - field.storage.node.field_certificate
     - field.storage.node.field_days
-    - field.storage.node.field_employee
     - field.storage.node.field_limit_
     - field.storage.node.field_owner
     - field.storage.node.field_previous_balance
@@ -27,6 +25,7 @@ dependencies:
     - field.storage.user.field_bonus_days
     - node.type.certificate
     - node.type.transaction
+    - views.view.bonus_certificate
     - views.view.current_certificate
   module:
     - eca_base
@@ -36,19 +35,10 @@ dependencies:
     - eca_views
 id: process_syiklwv
 modeller: bpmn_io
-label: 'Burn days'
+label: 'Burn days !!! I added update'
 version: ''
 weight: null
 events:
-  Event_0ggzb2v:
-    plugin: 'content_entity:update'
-    label: 'upd certificate'
-    configuration:
-      type: 'node certificate'
-    successors:
-      -
-        id: Activity_03tnv4l
-        condition: Flow_09cd42h
   Event_0kfl1fu:
     plugin: 'content_entity:custom'
     label: x2
@@ -57,6 +47,15 @@ events:
     successors:
       -
         id: Activity_1s0e3nt
+        condition: ''
+  Event_0ok3uuf:
+    plugin: 'eca_base:eca_cron'
+    label: 'run cron'
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: Activity_1635fi8
         condition: ''
 conditions:
   Flow_199mib5:
@@ -76,15 +75,6 @@ conditions:
       left: '[result_number]'
       right: '[entity:field_limit_:value]'
       operator: greaterthan
-      type: value
-  Flow_09cd42h:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[entity:field_current_state_certificate:value]'
-      right: state_certificate_disabled
-      operator: equal
       type: value
   Flow_1m5nwwq:
     plugin: eca_count
@@ -211,6 +201,24 @@ conditions:
       left: '[first_certificate:field_type_certificate:value]'
       right: '1'
       operator: equal
+      type: value
+  Flow_1qvf8l5:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: all_certificate
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_1lm1oe3:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[current-date:raw]'
+      right: '[disabled_certificate:field_use_up:date:raw]'
+      operator: greaterthan
       type: value
 gateways:
   Gateway_191dxix:
@@ -496,36 +504,6 @@ actions:
       replace_tokens: false
       message: '#9 Зберегли транзакцію по згорянню днів і запустили тригер по відніманню днів з поточного балансу юзера'
     successors: {  }
-  Activity_03tnv4l:
-    plugin: eca_token_load_entity
-    label: 'load to employee in certificate'
-    configuration:
-      token_name: employee_certificate
-      from: id
-      entity_type: user
-      entity_id: '[entity:field_employee:entity:uid]'
-      revision_id: ''
-      properties: ''
-      langcode: _interface
-      latest_revision: false
-      unchanged: false
-      object: ''
-    successors:
-      -
-        id: Activity_1wx8spx
-        condition: ''
-      -
-        id: Activity_16l40qv
-        condition: ''
-  Activity_16l40qv:
-    plugin: eca_switch_account
-    label: 'switch to this user'
-    configuration:
-      user_id: '[employee_certificate]'
-    successors:
-      -
-        id: Activity_1df6qz1
-        condition: ''
   Activity_17hbw82:
     plugin: eca_set_field_value
     label: 'set field balance user'
@@ -622,6 +600,9 @@ actions:
     successors:
       -
         id: Activity_14ix130
+        condition: ''
+      -
+        id: Activity_0w8182f
         condition: ''
   Activity_1uc4cke:
     plugin: action_message_action
@@ -783,13 +764,6 @@ actions:
       -
         id: Activity_0zulopl
         condition: ''
-  Activity_1wx8spx:
-    plugin: action_message_action
-    label: '#1'
-    configuration:
-      replace_tokens: false
-      message: '#1 Сертифікат згорів'
-    successors: {  }
   Activity_0pyfpxu:
     plugin: action_message_action
     label: '#6'
@@ -1503,4 +1477,83 @@ actions:
       message: |-
         свічнули юзера
         і юзаємо значення філдів [entity:field_limit_:value] і [result_number]
+    successors: {  }
+  Activity_1635fi8:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0tq4zrw
+        condition: ''
+  Activity_0tq4zrw:
+    plugin: eca_views_query
+    label: 'View "All certificate"'
+    configuration:
+      token_name: all_certificate
+      view_id: bonus_certificate
+      display_id: block_1
+      arguments: ''
+    successors:
+      -
+        id: Activity_18d7fer
+        condition: Flow_1qvf8l5
+  Activity_18d7fer:
+    plugin: eca_list_remove
+    label: 'remove item'
+    configuration:
+      value: ''
+      token_name: disabled_certificate
+      method: first
+      index: ''
+      list_token: all_certificate
+    successors:
+      -
+        id: Activity_0p9d22b
+        condition: Flow_1lm1oe3
+  Activity_0p9d22b:
+    plugin: eca_token_load_entity_ref
+    label: Activity_0p9d22b
+    configuration:
+      field_name_entity_ref: field_employee
+      token_name: employee_certificate
+      from: current
+      entity_type: user
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[disabled_certificate]'
+    successors:
+      -
+        id: Activity_1udte5a
+        condition: ''
+      -
+        id: Activity_0yy7f7y
+        condition: ''
+  Activity_1udte5a:
+    plugin: action_message_action
+    label: '#1'
+    configuration:
+      replace_tokens: false
+      message: '#1 юзер з згорівшого сертифіката [employee_certificate]'
+    successors: {  }
+  Activity_0yy7f7y:
+    plugin: eca_switch_account
+    label: 'switch employee'
+    configuration:
+      user_id: '[employee_certificate]'
+    successors:
+      -
+        id: Activity_1df6qz1
+        condition: ''
+  Activity_0w8182f:
+    plugin: action_message_action
+    label: Activity_0w8182f
+    configuration:
+      replace_tokens: false
+      message: '#2 get balance user'
     successors: {  }

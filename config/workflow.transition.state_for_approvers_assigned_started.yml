@@ -1,0 +1,19 @@
+uuid: 95a9b80c-e7c9-4614-b494-61f97b5cd584
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_assigned
+    - workflow.state.state_for_approvers_started
+id: state_for_approvers_assigned_started
+label: null
+module: workflow
+from_sid: state_for_approvers_assigned
+to_sid: state_for_approvers_started
+roles:
+  administrator: administrator
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'

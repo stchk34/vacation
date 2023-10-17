@@ -16,23 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:user'
+  handler: views
   handler_settings:
-    target_bundles: null
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    filter:
-      type: role
-      role:
-        ceo: ceo
-        team_lead: team_lead
-        pm: pm
-        dev: '0'
-        content_editor: '0'
-        canceled: '0'
-        administrator: '0'
-        internal: '0'
-    include_anonymous: true
+    view:
+      view_name: list_allowed_approvers
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

@@ -1,0 +1,19 @@
+uuid: 5a30703e-7a13-413a-bee7-3f5a81ed2ece
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_assigned
+    - workflow.state.state_for_approvers_cancel
+id: state_for_approvers_assigned_cancel
+label: null
+module: workflow
+from_sid: state_for_approvers_assigned
+to_sid: state_for_approvers_cancel
+roles:
+  workflow_author: workflow_author
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

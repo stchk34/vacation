@@ -1,0 +1,22 @@
+uuid: 12e16730-533a-45f2-b955-0ad8b8d6d6fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operation
+    - node.type.vacation_request
+  module:
+    - workflow
+id: node.vacation_request.field_operation
+field_name: field_operation
+entity_type: node
+bundle: vacation_request
+label: Operation
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: workflow

@@ -1,6 +1,6 @@
 uuid: ce41a040-3188-481b-b90a-3b521832f867
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.field.node.certificate.field_current_state_certificate

@@ -1,0 +1,19 @@
+uuid: a00998d3-1aa5-4f52-9018-eff61061a46b
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.request_state_cancel
+    - workflow.state.request_state_disapproved
+id: request_state_cancel_disapproved
+label: null
+module: workflow
+from_sid: request_state_cancel
+to_sid: request_state_disapproved
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

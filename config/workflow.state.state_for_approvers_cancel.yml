@@ -1,0 +1,12 @@
+uuid: bac937ff-3fa5-4220-b26e-95b5c8c628cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_for_approvers
+id: state_for_approvers_cancel
+label: Cancel
+module: workflow
+wid: state_for_approvers
+weight: -8
+sysid: 0

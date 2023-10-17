@@ -58,9 +58,11 @@ table{
   }
 }
 
-.field--node-field-request-state{
+.field--node-field-request-state,
+.views-field-field-operation{
   form{
-    .workflow-button-published{
+    .workflow-button-published,
+    .workflow-button-assigned{
       display:none!important;
     }
     input{

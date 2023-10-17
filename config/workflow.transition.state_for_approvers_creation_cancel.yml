@@ -1,0 +1,19 @@
+uuid: 8230a770-698a-4523-9b99-2c139b1bd788
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_cancel
+    - workflow.state.state_for_approvers_creation
+id: state_for_approvers_creation_cancel
+label: null
+module: workflow
+from_sid: state_for_approvers_creation
+to_sid: state_for_approvers_cancel
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

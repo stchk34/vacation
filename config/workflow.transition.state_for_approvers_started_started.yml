@@ -1,0 +1,12 @@
+uuid: c726efe5-2c0f-431a-821e-0615d71406dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_for_approvers_started
+id: state_for_approvers_started_started
+label: null
+module: workflow
+from_sid: state_for_approvers_started
+to_sid: state_for_approvers_started
+roles: {  }

@@ -85,9 +85,6 @@ gateways:
       -
         id: Activity_1tqqyon
         condition: ''
-      -
-        id: Activity_11pv3i3
-        condition: Flow_0u9pnjy
 actions:
   Activity_1nwuz9q:
     plugin: eca_switch_account

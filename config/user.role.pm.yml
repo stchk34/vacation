@@ -16,6 +16,7 @@ weight: -5
 is_admin: null
 permissions:
   - 'access request_state workflow_transition form'
+  - 'access state_for_approvers workflow_transition form'
   - 'access users overview'
   - 'create request_state workflow_transition'
   - 'create state_for_approvers workflow_transition'

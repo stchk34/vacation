@@ -8,5 +8,5 @@ id: state_for_approvers_assigned
 label: Assigned
 module: workflow
 wid: state_for_approvers
-weight: -8
+weight: -9
 sysid: 0

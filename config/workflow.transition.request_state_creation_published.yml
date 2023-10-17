@@ -15,4 +15,5 @@ roles:
   administrator: administrator
   ceo: '0'
   team_lead: '0'
+  dev: '0'
   pm: '0'

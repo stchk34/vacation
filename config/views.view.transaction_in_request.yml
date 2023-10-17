@@ -100,7 +100,7 @@ display:
           entity_field: from_sid
           plugin_id: field
           label: 'From state'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -164,7 +164,7 @@ display:
           entity_type: workflow_transition
           entity_field: to_sid
           plugin_id: field
-          label: 'To state'
+          label: State
           exclude: false
           alter:
             alter_text: false

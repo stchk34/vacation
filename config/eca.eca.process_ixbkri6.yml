@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - views.view.bonus_certificate
+    - views.view.vacation_requests_that_can_still_be_canceled
   module:
     - eca_base
     - eca_content
@@ -12,7 +13,7 @@ dependencies:
     - node
 id: process_ixbkri6
 modeller: bpmn_io
-label: 'Delete bonus certificate'
+label: 'Delete bonus certificate and new functional'
 version: ''
 weight: null
 events:
@@ -51,6 +52,27 @@ gateways:
       -
         id: Activity_1fok5k8
         condition: Flow_1ddncft
+  Gateway_0ueebf0:
+    type: 0
+    successors:
+      -
+        id: Activity_0ik79ti
+        condition: ''
+      -
+        id: Activity_1jn21mp
+        condition: ''
+  Gateway_19hagaw:
+    type: 0
+    successors:
+      -
+        id: Activity_1chh2n3
+        condition: ''
+  Gateway_15lmc3p:
+    type: 0
+    successors:
+      -
+        id: Activity_0wvvdx2
+        condition: ''
 actions:
   Activity_173yh9p:
     plugin: eca_switch_account
@@ -59,7 +81,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Activity_07cla7c
+        id: Gateway_0ueebf0
         condition: ''
   Activity_07cla7c:
     plugin: eca_views_query
@@ -120,3 +142,53 @@ actions:
       replace_tokens: false
       message: 'Термін дії бонусного сертифіката минув'
     successors: {  }
+  Activity_0ik79ti:
+    plugin: eca_views_query
+    label: 'view with paid request'
+    configuration:
+      token_name: paid_request
+      view_id: vacation_requests_that_can_still_be_canceled
+      display_id: block_1
+      arguments: ''
+    successors:
+      -
+        id: Gateway_19hagaw
+        condition: ''
+  Activity_1jn21mp:
+    plugin: eca_views_query
+    label: 'views with not paid request'
+    configuration:
+      token_name: not_paid_request
+      view_id: vacation_requests_that_can_still_be_canceled
+      display_id: block_2
+      arguments: ''
+    successors:
+      -
+        id: Gateway_15lmc3p
+        condition: ''
+  Activity_1chh2n3:
+    plugin: eca_list_remove
+    label: 'remove first paid request'
+    configuration:
+      value: ''
+      token_name: first_paid_request
+      method: first
+      index: ''
+      list_token: paid_request
+    successors:
+      -
+        id: Activity_1efda94
+        condition: ''
+  Activity_0wvvdx2:
+    plugin: eca_list_remove
+    label: 'remove first not paid request'
+    configuration:
+      value: ''
+      token_name: first_notpaid_request
+      method: first
+      index: ''
+      list_token: not_paid_request
+    successors:
+      -
+        id: Activity_0jb9wmw
+        condition: ''
