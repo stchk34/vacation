@@ -5,3 +5,4 @@ roles:
   pm: safe
   content_editor: unsafe
   canceled: unsafe
+  internal: unsafe

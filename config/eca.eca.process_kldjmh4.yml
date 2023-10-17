@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
+    - field.storage.node.field_approver
+    - field.storage.node.field_count_approvers
     - field.storage.node.field_duration_example
     - field.storage.node.field_duration_not_paid_vacation
     - field.storage.node.field_duration_notpaid_in_hours
@@ -99,7 +103,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Gateway_0l452un
+        id: Activity_1bf0vdg
         condition: ''
   Activity_17cjcqu:
     plugin: 'eca_tamper:math'
@@ -225,7 +229,7 @@ actions:
     label: Activity_0zdx2ux
     configuration:
       replace_tokens: false
-      message: 'Створено вакейшен реквест'
+      message: 'Ви створили вакейшен реквест'
     successors: {  }
   Activity_0ws5lfu:
     plugin: eca_views_query
@@ -266,3 +270,48 @@ actions:
         Reason for Vacation: [new_request:field_reason_vacation:value]
         Please log in to the Vacation system or follow the link provided to review and approve or deny the vacation request: [site:url]all-vacation-request
     successors: {  }
+  Activity_1d8s2ql:
+    plugin: eca_count
+    label: Activity_1d8s2ql
+    configuration:
+      token_name: count_voters
+      list_token: voters
+    successors:
+      -
+        id: Activity_0gmj97a
+        condition: ''
+  Activity_0gmj97a:
+    plugin: eca_set_field_value
+    label: Activity_0gmj97a
+    configuration:
+      field_name: field_count_approvers
+      field_value: '[count_voters]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_15eqkww
+        condition: ''
+  Activity_15eqkww:
+    plugin: eca_save_entity
+    label: Activity_15eqkww
+    configuration:
+      object: '[new_request]'
+    successors:
+      -
+        id: Gateway_0l452un
+        condition: ''
+  Activity_1bf0vdg:
+    plugin: eca_token_set_value
+    label: Activity_1bf0vdg
+    configuration:
+      token_name: voters
+      token_value: '[new_request:field_approver]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1d8s2ql
+        condition: ''

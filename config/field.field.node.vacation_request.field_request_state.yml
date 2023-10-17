@@ -16,7 +16,8 @@ description: ''
 required: true
 translatable: false
 default_value:
-  - {  }
+  -
+    value: request_state_published
 default_value_callback: ''
 settings: {  }
 field_type: workflow

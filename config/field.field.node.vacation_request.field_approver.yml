@@ -33,5 +33,6 @@ settings:
         content_editor: '0'
         canceled: '0'
         administrator: '0'
-    include_anonymous: false
+        internal: '0'
+    include_anonymous: true
 field_type: entity_reference

@@ -1,0 +1,25 @@
+uuid: d0bd3b86-1313-40cb-9b2d-0e2cf6205382
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_count_approvers
+    - node.type.vacation_request
+id: node.vacation_request.field_count_approvers
+field_name: field_count_approvers
+entity_type: node
+bundle: vacation_request
+label: 'Count approvers'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

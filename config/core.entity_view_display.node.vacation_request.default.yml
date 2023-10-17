@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
@@ -111,4 +112,5 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-hidden: {  }
+hidden:
+  field_count_approvers: true

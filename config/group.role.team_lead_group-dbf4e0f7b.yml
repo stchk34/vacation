@@ -1,0 +1,17 @@
+uuid: db376fd0-84a8-4b4b-b2b7-7ab287d2e375
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.team_lead_group
+  enforced:
+    config:
+      - user.role.internal
+id: team_lead_group-dbf4e0f7b
+label: Internal
+weight: 4
+internal: true
+audience: outsider
+group_type: team_lead_group
+permissions_ui: false
+permissions: {  }

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
@@ -18,7 +19,6 @@ dependencies:
     - path
     - scheduler
     - smart_date
-    - workflow
 id: node.vacation_request.default
 targetEntityType: node
 bundle: vacation_request
@@ -42,7 +42,7 @@ content:
     third_party_settings: {  }
   field_duration_example:
     type: smartdate_only
-    weight: 9
+    weight: 10
     region: content
     settings:
       modal: false
@@ -78,7 +78,7 @@ content:
             selector: ''
   field_duration_not_paid_vacation:
     type: smartdate_inline
-    weight: 8
+    weight: 9
     region: content
     settings:
       modal: false
@@ -114,21 +114,15 @@ content:
             selector: ''
   field_reason_vacation:
     type: string_textfield
-    weight: 10
+    weight: 11
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_request_state:
-    type: workflow_default
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_type_vacations:
     type: options_select
-    weight: 11
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -157,7 +151,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'select approvers'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -176,8 +170,10 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_count_approvers: true
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true
   field_employee_sender: true
+  field_request_state: true
   promote: true
   sticky: true

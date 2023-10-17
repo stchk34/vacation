@@ -1,0 +1,9 @@
+uuid: 9dcccd77-708c-4463-afc4-3c7c0bb0ea95
+langcode: en
+status: true
+dependencies: {  }
+id: internal
+label: Internal
+weight: 4
+is_admin: null
+permissions: {  }
