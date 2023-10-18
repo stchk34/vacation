@@ -1,15 +1,15 @@
-uuid: 055efe7e-d033-454f-946d-a5b66d5d477f
+uuid: 4b477376-1640-4ab8-9921-3edff6252f5c
 langcode: en
 status: true
 dependencies:
   config:
-    - workflow.state.transaction_type_spent
+    - workflow.state.transaction_type_earned_after_canceled_request
     - workflow.state.transaction_type_spent_when_burning_day
-id: transaction_type_spent_when_burning_day_spent
+id: transaction_type_spent_when_burning_day_earned_after_canceled_request
 label: null
 module: workflow
 from_sid: transaction_type_spent_when_burning_day
-to_sid: transaction_type_spent
+to_sid: transaction_type_earned_after_canceled_request
 roles:
   workflow_author: '0'
   administrator: '0'

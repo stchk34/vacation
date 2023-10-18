@@ -8,5 +8,5 @@ id: transaction_type_creation
 label: Creation
 module: workflow
 wid: transaction_type
-weight: -50
+weight: -11
 sysid: 1

@@ -1,0 +1,15 @@
+uuid: 4c381b4a-662d-4dff-861e-2278d92fee38
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_earned
+    - workflow.state.transaction_type_earned_after_canceled_request
+id: transaction_type_earned_after_canceled_request_earned
+label: null
+module: workflow
+from_sid: transaction_type_earned_after_canceled_request
+to_sid: transaction_type_earned
+roles:
+  workflow_author: '0'
+  administrator: '0'

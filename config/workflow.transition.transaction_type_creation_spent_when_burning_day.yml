@@ -13,10 +13,3 @@ to_sid: transaction_type_spent_when_burning_day
 roles:
   workflow_author: workflow_author
   administrator: administrator
-  ceo: '0'
-  team_lead: '0'
-  dev: '0'
-  pm: '0'
-  authenticated: '0'
-  anonymous: '0'
-  content_editor: '0'

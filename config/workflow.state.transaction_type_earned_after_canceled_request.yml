@@ -1,0 +1,12 @@
+uuid: a4d1594b-a8a7-47e1-b2a4-2fef931b4002
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.transaction_type
+id: transaction_type_earned_after_canceled_request
+label: 'Return of days after canceled request'
+module: workflow
+wid: transaction_type
+weight: -8
+sysid: 0

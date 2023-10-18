@@ -1,15 +1,15 @@
-uuid: f731b4eb-91d8-4bc7-9a10-fa03e85e4368
+uuid: be2b9109-15cc-410d-b7f5-0e94e32a4785
 langcode: en
 status: true
 dependencies:
   config:
     - workflow.state.transaction_type_creation
-    - workflow.state.transaction_type_earned
-id: transaction_type_creation_earned
+    - workflow.state.transaction_type_earned_after_canceled_request
+id: transaction_type_creation_earned_after_canceled_request
 label: null
 module: workflow
 from_sid: transaction_type_creation
-to_sid: transaction_type_earned
+to_sid: transaction_type_earned_after_canceled_request
 roles:
   workflow_author: workflow_author
   administrator: administrator

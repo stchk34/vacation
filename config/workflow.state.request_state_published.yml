@@ -8,5 +8,5 @@ id: request_state_published
 label: Published
 module: workflow
 wid: request_state
-weight: -8
+weight: -6
 sysid: 0

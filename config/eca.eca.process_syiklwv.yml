@@ -1514,7 +1514,7 @@ actions:
         condition: Flow_1lm1oe3
   Activity_0p9d22b:
     plugin: eca_token_load_entity_ref
-    label: Activity_0p9d22b
+    label: 'load employee in certificate'
     configuration:
       field_name_entity_ref: field_employee
       token_name: employee_certificate
@@ -1552,7 +1552,7 @@ actions:
         condition: ''
   Activity_0w8182f:
     plugin: action_message_action
-    label: Activity_0w8182f
+    label: '#2'
     configuration:
       replace_tokens: false
       message: '#2 get balance user'

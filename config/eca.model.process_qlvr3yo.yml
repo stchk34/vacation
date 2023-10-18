@@ -5,7 +5,7 @@ dependencies:
   config:
     - eca.eca.process_qlvr3yo
 id: process_qlvr3yo
-label: 'Create transaction type spent'
+label: 'Create transaction type spent and functional return of days after cancel request'
 tags:
   - untagged
 documentation: ''
@@ -13,7 +13,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_qLVr3Yo" name="Create transaction type spent" isExecutable="true">
+    <bpmn2:process id="Process_qLVr3Yo" name="Create transaction type spent and functional return of days after cancel request" isExecutable="true">
       <bpmn2:startEvent id="Event_1hke6hk" name="upd request" camunda:modelerTemplate="org.drupal.event.content_entity:update">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -457,6 +457,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1vtaur8</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1kkhvlj</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0nctqdh</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0s8462p" name="calculate actual balance after vacation request" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
         <bpmn2:extensionElements>
@@ -623,7 +624,7 @@ modeldata: |
         <bpmn2:outgoing>Flow_1jn0pin</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0ex2mb7" sourceRef="Activity_18cket8" targetRef="Activity_0sb2lrt" />
-      <bpmn2:task id="Activity_1k4mghb" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
+      <bpmn2:task id="Activity_1k4mghb" name="math" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_tamper:math" />
@@ -648,7 +649,7 @@ modeldata: |
         <bpmn2:outgoing>Flow_0u9czq4</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1jn0pin" sourceRef="Activity_0sb2lrt" targetRef="Activity_1k4mghb" />
-      <bpmn2:task id="Activity_05wdp8z" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+      <bpmn2:task id="Activity_05wdp8z" name="Set field Actual balance" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_set_field_value" />
@@ -723,7 +724,7 @@ modeldata: |
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_02lfvx8" sourceRef="Activity_0s8462p" targetRef="Activity_15hsrgz" />
       <bpmn2:sequenceFlow id="Flow_1sapk8s" sourceRef="Event_1ufu9o1" targetRef="Activity_1y0n5m6" />
-      <bpmn2:task id="Activity_1w5mj6m" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
+      <bpmn2:task id="Activity_1w5mj6m" name="save" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_save_entity" />
@@ -980,7 +981,7 @@ modeldata: |
         <bpmn2:incoming>Flow_1b3fwnh</bpmn2:incoming>
         <bpmn2:outgoing>Flow_11ufvo0</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:task id="Activity_0trx6uy" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
+      <bpmn2:task id="Activity_0trx6uy" name="switch to admin" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_switch_account" />
@@ -993,7 +994,7 @@ modeldata: |
         <bpmn2:outgoing>Flow_0c6caf7</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0c6caf7" sourceRef="Activity_0trx6uy" targetRef="Activity_177hcd7" />
-      <bpmn2:task id="Activity_1qjv9fh" camunda:modelerTemplate="org.drupal.action.eca_token_load_user_current">
+      <bpmn2:task id="Activity_1qjv9fh" name="current user" camunda:modelerTemplate="org.drupal.action.eca_token_load_user_current">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_token_load_user_current" />
@@ -1484,6 +1485,468 @@ modeldata: |
         <bpmn2:incoming>Flow_0lwtz52</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0lwtz52" sourceRef="Activity_1rz3f62" targetRef="Activity_1mweirr" />
+      <bpmn2:exclusiveGateway id="Gateway_1s3m38g">
+        <bpmn2:incoming>Flow_0nctqdh</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0y1itsa</bpmn2:outgoing>
+      </bpmn2:exclusiveGateway>
+      <bpmn2:sequenceFlow id="Flow_0nctqdh" name="state = approved" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_1j2dkni" targetRef="Gateway_1s3m38g">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>[upd_request:field_request_state:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>request_state_approved</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_0m4qf6s" name="Math" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_tamper:math" />
+          </camunda:properties>
+          <camunda:field name="eca_data">
+            <camunda:string>[sender_request:field_balance_a_vacations_day:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operation">
+            <camunda:string>addition</camunda:string>
+          </camunda:field>
+          <camunda:field name="flip">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="value">
+            <camunda:string>[return_transaction:field_days:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="eca_token_name">
+            <camunda:string>returned_days</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0brqffm</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0qet6op</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0y1itsa" name="state = canceled" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Gateway_1s3m38g" targetRef="Activity_1f59nag">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>[upd_request:field_operation:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>state_for_approvers_cancel</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_02w0ev5" name="set field Balance" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_balance_a_vacations_day</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[returned_days]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[sender_request]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0qet6op</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1vo572m</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0qet6op" sourceRef="Activity_0m4qf6s" targetRef="Activity_02w0ev5" />
+      <bpmn2:task id="Activity_1qvdfbj" name="save entity" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_save_entity" />
+          </camunda:properties>
+          <camunda:field name="object">
+            <camunda:string>[sender_request]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1vo572m</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1xmayyz</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:task id="Activity_08nptjh" name="message" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>UPD your balance to [returned_days]</camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1xmayyz</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1vo572m" sourceRef="Activity_02w0ev5" targetRef="Activity_1qvdfbj" />
+      <bpmn2:task id="Activity_1f59nag" name="create return Transaction" camunda:modelerTemplate="org.drupal.action.eca_new_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_new_entity" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>return_transaction</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>node transaction</camunda:string>
+          </camunda:field>
+          <camunda:field name="langcode">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="label">
+            <camunda:string>Return of days after canceled of a "[upd_request:title]"</camunda:string>
+          </camunda:field>
+          <camunda:field name="published">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+          <camunda:field name="owner">
+            <camunda:string>1</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0y1itsa</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0klbs7n</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:task id="Activity_1g9sx77" name="set feld OWNER" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_owner</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[sender_request]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0klbs7n</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1e8j1eu</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0klbs7n" sourceRef="Activity_1f59nag" targetRef="Activity_1g9sx77" />
+      <bpmn2:task id="Activity_09fkgsj" name="set field VACATION REQUEST" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_vacat</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[upd_request]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1e8j1eu</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0fftg8d</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1e8j1eu" sourceRef="Activity_1g9sx77" targetRef="Activity_09fkgsj" />
+      <bpmn2:task id="Activity_170wcvx" name="set field Status Transaction" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_status_transactions</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>transaction_type_earned_after_canceled_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0fftg8d</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1eaxo67</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0fftg8d" sourceRef="Activity_09fkgsj" targetRef="Activity_170wcvx" />
+      <bpmn2:task id="Activity_0js8l6c" name="set field TYPE VACATION" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_type_paid_vacation</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>Paid</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1eaxo67</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_113jlsv</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1eaxo67" sourceRef="Activity_170wcvx" targetRef="Activity_0js8l6c" />
+      <bpmn2:task id="Activity_0sycmib" name="set field DAYS" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_days</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[upd_request:field_duration_of_the_paid_vacat:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_113jlsv</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_04hlaqz</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_113jlsv" sourceRef="Activity_0js8l6c" targetRef="Activity_0sycmib" />
+      <bpmn2:task id="Activity_0d1i4ox" name="set field Previous balance" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string>field_previous_balance</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[sender_request:field_balance_a_vacations_day:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_04hlaqz</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0yv847s</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_04hlaqz" sourceRef="Activity_0sycmib" targetRef="Activity_0d1i4ox" />
+      <bpmn2:sequenceFlow id="Flow_1xmayyz" sourceRef="Activity_1qvdfbj" targetRef="Activity_08nptjh" />
+      <bpmn2:task id="Activity_1wwi9nh" name="Math" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_tamper:math" />
+          </camunda:properties>
+          <camunda:field name="eca_data">
+            <camunda:string>[sender_request:field_balance_a_vacations_day:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operation">
+            <camunda:string>addition</camunda:string>
+          </camunda:field>
+          <camunda:field name="flip">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="value">
+            <camunda:string>[upd_request:field_duration_of_the_paid_vacat:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="eca_token_name">
+            <camunda:string>result_returned_days</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0yv847s</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1xyd563</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0yv847s" sourceRef="Activity_0d1i4ox" targetRef="Activity_1wwi9nh" />
+      <bpmn2:task id="Activity_1lrjal9" name="set field Actual Balance" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_field_value" />
+          </camunda:properties>
+          <camunda:field name="method">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:field name="strip_tags">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="trim">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_name">
+            <camunda:string> field_actual_balance</camunda:string>
+          </camunda:field>
+          <camunda:field name="save_entity">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="field_value">
+            <camunda:string>[result_returned_days]</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1xyd563</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_04plqpr</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1xyd563" sourceRef="Activity_1wwi9nh" targetRef="Activity_1lrjal9" />
+      <bpmn2:task id="Activity_19m8f05" name="save RETURN TRANSACTION" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_save_entity" />
+          </camunda:properties>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_04plqpr</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1t0q2a1</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_04plqpr" sourceRef="Activity_1lrjal9" targetRef="Activity_19m8f05" />
+      <bpmn2:startEvent id="Event_0pr2njv" name="custom event X4" camunda:modelerTemplate="org.drupal.event.content_entity:custom">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="content_entity:custom" />
+          </camunda:properties>
+          <camunda:field name="event_id">
+            <camunda:string>x4</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_0zge364</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_0jbb1tu" name="switch to admin" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_switch_account" />
+          </camunda:properties>
+          <camunda:field name="user_id">
+            <camunda:string>1</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0zge364</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0brqffm</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0zge364" sourceRef="Event_0pr2njv" targetRef="Activity_0jbb1tu" />
+      <bpmn2:sequenceFlow id="Flow_0brqffm" sourceRef="Activity_0jbb1tu" targetRef="Activity_0m4qf6s" />
+      <bpmn2:task id="Activity_185q1ll" name="TRIGGER" camunda:modelerTemplate="org.drupal.action.eca_trigger_content_entity_custom_event">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_trigger_content_entity_custom_event" />
+          </camunda:properties>
+          <camunda:field name="event_id">
+            <camunda:string>x4</camunda:string>
+          </camunda:field>
+          <camunda:field name="tokens">
+            <camunda:string>return_transaction, sender_request</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>[return_transaction]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1t0q2a1</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1t0q2a1" sourceRef="Activity_19m8f05" targetRef="Activity_185q1ll" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-8fe252fe-c91d-4c5d-ae6b-5d0ef02003ab">
       <bpmndi:BPMNPlane id="sid-5ad2eb0b-5abd-465b-885f-973b44cd0f56" bpmnElement="Process_qLVr3Yo">
@@ -1571,9 +2034,11 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1k4mghb_di" bpmnElement="Activity_1k4mghb">
           <dc:Bounds x="1350" y="1370" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_05wdp8z_di" bpmnElement="Activity_05wdp8z">
           <dc:Bounds x="1490" y="1370" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0xg69ms_di" bpmnElement="Activity_0xg69ms">
           <dc:Bounds x="1770" y="1370" width="100" height="80" />
@@ -1591,6 +2056,7 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1w5mj6m_di" bpmnElement="Activity_1w5mj6m">
           <dc:Bounds x="1630" y="1370" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1glvn30_di" bpmnElement="Activity_1glvn30">
           <dc:Bounds x="1770" y="1230" width="100" height="80" />
@@ -1635,9 +2101,11 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0trx6uy_di" bpmnElement="Activity_0trx6uy">
           <dc:Bounds x="-1410" y="850" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1qjv9fh_di" bpmnElement="Activity_1qjv9fh">
           <dc:Bounds x="-1560" y="850" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_110lnjo_di" bpmnElement="Activity_110lnjo">
           <dc:Bounds x="-230" y="920" width="100" height="80" />
@@ -1684,6 +2152,79 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1mweirr_di" bpmnElement="Activity_1mweirr">
           <dc:Bounds x="-230" y="1300" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Gateway_1s3m38g_di" bpmnElement="Gateway_1s3m38g" isMarkerVisible="true">
+          <dc:Bounds x="-1085" y="985" width="50" height="50" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0m4qf6s_di" bpmnElement="Activity_0m4qf6s">
+          <dc:Bounds x="-860" y="1730" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_02w0ev5_di" bpmnElement="Activity_02w0ev5">
+          <dc:Bounds x="-700" y="1730" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1qvdfbj_di" bpmnElement="Activity_1qvdfbj">
+          <dc:Bounds x="-560" y="1730" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_08nptjh_di" bpmnElement="Activity_08nptjh">
+          <dc:Bounds x="-560" y="1840" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1f59nag_di" bpmnElement="Activity_1f59nag">
+          <dc:Bounds x="-1110" y="1100" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1g9sx77_di" bpmnElement="Activity_1g9sx77">
+          <dc:Bounds x="-1110" y="1200" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_09fkgsj_di" bpmnElement="Activity_09fkgsj">
+          <dc:Bounds x="-1110" y="1310" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_170wcvx_di" bpmnElement="Activity_170wcvx">
+          <dc:Bounds x="-1110" y="1430" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0js8l6c_di" bpmnElement="Activity_0js8l6c">
+          <dc:Bounds x="-1110" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0sycmib_di" bpmnElement="Activity_0sycmib">
+          <dc:Bounds x="-960" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0d1i4ox_di" bpmnElement="Activity_0d1i4ox">
+          <dc:Bounds x="-820" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1wwi9nh_di" bpmnElement="Activity_1wwi9nh">
+          <dc:Bounds x="-690" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1lrjal9_di" bpmnElement="Activity_1lrjal9">
+          <dc:Bounds x="-560" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_19m8f05_di" bpmnElement="Activity_19m8f05">
+          <dc:Bounds x="-430" y="1540" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Event_0pr2njv_di" bpmnElement="Event_0pr2njv">
+          <dc:Bounds x="-1098" y="1752" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="-1117" y="1795" width="82" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0jbb1tu_di" bpmnElement="Activity_0jbb1tu">
+          <dc:Bounds x="-1010" y="1730" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_185q1ll_di" bpmnElement="Activity_185q1ll">
+          <dc:Bounds x="-290" y="1540" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1bllzfn_di" bpmnElement="Flow_1bllzfn">
@@ -1943,6 +2484,80 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_0lwtz52_di" bpmnElement="Flow_0lwtz52">
           <di:waypoint x="-180" y="1250" />
           <di:waypoint x="-180" y="1300" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0nctqdh_di" bpmnElement="Flow_0nctqdh">
+          <di:waypoint x="-1060" y="930" />
+          <di:waypoint x="-1060" y="985" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="-1052" y="946" width="83" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0y1itsa_di" bpmnElement="Flow_0y1itsa">
+          <di:waypoint x="-1060" y="1035" />
+          <di:waypoint x="-1060" y="1100" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="-1050" y="1058" width="81" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0qet6op_di" bpmnElement="Flow_0qet6op">
+          <di:waypoint x="-760" y="1770" />
+          <di:waypoint x="-700" y="1770" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1vo572m_di" bpmnElement="Flow_1vo572m">
+          <di:waypoint x="-600" y="1770" />
+          <di:waypoint x="-560" y="1770" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0klbs7n_di" bpmnElement="Flow_0klbs7n">
+          <di:waypoint x="-1060" y="1180" />
+          <di:waypoint x="-1060" y="1200" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1e8j1eu_di" bpmnElement="Flow_1e8j1eu">
+          <di:waypoint x="-1060" y="1280" />
+          <di:waypoint x="-1060" y="1310" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0fftg8d_di" bpmnElement="Flow_0fftg8d">
+          <di:waypoint x="-1060" y="1390" />
+          <di:waypoint x="-1060" y="1430" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1eaxo67_di" bpmnElement="Flow_1eaxo67">
+          <di:waypoint x="-1060" y="1510" />
+          <di:waypoint x="-1060" y="1540" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_113jlsv_di" bpmnElement="Flow_113jlsv">
+          <di:waypoint x="-1010" y="1580" />
+          <di:waypoint x="-960" y="1580" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_04hlaqz_di" bpmnElement="Flow_04hlaqz">
+          <di:waypoint x="-860" y="1580" />
+          <di:waypoint x="-820" y="1580" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1xmayyz_di" bpmnElement="Flow_1xmayyz">
+          <di:waypoint x="-510" y="1810" />
+          <di:waypoint x="-510" y="1840" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0yv847s_di" bpmnElement="Flow_0yv847s">
+          <di:waypoint x="-720" y="1580" />
+          <di:waypoint x="-690" y="1580" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1xyd563_di" bpmnElement="Flow_1xyd563">
+          <di:waypoint x="-590" y="1580" />
+          <di:waypoint x="-560" y="1580" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_04plqpr_di" bpmnElement="Flow_04plqpr">
+          <di:waypoint x="-460" y="1580" />
+          <di:waypoint x="-430" y="1580" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0zge364_di" bpmnElement="Flow_0zge364">
+          <di:waypoint x="-1062" y="1770" />
+          <di:waypoint x="-1010" y="1770" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0brqffm_di" bpmnElement="Flow_0brqffm">
+          <di:waypoint x="-910" y="1770" />
+          <di:waypoint x="-860" y="1770" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1t0q2a1_di" bpmnElement="Flow_1t0q2a1">
+          <di:waypoint x="-330" y="1580" />
+          <di:waypoint x="-290" y="1580" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

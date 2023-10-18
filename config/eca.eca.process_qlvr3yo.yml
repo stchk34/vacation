@@ -41,7 +41,7 @@ dependencies:
     - node
 id: process_qlvr3yo
 modeller: bpmn_io
-label: 'Create transaction type spent'
+label: 'Create transaction type spent and functional return of days after cancel request'
 version: ''
 weight: null
 events:
@@ -62,6 +62,15 @@ events:
     successors:
       -
         id: Activity_1y0n5m6
+        condition: ''
+  Event_0pr2njv:
+    plugin: 'content_entity:custom'
+    label: 'custom event X4'
+    configuration:
+      event_id: x4
+    successors:
+      -
+        id: Activity_0jbb1tu
         condition: ''
 conditions:
   Flow_1bllzfn:
@@ -181,6 +190,24 @@ conditions:
       right: request_state_published
       operator: equal
       type: value
+  Flow_0nctqdh:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_request_state:value]'
+      right: request_state_approved
+      operator: equal
+      type: value
+  Flow_0y1itsa:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_operation:value]'
+      right: state_for_approvers_cancel
+      operator: equal
+      type: value
 gateways:
   Gateway_0okut2l:
     type: 0
@@ -236,6 +263,12 @@ gateways:
       -
         id: Activity_19yi5bd
         condition: Flow_1mb6drj
+  Gateway_1s3m38g:
+    type: 0
+    successors:
+      -
+        id: Activity_1f59nag
+        condition: Flow_0y1itsa
 actions:
   Activity_177hcd7:
     plugin: eca_token_load_entity
@@ -440,6 +473,9 @@ actions:
       -
         id: Activity_1vxeeqp
         condition: ''
+      -
+        id: Gateway_1s3m38g
+        condition: Flow_0nctqdh
   Activity_0s8462p:
     plugin: 'eca_tamper:math'
     label: 'calculate actual balance after vacation request'
@@ -501,7 +537,7 @@ actions:
         condition: ''
   Activity_1k4mghb:
     plugin: 'eca_tamper:math'
-    label: Activity_1k4mghb
+    label: math
     configuration:
       operation: subtraction
       flip: false
@@ -514,7 +550,7 @@ actions:
         condition: ''
   Activity_05wdp8z:
     plugin: eca_set_field_value
-    label: Activity_05wdp8z
+    label: 'Set field Actual balance'
     configuration:
       field_name: field_actual_balance
       field_value: '[actual_balance]'
@@ -549,7 +585,7 @@ actions:
         condition: ''
   Activity_1w5mj6m:
     plugin: eca_save_entity
-    label: Activity_1w5mj6m
+    label: save
     configuration:
       object: '[paid_vacation_transaction]'
     successors:
@@ -661,7 +697,7 @@ actions:
         condition: ''
   Activity_0trx6uy:
     plugin: eca_switch_account
-    label: Activity_0trx6uy
+    label: 'switch to admin'
     configuration:
       user_id: '1'
     successors:
@@ -670,7 +706,7 @@ actions:
         condition: ''
   Activity_1qjv9fh:
     plugin: eca_token_load_user_current
-    label: Activity_1qjv9fh
+    label: 'current user'
     configuration:
       token_name: userok
     successors:
@@ -804,4 +840,206 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Ваш апрув зараховано'
+    successors: {  }
+  Activity_0m4qf6s:
+    plugin: 'eca_tamper:math'
+    label: Math
+    configuration:
+      operation: addition
+      flip: false
+      value: '[return_transaction:field_days:value]'
+      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
+      eca_token_name: returned_days
+    successors:
+      -
+        id: Activity_02w0ev5
+        condition: ''
+  Activity_02w0ev5:
+    plugin: eca_set_field_value
+    label: 'set field Balance'
+    configuration:
+      field_name: field_balance_a_vacations_day
+      field_value: '[returned_days]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[sender_request]'
+    successors:
+      -
+        id: Activity_1qvdfbj
+        condition: ''
+  Activity_1qvdfbj:
+    plugin: eca_save_entity
+    label: 'save entity'
+    configuration:
+      object: '[sender_request]'
+    successors:
+      -
+        id: Activity_08nptjh
+        condition: ''
+  Activity_08nptjh:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'UPD your balance to [returned_days]'
+    successors: {  }
+  Activity_1f59nag:
+    plugin: eca_new_entity
+    label: 'create return Transaction'
+    configuration:
+      token_name: return_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Return of days after canceled of a "[upd_request:title]"'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_1g9sx77
+        condition: ''
+  Activity_1g9sx77:
+    plugin: eca_set_field_value
+    label: 'set feld OWNER'
+    configuration:
+      field_name: field_owner
+      field_value: '[sender_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_09fkgsj
+        condition: ''
+  Activity_09fkgsj:
+    plugin: eca_set_field_value
+    label: 'set field VACATION REQUEST'
+    configuration:
+      field_name: field_vacat
+      field_value: '[upd_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_170wcvx
+        condition: ''
+  Activity_170wcvx:
+    plugin: eca_set_field_value
+    label: 'set field Status Transaction'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_earned_after_canceled_request
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_0js8l6c
+        condition: ''
+  Activity_0js8l6c:
+    plugin: eca_set_field_value
+    label: 'set field TYPE VACATION'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: Paid
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_0sycmib
+        condition: ''
+  Activity_0sycmib:
+    plugin: eca_set_field_value
+    label: 'set field DAYS'
+    configuration:
+      field_name: field_days
+      field_value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_0d1i4ox
+        condition: ''
+  Activity_0d1i4ox:
+    plugin: eca_set_field_value
+    label: 'set field Previous balance'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[sender_request:field_balance_a_vacations_day:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_1wwi9nh
+        condition: ''
+  Activity_1wwi9nh:
+    plugin: 'eca_tamper:math'
+    label: Math
+    configuration:
+      operation: addition
+      flip: false
+      value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
+      eca_token_name: result_returned_days
+    successors:
+      -
+        id: Activity_1lrjal9
+        condition: ''
+  Activity_1lrjal9:
+    plugin: eca_set_field_value
+    label: 'set field Actual Balance'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[result_returned_days]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_19m8f05
+        condition: ''
+  Activity_19m8f05:
+    plugin: eca_save_entity
+    label: 'save RETURN TRANSACTION'
+    configuration:
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_185q1ll
+        condition: ''
+  Activity_0jbb1tu:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0m4qf6s
+        condition: ''
+  Activity_185q1ll:
+    plugin: eca_trigger_content_entity_custom_event
+    label: TRIGGER
+    configuration:
+      event_id: x4
+      tokens: 'return_transaction, sender_request'
+      object: '[return_transaction]'
     successors: {  }

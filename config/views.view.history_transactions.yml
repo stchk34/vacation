@@ -8,6 +8,12 @@ dependencies:
     - field.storage.node.field_previous_balance
     - field.storage.node.field_status_transactions
     - node.type.transaction
+    - user.role.administrator
+    - user.role.authenticated
+    - user.role.ceo
+    - user.role.dev
+    - user.role.pm
+    - user.role.team_lead
   module:
     - better_exposed_filters
     - node
@@ -279,9 +285,15 @@ display:
                   collapsible: false
                   is_secondary: false
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            ceo: ceo
+            team_lead: team_lead
+            dev: dev
+            pm: pm
+            authenticated: authenticated
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -374,47 +386,14 @@ display:
           plugin_id: bundle
           value:
             transaction: transaction
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-        field_type_transaction_value_1:
-          id: field_type_transaction_value_1
-          table: node__field_type_transaction
-          field: field_type_transaction_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: list_field
-          operator: or
-          value:
-            3: '3'
           group: 1
-          exposed: true
           expose:
-            label: 'Type (field_type_transaction)'
-            description: null
-            use_operator: false
-            operator: field_type_transaction_value_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_type_transaction_value_1
-            required: false
-            remember: false
-            multiple: false
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
@@ -499,7 +478,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     id: page_1
@@ -963,14 +942,14 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: workflow_state
-          operator: or
+          operator: and
           value:
             all: all
           group: 1
           exposed: true
           expose:
             operator_id: field_status_transactions_value_op
-            label: Type
+            label: 'Type transaction'
             description: ''
             use_operator: false
             operator: field_status_transactions_value_op
@@ -990,6 +969,7 @@ display:
               content_editor: '0'
               canceled: '0'
               administrator: '0'
+              internal: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -1024,7 +1004,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_actual_balance'
         - 'config:field.storage.node.field_days'

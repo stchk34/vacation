@@ -10,7 +10,7 @@ dependencies:
     - eca_views
 id: process_hxbry0b
 modeller: bpmn_io
-label: noname
+label: 'Send email all approvers about NEW vacation request'
 version: ''
 weight: null
 events:

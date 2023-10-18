@@ -8,5 +8,5 @@ id: request_state_approved
 label: Approved
 module: workflow
 wid: request_state
-weight: -8
+weight: -9
 sysid: 0
