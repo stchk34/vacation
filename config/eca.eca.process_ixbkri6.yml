@@ -1,6 +1,6 @@
 uuid: eed322ce-b21c-42ad-8e7e-663a7b3cb785
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.bonus_certificate
@@ -15,7 +15,7 @@ id: process_ixbkri6
 modeller: bpmn_io
 label: 'Delete bonus certificate and new functional'
 version: ''
-weight: null
+weight: -10
 events:
   Event_10hgqf0:
     plugin: 'eca_base:eca_cron'
@@ -78,6 +78,9 @@ gateways:
         condition: ''
       -
         id: Activity_1jn21mp
+        condition: ''
+      -
+        id: Activity_07cla7c
         condition: ''
   Gateway_19hagaw:
     type: 0
@@ -155,7 +158,7 @@ actions:
         condition: ''
   Activity_0iilxpo:
     plugin: action_message_action
-    label: Activity_0iilxpo
+    label: message
     configuration:
       replace_tokens: false
       message: 'Термін дії бонусного сертифіката минув'

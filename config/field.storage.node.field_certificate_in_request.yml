@@ -1,0 +1,19 @@
+uuid: ea66e552-de2f-456e-8771-c8e78ce8a712
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_certificate_in_request
+field_name: field_certificate_in_request
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -2443,8 +2443,8 @@ modeldata: |
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1mb6drj_di" bpmnElement="Flow_1mb6drj">
           <di:waypoint x="-920" y="880" />
-          <di:waypoint x="-920" y="910" />
-          <di:waypoint x="-810" y="910" />
+          <di:waypoint x="-920" y="890" />
+          <di:waypoint x="-810" y="890" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_07f8ond_di" bpmnElement="Flow_07f8ond">
           <di:waypoint x="-760" y="930" />

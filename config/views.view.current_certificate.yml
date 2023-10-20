@@ -622,7 +622,7 @@ display:
         - 'config:field.storage.node.field_use_up'
   block_2:
     id: block_2
-    display_title: Block
+    display_title: 'Block bonus certificate'
     display_plugin: block
     position: 2
     display_options:
@@ -727,6 +727,30 @@ display:
       defaults:
         filters: false
         filter_groups: false
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_limit_'
+        - 'config:field.storage.node.field_start_date_certificate'
+        - 'config:field.storage.node.field_type_certificate'
+        - 'config:field.storage.node.field_use_up'
+  block_3:
+    id: block_3
+    display_title: 'Block aggregation days'
+    display_plugin: block
+    position: 2
+    display_options:
+      display_description: ''
       display_extenders: {  }
     cache_metadata:
       max-age: -1

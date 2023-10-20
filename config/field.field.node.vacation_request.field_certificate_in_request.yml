@@ -1,0 +1,29 @@
+uuid: e1e29dfe-ff49-44f8-b909-4e55fae64490
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_certificate_in_request
+    - node.type.certificate
+    - node.type.vacation_request
+id: node.vacation_request.field_certificate_in_request
+field_name: field_certificate_in_request
+entity_type: node
+bundle: vacation_request
+label: Certificate
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      certificate: certificate
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.certificate.field_limit_
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
@@ -12,14 +14,17 @@ dependencies:
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_reason_vacation
     - field.storage.node.field_approver
+    - field.storage.node.field_certificate_in_request
     - field.storage.node.field_count_approvers
     - field.storage.node.field_duration_example
     - field.storage.node.field_duration_not_paid_vacation
     - field.storage.node.field_duration_notpaid_in_hours
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
+    - field.storage.node.field_limit_
     - field.storage.node.field_reason_vacation
     - node.type.vacation_request
+    - views.view.current_certificate
     - views.view.vacation_request
   module:
     - eca_base
@@ -31,7 +36,7 @@ id: process_kldjmh4
 modeller: bpmn_io
 label: 'Duration vacation days and send message to approver'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1r3ba0r:
     plugin: 'content_entity:insert'
@@ -52,6 +57,60 @@ conditions:
       right: '0'
       operator: greaterthan
       type: numeric
+  Flow_16dorsq:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[first_drop_certificate:field_limit_:value]'
+      right: '[ceil_duration_days]'
+      operator: equal
+      type: value
+  Flow_1m21i3s:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[ceil_duration_days]'
+      right: '[first_drop_certificate:field_limit_:value]'
+      operator: greaterthan
+      type: value
+  Flow_1c5vavt:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[first_drop_certificate:field_limit_:value]'
+      right: '[ceil_duration_days]'
+      operator: greaterthan
+      type: value
+  Flow_0fzc6dv:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[second_dropped_certificate:field_limit_:value]'
+      right: '[remaining_days_for_second_certificate]'
+      operator: greaterthan
+      type: value
+  Flow_0cvaikt:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[remaining_days_for_second_certificate]'
+      right: '[second_dropped_certificate:field_limit_:value]'
+      operator: greaterthan
+      type: value
+  Flow_09a3tvo:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[second_dropped_certificate:field_limit_:value]'
+      right: '[remaining_days_for_second_certificate]'
+      operator: equal
+      type: value
 gateways:
   Gateway_0l452un:
     type: 0
@@ -63,9 +122,6 @@ gateways:
         id: Activity_17cjcqu
         condition: ''
       -
-        id: Activity_1jrx8jo
-        condition: ''
-      -
         id: Activity_0ws5lfu
         condition: ''
   Gateway_07ny3ja:
@@ -74,6 +130,30 @@ gateways:
       -
         id: Activity_0k6tbjh
         condition: Flow_10pxbh5
+  Gateway_1frlevo:
+    type: 0
+    successors:
+      -
+        id: Activity_0eblzq6
+        condition: Flow_16dorsq
+      -
+        id: Activity_1tgwoss
+        condition: Flow_1m21i3s
+      -
+        id: Activity_0eblzq6
+        condition: Flow_1c5vavt
+  Gateway_059fo18:
+    type: 0
+    successors:
+      -
+        id: Activity_0xflyho
+        condition: Flow_0fzc6dv
+      -
+        id: Activity_134q4un
+        condition: Flow_0cvaikt
+      -
+        id: Activity_0xflyho
+        condition: Flow_09a3tvo
 actions:
   Activity_0c3pcf2:
     plugin: eca_token_load_entity
@@ -157,14 +237,8 @@ actions:
       object: '[new_request]'
     successors:
       -
-        id: Activity_07z4qu3
+        id: Activity_17pfgmw
         condition: ''
-  Activity_07z4qu3:
-    plugin: eca_save_entity
-    label: 'save entity'
-    configuration:
-      object: '[new_request]'
-    successors: {  }
   Activity_1ct2c1l:
     plugin: 'eca_tamper:math'
     label: 'duration in days'
@@ -191,14 +265,8 @@ actions:
       object: '[new_request]'
     successors:
       -
-        id: Activity_0gvmbur
+        id: Activity_10aaj18
         condition: ''
-  Activity_0gvmbur:
-    plugin: eca_save_entity
-    label: 'save entity'
-    configuration:
-      object: '[new_request]'
-    successors: {  }
   Activity_1jrx8jo:
     plugin: eca_set_field_value
     label: 'set field "Sender"'
@@ -210,10 +278,13 @@ actions:
       trim: false
       save_entity: true
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_07h79g6
+        condition: ''
   Activity_0dev3gl:
     plugin: 'eca_tamper:math'
-    label: Activity_0dev3gl
+    label: math
     configuration:
       operation: addition
       flip: false
@@ -258,7 +329,7 @@ actions:
         condition: ''
   Activity_12elzx4:
     plugin: action_send_email_action
-    label: Activity_12elzx4
+    label: 'send email'
     configuration:
       replace_tokens: false
       recipient: '[approver:mail]'
@@ -269,10 +340,16 @@ actions:
         Employee Name: [new_request:field_employee_sender:entity:account-name]
         Reason for Vacation: [new_request:field_reason_vacation:value]
         Please log in to the Vacation system or follow the link provided to review and approve or deny the vacation request: [site:url]all-vacation-request
-    successors: {  }
+    successors:
+      -
+        id: Activity_0ws5lfu
+        condition: ''
+      -
+        id: Activity_1klutlg
+        condition: ''
   Activity_1d8s2ql:
     plugin: eca_count
-    label: Activity_1d8s2ql
+    label: 'count voters'
     configuration:
       token_name: count_voters
       list_token: voters
@@ -282,7 +359,7 @@ actions:
         condition: ''
   Activity_0gmj97a:
     plugin: eca_set_field_value
-    label: Activity_0gmj97a
+    label: count_approvers
     configuration:
       field_name: field_count_approvers
       field_value: '[count_voters]'
@@ -293,20 +370,11 @@ actions:
       object: '[new_request]'
     successors:
       -
-        id: Activity_15eqkww
-        condition: ''
-  Activity_15eqkww:
-    plugin: eca_save_entity
-    label: Activity_15eqkww
-    configuration:
-      object: '[new_request]'
-    successors:
-      -
-        id: Gateway_0l452un
+        id: Activity_1jrx8jo
         condition: ''
   Activity_1bf0vdg:
     plugin: eca_token_set_value
-    label: Activity_1bf0vdg
+    label: 'set token Voters'
     configuration:
       token_name: voters
       token_value: '[new_request:field_approver]'
@@ -315,3 +383,451 @@ actions:
       -
         id: Activity_1d8s2ql
         condition: ''
+  Activity_17pfgmw:
+    plugin: eca_save_entity
+    label: 'save entity'
+    configuration:
+      object: '[new_request]'
+    successors: {  }
+  Activity_10aaj18:
+    plugin: eca_switch_account
+    label: 'switch to sender'
+    configuration:
+      user_id: '[sender]'
+    successors:
+      -
+        id: Activity_1fv3ad3
+        condition: ''
+  Activity_07h79g6:
+    plugin: eca_token_load_entity
+    label: 'load entity sender'
+    configuration:
+      token_name: sender
+      from: id
+      entity_type: user
+      entity_id: '[new_request:author:uid]'
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_18k7wr2
+        condition: ''
+      -
+        id: Activity_02dm4w2
+        condition: ''
+  Activity_1fv3ad3:
+    plugin: eca_views_query
+    label: 'view "All current certificate sender"'
+    configuration:
+      token_name: list_current_certificate
+      view_id: current_certificate
+      display_id: block_1
+      arguments: '[sender]'
+    successors:
+      -
+        id: Activity_0xlaf01
+        condition: ''
+  Activity_18k7wr2:
+    plugin: eca_token_set_value
+    label: 'token all certificate'
+    configuration:
+      token_name: list_certificate_request
+      token_value: '[new_request:field_certificate_in_request]'
+      use_yaml: false
+    successors:
+      -
+        id: Gateway_0l452un
+        condition: ''
+  Activity_0xlaf01:
+    plugin: eca_list_remove
+    label: 'remove item'
+    configuration:
+      value: ''
+      token_name: first_drop_certificate
+      method: first
+      index: ''
+      list_token: list_current_certificate
+    successors:
+      -
+        id: Gateway_1frlevo
+        condition: ''
+      -
+        id: Activity_0hs9wjv
+        condition: ''
+  Activity_0eblzq6:
+    plugin: 'eca_tamper:math'
+    label: 'limit_first_days - duration_request'
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[ceil_duration_days]'
+      eca_data: '[first_drop_certificate:field_limit_:value]'
+      eca_token_name: remaining_days
+    successors:
+      -
+        id: Activity_1lb2yo5
+        condition: ''
+  Activity_06niuw8:
+    plugin: 'eca_tamper:math'
+    label: "duration_days\_ -\_ limit_first_certificate"
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[first_drop_certificate:field_limit_:value]'
+      eca_data: '[ceil_duration_days]'
+      eca_token_name: remaining_days_for_second_certificate
+    successors:
+      -
+        id: Activity_0f9bjko
+        condition: ''
+  Activity_0e3u8dd:
+    plugin: eca_set_field_value
+    label: 'set field Limit day in first certificate'
+    configuration:
+      field_name: field_limit_
+      field_value: '[remaining_days]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[first_drop_certificate]'
+    successors:
+      -
+        id: Activity_1tmwopm
+        condition: ''
+      -
+        id: Activity_0n462po
+        condition: ''
+  Activity_1tmwopm:
+    plugin: eca_save_entity
+    label: 'save first certificate entity'
+    configuration:
+      object: '[first_drop_certificate]'
+    successors: {  }
+  Activity_0n462po:
+    plugin: eca_list_add
+    label: 'add new item to list all certificate in request'
+    configuration:
+      value: '[first_drop_certificate]'
+      method: append
+      index: ''
+      list_token: list_certificate_request
+    successors:
+      -
+        id: Activity_1lz8o6n
+        condition: ''
+  Activity_1lz8o6n:
+    plugin: eca_set_field_value
+    label: 'set field Certificate in Vacation request'
+    configuration:
+      field_name: field_certificate_in_request
+      field_value: '[list_certificate_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_0ytf55c
+        condition: ''
+  Activity_0ytf55c:
+    plugin: eca_save_entity
+    label: 'save entity request'
+    configuration:
+      object: '[new_request]'
+    successors: {  }
+  Activity_0f9bjko:
+    plugin: eca_set_field_value
+    label: 'set field Limit day 0 in first certificate'
+    configuration:
+      field_name: field_limit_
+      field_value: '0'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[first_drop_certificate]'
+    successors:
+      -
+        id: Activity_119c85b
+        condition: ''
+      -
+        id: Activity_0bn22yi
+        condition: ''
+  Activity_119c85b:
+    plugin: eca_list_add
+    label: 'add new item to list all certificate in request'
+    configuration:
+      value: '[first_drop_certificate]'
+      method: append
+      index: ''
+      list_token: list_certificate_request
+    successors:
+      -
+        id: Activity_0hjs10x
+        condition: ''
+  Activity_0hjs10x:
+    plugin: eca_list_remove
+    label: 'remove second certificate'
+    configuration:
+      value: ''
+      token_name: second_dropped_certificate
+      method: index
+      index: '1'
+      list_token: list_current_certificate
+    successors:
+      -
+        id: Gateway_059fo18
+        condition: ''
+  Activity_0bn22yi:
+    plugin: eca_save_entity
+    label: 'save first_certificate'
+    configuration:
+      object: '[first_drop_certificate]'
+    successors: {  }
+  Activity_0xflyho:
+    plugin: 'eca_tamper:math'
+    label: 'second_certificate_days - remaining_day'
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[remaining_days_for_second_certificate]'
+      eca_data: '[second_dropped_certificate:field_limit_:value]'
+      eca_token_name: remaining
+    successors:
+      -
+        id: Activity_1lc9uqs
+        condition: ''
+  Activity_1lc9uqs:
+    plugin: eca_set_field_value
+    label: 'set field limit vacation days in second certificate'
+    configuration:
+      field_name: field_limit_
+      field_value: '[remaining]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[second_dropped_certificate]'
+    successors:
+      -
+        id: Activity_0tns4xu
+        condition: ''
+      -
+        id: Activity_01mqdkj
+        condition: ''
+  Activity_0tns4xu:
+    plugin: eca_save_entity
+    label: 'save entity second certificate'
+    configuration:
+      object: '[second_dropped_certificate]'
+    successors: {  }
+  Activity_01mqdkj:
+    plugin: eca_list_add
+    label: 'add second certificate to list'
+    configuration:
+      value: '[second_dropped_certificate]'
+      method: append
+      index: ''
+      list_token: list_certificate_request
+    successors:
+      -
+        id: Activity_1imobjk
+        condition: ''
+  Activity_1imobjk:
+    plugin: eca_set_field_value
+    label: 'set field  2 Certificate in Vacation request'
+    configuration:
+      field_name: field_certificate_in_request
+      field_value: list_certificate_request
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_0dzdlxa
+        condition: ''
+  Activity_0dzdlxa:
+    plugin: eca_save_entity
+    label: 'save entity request'
+    configuration:
+      object: '[new_request]'
+    successors: {  }
+  Activity_1lb2yo5:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0e3u8dd
+        condition: ''
+  Activity_1tgwoss:
+    plugin: eca_switch_account
+    label: 'switch to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_06niuw8
+        condition: ''
+  Activity_02dm4w2:
+    plugin: action_message_action
+    label: Activity_02dm4w2
+    configuration:
+      replace_tokens: false
+      message: 'сендер на цьому вакейшен реквесті [sender]'
+    successors: {  }
+  Activity_1klutlg:
+    plugin: action_message_action
+    label: Activity_1klutlg
+    configuration:
+      replace_tokens: false
+      message: 'Надіслав емейл апруверам'
+    successors: {  }
+  Activity_0hs9wjv:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: '1) ремувнув перший сертифікат з списку поточних в сендера в в''юшці [first_drop_certificate]; 2) Кількість днів з ремувнутого сертифіката = [first_drop_certificate:field_limit_:value] , кілкьість днів,які юзер хоче витратити [ceil_duration_days]'
+    successors: {  }
+  Activity_134q4un:
+    plugin: 'eca_tamper:math'
+    label: 'remaining_days - second_certificate_days'
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[second_dropped_certificate:field_limit_:value]'
+      eca_data: '[remaining_days_for_second_certificate]'
+      eca_token_name: remaining_day_for_third_certificate
+    successors:
+      -
+        id: Activity_01cc11b
+        condition: ''
+  Activity_01cc11b:
+    plugin: eca_set_field_value
+    label: 'set field Limit for second certificate'
+    configuration:
+      field_name: field_limit_
+      field_value: '0'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[second_dropped_certificate]'
+    successors:
+      -
+        id: Activity_018thxw
+        condition: ''
+      -
+        id: Activity_011squi
+        condition: ''
+  Activity_018thxw:
+    plugin: eca_save_entity
+    label: 'save second certificate entity'
+    configuration:
+      object: '[second_dropped_certificate]'
+    successors: {  }
+  Activity_011squi:
+    plugin: eca_list_add
+    label: 'add second_certificate to list all certificate'
+    configuration:
+      value: '[second_dropped_certificate]'
+      method: append
+      index: ''
+      list_token: list_certificate_request
+    successors:
+      -
+        id: Activity_0l4bxkj
+        condition: ''
+  Activity_0l4bxkj:
+    plugin: eca_list_remove
+    label: 'remove third certififcate'
+    configuration:
+      value: ''
+      token_name: third_certificate
+      method: index
+      index: '2'
+      list_token: list_current_certificate
+    successors:
+      -
+        id: Activity_0154mh3
+        condition: ''
+  Activity_0154mh3:
+    plugin: 'eca_tamper:math'
+    label: Activity_0154mh3
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[remaining_day_for_third_certificate]'
+      eca_data: '[third_certificate:field_limit_:value]'
+      eca_token_name: remaining_day_in_third_certificate
+    successors:
+      -
+        id: Activity_1mq6vec
+        condition: ''
+  Activity_1mq6vec:
+    plugin: eca_set_field_value
+    label: 'set field Limit for third certificate'
+    configuration:
+      field_name: field_limit_
+      field_value: '[remaining_day_in_third_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[third_certificate]'
+    successors:
+      -
+        id: Activity_0w7ivk7
+        condition: ''
+      -
+        id: Activity_1hlv9xi
+        condition: ''
+  Activity_0w7ivk7:
+    plugin: eca_save_entity
+    label: 'save third certificate'
+    configuration:
+      object: '[third_certificate]'
+    successors: {  }
+  Activity_1hlv9xi:
+    plugin: eca_list_add
+    label: 'add third certificate to list all certificate'
+    configuration:
+      value: '[third_certificate]'
+      method: append
+      index: ''
+      list_token: list_certificate_request
+    successors:
+      -
+        id: Activity_0t95sv5
+        condition: ''
+  Activity_0t95sv5:
+    plugin: eca_set_field_value
+    label: 'set field Certificate list'
+    configuration:
+      field_name: field_certificate_in_request
+      field_value: '[list_certificate_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_1507pi4
+        condition: ''
+  Activity_1507pi4:
+    plugin: eca_save_entity
+    label: 'save request'
+    configuration:
+      object: '[new_request]'
+    successors: {  }

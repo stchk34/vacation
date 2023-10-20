@@ -10,7 +10,7 @@ id: process_s1rjbgc
 modeller: bpmn_io
 label: 'Validation certificate'
 version: ''
-weight: null
+weight: -10
 events:
   Event_1y6clht:
     plugin: 'form:form_validate'

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
@@ -36,6 +37,16 @@ content:
     weight: 7
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_certificate_in_request:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_duration_example:
     type: smartdate_only

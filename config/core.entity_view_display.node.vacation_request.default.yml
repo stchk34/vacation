@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
@@ -31,6 +32,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_certificate_in_request:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_duration_example:
     type: smartdate_default

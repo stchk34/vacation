@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_example
     - field.field.node.vacation_request.field_duration_not_paid_vacation
@@ -30,6 +31,7 @@ content:
     region: content
 hidden:
   field_approver: true
+  field_certificate_in_request: true
   field_count_approvers: true
   field_duration_example: true
   field_duration_not_paid_vacation: true

@@ -12,7 +12,7 @@ id: process_hxbry0b
 modeller: bpmn_io
 label: 'Send email all approvers about NEW vacation request'
 version: ''
-weight: null
+weight: -10
 events:
   Event_0s5dxti:
     plugin: 'eca_base:eca_cron'

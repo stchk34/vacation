@@ -475,6 +475,7 @@ modeldata: |
       <bpmn2:exclusiveGateway id="Gateway_0zfsi97">
         <bpmn2:incoming>Flow_1be3bjr</bpmn2:incoming>
         <bpmn2:outgoing>Flow_0wgc2ac</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0u9pnjy</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
       <bpmn2:sequenceFlow id="Flow_1be3bjr" sourceRef="Activity_1nwuz9q" targetRef="Gateway_0zfsi97" />
       <bpmn2:sequenceFlow id="Flow_0wgc2ac" sourceRef="Gateway_0zfsi97" targetRef="Activity_1tqqyon" />
@@ -621,7 +622,7 @@ modeldata: |
         <bpmn2:incoming>Flow_10w776f</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_10w776f" sourceRef="Activity_1cgjniy" targetRef="Activity_1hyftxu" />
-      <bpmn2:sequenceFlow id="Flow_0u9pnjy" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_1wjsly4" targetRef="Activity_11pv3i3">
+      <bpmn2:sequenceFlow id="Flow_0u9pnjy" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Gateway_0zfsi97" targetRef="Activity_11pv3i3">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_scalar" />
@@ -660,9 +661,6 @@ modeldata: |
       </bpmn2:startEvent>
       <bpmn2:sequenceFlow id="Flow_1nr8ssx" sourceRef="Event_1r1cm92" targetRef="Activity_1z10g77" />
       <bpmn2:sequenceFlow id="Flow_0qd2wl0" sourceRef="Activity_0efx3bo" targetRef="Activity_0fxgmmy" />
-      <bpmn2:task id="Activity_1wjsly4">
-        <bpmn2:outgoing>Flow_0u9pnjy</bpmn2:outgoing>
-      </bpmn2:task>
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-d3414588-ff1d-4295-8344-bf996425b52f">
       <bpmndi:BPMNPlane id="sid-cbd27540-d304-42aa-9b07-2686eddc94a8" bpmnElement="Process_wSZ2Dg2">
@@ -779,9 +777,6 @@ modeldata: |
             <dc:Bounds x="4" y="935" width="12" height="14" />
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1wjsly4_di" bpmnElement="Activity_1wjsly4">
-          <dc:Bounds x="570" y="370" width="100" height="80" />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_19j9iw2_di" bpmnElement="Flow_19j9iw2">
           <di:waypoint x="650" y="280" />
           <di:waypoint x="690" y="280" />
@@ -867,8 +862,8 @@ modeldata: |
           <di:waypoint x="500" y="630" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0u9pnjy_di" bpmnElement="Flow_0u9pnjy">
-          <di:waypoint x="570" y="410" />
-          <di:waypoint x="510" y="410" />
+          <di:waypoint x="460" y="305" />
+          <di:waypoint x="460" y="370" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1r1ilcp_di" bpmnElement="Flow_1r1ilcp">
           <di:waypoint x="220" y="540" />

@@ -1,6 +1,6 @@
 uuid: 481cdfcd-3c80-43ed-af99-52ba9a711714
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.field.node.certificate.field_limit_
@@ -33,21 +33,13 @@ dependencies:
     - eca_tamper
     - eca_user
     - eca_views
+    - node
 id: process_syiklwv
 modeller: bpmn_io
 label: 'Burn days !!! I added update'
 version: ''
-weight: null
+weight: -10
 events:
-  Event_0kfl1fu:
-    plugin: 'content_entity:custom'
-    label: x2
-    configuration:
-      event_id: x2
-    successors:
-      -
-        id: Activity_1s0e3nt
-        condition: ''
   Event_0ok3uuf:
     plugin: 'eca_base:eca_cron'
     label: 'run cron'
@@ -56,6 +48,15 @@ events:
     successors:
       -
         id: Activity_1635fi8
+        condition: ''
+  Event_0whwywk:
+    plugin: 'content_entity:custom'
+    label: Event_0whwywk
+    configuration:
+      event_id: x2
+    successors:
+      -
+        id: Activity_1s0e3nt
         condition: ''
 conditions:
   Flow_199mib5:
@@ -1487,6 +1488,9 @@ actions:
       -
         id: Activity_0tq4zrw
         condition: ''
+      -
+        id: Activity_0hut3lg
+        condition: ''
   Activity_0tq4zrw:
     plugin: eca_views_query
     label: 'View "All certificate"'
@@ -1499,6 +1503,9 @@ actions:
       -
         id: Activity_18d7fer
         condition: Flow_1qvf8l5
+      -
+        id: Activity_08t8zq1
+        condition: ''
   Activity_18d7fer:
     plugin: eca_list_remove
     label: 'remove item'
@@ -1532,7 +1539,7 @@ actions:
         id: Activity_1udte5a
         condition: ''
       -
-        id: Activity_0yy7f7y
+        id: Activity_1dwe1fm
         condition: ''
   Activity_1udte5a:
     plugin: action_message_action
@@ -1557,3 +1564,26 @@ actions:
       replace_tokens: false
       message: '#2 get balance user'
     successors: {  }
+  Activity_0hut3lg:
+    plugin: action_message_action
+    label: message
+    configuration:
+      replace_tokens: false
+      message: 'запустився крон'
+    successors: {  }
+  Activity_08t8zq1:
+    plugin: action_message_action
+    label: Activity_08t8zq1
+    configuration:
+      replace_tokens: false
+      message: 'взяли в''юшку всі сертифікати'
+    successors: {  }
+  Activity_1dwe1fm:
+    plugin: 'entity:unpublish_action:node'
+    label: Activity_1dwe1fm
+    configuration:
+      object: '[disabled_certificate]'
+    successors:
+      -
+        id: Activity_0yy7f7y
+        condition: ''

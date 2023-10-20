@@ -1,6 +1,6 @@
 uuid: aef192db-b5ad-4b89-a7ec-324234ff0c2d
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.field.node.certificate.field_employee
@@ -19,7 +19,7 @@ id: process_s1wtrgs
 modeller: bpmn_io
 label: 'Bonus certificate 2.0'
 version: ''
-weight: null
+weight: -10
 events:
   Event_01kf1e0:
     plugin: 'content_entity:insert'
