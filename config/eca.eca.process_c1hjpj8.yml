@@ -126,6 +126,9 @@ actions:
       -
         id: Activity_1m6ivmb
         condition: ''
+      -
+        id: Activity_0m9wbuw
+        condition: ''
   Activity_1dozkw8:
     plugin: eca_enqueue_task_delayed
     label: 'create 2 certificate'
@@ -152,6 +155,9 @@ actions:
     successors:
       -
         id: Activity_1y4ukue
+        condition: ''
+      -
+        id: Activity_0z518m1
         condition: ''
   Activity_1y4ukue:
     plugin: 'eca_tamper:math'
@@ -312,7 +318,7 @@ actions:
         condition: ''
   Activity_0yn1x3t:
     plugin: action_message_action
-    label: Activity_0yn1x3t
+    label: message
     configuration:
       replace_tokens: false
       message: 'Створено юзера'
@@ -323,4 +329,11 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Створено сертифікат для юзер #[new_user]'
+    successors: {  }
+  Activity_0m9wbuw:
+    plugin: action_message_action
+    label: Activity_0m9wbuw
+    configuration:
+      replace_tokens: false
+      message: 'створили ноду сертифіката'
     successors: {  }

@@ -132,46 +132,6 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 2
             additional: {  }
-          089a128d-2f72-4e26-b0c7-b2c6e5fa2c28:
-            uuid: 089a128d-2f72-4e26-b0c7-b2c6e5fa2c28
-            region: sidebar_right
-            configuration:
-              id: 'field_block:user:user:field_balance_a_vacations_day'
-              label: 'Balance a vacations day'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: number_integer
-                label: inline
-                settings:
-                  thousand_separator: ' '
-                  prefix_suffix: true
-                third_party_settings: {  }
-            weight: 3
-            additional: {  }
-          81dba9df-bef2-4908-9d32-5565b356784a:
-            uuid: 81dba9df-bef2-4908-9d32-5565b356784a
-            region: sidebar_right
-            configuration:
-              id: 'field_block:user:user:field_bonus_days'
-              label: 'Bonus days'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: number_integer
-                label: inline
-                settings:
-                  thousand_separator: ' '
-                  prefix_suffix: true
-                third_party_settings: {  }
-            weight: 4
-            additional: {  }
         third_party_settings: {  }
 id: user.user.default
 targetEntityType: user

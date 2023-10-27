@@ -1,18 +1,26 @@
-uuid: 0a53717b-2f22-4041-b3d4-73feea3eb097
+uuid: bc46926f-8b0b-4c6c-a30e-2d5cfc3bc506
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_balance_a_vacations_day
+    - field.storage.node.field_limit_
+    - node.type.certificate
+    - user.role.administrator
+    - user.role.authenticated
+    - user.role.ceo
+    - user.role.dev
+    - user.role.pm
+    - user.role.team_lead
   module:
+    - node
     - user
 id: actual_balance
 label: 'Actual Balance'
 module: views
 description: ''
 tag: ''
-base_table: users_field_data
-base_field: uid
+base_table: node_field_data
+base_field: nid
 display:
   default:
     id: default
@@ -22,10 +30,10 @@ display:
     display_options:
       title: 'Actual Balance'
       fields:
-        field_balance_a_vacations_day:
-          id: field_balance_a_vacations_day
-          table: user__field_balance_a_vacations_day
-          field: field_balance_a_vacations_day
+        field_limit_:
+          id: field_limit_
+          table: node__field_limit_
+          field: field_limit_
           relationship: none
           group_type: group
           admin_label: ''
@@ -69,12 +77,12 @@ display:
           element_default_classes: true
           empty: '0 day'
           hide_empty: false
-          empty_zero: false
+          empty_zero: true
           hide_alter_empty: true
           click_sort_column: value
           type: number_integer
           settings:
-            thousand_separator: ' '
+            thousand_separator: ''
             prefix_suffix: true
           group_column: value
           group_columns: {  }
@@ -87,10 +95,9 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: some
+        type: none
         options:
           offset: 0
-          items_per_page: 5
       exposed_form:
         type: basic
         options:
@@ -102,20 +109,42 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access user profiles'
+          role:
+            ceo: ceo
+            team_lead: team_lead
+            dev: dev
+            pm: pm
+            authenticated: authenticated
+            administrator: administrator
       cache:
         type: tag
         options: {  }
       empty: {  }
-      sorts: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: second
       arguments:
         uid:
           id: uid
           table: users_field_data
           field: uid
-          relationship: none
+          relationship: field_employee
           group_type: group
           admin_label: ''
           entity_type: user
@@ -150,15 +179,27 @@ display:
       filters:
         status:
           id: status
-          table: users_field_data
+          table: node_field_data
           field: status
-          entity_type: user
+          entity_type: node
           entity_field: status
           plugin_id: boolean
           value: '1'
           group: 1
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            certificate: certificate
+          expose:
             operator_limit_selection: false
             operator_list: {  }
       style:
@@ -173,7 +214,16 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_employee:
+          id: field_employee
+          table: node__field_employee
+          field: field_employee
+          relationship: none
+          group_type: group
+          admin_label: 'field_employee: User'
+          plugin_id: standard
+          required: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -184,9 +234,10 @@ display:
         - 'languages:language_interface'
         - url
         - user
-        - user.permissions
+        - 'user.node_grants:view'
+        - user.roles
       tags:
-        - 'config:field.storage.user.field_balance_a_vacations_day'
+        - 'config:field.storage.node.field_limit_'
   block_1:
     id: block_1
     display_title: Block
@@ -201,6 +252,7 @@ display:
         - 'languages:language_interface'
         - url
         - user
-        - user.permissions
+        - 'user.node_grants:view'
+        - user.roles
       tags:
-        - 'config:field.storage.user.field_balance_a_vacations_day'
+        - 'config:field.storage.node.field_limit_'

@@ -58,8 +58,8 @@ display:
             target: ''
             nl2br: false
             max_length: 0
-            word_boundary: false
-            ellipsis: false
+            word_boundary: true
+            ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -145,7 +145,7 @@ display:
           click_sort_column: value
           type: datetime_default
           settings:
-            timezone_override: UTC
+            timezone_override: ''
             format_type: vacation_date
           group_column: value
           group_columns: {  }
@@ -209,7 +209,7 @@ display:
           click_sort_column: value
           type: datetime_default
           settings:
-            timezone_override: UTC
+            timezone_override: ''
             format_type: vacation_date
           group_column: value
           group_columns: {  }
@@ -727,29 +727,6 @@ display:
       defaults:
         filters: false
         filter_groups: false
-      display_description: ''
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:field.storage.node.field_limit_'
-        - 'config:field.storage.node.field_start_date_certificate'
-        - 'config:field.storage.node.field_type_certificate'
-        - 'config:field.storage.node.field_use_up'
-  block_3:
-    id: block_3
-    display_title: 'Block aggregation days'
-    display_plugin: block
-    position: 2
-    display_options:
       display_description: ''
       display_extenders: {  }
     cache_metadata:

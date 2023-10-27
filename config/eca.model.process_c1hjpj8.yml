@@ -127,6 +127,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1fejom0</bpmn2:incoming>
         <bpmn2:outgoing>Flow_19fwmqz</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_1g9pexc</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:startEvent id="Event_11pyme6" camunda:modelerTemplate="org.drupal.event.eca_queue:processing_task">
         <bpmn2:extensionElements>
@@ -240,6 +241,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_19fwmqz</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1r5b42r</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_0blauqx</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_1y4ukue" name="calculate limit day" camunda:modelerTemplate="org.drupal.action.eca_tamper:math">
         <bpmn2:extensionElements>
@@ -538,7 +540,7 @@ modeldata: |
       <bpmn2:sequenceFlow id="Flow_1ee2js6" sourceRef="Activity_0ygofef" targetRef="Activity_063s8nt" />
       <bpmn2:sequenceFlow id="Flow_14h02oy" sourceRef="Activity_063s8nt" targetRef="Activity_19wn29z" />
       <bpmn2:sequenceFlow id="Flow_19fwmqz" sourceRef="Activity_0d3w2yd" targetRef="Activity_1m6ivmb" />
-      <bpmn2:task id="Activity_0yn1x3t" camunda:modelerTemplate="org.drupal.action.action_message_action">
+      <bpmn2:task id="Activity_0yn1x3t" name="message" camunda:modelerTemplate="org.drupal.action.action_message_action">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="action_message_action" />
@@ -568,6 +570,26 @@ modeldata: |
         <bpmn2:incoming>Flow_10jhmtc</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_10jhmtc" sourceRef="Activity_1oywa5n" targetRef="Activity_1szo6r6" />
+      <bpmn2:task id="Activity_0z518m1">
+        <bpmn2:incoming>Flow_0blauqx</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0blauqx" sourceRef="Activity_1m6ivmb" targetRef="Activity_0z518m1" />
+      <bpmn2:task id="Activity_0m9wbuw" camunda:modelerTemplate="org.drupal.action.action_message_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_message_action" />
+          </camunda:properties>
+          <camunda:field name="message">
+            <camunda:string>створили ноду сертифіката
+  </camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1g9pexc</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1g9pexc" sourceRef="Activity_0d3w2yd" targetRef="Activity_0m9wbuw" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-73df1b9d-85a5-4dfd-a77f-0bc4682cc511">
       <bpmndi:BPMNPlane id="sid-512b484d-fa0b-4a16-8574-b109930e1480" bpmnElement="Process_c1HJpJ8">
@@ -657,10 +679,17 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0yn1x3t_di" bpmnElement="Activity_0yn1x3t">
           <dc:Bounds x="470" y="230" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1szo6r6_di" bpmnElement="Activity_1szo6r6">
           <dc:Bounds x="2050" y="340" width="100" height="80" />
           <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0z518m1_di" bpmnElement="Activity_0z518m1">
+          <dc:Bounds x="730" y="550" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_0m9wbuw_di" bpmnElement="Activity_0m9wbuw">
+          <dc:Bounds x="600" y="550" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_0tb1nqr_di" bpmnElement="Flow_0tb1nqr">
           <di:waypoint x="398" y="380" />
@@ -749,6 +778,14 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_10jhmtc_di" bpmnElement="Flow_10jhmtc">
           <di:waypoint x="2100" y="450" />
           <di:waypoint x="2100" y="420" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0blauqx_di" bpmnElement="Flow_0blauqx">
+          <di:waypoint x="780" y="530" />
+          <di:waypoint x="780" y="550" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1g9pexc_di" bpmnElement="Flow_1g9pexc">
+          <di:waypoint x="650" y="530" />
+          <di:waypoint x="650" y="550" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>
