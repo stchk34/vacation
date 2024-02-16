@@ -16,10 +16,14 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: views
+  handler: 'default:user'
   handler_settings:
-    view:
-      view_name: list_allowed_approvers
-      display_name: entity_reference_2
-      arguments: {  }
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: true
 field_type: entity_reference

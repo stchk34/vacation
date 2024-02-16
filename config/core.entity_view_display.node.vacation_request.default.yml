@@ -35,7 +35,7 @@ content:
     region: content
   field_certificate_in_request:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }

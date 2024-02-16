@@ -1,6 +1,6 @@
 uuid: eed322ce-b21c-42ad-8e7e-663a7b3cb785
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - views.view.bonus_certificate

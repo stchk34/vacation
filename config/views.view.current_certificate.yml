@@ -145,7 +145,7 @@ display:
           click_sort_column: value
           type: datetime_default
           settings:
-            timezone_override: ''
+            timezone_override: UTC
             format_type: vacation_date
           group_column: value
           group_columns: {  }
@@ -209,7 +209,7 @@ display:
           click_sort_column: value
           type: datetime_default
           settings:
-            timezone_override: ''
+            timezone_override: UTC
             format_type: vacation_date
           group_column: value
           group_columns: {  }

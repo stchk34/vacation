@@ -126,6 +126,8 @@ module:
   variationcache: 0
   vercf: 0
   views_add_button: 0
+  views_aggregator: 0
+  views_aggregator_more_functions: 0
   views_attachment_tabs: 0
   views_bulk_operations: 0
   views_cm_current_state: 0

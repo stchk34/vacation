@@ -63,7 +63,6 @@ modeldata: |
         <bpmn2:outgoing>Flow_1vtaur8</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:exclusiveGateway id="Gateway_0okut2l">
-        <bpmn2:incoming>Flow_0dfl9ht</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1g0buwi</bpmn2:outgoing>
         <bpmn2:outgoing>Flow_13rdgl5</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
@@ -922,7 +921,6 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0xpwm8i</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_0dfl9ht</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0xpwm8i" name="if count_approvers = count_agree" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Gateway_03xlq52" targetRef="Activity_0zuv8kp">
         <bpmn2:extensionElements>
@@ -1393,7 +1391,6 @@ modeldata: |
         <bpmn2:incoming>Flow_08clj0l</bpmn2:incoming>
         <bpmn2:outgoing>Flow_0xpwm8i</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
-      <bpmn2:sequenceFlow id="Flow_0dfl9ht" sourceRef="Activity_0zuv8kp" targetRef="Gateway_0okut2l" />
       <bpmn2:sequenceFlow id="Flow_06lxi0f" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_1vxeeqp" targetRef="Gateway_1lyr9cy">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -2449,11 +2446,6 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_07f8ond_di" bpmnElement="Flow_07f8ond">
           <di:waypoint x="-760" y="930" />
           <di:waypoint x="-760" y="980" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0dfl9ht_di" bpmnElement="Flow_0dfl9ht">
-          <di:waypoint x="40" y="1330" />
-          <di:waypoint x="40" y="1520" />
-          <di:waypoint x="285" y="1520" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_06lxi0f_di" bpmnElement="Flow_06lxi0f">
           <di:waypoint x="-1010" y="770" />

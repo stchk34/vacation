@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
+    - field.field.node.transaction.field_type_paid_vacation
+    - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_approver
     - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
@@ -12,20 +17,23 @@ dependencies:
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
-    - field.field.node.vacation_request.field_reason_vacation
     - field.storage.node.field_approver
     - field.storage.node.field_certificate_in_request
     - field.storage.node.field_count_approvers
+    - field.storage.node.field_days
     - field.storage.node.field_duration_example
     - field.storage.node.field_duration_not_paid_vacation
     - field.storage.node.field_duration_notpaid_in_hours
     - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
     - field.storage.node.field_limit_
-    - field.storage.node.field_reason_vacation
+    - field.storage.node.field_owner
+    - field.storage.node.field_status_transactions
+    - field.storage.node.field_type_paid_vacation
+    - field.storage.node.field_vacat
+    - node.type.transaction
     - node.type.vacation_request
     - views.view.current_certificate
-    - views.view.vacation_request
   module:
     - eca_base
     - eca_content
@@ -34,7 +42,7 @@ dependencies:
     - eca_views
 id: process_kldjmh4
 modeller: bpmn_io
-label: 'Duration vacation days and send message to approver'
+label: 'Duration vacation days and send message to approver, set field certificate in  request'
 version: ''
 weight: -10
 events:
@@ -47,16 +55,25 @@ events:
       -
         id: Activity_0c3pcf2
         condition: ''
-conditions:
-  Flow_10pxbh5:
-    plugin: eca_count
+  Event_02fjwm4:
+    plugin: 'content_entity:custom'
+    label: 'custom trigger x7'
     configuration:
-      negate: false
-      case: false
-      left: all_vacation_request
-      right: '0'
-      operator: greaterthan
-      type: numeric
+      event_id: x7
+    successors:
+      -
+        id: Activity_1nrq3i1
+        condition: ''
+  Event_188rv20:
+    plugin: 'content_entity:custom'
+    label: 'CUSTOM EVENT PAID REQUEST'
+    configuration:
+      event_id: x8
+    successors:
+      -
+        id: Activity_0m9xzcz
+        condition: ''
+conditions:
   Flow_16dorsq:
     plugin: eca_scalar
     configuration:
@@ -121,15 +138,6 @@ gateways:
       -
         id: Activity_17cjcqu
         condition: ''
-      -
-        id: Activity_0ws5lfu
-        condition: ''
-  Gateway_07ny3ja:
-    type: 0
-    successors:
-      -
-        id: Activity_0k6tbjh
-        condition: Flow_10pxbh5
   Gateway_1frlevo:
     type: 0
     successors:
@@ -171,10 +179,7 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_0c4vplg
-        condition: ''
-      -
-        id: Activity_0zdx2ux
+        id: Activity_0kq06ad
         condition: ''
   Activity_0c4vplg:
     plugin: eca_switch_account
@@ -247,10 +252,10 @@ actions:
       flip: false
       value: '86400'
       eca_data: '[duration_timestamp_paid_vacation]'
-      eca_token_name: duration_in_days
+      eca_token_name: ceil_duration_days
     successors:
       -
-        id: Activity_0dev3gl
+        id: Activity_15fq56m
         condition: ''
   Activity_15fq56m:
     plugin: eca_set_field_value
@@ -281,71 +286,6 @@ actions:
     successors:
       -
         id: Activity_07h79g6
-        condition: ''
-  Activity_0dev3gl:
-    plugin: 'eca_tamper:math'
-    label: math
-    configuration:
-      operation: addition
-      flip: false
-      value: '1'
-      eca_data: '[duration_in_days]'
-      eca_token_name: ceil_duration_days
-    successors:
-      -
-        id: Activity_15fq56m
-        condition: ''
-  Activity_0zdx2ux:
-    plugin: action_message_action
-    label: Activity_0zdx2ux
-    configuration:
-      replace_tokens: false
-      message: 'Ви створили вакейшен реквест'
-    successors: {  }
-  Activity_0ws5lfu:
-    plugin: eca_views_query
-    label: view
-    configuration:
-      token_name: all_vacation_request
-      view_id: vacation_request
-      display_id: block_1
-      arguments: '[new_request]'
-    successors:
-      -
-        id: Gateway_07ny3ja
-        condition: ''
-  Activity_0k6tbjh:
-    plugin: eca_list_remove
-    label: remove
-    configuration:
-      value: ''
-      token_name: approver
-      method: first
-      index: ''
-      list_token: all_vacation_request
-    successors:
-      -
-        id: Activity_12elzx4
-        condition: ''
-  Activity_12elzx4:
-    plugin: action_send_email_action
-    label: 'send email'
-    configuration:
-      replace_tokens: false
-      recipient: '[approver:mail]'
-      subject: 'Request for Approval of New Vacation Request'
-      message: |-
-        Dear [approver:account-name],
-        I hope this message finds you well. I am writing to inform you that there is a new vacation request that requires your approval.
-        Employee Name: [new_request:field_employee_sender:entity:account-name]
-        Reason for Vacation: [new_request:field_reason_vacation:value]
-        Please log in to the Vacation system or follow the link provided to review and approve or deny the vacation request: [site:url]all-vacation-request
-    successors:
-      -
-        id: Activity_0ws5lfu
-        condition: ''
-      -
-        id: Activity_1klutlg
         condition: ''
   Activity_1d8s2ql:
     plugin: eca_count
@@ -388,7 +328,10 @@ actions:
     label: 'save entity'
     configuration:
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_1pd9yba
+        condition: ''
   Activity_10aaj18:
     plugin: eca_switch_account
     label: 'switch to sender'
@@ -415,9 +358,6 @@ actions:
     successors:
       -
         id: Activity_18k7wr2
-        condition: ''
-      -
-        id: Activity_02dm4w2
         condition: ''
   Activity_1fv3ad3:
     plugin: eca_views_query
@@ -454,9 +394,6 @@ actions:
     successors:
       -
         id: Gateway_1frlevo
-        condition: ''
-      -
-        id: Activity_0hs9wjv
         condition: ''
   Activity_0eblzq6:
     plugin: 'eca_tamper:math'
@@ -540,7 +477,10 @@ actions:
     label: 'save entity request'
     configuration:
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_08myb7k
+        condition: ''
   Activity_0f9bjko:
     plugin: eca_set_field_value
     label: 'set field Limit day 0 in first certificate'
@@ -564,8 +504,8 @@ actions:
     label: 'add new item to list all certificate in request'
     configuration:
       value: '[first_drop_certificate]'
-      method: append
-      index: ''
+      method: set
+      index: '0'
       list_token: list_certificate_request
     successors:
       -
@@ -578,7 +518,7 @@ actions:
       value: ''
       token_name: second_dropped_certificate
       method: index
-      index: '1'
+      index: '[1]'
       list_token: list_current_certificate
     successors:
       -
@@ -659,7 +599,10 @@ actions:
     label: 'save entity request'
     configuration:
       object: '[new_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_1m0rxnx
+        condition: ''
   Activity_1lb2yo5:
     plugin: eca_switch_account
     label: 'switch to admin'
@@ -678,27 +621,6 @@ actions:
       -
         id: Activity_06niuw8
         condition: ''
-  Activity_02dm4w2:
-    plugin: action_message_action
-    label: Activity_02dm4w2
-    configuration:
-      replace_tokens: false
-      message: 'сендер на цьому вакейшен реквесті [sender]'
-    successors: {  }
-  Activity_1klutlg:
-    plugin: action_message_action
-    label: Activity_1klutlg
-    configuration:
-      replace_tokens: false
-      message: 'Надіслав емейл апруверам'
-    successors: {  }
-  Activity_0hs9wjv:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: '1) ремувнув перший сертифікат з списку поточних в сендера в в''юшці [first_drop_certificate]; 2) Кількість днів з ремувнутого сертифіката = [first_drop_certificate:field_limit_:value] , кілкьість днів,які юзер хоче витратити [ceil_duration_days]'
-    successors: {  }
   Activity_134q4un:
     plugin: 'eca_tamper:math'
     label: 'remaining_days - second_certificate_days'
@@ -755,7 +677,7 @@ actions:
       value: ''
       token_name: third_certificate
       method: index
-      index: '2'
+      index: '[2]'
       list_token: list_current_certificate
     successors:
       -
@@ -763,7 +685,7 @@ actions:
         condition: ''
   Activity_0154mh3:
     plugin: 'eca_tamper:math'
-    label: Activity_0154mh3
+    label: MATH
     configuration:
       operation: subtraction
       flip: false
@@ -830,4 +752,240 @@ actions:
     label: 'save request'
     configuration:
       object: '[new_request]'
+    successors: {  }
+  Activity_1pd9yba:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'TRIGGER NOT PAID'
+    configuration:
+      event_id: x7
+      tokens: 'sender_request,new_request'
+      object: '[new_request]'
+    successors: {  }
+  Activity_08myb7k:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'TRIGGER PAID REQUEST WITH ONE CERTIFICATE'
+    configuration:
+      event_id: x8
+      tokens: 'sender_request,new_request'
+      object: '[new_request]'
+    successors: {  }
+  Activity_1m0rxnx:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'TRIGGER FOR REQUEST WITH TWO CERTIFICATE'
+    configuration:
+      event_id: x9
+      tokens: 'sender_request,new_request'
+      object: '[new_request]'
+    successors: {  }
+  Activity_12yrr4s:
+    plugin: eca_new_entity
+    label: 'CREATE SPENT TRANSACTION'
+    configuration:
+      token_name: not_paid_vacation_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Spent transaction to "[new_request:title]"'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_172me4r
+        condition: ''
+  Activity_1nrq3i1:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_12yrr4s
+        condition: ''
+  Activity_0kq06ad:
+    plugin: eca_token_load_entity_ref
+    label: 'LOAD SENDER REQUEST'
+    configuration:
+      field_name_entity_ref: field_employee_sender
+      token_name: sender_request
+      from: current
+      entity_type: user
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_0c4vplg
+        condition: ''
+  Activity_172me4r:
+    plugin: eca_set_field_value
+    label: 'SET FIELD OWNER'
+    configuration:
+      field_name: field_owner
+      field_value: '[sender_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[not_paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_1vloj4i
+        condition: ''
+  Activity_1vloj4i:
+    plugin: eca_set_field_value
+    label: 'SET FIELD VACATION REQUEST'
+    configuration:
+      field_name: field_vacat
+      field_value: '[new_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[not_paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0bw5njs
+        condition: ''
+  Activity_0bw5njs:
+    plugin: eca_set_field_value
+    label: 'SET FIELD TYPE TRANSACTION'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_spent
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[not_paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0d0usta
+        condition: ''
+  Activity_0d0usta:
+    plugin: eca_set_field_value
+    label: 'SET FIELD NOT PAID'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: 'Not paid'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[not_paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0mlhfyy
+        condition: ''
+  Activity_0mlhfyy:
+    plugin: eca_save_entity
+    label: 'SAVE ENTITY'
+    configuration:
+      object: '[not_paid_vacation_transaction]'
+    successors: {  }
+  Activity_0m9xzcz:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_16ijd9f
+        condition: ''
+  Activity_16ijd9f:
+    plugin: eca_new_entity
+    label: 'CREATE SPENT TRANSACTION'
+    configuration:
+      token_name: paid_vacation_transaction
+      type: 'node transaction'
+      langcode: ''
+      label: 'Spent transaction to "[new_request:title]"'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_1mojayb
+        condition: ''
+  Activity_1mojayb:
+    plugin: eca_set_field_value
+    label: 'SET FIELD OWNER'
+    configuration:
+      field_name: field_owner
+      field_value: '[sender_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_11ecq79
+        condition: ''
+  Activity_11ecq79:
+    plugin: eca_set_field_value
+    label: 'SET FIELD VACATION REQUEST'
+    configuration:
+      field_name: field_vacat
+      field_value: '[new_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0ykdujq
+        condition: ''
+  Activity_0ykdujq:
+    plugin: eca_set_field_value
+    label: 'SET FIELD SPENT TYPE'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_spent
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_1ddadi3
+        condition: ''
+  Activity_1ddadi3:
+    plugin: eca_set_field_value
+    label: 'SET FIELD PAID REQUEST'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: Paid
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0sllx13
+        condition: ''
+  Activity_0sllx13:
+    plugin: eca_set_field_value
+    label: 'SET FIELD DAYS'
+    configuration:
+      field_name: field_days
+      field_value: '[new_request:field_duration_of_the_paid_vacat:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0ytmrqs
+        condition: ''
+  Activity_0ytmrqs:
+    plugin: eca_save_entity
+    label: Activity_0ytmrqs
+    configuration:
+      object: '[paid_vacation_transaction]'
     successors: {  }

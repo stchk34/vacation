@@ -5,18 +5,14 @@ dependencies:
   config:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_employee
-    - field.field.node.certificate.field_limit_
     - field.field.node.certificate.field_start_date_certificate
     - field.field.node.certificate.field_type_certificate
     - field.field.node.certificate.field_use_up
-    - field.field.user.user.field_limit_of_weekends_per_year
     - field.storage.node.field_current_state_certificate
     - field.storage.node.field_employee
-    - field.storage.node.field_limit_
     - field.storage.node.field_start_date_certificate
     - field.storage.node.field_type_certificate
     - field.storage.node.field_use_up
-    - field.storage.user.field_limit_of_weekends_per_year
     - node.type.certificate
   module:
     - eca_content
@@ -90,9 +86,6 @@ actions:
       -
         id: Activity_156u9ex
         condition: ''
-      -
-        id: Activity_0yn1x3t
-        condition: ''
   Activity_156u9ex:
     plugin: eca_enqueue_task_delayed
     label: 'create queue'
@@ -154,36 +147,8 @@ actions:
       object: '[new_certificate]'
     successors:
       -
-        id: Activity_1y4ukue
-        condition: ''
-      -
         id: Activity_0z518m1
         condition: ''
-  Activity_1y4ukue:
-    plugin: 'eca_tamper:math'
-    label: 'calculate limit day'
-    configuration:
-      operation: division
-      flip: false
-      value: '2'
-      eca_data: '[new_user:field_limit_of_weekends_per_year:value]'
-      eca_token_name: limit_certificate
-    successors:
-      -
-        id: Activity_0ipizh1
-        condition: ''
-  Activity_0ipizh1:
-    plugin: eca_set_field_value
-    label: 'set field Limit vacation'
-    configuration:
-      field_name: field_limit_
-      field_value: '[limit_certificate]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[new_certificate]'
-    successors:
       -
         id: Activity_0ygofef
         condition: ''
@@ -316,19 +281,19 @@ actions:
       -
         id: Activity_19wn29z
         condition: ''
-  Activity_0yn1x3t:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: 'Створено юзера'
-    successors: {  }
   Activity_1szo6r6:
     plugin: action_message_action
     label: message
     configuration:
       replace_tokens: false
       message: 'Створено сертифікат для юзер #[new_user]'
+    successors: {  }
+  Activity_0z518m1:
+    plugin: action_message_action
+    label: Activity_0z518m1
+    configuration:
+      replace_tokens: false
+      message: 'заповнити поле юзера'
     successors: {  }
   Activity_0m9wbuw:
     plugin: action_message_action

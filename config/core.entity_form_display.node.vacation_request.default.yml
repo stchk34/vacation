@@ -38,16 +38,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_certificate_in_request:
-    type: entity_reference_autocomplete
-    weight: 26
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_duration_example:
     type: smartdate_only
     weight: 10
@@ -178,6 +168,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_certificate_in_request: true
   field_count_approvers: true
   field_duration_notpaid_in_hours: true
   field_duration_of_the_paid_vacat: true

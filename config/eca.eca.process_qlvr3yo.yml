@@ -671,10 +671,7 @@ actions:
       trim: false
       save_entity: true
       object: '[upd_request]'
-    successors:
-      -
-        id: Gateway_0okut2l
-        condition: ''
+    successors: {  }
   Activity_19yi5bd:
     plugin: eca_token_set_value
     label: 'set value'

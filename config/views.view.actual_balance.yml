@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_limit_
     - node.type.certificate
     - user.role.administrator
     - user.role.authenticated
@@ -35,7 +34,7 @@ display:
           table: node__field_limit_
           field: field_limit_
           relationship: none
-          group_type: group
+          group_type: sum
           admin_label: ''
           plugin_id: field
           label: ''
@@ -75,9 +74,9 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: '0 day'
+          empty: ''
           hide_empty: false
-          empty_zero: true
+          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: number_integer
@@ -224,20 +223,19 @@ display:
           admin_label: 'field_employee: User'
           plugin_id: standard
           required: true
+      group_by: true
       header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user
         - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.storage.node.field_limit_'
+      tags: {  }
   block_1:
     id: block_1
     display_title: Block
@@ -248,11 +246,9 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user
         - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.storage.node.field_limit_'
+      tags: {  }

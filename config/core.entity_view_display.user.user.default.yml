@@ -132,6 +132,66 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 2
             additional: {  }
+          0e185ae9-1bf3-4190-9c62-0d2e337706e0:
+            uuid: 0e185ae9-1bf3-4190-9c62-0d2e337706e0
+            region: sidebar_right
+            configuration:
+              id: 'field_block:user:user:field_limit_of_weekends_per_year'
+              label: 'Limit of weekends per year'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: '@user.current_user_context:current_user'
+                view_mode: view_mode
+              formatter:
+                type: field_token_value_text
+                label: above
+                settings:
+                  wrapper: ''
+                  link: false
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          ee861f22-6ae0-46cd-b923-719c7844613e:
+            uuid: ee861f22-6ae0-46cd-b923-719c7844613e
+            region: sidebar_right
+            configuration:
+              id: 'field_block:user:user:field_balance_a_vacations_day'
+              label: 'Balance a vacations day'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: '@user.current_user_context:current_user'
+                view_mode: view_mode
+              formatter:
+                type: number_integer
+                label: hidden
+                settings:
+                  thousand_separator: ''
+                  prefix_suffix: true
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          3137d5c6-7519-4565-8e30-234100dbab95:
+            uuid: 3137d5c6-7519-4565-8e30-234100dbab95
+            region: sidebar_right
+            configuration:
+              id: 'field_block:user:user:field_balance_current_day'
+              label: 'Balance current day'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: '@user.current_user_context:current_user'
+                view_mode: view_mode
+              formatter:
+                type: number_integer
+                label: inline
+                settings:
+                  thousand_separator: ''
+                  prefix_suffix: true
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
         third_party_settings: {  }
 id: user.user.default
 targetEntityType: user

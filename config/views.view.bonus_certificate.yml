@@ -290,7 +290,7 @@ display:
           plugin_id: list_field
           operator: or
           value:
-            2: '2'
+            1: '1'
           group: 1
           exposed: false
           expose:
