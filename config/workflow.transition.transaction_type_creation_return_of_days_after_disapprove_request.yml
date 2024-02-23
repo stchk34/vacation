@@ -1,0 +1,19 @@
+uuid: 84d559b5-7ae9-48b8-ad29-b13bd24b74d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_creation
+    - workflow.state.transaction_type_return_of_days_after_disapprove_request
+id: transaction_type_creation_return_of_days_after_disapprove_request
+label: null
+module: workflow
+from_sid: transaction_type_creation
+to_sid: transaction_type_return_of_days_after_disapprove_request
+roles:
+  workflow_author: workflow_author
+  administrator: administrator
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'

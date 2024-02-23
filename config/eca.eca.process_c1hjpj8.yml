@@ -22,7 +22,7 @@ dependencies:
     - user
 id: process_c1hjpj8
 modeller: bpmn_io
-label: 'Create certificate'
+label: 'STEP 1: Create certificate'
 version: ''
 weight: -10
 events:
@@ -37,7 +37,7 @@ events:
         condition: ''
   Event_11pyme6:
     plugin: 'eca_queue:processing_task'
-    label: Event_11pyme6
+    label: 'запуск першого сертифіката'
     configuration:
       distribute: false
       task_name: 'first certificate'
@@ -49,7 +49,7 @@ events:
         condition: ''
   Event_1l3e4qj:
     plugin: 'eca_queue:processing_task'
-    label: Event_1l3e4qj
+    label: 'запуск наступних сертифікатів'
     configuration:
       distribute: false
       task_name: 'second certificate'
@@ -119,9 +119,6 @@ actions:
       -
         id: Activity_1m6ivmb
         condition: ''
-      -
-        id: Activity_0m9wbuw
-        condition: ''
   Activity_1dozkw8:
     plugin: eca_enqueue_task_delayed
     label: 'create 2 certificate'
@@ -146,9 +143,6 @@ actions:
       save_entity: false
       object: '[new_certificate]'
     successors:
-      -
-        id: Activity_0z518m1
-        condition: ''
       -
         id: Activity_0ygofef
         condition: ''
@@ -263,7 +257,7 @@ actions:
     plugin: 'eca_tamper:timeoffset'
     label: 'time offset'
     configuration:
-      timezone: Europe/Kyiv
+      timezone: UTC
       eca_data: '[end_date_timestamp]'
       eca_token_name: end_date_timezone
     successors:
@@ -274,7 +268,7 @@ actions:
     plugin: 'eca_tamper:timeoffset'
     label: 'time offset'
     configuration:
-      timezone: Europe/Kyiv
+      timezone: America/Nuuk
       eca_data: '[current-date:raw]'
       eca_token_name: '[current_date_timezone]'
     successors:
@@ -287,18 +281,4 @@ actions:
     configuration:
       replace_tokens: false
       message: 'Створено сертифікат для юзер #[new_user]'
-    successors: {  }
-  Activity_0z518m1:
-    plugin: action_message_action
-    label: Activity_0z518m1
-    configuration:
-      replace_tokens: false
-      message: 'заповнити поле юзера'
-    successors: {  }
-  Activity_0m9wbuw:
-    plugin: action_message_action
-    label: Activity_0m9wbuw
-    configuration:
-      replace_tokens: false
-      message: 'створили ноду сертифіката'
     successors: {  }

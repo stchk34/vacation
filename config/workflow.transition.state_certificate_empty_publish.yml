@@ -1,0 +1,15 @@
+uuid: 76dc5f8d-4260-4d42-8307-aebcc2c6ec99
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_empty
+    - workflow.state.state_certificate_publish
+id: state_certificate_empty_publish
+label: null
+module: workflow
+from_sid: state_certificate_empty
+to_sid: state_certificate_publish
+roles:
+  workflow_author: '0'
+  administrator: '0'

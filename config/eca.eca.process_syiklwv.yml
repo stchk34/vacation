@@ -1,6 +1,6 @@
 uuid: 481cdfcd-3c80-43ed-af99-52ba9a711714
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.field.node.certificate.field_limit_
@@ -26,7 +26,8 @@ dependencies:
     - node
 id: process_syiklwv
 modeller: bpmn_io
-label: 'Burn days !!! I added update'
+label: |
+  DISABLED MODEL: Burn days !!! I added update
 version: ''
 weight: -10
 events:
@@ -1534,28 +1535,21 @@ actions:
       -
         id: Activity_0zs9aur
         condition: ''
-      -
-        id: Activity_1fhkasm
-        condition: ''
   Activity_0iegit1:
     plugin: action_message_action
-    label: Activity_0iegit1
+    label: MESSAGE
     configuration:
       replace_tokens: false
       message: |-
         поточна кількість днів:
          [max_day] в юзера: [employee_certificate]
+
+
+        воно доходить сюди
     successors: {  }
   Activity_1fq9053:
     plugin: eca_save_entity
-    label: Activity_1fq9053
+    label: 'SAVE USER'
     configuration:
       object: '[employee_certificate]'
-    successors: {  }
-  Activity_1fhkasm:
-    plugin: action_message_action
-    label: Activity_1fhkasm
-    configuration:
-      replace_tokens: false
-      message: 'я заєбавсяяя'
     successors: {  }

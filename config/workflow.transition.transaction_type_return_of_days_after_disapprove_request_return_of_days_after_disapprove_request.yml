@@ -1,0 +1,12 @@
+uuid: 08c9ce4b-bbba-4ff1-8d8a-9982bf9c22bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_return_of_days_after_disapprove_request
+id: transaction_type_return_of_days_after_disapprove_request_return_of_days_after_disapprove_request
+label: null
+module: workflow
+from_sid: transaction_type_return_of_days_after_disapprove_request
+to_sid: transaction_type_return_of_days_after_disapprove_request
+roles: {  }

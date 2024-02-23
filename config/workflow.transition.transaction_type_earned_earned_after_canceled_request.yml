@@ -13,3 +13,7 @@ to_sid: transaction_type_earned_after_canceled_request
 roles:
   administrator: administrator
   workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'

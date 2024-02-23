@@ -1,0 +1,19 @@
+uuid: 630dc10b-c8db-41ae-b86a-b06a6d3e34c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_return_of_days_after_disapprove_request
+    - workflow.state.transaction_type_spent_when_burning_day
+id: transaction_type_spent_when_burning_day_return_of_days_after_disapprove_request
+label: null
+module: workflow
+from_sid: transaction_type_spent_when_burning_day
+to_sid: transaction_type_return_of_days_after_disapprove_request
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

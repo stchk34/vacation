@@ -12,4 +12,8 @@ from_sid: transaction_type_spent_when_burning_day
 to_sid: transaction_type_earned
 roles:
   workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
   administrator: '0'

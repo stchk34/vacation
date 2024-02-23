@@ -8,7 +8,7 @@ dependencies:
     - eca_tamper
 id: process_s1rjbgc
 modeller: bpmn_io
-label: 'Validation certificate'
+label: 'STEP 5 "Bonus certificate insert"'
 version: ''
 weight: -10
 events:

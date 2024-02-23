@@ -1,0 +1,80 @@
+uuid: 61324f07-d02a-4672-9f02-2a4f374bbe21
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.bonus_certificate
+  module:
+    - eca_base
+    - eca_user
+    - eca_views
+id: process_lfu2mfb
+modeller: bpmn_io
+label: noname
+version: ''
+weight: null
+events:
+  Event_0m1o6mf:
+    plugin: 'eca_base:eca_cron'
+    label: 'RUN cron Every 1 min'
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: Activity_0ad0gka
+        condition: ''
+conditions:
+  Flow_0liuiea:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: all_certificate
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_0wzv3xb:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[disabled_certificate:field_limit_:value]'
+      right: '0'
+      operator: equal
+      type: value
+gateways: {  }
+actions:
+  Activity_0ad0gka:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0qjermo
+        condition: ''
+  Activity_0qjermo:
+    plugin: eca_views_query
+    label: ' views "ALL certificate"'
+    configuration:
+      token_name: all_certificate
+      view_id: bonus_certificate
+      display_id: block_1
+      arguments: ''
+    successors:
+      -
+        id: Activity_0n9pu03
+        condition: Flow_0liuiea
+  Activity_0n9pu03:
+    plugin: eca_list_remove
+    label: 'remove item'
+    configuration:
+      value: ''
+      token_name: disabled_certificate
+      method: first
+      index: ''
+      list_token: all_certificate
+    successors:
+      -
+        id: Activity_1nbp9my
+        condition: Flow_0wzv3xb

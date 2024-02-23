@@ -1,0 +1,15 @@
+uuid: b84a576b-2789-43ce-990c-a21f6a1d16ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_disabled
+    - workflow.state.state_certificate_empty
+id: state_certificate_empty_disabled
+label: null
+module: workflow
+from_sid: state_certificate_empty
+to_sid: state_certificate_disabled
+roles:
+  workflow_author: workflow_author
+  administrator: administrator

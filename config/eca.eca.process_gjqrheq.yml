@@ -1,0 +1,153 @@
+uuid: 1c6dc129-951d-4f16-82fb-4401339da76e
+langcode: en
+status: false
+dependencies:
+  config:
+    - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
+    - field.field.node.vacation_request.field_count_approvers
+    - field.field.node.vacation_request.field_employee_sender
+    - field.storage.node.field_approver
+    - field.storage.node.field_certificate_in_request
+    - field.storage.node.field_count_approvers
+    - field.storage.node.field_employee_sender
+    - node.type.vacation_request
+  module:
+    - eca_base
+    - eca_content
+    - eca_user
+id: process_gjqrheq
+modeller: bpmn_io
+label: noname
+version: ''
+weight: null
+events:
+  Event_0xyiadw:
+    plugin: 'content_entity:insert'
+    label: 'Create vacation request'
+    configuration:
+      type: 'node vacation_request'
+    successors:
+      -
+        id: Activity_0oophaj
+        condition: ''
+conditions: {  }
+gateways:
+  Gateway_028uojr:
+    type: 0
+    successors:
+      -
+        id: Activity_0kgy8yz
+        condition: ''
+      -
+        id: Activity_1s5vilx
+        condition: ''
+actions:
+  Activity_0oophaj:
+    plugin: eca_token_load_entity
+    label: 'LOAD REQUEST'
+    configuration:
+      token_name: new_request
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: Activity_0ad696g
+        condition: ''
+  Activity_0ad696g:
+    plugin: eca_token_load_entity_ref
+    label: 'LOAD SENDER REQUEST'
+    configuration:
+      field_name_entity_ref: field_employee_sender
+      token_name: sender_request
+      from: current
+      entity_type: user
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_1tg8zx8
+        condition: ''
+  Activity_1tg8zx8:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1i9rbip
+        condition: ''
+  Activity_1i9rbip:
+    plugin: eca_token_set_value
+    label: 'SET TOKEN VOTERS IN VACATION REQUEST'
+    configuration:
+      token_name: voters
+      token_value: '[new_request:field_approver]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_0k9k4s2
+        condition: ''
+  Activity_0k9k4s2:
+    plugin: eca_count
+    label: 'COUNT VOTERS'
+    configuration:
+      token_name: count_voters
+      list_token: voters
+    successors:
+      -
+        id: Activity_06igjgq
+        condition: ''
+  Activity_06igjgq:
+    plugin: eca_set_field_value
+    label: 'COUNT APPROVERS'
+    configuration:
+      field_name: field_count_approvers
+      field_value: '[count_voters]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_1uqghac
+        condition: ''
+  Activity_1uqghac:
+    plugin: eca_set_field_value
+    label: 'SET FIELD SENDER REQUEST'
+    configuration:
+      field_name: field_employee_sender
+      field_value: '[sender_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[new_request]'
+    successors:
+      -
+        id: Activity_0e8t1wp
+        condition: ''
+  Activity_0e8t1wp:
+    plugin: eca_token_set_value
+    label: 'TOKEN ALL CERTIFICATE'
+    configuration:
+      token_name: list_certificate_request
+      token_value: '[new_request:field_certificate_in_request]'
+      use_yaml: false
+    successors:
+      -
+        id: Gateway_028uojr
+        condition: ''

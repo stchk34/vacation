@@ -78,75 +78,19 @@ state_certificate_publish:
     grant_view: true
     grant_update: true
     grant_delete: true
-  ceo:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
   administrator:
     grant_view: true
     grant_update: true
     grant_delete: true
-  team_lead:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  dev:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  pm:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  authenticated:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  anonymous:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  content_editor:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
 state_certificate_disabled:
   workflow_author:
     grant_view: true
     grant_update: true
     grant_delete: true
-  ceo:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
   administrator:
     grant_view: true
     grant_update: true
     grant_delete: true
-  team_lead:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  dev:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  pm:
-    grant_view: true
-    grant_update: 0
-    grant_delete: 0
-  authenticated:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  anonymous:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
-  content_editor:
-    grant_view: 0
-    grant_update: 0
-    grant_delete: 0
 state_for_approvers_disapproved:
   workflow_author:
     grant_view: true
@@ -422,6 +366,40 @@ state_for_approvers_started:
     grant_update: 0
     grant_delete: 0
 transaction_type_earned_after_canceled_request:
+  workflow_author:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+state_certificate_empty:
+  workflow_author:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+transaction_type_return_of_days_after_disapprove_request:
   workflow_author:
     grant_view: true
     grant_update: 0

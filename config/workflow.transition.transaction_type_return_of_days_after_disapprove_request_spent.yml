@@ -1,0 +1,19 @@
+uuid: c86412cc-aa11-46ac-9445-b8488edc01b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.transaction_type_return_of_days_after_disapprove_request
+    - workflow.state.transaction_type_spent
+id: transaction_type_return_of_days_after_disapprove_request_spent
+label: null
+module: workflow
+from_sid: transaction_type_return_of_days_after_disapprove_request
+to_sid: transaction_type_spent
+roles:
+  workflow_author: '0'
+  ceo: '0'
+  team_lead: '0'
+  dev: '0'
+  pm: '0'
+  administrator: '0'

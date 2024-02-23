@@ -5,19 +5,25 @@ dependencies:
   config:
     - field.field.node.certificate.field_employee
     - field.field.node.certificate.field_limit_
-    - field.field.user.user.field_bonus_days
+    - field.field.node.transaction.field_certificate
+    - field.field.node.transaction.field_days
+    - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_status_transactions
+    - field.storage.node.field_certificate
+    - field.storage.node.field_days
     - field.storage.node.field_employee
     - field.storage.node.field_limit_
-    - field.storage.user.field_bonus_days
+    - field.storage.node.field_owner
+    - field.storage.node.field_status_transactions
     - node.type.certificate
+    - node.type.transaction
   module:
     - eca_base
     - eca_content
-    - eca_tamper
     - eca_user
 id: process_s1wtrgs
 modeller: bpmn_io
-label: 'Bonus certificate 2.0'
+label: 'STEP 6 "Bonus certificate set field after save"'
 version: ''
 weight: -10
 events:
@@ -77,35 +83,7 @@ actions:
       object: '[new_bonus_certificate]'
     successors:
       -
-        id: Activity_0jlepwx
-        condition: ''
-  Activity_1t1bdc4:
-    plugin: 'eca_tamper:math'
-    label: MATH
-    configuration:
-      operation: addition
-      flip: false
-      value: '[new_bonus_certificate:field_limit_:value]'
-      eca_data: '[bonus_days]'
-      eca_token_name: number_bonus_day
-    successors:
-      -
-        id: Activity_1kqv79i
-        condition: ''
-  Activity_1kqv79i:
-    plugin: eca_set_field_value
-    label: 'set field Bonus day'
-    configuration:
-      field_name: field_bonus_days
-      field_value: '[number_bonus_day]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[employee]'
-    successors:
-      -
-        id: Activity_0olchhb
+        id: Activity_11wgeuo
         condition: ''
   Activity_0j2gjyg:
     plugin: eca_switch_account
@@ -116,30 +94,83 @@ actions:
       -
         id: Activity_1jq6trv
         condition: ''
-  Activity_0olchhb:
-    plugin: eca_save_entity
-    label: Activity_0olchhb
+  Activity_1ypy207:
+    plugin: eca_new_entity
+    label: 'CREATE EARNED TRANSACTION'
     configuration:
-      object: '[employee]'
+      token_name: earned_transaction_bonus
+      type: 'node transaction'
+      langcode: ''
+      label: 'Earned transaction for [new_bonus_certificate:title]'
+      published: true
+      owner: '1'
     successors:
       -
-        id: Activity_0dfqxg9
+        id: Activity_1dt6hmn
         condition: ''
-  Activity_0dfqxg9:
-    plugin: action_message_action
-    label: message
+  Activity_11wgeuo:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
     configuration:
-      replace_tokens: false
-      message: 'Створено бонусний сертифікат та додано дні в ентіті юзера'
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1ypy207
+        condition: ''
+  Activity_1dt6hmn:
+    plugin: eca_set_field_value
+    label: 'SET FIELD STATUS TRANSACTION'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_earned
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction_bonus]'
+    successors:
+      -
+        id: Activity_0mm08hk
+        condition: ''
+  Activity_0mm08hk:
+    plugin: eca_set_field_value
+    label: 'SET FIELD CERTIFICATE'
+    configuration:
+      field_name: field_certificate
+      field_value: '[new_bonus_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction_bonus]'
+    successors:
+      -
+        id: Activity_1ezv9v5
+        condition: ''
+  Activity_1ezv9v5:
+    plugin: eca_set_field_value
+    label: 'SET FIELD OWNER'
+    configuration:
+      field_name: field_owner
+      field_value: '[employee]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction_bonus]'
+    successors:
+      -
+        id: Activity_07uu1cc
+        condition: ''
+  Activity_07uu1cc:
+    plugin: eca_set_field_value
+    label: 'SET FIELD DAYS'
+    configuration:
+      field_name: field_days
+      field_value: '[new_bonus_certificate:field_limit_:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction_bonus]'
     successors: {  }
-  Activity_0jlepwx:
-    plugin: eca_get_field_value
-    label: 'get field bonus in entity user'
-    configuration:
-      field_name: field_bonus_days
-      token_name: bonus_days
-      object: '[employee]'
-    successors:
-      -
-        id: Activity_1t1bdc4
-        condition: ''

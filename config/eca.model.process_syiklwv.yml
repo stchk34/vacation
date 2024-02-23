@@ -5,7 +5,8 @@ dependencies:
   config:
     - eca.eca.process_syiklwv
 id: process_syiklwv
-label: 'Burn days !!! I added update'
+label: |
+  DISABLED MODEL: Burn days !!! I added update
 tags:
   - untagged
 documentation: ''
@@ -13,7 +14,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_sYIKLWv" name="Burn days !!! I added update" isExecutable="true">
+    <bpmn2:process id="Process_sYIKLWv" name="DISABLED MODEL: Burn days !!! I added update&#10;" isExecutable="false">
       <bpmn2:task id="Activity_0m9f0ff" name="get actual balance" camunda:modelerTemplate="org.drupal.action.eca_get_field_value">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -2896,17 +2897,19 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1qimo2p</bpmn2:incoming>
         <bpmn2:outgoing>Flow_0gyqey9</bpmn2:outgoing>
-        <bpmn2:outgoing>Flow_1c8qajw</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0gyqey9" sourceRef="Activity_0r1o0mu" targetRef="Activity_0zs9aur" />
-      <bpmn2:task id="Activity_0iegit1" camunda:modelerTemplate="org.drupal.action.action_message_action">
+      <bpmn2:task id="Activity_0iegit1" name="MESSAGE" camunda:modelerTemplate="org.drupal.action.action_message_action">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="action_message_action" />
           </camunda:properties>
           <camunda:field name="message">
             <camunda:string>поточна кількість днів:
-   [max_day] в юзера: [employee_certificate]</camunda:string>
+   [max_day] в юзера: [employee_certificate]
+
+
+  воно доходить сюди</camunda:string>
           </camunda:field>
           <camunda:field name="replace_tokens">
             <camunda:string>no</camunda:string>
@@ -2915,7 +2918,7 @@ modeldata: |
         <bpmn2:incoming>Flow_1g1hwra</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1g1hwra" sourceRef="Activity_0zs9aur" targetRef="Activity_0iegit1" />
-      <bpmn2:task id="Activity_1fq9053" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
+      <bpmn2:task id="Activity_1fq9053" name="SAVE USER" camunda:modelerTemplate="org.drupal.action.eca_save_entity">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_save_entity" />
@@ -2927,21 +2930,6 @@ modeldata: |
         <bpmn2:incoming>Flow_0pxlxz7</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0pxlxz7" sourceRef="Activity_0zs9aur" targetRef="Activity_1fq9053" />
-      <bpmn2:task id="Activity_1fhkasm" camunda:modelerTemplate="org.drupal.action.action_message_action">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="action_message_action" />
-          </camunda:properties>
-          <camunda:field name="message">
-            <camunda:string>я заєбавсяяя</camunda:string>
-          </camunda:field>
-          <camunda:field name="replace_tokens">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_1c8qajw</bpmn2:incoming>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1c8qajw" sourceRef="Activity_0r1o0mu" targetRef="Activity_1fhkasm" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-b3d10206-2062-4222-9fdf-1b4f2fe4a454">
       <bpmndi:BPMNPlane id="sid-c40476c9-2588-4097-921e-cfb8b8f0eb93" bpmnElement="Process_sYIKLWv">
@@ -3375,12 +3363,11 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_0iegit1_di" bpmnElement="Activity_0iegit1">
           <dc:Bounds x="670" y="-110" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1fq9053_di" bpmnElement="Activity_1fq9053">
           <dc:Bounds x="500" y="-10" width="100" height="80" />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Activity_1fhkasm_di" bpmnElement="Activity_1fhkasm">
-          <dc:Bounds x="790" y="-190" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_199mib5_di" bpmnElement="Flow_199mib5">
           <di:waypoint x="1940" y="-245" />
@@ -3908,12 +3895,6 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_0pxlxz7_di" bpmnElement="Flow_0pxlxz7">
           <di:waypoint x="670" y="30" />
           <di:waypoint x="600" y="30" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_1c8qajw_di" bpmnElement="Flow_1c8qajw">
-          <di:waypoint x="910" y="-10" />
-          <di:waypoint x="910" y="-60" />
-          <di:waypoint x="840" y="-60" />
-          <di:waypoint x="840" y="-110" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

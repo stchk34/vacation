@@ -36,7 +36,7 @@ dependencies:
     - node
 id: process_wsz2dg2
 modeller: bpmn_io
-label: 'Create Earned Transaction and unpublish certificate'
+label: 'STEP 2: Create Earned Transaction and unpublish certificate'
 version: ''
 weight: -10
 events:
@@ -415,6 +415,9 @@ actions:
       -
         id: Activity_0d0mx3s
         condition: ''
+      -
+        id: Activity_0s54pit
+        condition: ''
   Activity_1lo5ggl:
     plugin: eca_switch_account
     label: 'SWITCH TO ADMIN'
@@ -551,4 +554,11 @@ actions:
     label: 'SAVE SPENT UNUSED DAYS'
     configuration:
       object: '[spent_unused_transaction]'
+    successors: {  }
+  Activity_0s54pit:
+    plugin: action_message_action
+    label: 'TRANSACTION SPENT DAYS'
+    configuration:
+      replace_tokens: false
+      message: 'створення транзакції відмінусування днів'
     successors: {  }

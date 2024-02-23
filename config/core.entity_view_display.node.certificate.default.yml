@@ -47,7 +47,7 @@ content:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: UTC
+      timezone_override: Europe/Kyiv
       format_type: vacation_date
     third_party_settings: {  }
     weight: 5
@@ -63,7 +63,7 @@ content:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: UTC
+      timezone_override: Europe/Kyiv
       format_type: vacation_date
     third_party_settings: {  }
     weight: 6

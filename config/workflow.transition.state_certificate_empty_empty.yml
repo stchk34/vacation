@@ -1,0 +1,12 @@
+uuid: 4fc48ba6-7449-434f-820c-632c0534afbe
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.state_certificate_empty
+id: state_certificate_empty_empty
+label: null
+module: workflow
+from_sid: state_certificate_empty
+to_sid: state_certificate_empty
+roles: {  }

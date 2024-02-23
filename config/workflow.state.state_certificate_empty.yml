@@ -1,0 +1,12 @@
+uuid: fd554310-7b85-474e-b52d-c6764cc770dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.state_certificate
+id: state_certificate_empty
+label: Empty
+module: workflow
+wid: state_certificate
+weight: -8
+sysid: 0

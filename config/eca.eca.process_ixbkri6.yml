@@ -13,7 +13,7 @@ dependencies:
     - node
 id: process_ixbkri6
 modeller: bpmn_io
-label: 'Delete bonus certificate and new functional'
+label: 'STEP 7: Delete bonus certificate and new functional'
 version: ''
 weight: -10
 events:
