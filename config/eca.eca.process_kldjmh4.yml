@@ -104,6 +104,15 @@ events:
       -
         id: Activity_1xip64x
         condition: ''
+  Event_04zixsq:
+    plugin: 'content_entity:custom'
+    label: 'CUSTOM EVENT x15'
+    configuration:
+      event_id: x15
+    successors:
+      -
+        id: Activity_1nc4143
+        condition: ''
 conditions:
   Flow_1e735ru:
     plugin: eca_scalar
@@ -1052,7 +1061,10 @@ actions:
     label: 'SAVE PAID TRANSACTION'
     configuration:
       object: '[paid_vacation_transaction]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_14my319
+        condition: ''
   Activity_01w80iu:
     plugin: eca_set_field_value
     label: 'SET FIELD SENDER'
@@ -1118,7 +1130,7 @@ actions:
     label: 'TRIGGER x15'
     configuration:
       event_id: x10
-      tokens: 'sender,new_request,third_certificate'
+      tokens: 'sender,new_request,third_certificate,rounder_remaining_day_for_third_certificate'
       object: '[third_certificate]'
     successors: {  }
   Activity_0ceq020:
@@ -1284,7 +1296,7 @@ actions:
     label: 'TRIGGER X12'
     configuration:
       event_id: x12
-      tokens: 'first_drop_certificate,sender,new_request'
+      tokens: 'first_drop_certificate,sender,new_request,unchanged_limit_first_certificate'
       object: '[first_drop_certificate]'
     successors: {  }
   Activity_0sx47j9:
@@ -1292,7 +1304,7 @@ actions:
     label: 'TRIGGER x13'
     configuration:
       event_id: x13
-      tokens: 'second_dropped_certificate,sender,new_request, rounder_remaining_days_for_second_certificate'
+      tokens: 'second_dropped_certificate,sender,new_request,rounder_remaining_days_for_second_certificate'
       object: '[second_dropped_certificate]'
     successors: {  }
   Activity_005ek6b:
@@ -1300,7 +1312,7 @@ actions:
     label: 'TRIGGER x14'
     configuration:
       event_id: x14
-      tokens: 'second_dropped_certificate,sender,new_request'
+      tokens: 'second_dropped_certificate,sender,new_request,unchanged_limit_second_certificate'
       object: '[second_dropped_certificate]'
     successors: {  }
   Activity_1banpst:
@@ -1343,7 +1355,7 @@ actions:
     plugin: eca_switch_account
     label: 'SWITCH TO ADMIN'
     configuration:
-      user_id: '`'
+      user_id: '1'
     successors:
       -
         id: Activity_1a9fkht
@@ -1371,7 +1383,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
@@ -1401,7 +1413,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
@@ -1416,7 +1428,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
@@ -1431,7 +1443,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
@@ -1446,7 +1458,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
@@ -1456,8 +1468,11 @@ actions:
     plugin: eca_save_entity
     label: 'SAVE TRANSACTION'
     configuration:
-      object: '[paid_vacation_transaction]'
-    successors: {  }
+      object: '[transactions_spent_from_first_certificate]'
+    successors:
+      -
+        id: Activity_01p7z8x
+        condition: ''
   Activity_1oyeew6:
     plugin: eca_switch_account
     label: 'SWITCH TO ADMIN'
@@ -1490,7 +1505,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1505,7 +1520,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1520,7 +1535,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1546,7 +1561,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1561,7 +1576,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1576,7 +1591,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
@@ -1587,7 +1602,10 @@ actions:
     label: 'SAVE TRANSACTION'
     configuration:
       object: '[tran_spent_from_second_certificate]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_0zb9bh2
+        condition: ''
   Activity_1xip64x:
     plugin: eca_switch_account
     label: 'SWITCH TO ADMIN'
@@ -1620,7 +1638,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1635,7 +1653,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1650,7 +1668,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1665,7 +1683,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1680,7 +1698,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1695,7 +1713,7 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
+      save_entity: true
       object: '[transaction_empty_certificate]'
     successors:
       -
@@ -1706,4 +1724,144 @@ actions:
     label: 'SAVE TRANSACTION'
     configuration:
       object: '[transaction_empty_certificate]'
+    successors: {  }
+  Activity_1nc4143:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0510vlx
+        condition: ''
+  Activity_0510vlx:
+    plugin: eca_new_entity
+    label: 'CREATE TRANSACTION'
+    configuration:
+      token_name: transaction_third_certificate
+      type: 'node transaction'
+      langcode: ''
+      label: 'Transaction of subtracting days from a certificate "[third_certificate:title]"'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: Activity_1905v1l
+        condition: ''
+  Activity_1905v1l:
+    plugin: eca_set_field_value
+    label: 'SET FIELD OWNER'
+    configuration:
+      field_name: field_owner
+      field_value: '[sender]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transaction_third_certificate]'
+    successors:
+      -
+        id: Activity_0iwj3b4
+        condition: ''
+  Activity_0iwj3b4:
+    plugin: eca_set_field_value
+    label: 'SET FIELD REQUEST'
+    configuration:
+      field_name: field_vacat
+      field_value: '[new_request]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transaction_third_certificate]'
+    successors:
+      -
+        id: Activity_17nu1t4
+        condition: ''
+  Activity_17nu1t4:
+    plugin: eca_set_field_value
+    label: 'SET FIELD SPENT TYPE'
+    configuration:
+      field_name: field_status_transactions
+      field_value: transaction_type_spent
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transaction_third_certificate]'
+    successors:
+      -
+        id: Activity_1gskzx3
+        condition: ''
+  Activity_1gskzx3:
+    plugin: eca_set_field_value
+    label: 'SET FIELD PAID'
+    configuration:
+      field_name: field_type_paid_vacation
+      field_value: Paid
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[transaction_empty_certificate]'
+    successors:
+      -
+        id: Activity_0z5l6pq
+        condition: ''
+  Activity_0z5l6pq:
+    plugin: eca_set_field_value
+    label: 'SET FIELD DAYS'
+    configuration:
+      field_name: field_days
+      field_value: '[rounder_remaining_day_for_third_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transaction_third_certificate]'
+    successors:
+      -
+        id: Activity_1ouz11k
+        condition: ''
+  Activity_1ouz11k:
+    plugin: eca_set_field_value
+    label: 'SET FIELD CERTIFICATE'
+    configuration:
+      field_name: field_certificate
+      field_value: '[third_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transaction_third_certificate]'
+    successors:
+      -
+        id: Activity_11zggmx
+        condition: ''
+  Activity_11zggmx:
+    plugin: eca_save_entity
+    label: 'SAVE TRANSACTION'
+    configuration:
+      object: '[transaction_third_certificate]'
+    successors: {  }
+  Activity_01p7z8x:
+    plugin: action_message_action
+    label: MESSAGE
+    configuration:
+      replace_tokens: false
+      message: '2) транзакція на перший сертифікат.який згорає повністю [duration_paid_request] [unchanged_limit_first_certificate]'
+    successors: {  }
+  Activity_14my319:
+    plugin: action_message_action
+    label: Activity_14my319
+    configuration:
+      replace_tokens: false
+      message: '1) транзакція на сертифікат.який один в реквесті і його кількість днів =[duration_paid_request]'
+    successors: {  }
+  Activity_0zb9bh2:
+    plugin: action_message_action
+    label: Activity_0zb9bh2
+    configuration:
+      replace_tokens: false
+      message: '3) транзакція на другий сертифікат.який мінусує декілька днів з сертифіката [rounder_remaining_days_for_second_certificate]'
     successors: {  }
