@@ -1,0 +1,24 @@
+uuid: 5656e295-71c8-4108-90af-fd1d9b0e67d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - eca_form
+id: process_s6whpkp
+modeller: bpmn_io
+label: 'VALIDATE VACATION REQUEST'
+version: ''
+weight: null
+events:
+  Event_18e2lkv:
+    plugin: 'form:form_validate'
+    label: 'FORM VACATION REQUEST'
+    configuration:
+      form_id: node-vacation-request-form
+      entity_type_id: ''
+      bundle: ''
+      operation: ''
+    successors: {  }
+conditions: {  }
+gateways: {  }
+actions: {  }

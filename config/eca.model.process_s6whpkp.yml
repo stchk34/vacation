@@ -1,0 +1,45 @@
+uuid: dfdb6206-160c-48a2-99f1-43ff54a1f2c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_s6whpkp
+id: process_s6whpkp
+label: 'VALIDATE VACATION REQUEST'
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_s6Whpkp" name="VALIDATE VACATION REQUEST" isExecutable="true">
+      <bpmn2:startEvent id="Event_18e2lkv" name="FORM VACATION REQUEST" camunda:modelerTemplate="org.drupal.event.form:form_validate">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="form:form_validate" />
+          </camunda:properties>
+          <camunda:field name="form_id">
+            <camunda:string>node-vacation-request-form</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity_type_id">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="bundle" />
+          <camunda:field name="operation">
+            <camunda:string></camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:startEvent>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-6c7afc2a-ba24-4508-97d4-3b32af29ad33">
+      <bpmndi:BPMNPlane id="sid-ec789abd-a8e6-447d-8e6f-25e448926791" bpmnElement="Process_s6Whpkp">
+        <bpmndi:BPMNShape id="Event_18e2lkv_di" bpmnElement="Event_18e2lkv">
+          <dc:Bounds x="192" y="372" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="185" y="415" width="55" height="40" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

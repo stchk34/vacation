@@ -39,7 +39,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_duration_example:
-    type: smartdate_only
+    type: smartdate_default
     weight: 10
     region: content
     settings:
@@ -52,8 +52,7 @@ content:
         120|2 hours
         custom
       show_extra: false
-      hide_date: true
-      separator: to
+      hide_date: false
     third_party_settings:
       conditional_fields:
         5e588540-4d8d-4c5d-8e9f-6d4d0d21ad6a:

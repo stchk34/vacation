@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_approver
+    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
@@ -18,6 +19,7 @@ dependencies:
     - field.field.user.user.field_balance_a_vacations_day
     - field.storage.node.field_actual_balance
     - field.storage.node.field_approver
+    - field.storage.node.field_certificate_in_request
     - field.storage.node.field_count_approvers
     - field.storage.node.field_days
     - field.storage.node.field_duration_of_the_paid_vacat
@@ -55,15 +57,6 @@ events:
         id: Activity_1qjv9fh
         condition: ''
 conditions:
-  Flow_1bllzfn:
-    plugin: eca_scalar
-    configuration:
-      negate: false
-      case: false
-      left: '[upd_request:field_request_state:value]'
-      right: request_state_disapproved
-      operator: equal
-      type: value
   Flow_0u0hrd1:
     plugin: eca_scalar
     configuration:
@@ -172,16 +165,25 @@ conditions:
       right: state_for_approvers_cancel
       operator: equal
       type: value
+  Flow_0r4webl:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_operation:value]'
+      right: state_for_approvers_cancel
+      operator: equal
+      type: value
+  Flow_0x2l1cd:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[upd_request:field_request_state:value]'
+      right: request_state_disapproved
+      operator: equal
+      type: value
 gateways:
-  Gateway_16gn9ef:
-    type: 0
-    successors:
-      -
-        id: Activity_1ozf1jb
-        condition: Flow_1bllzfn
-      -
-        id: Activity_0msk7ry
-        condition: Flow_0u0hrd1
   Gateway_0jyt6u7:
     type: 0
     successors:
@@ -218,6 +220,9 @@ gateways:
       -
         id: Activity_19yi5bd
         condition: Flow_1mb6drj
+      -
+        id: Activity_1ozf1jb
+        condition: Flow_0x2l1cd
   Gateway_1s3m38g:
     type: 0
     successors:
@@ -241,7 +246,7 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_1j2dkni
+        id: Activity_1jrz0sq
         condition: ''
   Activity_1ozf1jb:
     plugin: 'entity:unpublish_action:node'
@@ -274,6 +279,9 @@ actions:
       -
         id: Gateway_1s3m38g
         condition: Flow_0nctqdh
+      -
+        id: Activity_17q5sv8
+        condition: Flow_0r4webl
   Activity_0xg69ms:
     plugin: eca_trigger_content_entity_custom_event
     label: 'TRIGGER x3'
@@ -392,8 +400,8 @@ actions:
       object: '[upd_request]'
     successors:
       -
-        id: Gateway_16gn9ef
-        condition: ''
+        id: Activity_0msk7ry
+        condition: Flow_0u0hrd1
   Activity_1vxeeqp:
     plugin: eca_token_load_entity
     label: 'unchanged version'
@@ -522,7 +530,7 @@ actions:
         id: Activity_1g9sx77
         condition: ''
       -
-        id: Activity_19bccxz
+        id: Activity_0n321u4
         condition: ''
   Activity_1g9sx77:
     plugin: eca_set_field_value
@@ -553,9 +561,6 @@ actions:
     successors:
       -
         id: Activity_170wcvx
-        condition: ''
-      -
-        id: Activity_0n321u4
         condition: ''
   Activity_170wcvx:
     plugin: eca_set_field_value
@@ -760,19 +765,12 @@ actions:
     configuration:
       object: '[return_transaction_after_disapprove]'
     successors: {  }
-  Activity_19bccxz:
-    plugin: action_message_action
-    label: Activity_19bccxz
-    configuration:
-      replace_tokens: false
-      message: 'Я зупинився на створенні транзакції'
-    successors: {  }
   Activity_0n321u4:
     plugin: action_message_action
     label: Activity_0n321u4
     configuration:
       replace_tokens: false
-      message: 'Я зупинився на додаванні філда вакейшен реквест'
+      message: '2) створено ноду транзакціх на повернення'
     successors: {  }
   Activity_1kl1bmw:
     plugin: action_message_action
@@ -792,10 +790,33 @@ actions:
         condition: ''
   Activity_17q5sv8:
     plugin: eca_switch_account
-    label: Activity_17q5sv8
+    label: 'SWITCH TO ADMIN'
     configuration:
       user_id: '1'
     successors:
       -
         id: Activity_1f59nag
         condition: ''
+  Activity_1jrz0sq:
+    plugin: eca_token_set_value
+    label: 'TOKEN ALL CERTIFICATE IN THIS REQUESt'
+    configuration:
+      token_name: all_certificate
+      token_value: '[upd_request:field_certificate_in_request]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1j2dkni
+        condition: ''
+      -
+        id: Activity_05ba5ds
+        condition: ''
+  Activity_05ba5ds:
+    plugin: action_message_action
+    label: Activity_05ba5ds
+    configuration:
+      replace_tokens: false
+      message: |-
+        сертифікати з цього запиту:
+        [all_certificate]
+    successors: {  }

@@ -69,6 +69,7 @@
         "drupal/rules_user_fields": "^2.0",
         "drupal/scheduler": "^1.5",
         "drupal/smart_date": "^3.7",
+        "drupal/smart_date_extra_tokens": "^1.0",
         "drupal/smtp": "^1.2",
         "drupal/tab_manager": "^1.0",
         "drupal/ultimate_cron": "^2.0@alpha",

@@ -109,6 +109,7 @@ module:
   serialization: 0
   shortcut: 0
   smart_date: 0
+  smart_date_extra_tokens: 0
   smtp: 0
   system: 0
   tab_manager: 0
