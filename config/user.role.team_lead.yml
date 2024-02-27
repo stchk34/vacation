@@ -20,6 +20,7 @@ is_admin: null
 permissions:
   - 'access group overview'
   - 'access request_state workflow_transition form'
+  - 'access state_certificate workflow_transition form'
   - 'access state_for_approvers workflow_transition form'
   - 'access transaction_type workflow_transition form'
   - 'access user profiles'
@@ -37,6 +38,7 @@ permissions:
   - 'cancel account'
   - 'create certificate content'
   - 'create request_state workflow_transition'
+  - 'create state_certificate workflow_transition'
   - 'create state_for_approvers workflow_transition'
   - 'create team_lead_group group'
   - 'create transaction_type workflow_transition'

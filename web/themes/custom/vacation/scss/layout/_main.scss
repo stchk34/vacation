@@ -51,7 +51,8 @@ main {
 }
 
 .block-vacation-content,
-.maintenance-page {
+.maintenance-page,
+.block-views-block-pre-request-transactions-block-1 {
   display: flex;
   padding-top: 15px;
   flex-direction: column;
@@ -60,7 +61,10 @@ main {
   font-size: 20px;
   width: 100%;
 }
-
+.block-views-block-pre-request-transactions-block-1.block-title{
+  font-size:18px;
+  text-align:center;
+}
 //Title page.
 #block-vacation-page-title{
   max-width: 1500px;

@@ -3,36 +3,31 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.transaction.field_actual_balance
+    - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
-    - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
     - field.field.node.vacation_request.field_approver
-    - field.field.node.vacation_request.field_certificate_in_request
     - field.field.node.vacation_request.field_count_approvers
-    - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
     - field.field.node.vacation_request.field_request_state
-    - field.field.user.user.field_balance_a_vacations_day
-    - field.storage.node.field_actual_balance
     - field.storage.node.field_approver
-    - field.storage.node.field_certificate_in_request
+    - field.storage.node.field_certificate
     - field.storage.node.field_count_approvers
     - field.storage.node.field_days
-    - field.storage.node.field_duration_of_the_paid_vacat
     - field.storage.node.field_employee_sender
+    - field.storage.node.field_limit_
     - field.storage.node.field_owner
-    - field.storage.node.field_previous_balance
     - field.storage.node.field_request_state
     - field.storage.node.field_status_transactions
     - field.storage.node.field_type_paid_vacation
     - field.storage.node.field_vacat
-    - field.storage.user.field_balance_a_vacations_day
     - node.type.transaction
     - node.type.vacation_request
+    - views.view.pre_request_transactions
     - views.view.transaction_in_request
   module:
     - eca_base
@@ -183,6 +178,42 @@ conditions:
       right: request_state_disapproved
       operator: equal
       type: value
+  Flow_00xa58h:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: spent_transactions
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_1lmm6wx:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: spent_transactions_in_request
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_023ngql:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: spent_transactions_in_request
+      right: '0'
+      operator: equal
+      type: numeric
+  Flow_1va89ox:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: spent_transactions
+      right: '0'
+      operator: equal
+      type: numeric
 gateways:
   Gateway_0jyt6u7:
     type: 0
@@ -229,6 +260,24 @@ gateways:
       -
         id: Activity_17q5sv8
         condition: Flow_0y1itsa
+  Gateway_10st7tk:
+    type: 0
+    successors:
+      -
+        id: Activity_0ljiilj
+        condition: Flow_1lmm6wx
+      -
+        id: Activity_09o7r81
+        condition: Flow_023ngql
+  Gateway_05fnc25:
+    type: 0
+    successors:
+      -
+        id: Activity_1topcel
+        condition: Flow_00xa58h
+      -
+        id: Activity_0qmg70p
+        condition: Flow_1va89ox
 actions:
   Activity_177hcd7:
     plugin: eca_token_load_entity
@@ -246,7 +295,7 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_1jrz0sq
+        id: Activity_1j2dkni
         condition: ''
   Activity_1ozf1jb:
     plugin: 'entity:unpublish_action:node'
@@ -282,14 +331,6 @@ actions:
       -
         id: Activity_17q5sv8
         condition: Flow_0r4webl
-  Activity_0xg69ms:
-    plugin: eca_trigger_content_entity_custom_event
-    label: 'TRIGGER x3'
-    configuration:
-      event_id: x3
-      tokens: 'sender_request,paid_vacation_transaction'
-      object: '[paid_vacation_transaction]'
-    successors: {  }
   Activity_0msk7ry:
     plugin: eca_count
     label: 'count approvers in view'
@@ -522,15 +563,12 @@ actions:
       token_name: return_transaction
       type: 'node transaction'
       langcode: ''
-      label: 'Return of days after canceled of a "[upd_request:title]"'
+      label: 'Return of days after canceled of a "[certificate_transaction:title]"'
       published: true
       owner: '1'
     successors:
       -
         id: Activity_1g9sx77
-        condition: ''
-      -
-        id: Activity_0n321u4
         condition: ''
   Activity_1g9sx77:
     plugin: eca_set_field_value
@@ -597,7 +635,7 @@ actions:
     label: 'set field DAYS'
     configuration:
       field_name: field_days
-      field_value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      field_value: '[first_transaction:field_days:value]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -605,69 +643,12 @@ actions:
       object: '[return_transaction]'
     successors:
       -
-        id: Activity_0d1i4ox
-        condition: ''
-  Activity_0d1i4ox:
-    plugin: eca_set_field_value
-    label: 'set field Previous balance'
-    configuration:
-      field_name: field_previous_balance
-      field_value: '[sender_request:field_balance_a_vacations_day:value]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[return_transaction]'
-    successors:
-      -
-        id: Activity_1wwi9nh
-        condition: ''
-  Activity_1wwi9nh:
-    plugin: 'eca_tamper:math'
-    label: Math
-    configuration:
-      operation: addition
-      flip: false
-      value: '[upd_request:field_duration_of_the_paid_vacat:value]'
-      eca_data: '[sender_request:field_balance_a_vacations_day:value]'
-      eca_token_name: result_returned_days
-    successors:
-      -
-        id: Activity_1lrjal9
-        condition: ''
-  Activity_1lrjal9:
-    plugin: eca_set_field_value
-    label: 'set field Actual Balance'
-    configuration:
-      field_name: field_actual_balance
-      field_value: '[result_returned_days]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: true
-      object: '[return_transaction]'
-    successors:
-      -
-        id: Activity_19m8f05
-        condition: ''
-      -
-        id: Activity_1kl1bmw
+        id: Activity_0d2m7r0
         condition: ''
   Activity_19m8f05:
     plugin: eca_save_entity
     label: 'save RETURN TRANSACTION'
     configuration:
-      object: '[return_transaction]'
-    successors:
-      -
-        id: Activity_185q1ll
-        condition: ''
-  Activity_185q1ll:
-    plugin: eca_trigger_content_entity_custom_event
-    label: TRIGGER
-    configuration:
-      event_id: x4
-      tokens: 'return_transaction, sender_request'
       object: '[return_transaction]'
     successors: {  }
   Activity_01o98ex:
@@ -677,7 +658,7 @@ actions:
       token_name: return_transaction_after_disapprove
       type: 'node transaction'
       langcode: ''
-      label: 'Return of days after disapporved of a "[upd_request:title]"'
+      label: 'Return of days after disapporved of a "[certificate_in_transaction:title]"'
       published: true
       owner: '1'
     successors:
@@ -749,7 +730,96 @@ actions:
     label: 'SET FIELD DAYS'
     configuration:
       field_name: field_days
-      field_value: '[upd_request:field_duration_of_the_paid_vacat:value]'
+      field_value: '[first_transaction_in_request:field_days:value]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[return_transaction_after_disapprove]'
+    successors:
+      -
+        id: Activity_19hlen3
+        condition: ''
+  Activity_1q4stix:
+    plugin: eca_save_entity
+    label: 'SAVE TRANSACTION'
+    configuration:
+      object: '[return_transaction_after_disapprove]'
+    successors: {  }
+  Activity_0sld0ag:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_1siy6th
+        condition: ''
+  Activity_17q5sv8:
+    plugin: eca_switch_account
+    label: 'SWITCH TO ADMIN'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_0crnon1
+        condition: ''
+  Activity_1siy6th:
+    plugin: eca_views_query
+    label: 'VIEW "transaction for request"'
+    configuration:
+      token_name: spent_transactions
+      view_id: pre_request_transactions
+      display_id: block_1
+      arguments: '[upd_request]'
+    successors:
+      -
+        id: Gateway_05fnc25
+        condition: ''
+  Activity_1topcel:
+    plugin: eca_list_remove
+    label: 'remove first transaction'
+    configuration:
+      value: ''
+      token_name: first_transaction_in_request
+      method: first
+      index: ''
+      list_token: spent_transactions
+    successors:
+      -
+        id: Activity_081nbjw
+        condition: ''
+  Activity_081nbjw:
+    plugin: eca_token_load_entity_ref
+    label: 'LOAD CERTIFICATE IN TRANSACTION'
+    configuration:
+      field_name_entity_ref: field_certificate
+      token_name: certificate_in_transaction
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[first_transaction_in_request]'
+    successors:
+      -
+        id: Activity_01o98ex
+        condition: ''
+      -
+        id: Activity_15rhsrq
+        condition: ''
+      -
+        id: Gateway_05fnc25
+        condition: ''
+  Activity_19hlen3:
+    plugin: eca_set_field_value
+    label: 'SET FIELD CERTIFICATE'
+    configuration:
+      field_name: field_certificate
+      field_value: '[certificate_in_transaction]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -759,64 +829,160 @@ actions:
       -
         id: Activity_1q4stix
         condition: ''
-  Activity_1q4stix:
-    plugin: eca_save_entity
-    label: 'SAVE TRANSACTION'
+  Activity_15rhsrq:
+    plugin: 'eca_tamper:math'
+    label: 'CURRENT VALUE CERTIFICATE'
     configuration:
-      object: '[return_transaction_after_disapprove]'
-    successors: {  }
-  Activity_0n321u4:
-    plugin: action_message_action
-    label: Activity_0n321u4
-    configuration:
-      replace_tokens: false
-      message: '2) створено ноду транзакціх на повернення'
-    successors: {  }
-  Activity_1kl1bmw:
-    plugin: action_message_action
-    label: Activity_1kl1bmw
-    configuration:
-      replace_tokens: false
-      message: 'Я зупинився на збережені ноди'
-    successors: {  }
-  Activity_0sld0ag:
-    plugin: eca_switch_account
-    label: 'SWITCH TO ADMIN'
-    configuration:
-      user_id: '1'
+      operation: addition
+      flip: false
+      value: '[certificate_in_transaction:field_limit_:value]'
+      eca_data: '[first_transaction_in_request:field_days:value]'
+      eca_token_name: current_value_certificate
     successors:
       -
-        id: Activity_01o98ex
+        id: Activity_10h56dj
         condition: ''
-  Activity_17q5sv8:
-    plugin: eca_switch_account
-    label: 'SWITCH TO ADMIN'
+  Activity_10h56dj:
+    plugin: eca_set_field_value
+    label: 'SET FIELD LIMIT DAYS'
     configuration:
-      user_id: '1'
+      field_name: field_limit_
+      field_value: '[current_value_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[certificate_in_transaction]'
     successors:
+      -
+        id: Activity_16o6il1
+        condition: ''
+  Activity_16o6il1:
+    plugin: eca_save_entity
+    label: 'SAVE CERTIFICATE'
+    configuration:
+      object: '[certificate_in_transaction]'
+    successors: {  }
+  Activity_0crnon1:
+    plugin: eca_views_query
+    label: 'view "Transaction in request"'
+    configuration:
+      token_name: spent_transactions_in_request
+      view_id: pre_request_transactions
+      display_id: block_1
+      arguments: '[upd_request]'
+    successors:
+      -
+        id: Activity_1miob6u
+        condition: ''
+  Activity_0ljiilj:
+    plugin: eca_list_remove
+    label: 'remove first'
+    configuration:
+      value: ''
+      token_name: first_transaction
+      method: first
+      index: ''
+      list_token: spent_transactions_in_request
+    successors:
+      -
+        id: Activity_09hs58w
+        condition: ''
+  Activity_09hs58w:
+    plugin: eca_token_load_entity_ref
+    label: 'load certificate in request'
+    configuration:
+      field_name_entity_ref: field_certificate
+      token_name: certificate_transaction
+      from: current
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: '[first_transaction]'
+    successors:
+      -
+        id: Activity_1x2kmyf
+        condition: ''
       -
         id: Activity_1f59nag
         condition: ''
-  Activity_1jrz0sq:
-    plugin: eca_token_set_value
-    label: 'TOKEN ALL CERTIFICATE IN THIS REQUESt'
+      -
+        id: Gateway_10st7tk
+        condition: ''
+  Activity_1x2kmyf:
+    plugin: 'eca_tamper:math'
+    label: 'CURRENT STATE DAYS IN CERTIFICATE'
     configuration:
-      token_name: all_certificate
-      token_value: '[upd_request:field_certificate_in_request]'
-      use_yaml: false
+      operation: addition
+      flip: false
+      value: '[first_transaction:field_days:value]'
+      eca_data: '[certificate_transaction:field_limit_:value]'
+      eca_token_name: current_state_day_certifcate
     successors:
       -
-        id: Activity_1j2dkni
+        id: Activity_17gx5b9
         condition: ''
+  Activity_17gx5b9:
+    plugin: eca_set_field_value
+    label: 'set field LIMIT'
+    configuration:
+      field_name: field_limit_
+      field_value: '[current_state_day_certifcate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[certificate_transaction]'
+    successors:
       -
-        id: Activity_05ba5ds
+        id: Activity_1lpu9l2
         condition: ''
-  Activity_05ba5ds:
+  Activity_1lpu9l2:
+    plugin: eca_save_entity
+    label: 'SAVE CERTIFICATE'
+    configuration:
+      object: '[certificate_transaction]'
+    successors: {  }
+  Activity_0d2m7r0:
+    plugin: eca_set_field_value
+    label: 'SET FIELD CERTIFICATE'
+    configuration:
+      field_name: field_certificate
+      field_value: '[certificate_transaction]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[return_transaction]'
+    successors:
+      -
+        id: Activity_19m8f05
+        condition: ''
+  Activity_09o7r81:
     plugin: action_message_action
-    label: Activity_05ba5ds
+    label: 'MESSAGE FOR USER'
     configuration:
       replace_tokens: false
-      message: |-
-        сертифікати з цього запиту:
-        [all_certificate]
+      message: 'Всім сертифікатам повернута їх попередня кількість днів після скасування vacation request'
     successors: {  }
+  Activity_0qmg70p:
+    plugin: action_message_action
+    label: 'MESSAGE FOR USER'
+    configuration:
+      replace_tokens: false
+      message: 'Всім сертифікатам повернута їх попередня кількість днів після disapprove vacation request'
+    successors: {  }
+  Activity_1miob6u:
+    plugin: eca_count
+    label: 'COUNT TRANSACTION'
+    configuration:
+      token_name: count_transaction
+      list_token: spent_transactions_in_request
+    successors:
+      -
+        id: Gateway_10st7tk
+        condition: ''

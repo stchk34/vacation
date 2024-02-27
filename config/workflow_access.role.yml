@@ -78,6 +78,22 @@ state_certificate_publish:
     grant_view: true
     grant_update: true
     grant_delete: true
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
   administrator:
     grant_view: true
     grant_update: true
@@ -87,6 +103,22 @@ state_certificate_disabled:
     grant_view: true
     grant_update: true
     grant_delete: true
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
   administrator:
     grant_view: true
     grant_update: true
@@ -395,6 +427,22 @@ state_certificate_empty:
     grant_view: true
     grant_update: true
     grant_delete: true
+  ceo:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  team_lead:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  dev:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  pm:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
   administrator:
     grant_view: true
     grant_update: true

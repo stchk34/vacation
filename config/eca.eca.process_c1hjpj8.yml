@@ -46,7 +46,7 @@ events:
     successors:
       -
         id: Activity_1xtefdc
-        condition: ''
+        condition: Flow_10htksb
   Event_1l3e4qj:
     plugin: 'eca_queue:processing_task'
     label: 'запуск наступних сертифікатів'
@@ -58,9 +58,27 @@ events:
     successors:
       -
         id: Activity_1xtefdc
-        condition: ''
+        condition: Flow_1cmsn9a
 conditions:
   Flow_1fejom0:
+    plugin: eca_user_role
+    configuration:
+      account: '[new_user]'
+      role: canceled
+      negate: true
+  Flow_1cmsn9a:
+    plugin: eca_user_role
+    configuration:
+      account: '[new_user]'
+      role: canceled
+      negate: true
+  Flow_1fhkbmg:
+    plugin: eca_user_role
+    configuration:
+      account: '[new_user]'
+      role: canceled
+      negate: true
+  Flow_10htksb:
     plugin: eca_user_role
     configuration:
       account: '[new_user]'
@@ -85,7 +103,7 @@ actions:
     successors:
       -
         id: Activity_156u9ex
-        condition: ''
+        condition: Flow_1fhkbmg
   Activity_156u9ex:
     plugin: eca_enqueue_task_delayed
     label: 'create queue'
@@ -169,9 +187,6 @@ actions:
     successors:
       -
         id: Activity_1dozkw8
-        condition: ''
-      -
-        id: Activity_1szo6r6
         condition: ''
   Activity_0vpnh39:
     plugin: eca_set_field_value
@@ -268,17 +283,10 @@ actions:
     plugin: 'eca_tamper:timeoffset'
     label: 'time offset'
     configuration:
-      timezone: America/Nuuk
+      timezone: UTC
       eca_data: '[current-date:raw]'
       eca_token_name: '[current_date_timezone]'
     successors:
       -
         id: Activity_19wn29z
         condition: ''
-  Activity_1szo6r6:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: 'Створено сертифікат для юзер #[new_user]'
-    successors: {  }

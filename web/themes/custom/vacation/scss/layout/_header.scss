@@ -38,7 +38,11 @@
     }
   }
 }
-
+.vacation-header-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 //Actual balance field.
 #block-actualbalance{
   .views-field-field-balance-a-vacations-day{

@@ -8,7 +8,7 @@ id: process_s6whpkp
 modeller: bpmn_io
 label: 'VALIDATE VACATION REQUEST'
 version: ''
-weight: null
+weight: -10
 events:
   Event_18e2lkv:
     plugin: 'form:form_validate'

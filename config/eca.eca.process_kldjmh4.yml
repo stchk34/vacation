@@ -510,6 +510,9 @@ actions:
       -
         id: Activity_1lb2yo5
         condition: ''
+      -
+        id: Activity_14e19tn
+        condition: ''
   Activity_06niuw8:
     plugin: 'eca_tamper:math'
     label: "duration_days\_ -\_ limit_first_certificate"
@@ -662,6 +665,9 @@ actions:
     successors:
       -
         id: Activity_01mqdkj
+        condition: ''
+      -
+        id: Gateway_1akccvc
         condition: ''
   Activity_0tns4xu:
     plugin: eca_save_entity
@@ -1213,6 +1219,9 @@ actions:
       -
         id: Activity_10aaj18
         condition: ''
+      -
+        id: Activity_1x585ot
+        condition: ''
   Activity_0hk0ym7:
     plugin: 'eca_tamper:math'
     label: 'ROUNDER REMAINING DAYS FOR SECOND CERTIFICATE'
@@ -1238,9 +1247,6 @@ actions:
     successors:
       -
         id: Activity_1lc9uqs
-        condition: ''
-      -
-        id: Gateway_1akccvc
         condition: ''
   Activity_18pyj8u:
     plugin: eca_set_field_value
@@ -1327,15 +1333,8 @@ actions:
         id: Gateway_1frlevo
         condition: ''
       -
-        id: Activity_0u9vayc
+        id: Activity_04ff1de
         condition: ''
-  Activity_0u9vayc:
-    plugin: action_message_action
-    label: Activity_0u9vayc
-    configuration:
-      replace_tokens: false
-      message: 'незмінена кількість днів в сертифікаті:[unchanged_limit_first_certificate]'
-    successors: {  }
   Activity_1k02l15:
     plugin: eca_set_field_value
     label: 'SET FIELD CERTIFICATE'
@@ -1802,8 +1801,8 @@ actions:
       method: 'set:clear'
       strip_tags: false
       trim: false
-      save_entity: false
-      object: '[transaction_empty_certificate]'
+      save_entity: true
+      object: '[transaction_third_certificate]'
     successors:
       -
         id: Activity_0z5l6pq
@@ -1864,4 +1863,25 @@ actions:
     configuration:
       replace_tokens: false
       message: '3) транзакція на другий сертифікат.який мінусує декілька днів з сертифіката [rounder_remaining_days_for_second_certificate]'
+    successors: {  }
+  Activity_1x585ot:
+    plugin: action_message_action
+    label: 'Message 1'
+    configuration:
+      replace_tokens: false
+      message: '1) тривалість вакейшена: [duration_paid_request]'
+    successors: {  }
+  Activity_04ff1de:
+    plugin: action_message_action
+    label: 'MESSAGE 2'
+    configuration:
+      replace_tokens: false
+      message: '2) Кількість першого сертифіката в списку до віднімання:[unchanged_limit_first_certificate]'
+    successors: {  }
+  Activity_14e19tn:
+    plugin: action_message_action
+    label: 'MESSAGE 3'
+    configuration:
+      replace_tokens: false
+      message: '3) Різниця між відніманням кількості днів з першого сертифіката від тривалості вакейшена = [remaining_days]'
     successors: {  }

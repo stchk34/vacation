@@ -12,7 +12,7 @@ dependencies:
     - field.field.node.transaction.field_owner
     - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_status_transactions
-    - field.field.user.user.field_balance_a_vacations_day
+    - field.field.user.user.field_balance_current_day
     - field.field.user.user.field_limit_of_weekends_per_year
     - field.storage.node.field_actual_balance
     - field.storage.node.field_certificate
@@ -23,7 +23,7 @@ dependencies:
     - field.storage.node.field_owner
     - field.storage.node.field_previous_balance
     - field.storage.node.field_status_transactions
-    - field.storage.user.field_balance_a_vacations_day
+    - field.storage.user.field_balance_current_day
     - field.storage.user.field_limit_of_weekends_per_year
     - node.type.certificate
     - node.type.transaction
@@ -60,15 +60,6 @@ events:
     successors:
       -
         id: Activity_1e8a4cz
-        condition: ''
-  Event_1r1cm92:
-    plugin: 'content_entity:custom'
-    label: x1
-    configuration:
-      event_id: x1
-    successors:
-      -
-        id: Activity_1z10g77
         condition: ''
 conditions:
   Flow_0u9pnjy:
@@ -158,7 +149,10 @@ actions:
     label: 'save transaction'
     configuration:
       object: '[earned_transaction]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_0ogffic
+        condition: ''
   Activity_1t7zbik:
     plugin: eca_set_field_value
     label: 'set field owner'
@@ -187,11 +181,11 @@ actions:
       object: '[earned_transaction]'
     successors:
       -
-        id: Activity_0rxrvct
+        id: Activity_0923lfm
         condition: ''
   Activity_1s5b3zs:
     plugin: eca_token_load_entity
-    label: load
+    label: 'LOAD CERTIFICATE'
     configuration:
       token_name: certificate
       from: current
@@ -250,21 +244,6 @@ actions:
       -
         id: Activity_1e51a9r
         condition: ''
-  Activity_0rxrvct:
-    plugin: eca_set_field_value
-    label: 'Set field Previous balance'
-    configuration:
-      field_name: field_previous_balance
-      field_value: '[employee_certificate:field_balance_a_vacations_day:value]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors:
-      -
-        id: Activity_0matvd5
-        condition: ''
   Activity_0bqt4tf:
     plugin: eca_token_load_entity_ref
     label: 'load employee'
@@ -282,97 +261,8 @@ actions:
       object: '[certificate]'
     successors:
       -
-        id: Activity_1nwuz9q
+        id: Activity_04s7ktr
         condition: ''
-  Activity_1cc3x8j:
-    plugin: eca_set_field_value
-    label: 'set field Actual balance'
-    configuration:
-      field_name: field_actual_balance
-      field_value: '[actual_balance]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[earned_transaction]'
-    successors:
-      -
-        id: Activity_0efx3bo
-        condition: ''
-  Activity_0matvd5:
-    plugin: 'eca_tamper:math'
-    label: MATH
-    configuration:
-      operation: addition
-      flip: false
-      value: '[certificate:field_limit_:value]'
-      eca_data: '[employee_certificate:field_balance_a_vacations_day:value]'
-      eca_token_name: actual_balance
-    successors:
-      -
-        id: Activity_1cc3x8j
-        condition: ''
-  Activity_0fxgmmy:
-    plugin: eca_trigger_content_entity_custom_event
-    label: 'Trigger x1'
-    configuration:
-      event_id: x1
-      tokens: 'employee_certificate,earned_transaction'
-      object: '[earned_transaction]'
-    successors: {  }
-  Activity_1z10g77:
-    plugin: eca_switch_account
-    label: 'switch to admin'
-    configuration:
-      user_id: '1'
-    successors:
-      -
-        id: Activity_0gxakom
-        condition: ''
-  Activity_0gxakom:
-    plugin: 'eca_tamper:math'
-    label: MATH
-    configuration:
-      operation: addition
-      flip: false
-      value: '[earned_transaction:field_days:value]'
-      eca_data: '[employee_certificate:field_balance_a_vacations_day:value]'
-      eca_token_name: balance_after_certificate
-    successors:
-      -
-        id: Activity_1sqpc96
-        condition: ''
-  Activity_1sqpc96:
-    plugin: eca_set_field_value
-    label: 'set field balance'
-    configuration:
-      field_name: field_balance_a_vacations_day
-      field_value: '[balance_after_certificate]'
-      method: 'set:clear'
-      strip_tags: false
-      trim: false
-      save_entity: false
-      object: '[employee_certificate]'
-    successors:
-      -
-        id: Activity_0t0n269
-        condition: ''
-  Activity_0t0n269:
-    plugin: eca_save_entity
-    label: save
-    configuration:
-      object: '[employee_certificate]'
-    successors:
-      -
-        id: Activity_02y0owc
-        condition: ''
-  Activity_02y0owc:
-    plugin: action_message_action
-    label: message
-    configuration:
-      replace_tokens: false
-      message: 'Змінено поточний баланс юзера [balance_after_certificate]'
-    successors: {  }
   Activity_0njbn0d:
     plugin: eca_set_field_value
     label: 'set field limit vacation'
@@ -414,9 +304,6 @@ actions:
     successors:
       -
         id: Activity_0d0mx3s
-        condition: ''
-      -
-        id: Activity_0s54pit
         condition: ''
   Activity_1lo5ggl:
     plugin: eca_switch_account
@@ -485,7 +372,7 @@ actions:
       object: '[spent_unused_transaction]'
     successors:
       -
-        id: Activity_1nwpfme
+        id: Activity_0qtgqvy
         condition: ''
   Activity_1e51a9r:
     plugin: eca_token_load_entity_ref
@@ -504,14 +391,109 @@ actions:
       object: '[certificate]'
     successors:
       -
-        id: Activity_1cgjniy
+        id: Activity_1sxhmmw
         condition: ''
-  Activity_1nwpfme:
+  Activity_081jo74:
+    plugin: eca_save_entity
+    label: 'SAVE SPENT UNUSED DAYS'
+    configuration:
+      object: '[spent_unused_transaction]'
+    successors:
+      -
+        id: Activity_1kt2gno
+        condition: ''
+  Activity_04s7ktr:
+    plugin: eca_token_set_value
+    label: 'SET TOKEN BALANCE'
+    configuration:
+      token_name: balance_user
+      token_value: '[employee_certificate:field_balance_current_day:value]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1nwuz9q
+        condition: ''
+  Activity_0923lfm:
     plugin: eca_set_field_value
     label: 'SET PREVIOUS BALANCE'
     configuration:
       field_name: field_previous_balance
-      field_value: '[burn_certifcate_employee:field_balance_a_vacations_day:value]'
+      field_value: '[balance_user]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_0z69ps1
+        condition: ''
+  Activity_0z69ps1:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: addition
+      flip: false
+      value: '[certificate:field_limit_:value]'
+      eca_data: '[balance_user]'
+      eca_token_name: actual_balance
+    successors:
+      -
+        id: Activity_1h7jjr3
+        condition: ''
+  Activity_1h7jjr3:
+    plugin: eca_set_field_value
+    label: 'SET ACTUAL BALANCE'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual_balance]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[earned_transaction]'
+    successors:
+      -
+        id: Activity_0efx3bo
+        condition: ''
+  Activity_0ogffic:
+    plugin: eca_set_field_value
+    label: 'SET FIELD BALANCE IN NODE USER'
+    configuration:
+      field_name: field_balance_current_day
+      field_value: '[actual_balance]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[employee_certificate]'
+    successors:
+      -
+        id: Activity_11t3hwv
+        condition: ''
+  Activity_11t3hwv:
+    plugin: eca_save_entity
+    label: 'SAVE NODE USER'
+    configuration:
+      object: '[employee_certificate]'
+    successors: {  }
+  Activity_1sxhmmw:
+    plugin: eca_token_set_value
+    label: 'BALANCE TOKEN'
+    configuration:
+      token_name: balance
+      token_value: '[burn_certifcate_employee:field_balance_current_day:value]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1cgjniy
+        condition: ''
+  Activity_0qtgqvy:
+    plugin: eca_set_field_value
+    label: 'SET PREVIOUS BALANCE'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[balance]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -519,27 +501,27 @@ actions:
       object: '[spent_unused_transaction]'
     successors:
       -
-        id: Activity_109m075
+        id: Activity_12gyclk
         condition: ''
-  Activity_109m075:
+  Activity_12gyclk:
     plugin: 'eca_tamper:math'
     label: MATH
     configuration:
       operation: subtraction
       flip: false
       value: '[certificate:field_limit_:value]'
-      eca_data: '[burn_certifcate_employee:field_balance_a_vacations_day:value]'
-      eca_token_name: actual_balance_burn
+      eca_data: '[balance]'
+      eca_token_name: actual
     successors:
       -
-        id: Activity_0hlpcp2
+        id: Activity_0jklwg6
         condition: ''
-  Activity_0hlpcp2:
+  Activity_0jklwg6:
     plugin: eca_set_field_value
     label: 'SET ACTUAL BALANCE'
     configuration:
       field_name: field_actual_balance
-      field_value: '[actual_balance_burn]'
+      field_value: '[actual]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -549,16 +531,24 @@ actions:
       -
         id: Activity_081jo74
         condition: ''
-  Activity_081jo74:
+  Activity_1kt2gno:
+    plugin: eca_set_field_value
+    label: "SET FIELD BALANCE IN NODE\_ USER"
+    configuration:
+      field_name: field_balance_current_day
+      field_value: '[actual]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[burn_certifcate_employee]'
+    successors:
+      -
+        id: Activity_1jhqw48
+        condition: ''
+  Activity_1jhqw48:
     plugin: eca_save_entity
-    label: 'SAVE SPENT UNUSED DAYS'
+    label: 'SAVE NODE USER'
     configuration:
-      object: '[spent_unused_transaction]'
-    successors: {  }
-  Activity_0s54pit:
-    plugin: action_message_action
-    label: 'TRANSACTION SPENT DAYS'
-    configuration:
-      replace_tokens: false
-      message: 'створення транзакції відмінусування днів'
+      object: '[burn_certifcate_employee]'
     successors: {  }

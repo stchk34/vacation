@@ -152,28 +152,8 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 3
             additional: {  }
-          ee861f22-6ae0-46cd-b923-719c7844613e:
-            uuid: ee861f22-6ae0-46cd-b923-719c7844613e
-            region: sidebar_right
-            configuration:
-              id: 'field_block:user:user:field_balance_a_vacations_day'
-              label: 'Balance a vacations day'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: '@user.current_user_context:current_user'
-                view_mode: view_mode
-              formatter:
-                type: number_integer
-                label: hidden
-                settings:
-                  thousand_separator: ''
-                  prefix_suffix: true
-                third_party_settings: {  }
-            weight: 4
-            additional: {  }
-          3137d5c6-7519-4565-8e30-234100dbab95:
-            uuid: 3137d5c6-7519-4565-8e30-234100dbab95
+          23b18300-62ec-4bea-8628-da10925055f4:
+            uuid: 23b18300-62ec-4bea-8628-da10925055f4
             region: sidebar_right
             configuration:
               id: 'field_block:user:user:field_balance_current_day'
@@ -181,16 +161,16 @@ third_party_settings:
               label_display: '0'
               provider: layout_builder
               context_mapping:
-                entity: '@user.current_user_context:current_user'
+                entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
                 type: number_integer
-                label: inline
+                label: above
                 settings:
                   thousand_separator: ''
                   prefix_suffix: true
                 third_party_settings: {  }
-            weight: 5
+            weight: 4
             additional: {  }
         third_party_settings: {  }
 id: user.user.default
