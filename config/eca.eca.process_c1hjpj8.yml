@@ -57,22 +57,10 @@ events:
       cron: ''
     successors:
       -
-        id: Activity_1xtefdc
-        condition: Flow_1cmsn9a
+        id: Activity_08pck3l
+        condition: ''
 conditions:
   Flow_1fejom0:
-    plugin: eca_user_role
-    configuration:
-      account: '[new_user]'
-      role: canceled
-      negate: true
-  Flow_1cmsn9a:
-    plugin: eca_user_role
-    configuration:
-      account: '[new_user]'
-      role: canceled
-      negate: true
-  Flow_1fhkbmg:
     plugin: eca_user_role
     configuration:
       account: '[new_user]'
@@ -82,6 +70,16 @@ conditions:
     plugin: eca_user_role
     configuration:
       account: '[new_user]'
+      role: canceled
+      negate: true
+  Flow_1o5bamw:
+    plugin: eca_current_user_role
+    configuration:
+      role: canceled
+      negate: true
+  Flow_1o79pdf:
+    plugin: eca_current_user_role
+    configuration:
       role: canceled
       negate: true
 gateways: {  }
@@ -102,8 +100,8 @@ actions:
       object: ''
     successors:
       -
-        id: Activity_156u9ex
-        condition: Flow_1fhkbmg
+        id: Activity_1jrk2iw
+        condition: ''
   Activity_156u9ex:
     plugin: eca_enqueue_task_delayed
     label: 'create queue'
@@ -290,3 +288,30 @@ actions:
       -
         id: Activity_19wn29z
         condition: ''
+  Activity_1jrk2iw:
+    plugin: eca_switch_account
+    label: 'switch to this user'
+    configuration:
+      user_id: '[new_user]'
+    successors:
+      -
+        id: Activity_1g3tlvv
+        condition: Flow_1o5bamw
+  Activity_1g3tlvv:
+    plugin: eca_switch_account
+    label: 'swtich to admin'
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: Activity_156u9ex
+        condition: ''
+  Activity_08pck3l:
+    plugin: eca_switch_account
+    label: 'Switch to new user'
+    configuration:
+      user_id: '[new_user]'
+    successors:
+      -
+        id: Activity_1xtefdc
+        condition: Flow_1o79pdf

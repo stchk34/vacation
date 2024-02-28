@@ -174,7 +174,7 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: date
-          order: DESC
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
@@ -427,6 +427,7 @@ display:
           operator: not
           value:
             state_for_approvers_started: state_for_approvers_started
+            state_for_approvers_cancel: state_for_approvers_cancel
           group: 1
           exposed: false
           expose:
@@ -674,6 +675,7 @@ display:
           operator: not
           value:
             state_for_approvers_started: state_for_approvers_started
+            state_for_approvers_cancel: state_for_approvers_cancel
           group: 1
           exposed: false
           expose:

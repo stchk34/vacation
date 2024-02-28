@@ -25,6 +25,7 @@ modeldata: |
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_006qztu</bpmn2:incoming>
         <bpmn2:outgoing>Flow_0n7apxc</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_17sqfva</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_1tqqyon" name="create transaction" camunda:modelerTemplate="org.drupal.action.eca_new_entity">
         <bpmn2:extensionElements>
@@ -51,6 +52,7 @@ modeldata: |
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_0wgc2ac</bpmn2:incoming>
+        <bpmn2:incoming>Flow_17sqfva</bpmn2:incoming>
         <bpmn2:outgoing>Flow_19j9iw2</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0x5vhul" name="set field EARNED TYPE" camunda:modelerTemplate="org.drupal.action.eca_set_field_value">
@@ -1016,6 +1018,31 @@ modeldata: |
         <bpmn2:incoming>Flow_02buqsa</bpmn2:incoming>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_02buqsa" sourceRef="Activity_1kt2gno" targetRef="Activity_1jhqw48" />
+      <bpmn2:sequenceFlow id="Flow_17sqfva" name="certificate = bonus" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_1nwuz9q" targetRef="Activity_1tqqyon">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>[certificate:field_type_certificate:value]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>1</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-d3414588-ff1d-4295-8344-bf996425b52f">
       <bpmndi:BPMNPlane id="sid-cbd27540-d304-42aa-9b07-2686eddc94a8" bpmnElement="Process_wSZ2Dg2">
@@ -1058,7 +1085,7 @@ modeldata: |
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_11pv3i3_di" bpmnElement="Activity_11pv3i3">
-          <dc:Bounds x="420" y="350" width="100" height="80" />
+          <dc:Bounds x="420" y="370" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Event_1o3n6eo_di" bpmnElement="Event_1o3n6eo">
@@ -1204,9 +1231,9 @@ modeldata: |
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0u9pnjy_di" bpmnElement="Flow_0u9pnjy">
           <di:waypoint x="470" y="305" />
-          <di:waypoint x="470" y="350" />
+          <di:waypoint x="470" y="370" />
           <bpmndi:BPMNLabel>
-            <dc:Bounds x="377" y="325" width="86" height="14" />
+            <dc:Bounds x="377" y="337" width="86" height="14" />
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1r1ilcp_di" bpmnElement="Flow_1r1ilcp">
@@ -1323,6 +1350,15 @@ modeldata: |
         <bpmndi:BPMNEdge id="Flow_02buqsa_di" bpmnElement="Flow_02buqsa">
           <di:waypoint x="1820" y="520" />
           <di:waypoint x="1880" y="520" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_17sqfva_di" bpmnElement="Flow_17sqfva">
+          <di:waypoint x="30" y="240" />
+          <di:waypoint x="30" y="150" />
+          <di:waypoint x="600" y="150" />
+          <di:waypoint x="600" y="240" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="288" y="116" width="57" height="27" />
+          </bpmndi:BPMNLabel>
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

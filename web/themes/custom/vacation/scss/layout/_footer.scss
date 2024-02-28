@@ -2,31 +2,20 @@ footer{
   flex-shrink: 0;
   position: relative;
   height: auto;
+  width:100%;
   background:$dark-gray-default-theme;
   color:$medium-gray;
-  .footer-wrapper-menu > div{
-    display: flex;
-    background:$dark-gray-default-theme;
-    justify-content: space-between;
-    align-items:center;
-    padding:10px;
-      .menu{
-        li{
-          list-style:none;
-          a{
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: 300;
-            color:$medium-gray;
-            padding:0 10px;
-            text-transform: capitalize;
-          }
-        }
+  menu{
+    display: inline-flex;
+    li{
+      list-style:none;
+      a{
+        color:white;
       }
+    }
   }
 }
-//Adaptive.
-//320-0px.
+
 @include breakpoint(small down) {
   .footer-wrapper-menu > div{
     display:flex;

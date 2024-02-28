@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_limit_
+    - field.field.node.transaction.field_actual_balance
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
     - field.field.node.transaction.field_owner
+    - field.field.node.transaction.field_previous_balance
     - field.field.node.transaction.field_status_transactions
     - field.field.node.transaction.field_type_paid_vacation
     - field.field.node.transaction.field_vacat
@@ -19,6 +21,8 @@ dependencies:
     - field.field.node.vacation_request.field_duration_notpaid_in_hours
     - field.field.node.vacation_request.field_duration_of_the_paid_vacat
     - field.field.node.vacation_request.field_employee_sender
+    - field.field.user.user.field_balance_current_day
+    - field.storage.node.field_actual_balance
     - field.storage.node.field_approver
     - field.storage.node.field_certificate
     - field.storage.node.field_certificate_in_request
@@ -32,9 +36,11 @@ dependencies:
     - field.storage.node.field_employee_sender
     - field.storage.node.field_limit_
     - field.storage.node.field_owner
+    - field.storage.node.field_previous_balance
     - field.storage.node.field_status_transactions
     - field.storage.node.field_type_paid_vacation
     - field.storage.node.field_vacat
+    - field.storage.user.field_balance_current_day
     - node.type.transaction
     - node.type.vacation_request
     - views.view.current_certificate
@@ -114,6 +120,15 @@ events:
         id: Activity_1nc4143
         condition: ''
 conditions:
+  Flow_0yxghko:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[new_request:field_type_vacations:value]'
+      right: '2'
+      operator: equal
+      type: value
+      negate: true
   Flow_1e735ru:
     plugin: eca_scalar
     configuration:
@@ -128,7 +143,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[first_drop_certificate:field_limit_:value]'
+      left: '[unchanged_limit_first_certificate]'
       right: '[duration_paid_request]'
       operator: equal
       type: value
@@ -138,7 +153,7 @@ conditions:
       negate: false
       case: false
       left: '[duration_paid_request]'
-      right: '[first_drop_certificate:field_limit_:value]'
+      right: '[unchanged_limit_first_certificate]'
       operator: greaterthan
       type: value
   Flow_1c5vavt:
@@ -146,7 +161,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[first_drop_certificate:field_limit_:value]'
+      left: '[unchanged_limit_first_certificate]'
       right: '[duration_paid_request]'
       operator: greaterthan
       type: value
@@ -155,8 +170,8 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[second_dropped_certificate:field_limit_:value]'
-      right: '[rounder_remaining_days_for_second_certificate]'
+      left: '[unchanged_limit_second_certificate]'
+      right: '[remaining_days_for_second_certificate]'
       operator: greaterthan
       type: value
   Flow_0cvaikt:
@@ -164,8 +179,8 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[rounder_remaining_days_for_second_certificate]'
-      right: '[second_dropped_certificate:field_limit_:value]'
+      left: '[remaining_days_for_second_certificate]'
+      right: '[unchanged_limit_second_certificate]'
       operator: greaterthan
       type: value
   Flow_09a3tvo:
@@ -173,8 +188,8 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[second_dropped_certificate:field_limit_:value]'
-      right: '[rounder_remaining_days_for_second_certificate]'
+      left: '[unchanged_limit_second_certificate]'
+      right: '[remaining_days_for_second_certificate]'
       operator: equal
       type: value
   Flow_0uncr2m:
@@ -218,7 +233,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[rounder_remaining]'
+      left: '[remaining]'
       right: '0'
       operator: greaterthan
       type: value
@@ -227,7 +242,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[rounder_remaining]'
+      left: '[remaining]'
       right: '0'
       operator: equal
       type: value
@@ -237,7 +252,7 @@ gateways:
     successors:
       -
         id: Activity_17cjcqu
-        condition: ''
+        condition: Flow_0yxghko
       -
         id: Activity_0g2xxt5
         condition: Flow_1e735ru
@@ -269,10 +284,10 @@ gateways:
     type: 0
     successors:
       -
-        id: Activity_1tmwopm
+        id: Activity_0axs70a
         condition: Flow_0uncr2m
       -
-        id: Activity_0ceq020
+        id: Activity_0e3u8dd
         condition: Flow_0bi4rep
   Gateway_1hjqibm:
     type: 0
@@ -287,10 +302,10 @@ gateways:
     type: 0
     successors:
       -
-        id: Activity_0tns4xu
+        id: Activity_0cfpshd
         condition: Flow_1enrajt
       -
-        id: Activity_18pyj8u
+        id: Activity_1lc9uqs
         condition: Flow_0dbel6a
 actions:
   Activity_0c3pcf2:
@@ -508,10 +523,7 @@ actions:
       eca_token_name: remaining_days
     successors:
       -
-        id: Activity_1lb2yo5
-        condition: ''
-      -
-        id: Activity_14e19tn
+        id: Activity_1c192uv
         condition: ''
   Activity_06niuw8:
     plugin: 'eca_tamper:math'
@@ -519,19 +531,22 @@ actions:
     configuration:
       operation: subtraction
       flip: false
-      value: '[first_drop_certificate:field_limit_:value]'
+      value: '[unchanged_limit_first_certificate]'
       eca_data: '[duration_paid_request]'
       eca_token_name: remaining_days_for_second_certificate
     successors:
       -
-        id: Activity_0hk0ym7
+        id: Activity_0f9bjko
+        condition: ''
+      -
+        id: Activity_1q7m83n
         condition: ''
   Activity_0e3u8dd:
     plugin: eca_set_field_value
-    label: 'set field Limit day in first certificate'
+    label: 'Set 0 as LIMIT CERTIFICATE'
     configuration:
       field_name: field_limit_
-      field_value: '[remaining_days]'
+      field_value: '0'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -539,10 +554,7 @@ actions:
       object: '[first_drop_certificate]'
     successors:
       -
-        id: Activity_0n462po
-        condition: ''
-      -
-        id: Gateway_1wxzwfs
+        id: Activity_0ceq020
         condition: ''
   Activity_1tmwopm:
     plugin: eca_save_entity
@@ -551,7 +563,7 @@ actions:
       object: '[first_drop_certificate]'
     successors:
       -
-        id: Activity_0yqw8hq
+        id: Activity_0wwzp12
         condition: ''
   Activity_0n462po:
     plugin: eca_list_add
@@ -636,7 +648,7 @@ actions:
       object: '[first_drop_certificate]'
     successors:
       -
-        id: Activity_1qo6r68
+        id: Activity_1ssq9ln
         condition: ''
   Activity_0xflyho:
     plugin: 'eca_tamper:math'
@@ -644,19 +656,22 @@ actions:
     configuration:
       operation: subtraction
       flip: false
-      value: '[rounder_remaining_days_for_second_certificate]'
-      eca_data: '[second_dropped_certificate:field_limit_:value]'
+      value: '[remaining_days_for_second_certificate]'
+      eca_data: '[unchanged_limit_second_certificate]'
       eca_token_name: remaining
     successors:
       -
         id: Activity_1spikfu
+        condition: ''
+      -
+        id: Activity_1l37065
         condition: ''
   Activity_1lc9uqs:
     plugin: eca_set_field_value
     label: 'set field limit vacation days in second certificate'
     configuration:
       field_name: field_limit_
-      field_value: '[rounder_remaining]'
+      field_value: '0'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -664,10 +679,7 @@ actions:
       object: '[second_dropped_certificate]'
     successors:
       -
-        id: Activity_01mqdkj
-        condition: ''
-      -
-        id: Gateway_1akccvc
+        id: Activity_18pyj8u
         condition: ''
   Activity_0tns4xu:
     plugin: eca_save_entity
@@ -676,7 +688,7 @@ actions:
       object: '[second_dropped_certificate]'
     successors:
       -
-        id: Activity_0sx47j9
+        id: Activity_1q75oix
         condition: ''
   Activity_01mqdkj:
     plugin: eca_list_add
@@ -718,7 +730,10 @@ actions:
       user_id: '1'
     successors:
       -
-        id: Activity_0e3u8dd
+        id: Gateway_1wxzwfs
+        condition: ''
+      -
+        id: Activity_0n462po
         condition: ''
   Activity_1tgwoss:
     plugin: eca_switch_account
@@ -735,8 +750,8 @@ actions:
     configuration:
       operation: subtraction
       flip: false
-      value: '[second_dropped_certificate:field_limit_:value]'
-      eca_data: '[rounder_remaining_days_for_second_certificate]'
+      value: '[unchanged_limit_second_certificate]'
+      eca_data: '[remaining_days_for_second_certificate]'
       eca_token_name: remaining_day_for_third_certificate
     successors:
       -
@@ -792,7 +807,7 @@ actions:
       list_token: list_current_certificate
     successors:
       -
-        id: Activity_0154mh3
+        id: Activity_0g948ka
         condition: ''
   Activity_0154mh3:
     plugin: 'eca_tamper:math'
@@ -800,8 +815,8 @@ actions:
     configuration:
       operation: subtraction
       flip: false
-      value: '[rounder_remaining_day_for_third_certificate]'
-      eca_data: '[third_certificate:field_limit_:value]'
+      value: '[remaining_day_for_third_certificate]'
+      eca_data: '[unchanged_limit_day_third_certificate]'
       eca_token_name: remaining_day_in_third_certificate
     successors:
       -
@@ -1060,17 +1075,14 @@ actions:
       object: '[paid_vacation_transaction]'
     successors:
       -
-        id: Activity_0ytmrqs
+        id: Activity_1whr1sf
         condition: ''
   Activity_0ytmrqs:
     plugin: eca_save_entity
     label: 'SAVE PAID TRANSACTION'
     configuration:
       object: '[paid_vacation_transaction]'
-    successors:
-      -
-        id: Activity_14my319
-        condition: ''
+    successors: {  }
   Activity_01w80iu:
     plugin: eca_set_field_value
     label: 'SET FIELD SENDER'
@@ -1136,7 +1148,7 @@ actions:
     label: 'TRIGGER x15'
     configuration:
       event_id: x10
-      tokens: 'sender,new_request,third_certificate,rounder_remaining_day_for_third_certificate'
+      tokens: 'sender,new_request,third_certificate,remaining_day_in_third_certificate'
       object: '[third_certificate]'
     successors: {  }
   Activity_0ceq020:
@@ -1222,22 +1234,11 @@ actions:
       -
         id: Activity_1x585ot
         condition: ''
-  Activity_0hk0ym7:
-    plugin: 'eca_tamper:math'
-    label: 'ROUNDER REMAINING DAYS FOR SECOND CERTIFICATE'
-    configuration:
-      operation: addition
-      flip: false
-      value: '1'
-      eca_data: '[remaining_days_for_second_certificate]'
-      eca_token_name: '[rounder_remaining_days_for_second_certificate]'
-    successors:
-      -
-        id: Activity_0f9bjko
-        condition: ''
   Activity_1spikfu:
     plugin: 'eca_tamper:math'
-    label: 'ROUNDER REMAINING'
+    label: |-
+      ROUNDER REMAINING
+       потрібно заокруглити
     configuration:
       operation: addition
       flip: false
@@ -1246,7 +1247,10 @@ actions:
       eca_token_name: rounder_remaining
     successors:
       -
-        id: Activity_1lc9uqs
+        id: Gateway_1akccvc
+        condition: ''
+      -
+        id: Activity_01mqdkj
         condition: ''
   Activity_18pyj8u:
     plugin: eca_set_field_value
@@ -1276,6 +1280,9 @@ actions:
       -
         id: Activity_01cc11b
         condition: ''
+      -
+        id: Activity_1gpbikg
+        condition: ''
   Activity_16vb82c:
     plugin: 'eca_tamper:math'
     label: 'ROUNDER REMAINING DAYS IN 1 CERTIFICATE'
@@ -1294,7 +1301,7 @@ actions:
     label: 'TRIGGER x11'
     configuration:
       event_id: x11
-      tokens: 'first_drop_certificate,sender,new_request,unchanged_limit_first_certificate,duration_paid_request'
+      tokens: 'first_drop_certificate,sender,new_request,unchanged_limit_first_certificate,duration_paid_request,balance_user_before_first_certificate'
       object: '[first_drop_certificate]'
     successors: {  }
   Activity_1qo6r68:
@@ -1302,7 +1309,7 @@ actions:
     label: 'TRIGGER X12'
     configuration:
       event_id: x12
-      tokens: 'first_drop_certificate,sender,new_request,unchanged_limit_first_certificate'
+      tokens: 'first_drop_certificate,sender,new_request,unchanged_limit_first_certificate,sender_balancee'
       object: '[first_drop_certificate]'
     successors: {  }
   Activity_0sx47j9:
@@ -1310,7 +1317,7 @@ actions:
     label: 'TRIGGER x13'
     configuration:
       event_id: x13
-      tokens: 'second_dropped_certificate,sender,new_request,rounder_remaining_days_for_second_certificate'
+      tokens: 'second_dropped_certificate,sender,new_request,remaining_days_for_second_certificate,balance_current_user'
       object: '[second_dropped_certificate]'
     successors: {  }
   Activity_005ek6b:
@@ -1461,17 +1468,14 @@ actions:
       object: '[transactions_spent_from_first_certificate]'
     successors:
       -
-        id: Activity_17wb8z6
+        id: Activity_1bv3bn9
         condition: ''
   Activity_17wb8z6:
     plugin: eca_save_entity
     label: 'SAVE TRANSACTION'
     configuration:
       object: '[transactions_spent_from_first_certificate]'
-    successors:
-      -
-        id: Activity_01p7z8x
-        condition: ''
+    successors: {  }
   Activity_1oyeew6:
     plugin: eca_switch_account
     label: 'SWITCH TO ADMIN'
@@ -1551,6 +1555,9 @@ actions:
       -
         id: Gateway_059fo18
         condition: ''
+      -
+        id: Activity_0wi1gjp
+        condition: ''
   Activity_1ty2rc5:
     plugin: eca_set_field_value
     label: 'SET FIELD SPENT TYPE'
@@ -1586,7 +1593,7 @@ actions:
     label: 'SET FIELD DAYS'
     configuration:
       field_name: field_days
-      field_value: '[rounder_remaining_days_for_second_certificate]'
+      field_value: '[remaining_days_for_second_certificate]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -1594,7 +1601,7 @@ actions:
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
-        id: Activity_0q2cu21
+        id: Activity_1nh58vs
         condition: ''
   Activity_0q2cu21:
     plugin: eca_save_entity
@@ -1603,7 +1610,7 @@ actions:
       object: '[tran_spent_from_second_certificate]'
     successors:
       -
-        id: Activity_0zb9bh2
+        id: Activity_1xzj6x4
         condition: ''
   Activity_1xip64x:
     plugin: eca_switch_account
@@ -1812,7 +1819,7 @@ actions:
     label: 'SET FIELD DAYS'
     configuration:
       field_name: field_days
-      field_value: '[rounder_remaining_day_for_third_certificate]'
+      field_value: '[remaining_day_in_third_certificate]'
       method: 'set:clear'
       strip_tags: false
       trim: false
@@ -1843,27 +1850,6 @@ actions:
     configuration:
       object: '[transaction_third_certificate]'
     successors: {  }
-  Activity_01p7z8x:
-    plugin: action_message_action
-    label: MESSAGE
-    configuration:
-      replace_tokens: false
-      message: '2) транзакція на перший сертифікат.який згорає повністю [duration_paid_request] [unchanged_limit_first_certificate]'
-    successors: {  }
-  Activity_14my319:
-    plugin: action_message_action
-    label: Activity_14my319
-    configuration:
-      replace_tokens: false
-      message: '1) транзакція на сертифікат.який один в реквесті і його кількість днів =[duration_paid_request]'
-    successors: {  }
-  Activity_0zb9bh2:
-    plugin: action_message_action
-    label: Activity_0zb9bh2
-    configuration:
-      replace_tokens: false
-      message: '3) транзакція на другий сертифікат.який мінусує декілька днів з сертифіката [rounder_remaining_days_for_second_certificate]'
-    successors: {  }
   Activity_1x585ot:
     plugin: action_message_action
     label: 'Message 1'
@@ -1883,5 +1869,383 @@ actions:
     label: 'MESSAGE 3'
     configuration:
       replace_tokens: false
-      message: '3) Різниця між відніманням кількості днів з першого сертифіката від тривалості вакейшена = [remaining_days]'
+      message: '3) Різниця між відніманням кількості днів з першого сертифіката від тривалості вакейшена = [remaining_days_rounder]'
+    successors: {  }
+  Activity_1c192uv:
+    plugin: 'eca_tamper:math'
+    label: 'ROUNDER REMANING DAYS'
+    configuration:
+      operation: addition
+      flip: false
+      value: '1'
+      eca_data: '[remaining_days]'
+      eca_token_name: remaining_days_rounder
+    successors:
+      -
+        id: Activity_14e19tn
+        condition: ''
+      -
+        id: Activity_1lb2yo5
+        condition: ''
+      -
+        id: Activity_01026j7
+        condition: ''
+  Activity_0axs70a:
+    plugin: eca_set_field_value
+    label: 'SET FIELD LIMIT'
+    configuration:
+      field_name: field_limit_
+      field_value: '[remaining_days_rounder]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[first_drop_certificate]'
+    successors:
+      -
+        id: Activity_1tmwopm
+        condition: ''
+  Activity_1l37065:
+    plugin: action_message_action
+    label: 'MESSAGE 4'
+    configuration:
+      replace_tokens: false
+      message: |-
+        4.1) решта тривалості вакейшена  = кількості днів в другому сертифікату: 
+        - решта тривалості: [rounder_remaining_days_for_second_certificate]
+        - кількість днів в другому сертифікаті: [unchanged_limit_second_certificate]
+
+        Залишається різниця [remaining_days] -> якщо її заокруглити вийде ось це [remaining_days_rounder]
+    successors: {  }
+  Activity_0cfpshd:
+    plugin: eca_set_field_value
+    label: 'SETFIELD LIMIT'
+    configuration:
+      field_name: field_limit_
+      field_value: '[rounder_remaining]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[second_dropped_certificate]'
+    successors:
+      -
+        id: Activity_0tns4xu
+        condition: ''
+  Activity_01026j7:
+    plugin: action_message_action
+    label: 'MESSAGE 2.1 тут все працює'
+    configuration:
+      replace_tokens: false
+      message: |-
+        2.1) Тривалість вакейшена менше або = кількості днів в першому сертифікаті: 
+        - тривалість вакейшена: [duration_paid_request]
+        - кількість днів в першому сертифікаті: [unchanged_limit_first_certificate]
+        Залишається різниця [remaining_days] -> якщо її заокруглити вийде ось це [remaining_days_rounder]
+    successors: {  }
+  Activity_1q7m83n:
+    plugin: action_message_action
+    label: Activity_1q7m83n
+    configuration:
+      replace_tokens: false
+      message: |-
+        3.1) ЯКщо тривалість сертифіката менше ніж тривалість вакейшена:
+        тривалість першого сертифіката: [unchanged_limit_first_certificate]
+        тривалість вакейшена [duration_paid_request]
+        різниця між ними = [remaining_days_for_second_certificate] -> цю різницю ми повинні записати в другий сертифікат
+    successors: {  }
+  Activity_0wi1gjp:
+    plugin: action_message_action
+    label: 'MESSAGE 3.2'
+    configuration:
+      replace_tokens: false
+      message: '3.2) Тривалість другого сертифіката перед зміненнями: [unchanged_limit_second_certificate]'
+    successors: {  }
+  Activity_1gpbikg:
+    plugin: action_message_action
+    label: Activity_1gpbikg
+    configuration:
+      replace_tokens: false
+      message: |-
+        4.3) Якщо решта тривалості вакейшена > кількість днів в другому сертифікаті:
+        - решта тривалості: [rounder_remaining_day_for_third_certificate]
+        - решта тривалості без заокруглення : 
+        - кількість днів в другому сертифікаті: [unchanged_limit_second_certificate]
+
+        різниця між ними = [rounder_remaining_day_for_third_certificate]
+    successors: {  }
+  Activity_0g948ka:
+    plugin: eca_token_set_value
+    label: 'SET TOKEN UNCHNAGED DAY IN THIRD CERTIFICATE'
+    configuration:
+      token_name: unchanged_limit_day_third_certificate
+      token_value: '[third_certificate:field_limit_:value]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_0154mh3
+        condition: ''
+  Activity_0wwzp12:
+    plugin: eca_token_set_value
+    label: 'TOKEN BALANCE BEFORE FIRST CERTIFICATE'
+    configuration:
+      token_name: balance_user_before_first_certificate
+      token_value: '[sender:field_balance_current_day:value]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_0yqw8hq
+        condition: ''
+      -
+        id: Activity_1behjeg
+        condition: ''
+  Activity_1whr1sf:
+    plugin: eca_set_field_value
+    label: 'SET FIELD PREVIOUS BALANCE'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[balance_user_before_first_certificate]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_1q1358c
+        condition: ''
+  Activity_1q1358c:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[duration_paid_request]'
+      eca_data: '[balance_user_before_first_certificate]'
+      eca_token_name: actual
+    successors:
+      -
+        id: Activity_0jjo1sf
+        condition: ''
+  Activity_0jjo1sf:
+    plugin: eca_set_field_value
+    label: 'SET FIELD ACTUAL BALANCE'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[paid_vacation_transaction]'
+    successors:
+      -
+        id: Activity_0ytmrqs
+        condition: ''
+      -
+        id: Activity_0e1tjp7
+        condition: ''
+  Activity_0e1tjp7:
+    plugin: eca_set_field_value
+    label: 'set field ACTUAL BALANCE'
+    configuration:
+      field_name: field_balance_current_day
+      field_value: '[actual]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[sender]'
+    successors:
+      -
+        id: Activity_0sgppb2
+        condition: ''
+  Activity_0sgppb2:
+    plugin: eca_save_entity
+    label: 'SAVE SENDER'
+    configuration:
+      object: '[sender]'
+    successors: {  }
+  Activity_1behjeg:
+    plugin: action_message_action
+    label: Activity_1behjeg
+    configuration:
+      replace_tokens: false
+      message: '1) баланс юзера,якщо 1 сертифікат [balance_user_before_first_certificate]'
+    successors: {  }
+  Activity_1ssq9ln:
+    plugin: eca_token_set_value
+    label: 'TOKEN VALUE'
+    configuration:
+      token_name: sender_balancee
+      token_value: '[sender:field_balance_current_day:value]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_1qo6r68
+        condition: ''
+  Activity_0ff136r:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[unchanged_limit_first_certificate]'
+      eca_data: '[sender_balancee]'
+      eca_token_name: result_actual
+    successors:
+      -
+        id: Activity_1e2ush7
+        condition: ''
+  Activity_1bv3bn9:
+    plugin: eca_set_field_value
+    label: 'SET PREVIOUS BALANCE'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[sender_balancee]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[transactions_spent_from_first_certificate]'
+    successors:
+      -
+        id: Activity_0ff136r
+        condition: ''
+  Activity_1e2ush7:
+    plugin: eca_set_field_value
+    label: 'SET FIELD ACTUAL BALANCE'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[result_actual]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[transactions_spent_from_first_certificate]'
+    successors:
+      -
+        id: Activity_17wb8z6
+        condition: ''
+      -
+        id: Activity_1r1itka
+        condition: ''
+  Activity_1r1itka:
+    plugin: eca_set_field_value
+    label: 'SET FIELD ACTUAL BALANCE IN SENDER'
+    configuration:
+      field_name: field_balance_current_day
+      field_value: '[result_actual]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[sender]'
+    successors:
+      -
+        id: Activity_1isjn5c
+        condition: ''
+  Activity_1isjn5c:
+    plugin: eca_save_entity
+    label: 'SAVE SENDER'
+    configuration:
+      object: '[sender]'
+    successors: {  }
+  Activity_1q75oix:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[unchanged_limit_first_certificate]'
+      eca_data: '[sender_balancee]'
+      eca_token_name: current_balance_user
+    successors:
+      -
+        id: Activity_0uhnnfr
+        condition: ''
+  Activity_0uhnnfr:
+    plugin: eca_token_set_value
+    label: 'TOKEN CURRENT DAYS'
+    configuration:
+      token_name: balance_current_user
+      token_value: '[current_balance_user]'
+      use_yaml: false
+    successors:
+      -
+        id: Activity_0sx47j9
+        condition: ''
+  Activity_1nh58vs:
+    plugin: eca_set_field_value
+    label: 'SET PREVIOUS BALANCE'
+    configuration:
+      field_name: field_previous_balance
+      field_value: '[balance_current_user]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[tran_spent_from_second_certificate]'
+    successors:
+      -
+        id: Activity_1c2nb73
+        condition: ''
+  Activity_1c2nb73:
+    plugin: 'eca_tamper:math'
+    label: MATH
+    configuration:
+      operation: subtraction
+      flip: false
+      value: '[remaining_days_for_second_certificate]'
+      eca_data: '[balance_current_user]'
+      eca_token_name: actual_current_user
+    successors:
+      -
+        id: Activity_0uaqbn6
+        condition: ''
+  Activity_0uaqbn6:
+    plugin: eca_set_field_value
+    label: 'SET ACTUAL BALANCE'
+    configuration:
+      field_name: field_actual_balance
+      field_value: '[actual_current_user]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: '[tran_spent_from_second_certificate]'
+    successors:
+      -
+        id: Activity_0w3caty
+        condition: ''
+      -
+        id: Activity_0q2cu21
+        condition: ''
+  Activity_0w3caty:
+    plugin: eca_set_field_value
+    label: 'SET FIELD BVLAANCE IN USER NODE'
+    configuration:
+      field_name: field_balance_current_day
+      field_value: '[actual_current_user]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[sender]'
+    successors:
+      -
+        id: Activity_13rbpge
+        condition: ''
+  Activity_13rbpge:
+    plugin: eca_save_entity
+    label: 'SAVE SENDER'
+    configuration:
+      object: '[sender]'
+    successors: {  }
+  Activity_1xzj6x4:
+    plugin: action_message_action
+    label: Activity_1xzj6x4
+    configuration:
+      replace_tokens: false
+      message: 'Ну баланс на разі виглядає так: [actual_current_user]'
     successors: {  }

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.certificate.field_current_state_certificate
     - field.field.node.certificate.field_limit_
     - field.field.node.transaction.field_certificate
     - field.field.node.transaction.field_days
@@ -17,6 +18,7 @@ dependencies:
     - field.storage.node.field_approver
     - field.storage.node.field_certificate
     - field.storage.node.field_count_approvers
+    - field.storage.node.field_current_state_certificate
     - field.storage.node.field_days
     - field.storage.node.field_employee_sender
     - field.storage.node.field_limit_
@@ -187,6 +189,24 @@ conditions:
       right: '0'
       operator: greaterthan
       type: numeric
+  Flow_032rs7i:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[certificate_in_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
+      negate: true
+  Flow_1w32rwc:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[certificate_in_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
+      negate: true
   Flow_1lmm6wx:
     plugin: eca_count
     configuration:
@@ -196,6 +216,15 @@ conditions:
       right: '0'
       operator: greaterthan
       type: numeric
+  Flow_0zf2ven:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[certificate_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
+      negate: true
   Flow_023ngql:
     plugin: eca_count
     configuration:
@@ -214,6 +243,33 @@ conditions:
       right: '0'
       operator: equal
       type: numeric
+  Flow_1pwupua:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[certificate_in_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
+  Flow_0dp7p9r:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[certificate_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
+      negate: true
+  Flow_1qfzq2i:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[certificate_transaction:field_current_state_certificate:value]'
+      right: state_certificate_disabled
+      operator: equal
+      type: value
 gateways:
   Gateway_0jyt6u7:
     type: 0
@@ -807,13 +863,16 @@ actions:
     successors:
       -
         id: Activity_01o98ex
-        condition: ''
+        condition: Flow_032rs7i
       -
         id: Activity_15rhsrq
-        condition: ''
+        condition: Flow_1w32rwc
       -
         id: Gateway_05fnc25
         condition: ''
+      -
+        id: Activity_098fwqt
+        condition: Flow_1pwupua
   Activity_19hlen3:
     plugin: eca_set_field_value
     label: 'SET FIELD CERTIFICATE'
@@ -855,7 +914,7 @@ actions:
       object: '[certificate_in_transaction]'
     successors:
       -
-        id: Activity_16o6il1
+        id: Activity_0jdm1fq
         condition: ''
   Activity_16o6il1:
     plugin: eca_save_entity
@@ -905,14 +964,17 @@ actions:
       object: '[first_transaction]'
     successors:
       -
-        id: Activity_1x2kmyf
-        condition: ''
-      -
         id: Activity_1f59nag
-        condition: ''
+        condition: Flow_0zf2ven
       -
         id: Gateway_10st7tk
         condition: ''
+      -
+        id: Activity_1x2kmyf
+        condition: Flow_0dp7p9r
+      -
+        id: Activity_0svpppy
+        condition: Flow_1qfzq2i
   Activity_1x2kmyf:
     plugin: 'eca_tamper:math'
     label: 'CURRENT STATE DAYS IN CERTIFICATE'
@@ -939,7 +1001,7 @@ actions:
       object: '[certificate_transaction]'
     successors:
       -
-        id: Activity_1lpu9l2
+        id: Activity_06ob7wz
         condition: ''
   Activity_1lpu9l2:
     plugin: eca_save_entity
@@ -985,4 +1047,48 @@ actions:
     successors:
       -
         id: Gateway_10st7tk
+        condition: ''
+  Activity_0jdm1fq:
+    plugin: eca_set_field_value
+    label: 'SET STATE PUBLISH INSTEAD EMPTY'
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_publish
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[certificate_in_transaction]'
+    successors:
+      -
+        id: Activity_16o6il1
+        condition: ''
+  Activity_098fwqt:
+    plugin: action_message_action
+    label: MESSAGE
+    configuration:
+      replace_tokens: false
+      message: 'Сорі, твій реквест дісапрувнули і  в неього вже був згорівший сертифікат "[certificate_in_transaction]", тому для саме цього сертифіката транзакції на повернення не буде. А ще ти лох'
+    successors: {  }
+  Activity_0svpppy:
+    plugin: action_message_action
+    label: MESSAGE
+    configuration:
+      replace_tokens: false
+      message: 'Сорі, ти кенсельнув реквест в якому є згорівший сертифікат "[certificate_transaction]", тому для саме цього сертифіката транзакції на повернення не буде. А ще ти лох'
+    successors: {  }
+  Activity_06ob7wz:
+    plugin: eca_set_field_value
+    label: 'SET FIELD PUBLISH'
+    configuration:
+      field_name: field_current_state_certificate
+      field_value: state_certificate_publish
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: '[certificate_transaction]'
+    successors:
+      -
+        id: Activity_1lpu9l2
         condition: ''

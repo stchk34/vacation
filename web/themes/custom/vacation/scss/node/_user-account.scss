@@ -13,6 +13,15 @@
     }
   }
 }
+.block-vacation-useraccountmenu{
+  a{
+    color:white;
+    &:hover{
+      color:white;
+      text-decoration: underline;
+    }
+  }
+}
 
 //User cab.
 #user-cab{
@@ -41,9 +50,13 @@
 .field--user-field-teams,
 .field--user-field-position,
 .field--user-field-limit-of-weekends-per-year,
+.field--user-field-balance-current-day,
 .field--user-field-bonus-days,
 .field--user-field-balance-a-vacations-day{
   display:flex;
+  p{
+    margin:0;
+  }
   @include field-label-node;
 }
 

@@ -21,7 +21,7 @@ events:
     plugin: 'eca_base:eca_cron'
     label: CRON
     configuration:
-      frequency: '*/3 * * * *'
+      frequency: '*/2 * * * *'
     successors:
       -
         id: Activity_173yh9p
@@ -45,6 +45,24 @@ conditions:
       right: '[first_certificate:field_use_up:date:raw]'
       operator: greaterthan
       type: value
+  Flow_0brdfqc:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: paid_request
+      right: '0'
+      operator: greaterthan
+      type: numeric
+  Flow_17gix87:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: not_paid_request
+      right: '0'
+      operator: greaterthan
+      type: numeric
   Flow_136j2zg:
     plugin: eca_scalar
     configuration:
@@ -63,6 +81,24 @@ conditions:
       right: '[current-date:raw]'
       operator: lessthan
       type: value
+  Flow_0hidzyh:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: not_paid_request
+      right: '0'
+      operator: equal
+      type: numeric
+  Flow_00plu6p:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: paid_request
+      right: '0'
+      operator: equal
+      type: numeric
 gateways:
   Gateway_11pc3k3:
     type: 0
@@ -87,13 +123,19 @@ gateways:
     successors:
       -
         id: Activity_1chh2n3
-        condition: ''
+        condition: Flow_0brdfqc
+      -
+        id: Activity_0goz7sa
+        condition: Flow_00plu6p
   Gateway_15lmc3p:
     type: 0
     successors:
       -
         id: Activity_0wvvdx2
-        condition: ''
+        condition: Flow_17gix87
+      -
+        id: Activity_1twe1x1
+        condition: Flow_0hidzyh
 actions:
   Activity_173yh9p:
     plugin: eca_switch_account
@@ -224,7 +266,10 @@ actions:
       trim: false
       save_entity: true
       object: '[first_notpaid_request]'
-    successors: {  }
+    successors:
+      -
+        id: Activity_11lh7wg
+        condition: ''
   Activity_1efda94:
     plugin: eca_set_field_value
     label: 'set field Started state'
@@ -236,4 +281,39 @@ actions:
       trim: false
       save_entity: true
       object: '[first_paid_request]'
+    successors:
+      -
+        id: Activity_00xmaxt
+        condition: ''
+  Activity_11lh7wg:
+    plugin: eca_save_entity
+    label: save
+    configuration:
+      object: '[first_notpaid_request]'
+    successors:
+      -
+        id: Gateway_15lmc3p
+        condition: ''
+  Activity_00xmaxt:
+    plugin: eca_save_entity
+    label: save
+    configuration:
+      object: '[first_paid_request]'
+    successors:
+      -
+        id: Gateway_19hagaw
+        condition: ''
+  Activity_1twe1x1:
+    plugin: action_message_action
+    label: Activity_1twe1x1
+    configuration:
+      replace_tokens: false
+      message: ok
+    successors: {  }
+  Activity_0goz7sa:
+    plugin: action_message_action
+    label: MESSAGE
+    configuration:
+      replace_tokens: false
+      message: ok
     successors: {  }

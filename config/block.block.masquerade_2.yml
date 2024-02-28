@@ -1,0 +1,26 @@
+uuid: aabc198c-f149-47f3-9984-6d2333803cd9
+langcode: en
+status: false
+dependencies:
+  module:
+    - masquerade
+    - system
+  theme:
+    - vacation
+id: masquerade_2
+theme: vacation
+region: footer_last
+weight: 0
+provider: null
+plugin: masquerade
+settings:
+  id: masquerade
+  label: Masquerade
+  label_display: '0'
+  provider: masquerade
+  show_unmasquerade_link: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

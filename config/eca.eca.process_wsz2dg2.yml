@@ -80,6 +80,15 @@ conditions:
       operator: equal
       type: value
       negate: true
+  Flow_17sqfva:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[certificate:field_type_certificate:value]'
+      right: '1'
+      operator: equal
+      type: value
 gateways:
   Gateway_0zfsi97:
     type: 0
@@ -100,6 +109,9 @@ actions:
       -
         id: Activity_0ww7aou
         condition: Flow_0n7apxc
+      -
+        id: Activity_1tqqyon
+        condition: Flow_17sqfva
   Activity_1tqqyon:
     plugin: eca_new_entity
     label: 'create transaction'

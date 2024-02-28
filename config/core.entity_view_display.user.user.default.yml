@@ -165,7 +165,7 @@ third_party_settings:
                 view_mode: view_mode
               formatter:
                 type: number_integer
-                label: above
+                label: inline
                 settings:
                   thousand_separator: ''
                   prefix_suffix: true
